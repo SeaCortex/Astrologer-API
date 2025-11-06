@@ -48,6 +48,8 @@ To access the Astrologer API, subscribe here:
 
 [Subscribe to Astrologer API](https://rapidapi.com/gbattaglia/api/astrologer/pricing)
 
+If you need higher quotas or a custom plan beyond the default tiers, reach out via [kerykeion.astrology@gmail.com](mailto:kerykeion.astrology@gmail.com) to discuss tailored options.
+
 ## Documentation
 
 Explore the comprehensive API documentation:
@@ -460,4 +462,3 @@ The Astrologer API can be freely used in both open-source and closed-source comm
 
 Need help or have feedback? Reach us at:
 [kerykeion.astrology@gmail.com](mailto:kerykeion.astrology@gmail.com)  
-
