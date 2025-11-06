@@ -1,28 +1,46 @@
 # Astrologer API
 
-The Astrologer API is a RESTful service providing extensive astrology calculations, designed for seamless integration into projects. It offers a set of astrological charts and data, making it an invaluable tool for both developers and astrology enthusiasts.
+Accurate & Data-Driven Astrology API – Powered by Kerykeion, the Leading Library for Precise Birth, Synastry Charts, Transit Charts & Composite Charts with Instant SVG Generation & Compatibility Scores.
 
 Here's an example of a birth chart generated using the Astrologer API:
 
-![John Lenon Chart](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/master/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
+![John Lenon Chart](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/v4/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
 
 
 ## Quick Endpoints Overview
 
+### `/api/v4/birth-chart` (POST)  
+Generates a complete birth chart as an SVG string, including planetary positions and aspects.
 
-| Endpoint                          | Method | Description |
-|-----------------------------------|--------|-------------|
-| `/api/v4/birth-chart`            | POST   | Generates a full birth chart as an SVG string, including planetary positions and aspects. |
-| `/api/v4/synastry-chart`         | POST   | Creates a synastry chart comparing two subjects, displaying their interactions and compatibility, along with an SVG representation. |
-| `/api/v4/transit-chart`          | POST   | Generates a transit chart for a subject, showing current planetary influences, with an SVG visual representation. |
-| `/api/v4/composite-chart`        | POST   | Computes a composite chart for two subjects using the midpoint method, including aspects and an SVG visual representation. |
-| `/api/v4/relationship-score`     | POST   | Calculates a compatibility score (0-44) using the Ciro Discepolo method to assess relationship potential. |
-| `/api/v4/natal-aspects-data`     | POST   | Provides detailed birth chart data and aspects without the visual chart. |
-| `/api/v4/synastry-aspects-data`  | POST   | Returns synastry-related data and aspects between two subjects, without an SVG chart. |
-| `/api/v4/transit-aspects-data`   | POST   | Offers transit chart data and aspects for a subject, without an SVG visual representation. |
-| `/api/v4/composite-aspects-data` | POST   | Delivers composite chart data and aspects without generating an SVG chart. |
-| `/api/v4/birth-data`             | POST   | Returns essential birth chart data without aspects or visual representation. |
-| `/api/v4/now`                    | GET    | Retrieves birth chart data for the current UTC time, excluding aspects and the visual chart. |
+### `/api/v4/synastry-chart` (POST)  
+Creates a synastry chart comparing two subjects, showing their interactions and compatibility, along with an SVG representation.
+
+### `/api/v4/transit-chart` (POST)  
+Generates a transit chart for a subject, showing current planetary influences, with an SVG visual representation.
+
+### `/api/v4/composite-chart` (POST)  
+Computes a composite chart for two subjects using the midpoint method, including aspects and an SVG visual representation.
+
+### `/api/v4/relationship-score` (POST)  
+Calculates a compatibility score (0–44) using the Ciro Discepolo method to assess relationship potential.
+
+### `/api/v4/natal-aspects-data` (POST)  
+Provides detailed birth chart data and aspects without generating a visual chart.
+
+### `/api/v4/synastry-aspects-data` (POST)  
+Returns synastry-related data and aspects between two subjects, without an SVG chart.
+
+### `/api/v4/transit-aspects-data` (POST)  
+Offers transit chart data and aspects for a subject, without an SVG visual representation.
+
+### `/api/v4/composite-aspects-data` (POST)  
+Delivers composite chart data and aspects without generating an SVG chart.
+
+### `/api/v4/birth-data` (POST)  
+Returns essential birth chart data without aspects or visual representation.
+
+### `/api/v4/now` (GET)  
+Retrieves birth chart data for the current UTC time, excluding aspects and the visual chart.
 
 ## Subscription
 
@@ -109,19 +127,19 @@ Available themes:
 
 - `light`: Modern soft-colored light theme
 
-![John Lennon Chart Example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/master/tests/charts/svg/John%20Lennon%20-%20Light%20Theme%20-%20Natal%20Chart.svg)
+![John Lennon Chart Example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/v4/tests/charts/svg/John%20Lennon%20-%20Light%20Theme%20-%20Natal%20Chart.svg)
 
 - `dark`: Modern dark theme
   
-![John Lennon Chart Example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/master/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
+![John Lennon Chart Example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/v4/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
 
 - `dark-high-contrast`: High-contrast dark theme
 
-![John Lennon Chart Example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/master/tests/charts/svg/John%20Lennon%20-%20Dark%20High%20Contrast%20Theme%20-%20Natal%20Chart.svg)
+![John Lennon Chart Example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/v4/tests/charts/svg/John%20Lennon%20-%20Dark%20High%20Contrast%20Theme%20-%20Natal%20Chart.svg)
 
 - `classic`: Traditional colorful theme
 
-![Albert Einstein Chart Example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/master/tests/charts/svg/Albert%20Einstein%20-%20Natal%20Chart.svg)
+![Albert Einstein Chart Example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/v4/tests/charts/svg/Albert%20Einstein%20-%20Natal%20Chart.svg)
 
 Example API request:
 
@@ -438,17 +456,8 @@ Since it is an external API service, integrating data and charts retrieved via t
 
 The Astrologer API can be freely used in both open-source and closed-source commercial applications without restrictions, as it functions as an external service.
 
-For full compliance, we recommend adding this statement in your Terms and Conditions or elsewhere on your site/app:
-
----
-Astrological data and charts on this site are generated using [AstrologerAPI](https://rapidapi.com/gbattaglia/api/astrologer), an open-source third-party service licensed under AGPL v3. Source code:
-- [Astrologer API Github](https://github.com/g-battaglia/Astrologer-API)
----
-
-This guarantees full transparency and complete licensing compliance, leaving no room for doubt.
-
-
 ## Contact & Support  
 
 Need help or have feedback? Reach us at:
 [kerykeion.astrology@gmail.com](mailto:kerykeion.astrology@gmail.com)  
+
