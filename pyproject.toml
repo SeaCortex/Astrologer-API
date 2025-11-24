@@ -14,7 +14,7 @@ dependencies = [
     "pytz",
     "scour",
     "typing-extensions",
-    "kerykeion==5.2.0",
+    "kerykeion==5.2.1",
     "pyjwt>=2.10.1",
 ]
 
