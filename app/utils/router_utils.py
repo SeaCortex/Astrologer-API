@@ -306,7 +306,7 @@ def chart_payload(
     return payload
 
 
-def handle_exception(exc: Exception, request: Request) -> JSONResponse:
+async def handle_exception(exc: Exception, request: Request) -> JSONResponse:
     """
     Handle exceptions and return appropriate JSON responses.
     
@@ -318,8 +318,16 @@ def handle_exception(exc: Exception, request: Request) -> JSONResponse:
         JSONResponse: The error response with appropriate status code and message.
     """
     message = str(exc).strip() or exc.__class__.__name__
+    
+    # Log the complete request body for debugging
+    try:
+        body = await request.body()
+        body_str = body.decode('utf-8') if body else "Empty body"
+        logger.error(f"{request.url}: {message} | Request body: {body_str}", exc_info=True)
+    except Exception as body_exc:
+        logger.error(f"{request.url}: {message} | Failed to read request body: {body_exc}", exc_info=True)
+    
     if any(keyword in message for keyword in GEONAMES_ERROR_KEYWORDS):
-        logger.error(f"{request.url}: {message}")
         return JSONResponse(
             content={
                 "status": "ERROR",
@@ -328,7 +336,6 @@ def handle_exception(exc: Exception, request: Request) -> JSONResponse:
             status_code=400,
         )
 
-    logger.error(f"{request.url}: {message}")
     status_code = 400 if isinstance(exc, KerykeionException) else 500
     return JSONResponse(
         content={

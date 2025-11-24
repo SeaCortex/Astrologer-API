@@ -49,7 +49,7 @@ async def synastry_chart_data(request_body: SynastryChartDataRequestModel, reque
         chart_data = create_synastry_chart_data(request_body)
         return JSONResponse(content=chart_data_payload(chart_data), status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/charts/synastry", response_model=ChartResponseModel)
@@ -83,7 +83,7 @@ async def synastry_chart(request_body: SynastryChartRequestModel, request: Reque
         )
         return JSONResponse(content=payload, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/compatibility-score", response_model=CompatibilityScoreResponseModel)
@@ -130,4 +130,4 @@ async def compatibility_score(request_body: RelationshipScoreRequestModel, reque
         )
 
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)

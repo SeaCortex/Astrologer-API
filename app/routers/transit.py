@@ -42,7 +42,7 @@ async def transit_chart_data(request_body: TransitChartDataRequestModel, request
         chart_data = create_transit_chart_data(request_body)
         return JSONResponse(content=chart_data_payload(chart_data), status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/charts/transit", response_model=ChartResponseModel)
@@ -75,4 +75,4 @@ async def transit_chart(request_body: TransitChartRequestModel, request: Request
         )
         return JSONResponse(content=payload, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)

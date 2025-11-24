@@ -42,7 +42,7 @@ async def solar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
         chart_data = calculate_return_chart_data(request_body, "Solar")
         return JSONResponse(content=chart_data_payload(chart_data), status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/charts/solar-return", response_model=ReturnChartResponseModel)
@@ -78,7 +78,7 @@ async def solar_return_chart(request_body: PlanetaryReturnRequestModel, request:
         payload["wheel_type"] = request_body.wheel_type
         return JSONResponse(content=payload, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/chart-data/lunar-return", response_model=ChartDataResponseModel)
@@ -102,7 +102,7 @@ async def lunar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
         chart_data = calculate_return_chart_data(request_body, "Lunar")
         return JSONResponse(content=chart_data_payload(chart_data), status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/charts/lunar-return", response_model=ReturnChartResponseModel)
@@ -138,4 +138,4 @@ async def lunar_return_chart(request_body: PlanetaryReturnRequestModel, request:
         payload["wheel_type"] = request_body.wheel_type
         return JSONResponse(content=payload, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)

@@ -41,7 +41,7 @@ async def composite_chart_data(request_body: CompositeChartDataRequestModel, req
         chart_data = create_composite_chart_data(request_body)
         return JSONResponse(content=chart_data_payload(chart_data), status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/charts/composite", response_model=ChartResponseModel)
@@ -74,4 +74,4 @@ async def composite_chart(request_body: CompositeChartRequestModel, request: Req
         )
         return JSONResponse(content=payload, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)

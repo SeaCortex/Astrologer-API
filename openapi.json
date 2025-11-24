@@ -19,10 +19,10 @@
     "/api/v5/now/subject": {
       "get": {
         "tags": [
-          "Endpoints"
+          "Natal"
         ],
         "summary": "Now Subject",
-        "description": "GET /api/v5/now/subject\n\nReturns an astrological subject computed for the current UTC time at Greenwich (offline mode).\n\nRequest: none\n\nResponse:\n- status: \"OK\"\n- subject: AstrologicalSubjectModel (serialized)",
+        "description": "**GET** `/api/v5/now/subject`\n\nReturns an astrological subject computed for the current UTC time at Greenwich (offline mode).\n\n**Returns:**\n- `status`: \"OK\"\n- `subject`: AstrologicalSubjectModel (serialized)",
         "operationId": "now_subject_api_v5_now_subject_get",
         "responses": {
           "200": {
@@ -64,13 +64,23 @@
       }
     },
     "/api/v5/now/chart": {
-      "get": {
+      "post": {
         "tags": [
-          "Endpoints"
+          "Natal"
         ],
         "summary": "Now Chart",
-        "description": "GET /api/v5/now/chart\n\nReturns chart data and an SVG chart for the current UTC moment at Greenwich.\n\nNotes:\n- Theme is fixed to \"classic\" and language to \"EN\" for this endpoint.\n- split_chart is disabled here (single combined chart is returned as \"chart\").\n\nResponse:\n- status: \"OK\"\n- chart_data: ChartDataModel (serialized)\n- chart: SVG string",
-        "operationId": "now_chart_api_v5_now_chart_get",
+        "description": "**POST** `/api/v5/now/chart`\n\nReturns chart data and an SVG chart for the current UTC moment at Greenwich.\n\n**Parameters:**\n- `theme`, `language`\n- `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- `transparent_background`\n- `show_house_position_comparison` (hide the comparison table when false)\n- `custom_title` (temporary title override, max 40 chars)\n- `active_points` / `active_aspects` (optional overrides)\n- `distribution_method`, `custom_distribution_weights` (optional)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG string (when split_chart=false)\n- `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)",
+        "operationId": "now_chart_api_v5_now_chart_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NowChartRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -78,6 +88,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ChartResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -113,10 +133,10 @@
     "/api/v5/subject": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Natal"
         ],
         "summary": "Subject Data",
-        "description": "POST /api/v5/subject\n\nBuilds and returns an astrological subject without rendering any chart.\n\nRequest body:\n- subject: SubjectModel (offline preferred or GeoNames via geonames_username)\n\nResponse:\n- status: \"OK\"\n- subject: AstrologicalSubjectModel (serialized)",
+        "description": "**POST** `/api/v5/subject`\n\nBuilds and returns an astrological subject without rendering any chart.\n\n**Parameters:**\n- `subject`: SubjectModel (offline preferred or GeoNames via geonames_username)\n\n**Returns:**\n- `status`: \"OK\"\n- `subject`: AstrologicalSubjectModel (serialized)",
         "operationId": "subject_data_api_v5_subject_post",
         "requestBody": {
           "content": {
@@ -180,10 +200,10 @@
     "/api/v5/chart-data/natal": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Natal"
         ],
         "summary": "Natal Chart Data",
-        "description": "POST /api/v5/chart-data/natal\n\nReturns full natal chart data without SVG rendering.\n\nRequest body:\n- subject: SubjectModel\n- active_points / active_aspects (optional overrides)\n- distribution_method, custom_distribution_weights (optional)\n\nResponse:\n- status: \"OK\"\n- chart_data: ChartDataModel",
+        "description": "**POST** `/api/v5/chart-data/natal`\n\nReturns full natal chart data without SVG rendering.\n\n**Parameters:**\n- `subject`: SubjectModel\n- `active_points` / `active_aspects` (optional overrides)\n- `distribution_method`, `custom_distribution_weights` (optional)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel",
         "operationId": "natal_chart_data_api_v5_chart_data_natal_post",
         "requestBody": {
           "content": {
@@ -247,10 +267,10 @@
     "/api/v5/charts/natal": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Natal"
         ],
         "summary": "Natal Chart",
-        "description": "POST /api/v5/charts/natal\n\nReturns natal chart data and rendered SVG chart.\n\nRequest body: Same as chart-data plus rendering options\n- theme, language\n- split_chart (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- transparent_background\n- show_house_position_comparison (hide the comparison table when false)\n- custom_title (temporary title override, max 40 chars)\n\nResponse:\n- status: \"OK\"\n- chart_data: ChartDataModel\n- chart: SVG (when split_chart=false)\n- chart_wheel, chart_grid: SVGs (when split_chart=true)",
+        "description": "**POST** `/api/v5/charts/natal`\n\nReturns natal chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`\n- `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- `transparent_background`\n- `show_house_position_comparison` (hide the comparison table when false)\n- `custom_title` (temporary title override, max 40 chars)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG (when split_chart=false)\n- `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)",
         "operationId": "natal_chart_api_v5_charts_natal_post",
         "requestBody": {
           "content": {
@@ -314,10 +334,10 @@
     "/api/v5/chart-data/synastry": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Synastry"
         ],
         "summary": "Synastry Chart Data",
-        "description": "POST /api/v5/chart-data/synastry\n\nReturns synastry chart data comparing two subjects; no SVG rendering.\n\nRequest body:\n- first_subject, second_subject: SubjectModel\n- include_house_comparison, include_relationship_score (flags)\n- active_points / active_aspects overrides\n\nResponse: { status, chart_data }",
+        "description": "**POST** `/api/v5/chart-data/synastry`\n\nReturns synastry chart data comparing two subjects; no SVG rendering.\n\n**Parameters:**\n- `first_subject`, `second_subject`: SubjectModel\n- `include_house_comparison`, `include_relationship_score` (flags)\n- `active_points` / `active_aspects` overrides\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel",
         "operationId": "synastry_chart_data_api_v5_chart_data_synastry_post",
         "requestBody": {
           "content": {
@@ -381,10 +401,10 @@
     "/api/v5/charts/synastry": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Synastry"
         ],
         "summary": "Synastry Chart",
-        "description": "POST /api/v5/charts/synastry\n\nReturns synastry chart data and a dual-wheel SVG chart.\n\nRequest body: Same as chart-data plus rendering options\n- theme, language, split_chart, transparent_background\n- show_house_position_comparison, custom_title\n\nResponse:\n- chart (or chart_wheel + chart_grid when split_chart=true)\n- chart_data",
+        "description": "**POST** `/api/v5/charts/synastry`\n\nReturns synastry chart data and a dual-wheel SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`\n- `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid` when split_chart=true)\n- `chart_data`",
         "operationId": "synastry_chart_api_v5_charts_synastry_post",
         "requestBody": {
           "content": {
@@ -445,13 +465,80 @@
         ]
       }
     },
+    "/api/v5/compatibility-score": {
+      "post": {
+        "tags": [
+          "Synastry"
+        ],
+        "summary": "Compatibility Score",
+        "description": "**POST** `/api/v5/compatibility-score`\n\nCalculates the Ciro Discepolo compatibility score between two subjects.\n\n**Parameters:**\n- `first_subject`, `second_subject`\n- `active_points` / `active_aspects` overrides (optional)\n\n**Returns:**\n- `status`: \"OK\"\n- `score`, `score_description`, `is_destiny_sign`, `aspects`\n- `chart_data`: underlying Synastry chart data used for the calculation",
+        "operationId": "compatibility_score_api_v5_compatibility_score_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RelationshipScoreRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompatibilityScoreResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "RapidAPIKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-rapidapi-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "<YOUR_RAPIDAPI_KEY>"
+            }
+          },
+          {
+            "name": "x-rapidapi-host",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "astrologer.p.rapidapi.com"
+            }
+          }
+        ]
+      }
+    },
     "/api/v5/chart-data/transit": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Transit"
         ],
         "summary": "Transit Chart Data",
-        "description": "POST /api/v5/chart-data/transit\n\nReturns transit analysis data (current/selected transits to natal chart), no SVG.\n\nRequest body:\n- first_subject: SubjectModel (natal)\n- transit_subject: SubjectModel (transit moment)\n- include_house_comparison flag\n\nResponse: { status, chart_data }",
+        "description": "**POST** `/api/v5/chart-data/transit`\n\nReturns transit analysis data (current/selected transits to natal chart), no SVG.\n\n**Parameters:**\n- `first_subject`: SubjectModel (natal)\n- `transit_subject`: SubjectModel (transit moment)\n- `include_house_comparison` flag\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel",
         "operationId": "transit_chart_data_api_v5_chart_data_transit_post",
         "requestBody": {
           "content": {
@@ -515,10 +602,10 @@
     "/api/v5/charts/transit": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Transit"
         ],
         "summary": "Transit Chart",
-        "description": "POST /api/v5/charts/transit\n\nReturns transit data and rendered SVG chart.\n\nRequest body: Same as chart-data plus rendering options (theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title)\n\nResponse: chart/chart_wheel+chart_grid and chart_data",
+        "description": "**POST** `/api/v5/charts/transit`\n\nReturns transit data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid`)\n- `chart_data`",
         "operationId": "transit_chart_api_v5_charts_transit_post",
         "requestBody": {
           "content": {
@@ -582,10 +669,10 @@
     "/api/v5/chart-data/composite": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Composite"
         ],
         "summary": "Composite Chart Data",
-        "description": "POST /api/v5/chart-data/composite\n\nReturns midpoint composite chart data (no SVG rendering).\n\nRequest body:\n- first_subject, second_subject\n- active_points / active_aspects overrides\n\nResponse: { status, chart_data }",
+        "description": "**POST** `/api/v5/chart-data/composite`\n\nReturns midpoint composite chart data (no SVG rendering).\n\n**Parameters:**\n- `first_subject`, `second_subject`\n- `active_points` / `active_aspects` overrides\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel",
         "operationId": "composite_chart_data_api_v5_chart_data_composite_post",
         "requestBody": {
           "content": {
@@ -649,10 +736,10 @@
     "/api/v5/charts/composite": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Composite"
         ],
         "summary": "Composite Chart",
-        "description": "POST /api/v5/charts/composite\n\nReturns composite chart data and rendered SVG chart.\n\nRequest body: Same as chart-data plus rendering options (theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title)\n\nResponse: chart/chart_wheel+chart_grid and chart_data",
+        "description": "**POST** `/api/v5/charts/composite`\n\nReturns composite chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid`)\n- `chart_data`",
         "operationId": "composite_chart_api_v5_charts_composite_post",
         "requestBody": {
           "content": {
@@ -716,10 +803,10 @@
     "/api/v5/chart-data/solar-return": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Returns"
         ],
         "summary": "Solar Return Data",
-        "description": "POST /api/v5/chart-data/solar-return\n\nCalculates the solar return for a given year/month/instant and returns data only.\n\nRequest body:\n- subject: SubjectModel (natal)\n- year or month+year or iso_datetime\n- wheel_type: \"dual\"|\"single\" (affects data model)\n\nResponse: { status, chart_data }",
+        "description": "**POST** `/api/v5/chart-data/solar-return`\n\nCalculates the solar return for a given year/month/instant and returns data only.\n\n**Parameters:**\n- `subject`: SubjectModel (natal)\n- `year` or `month`+`year` or `iso_datetime`\n- `wheel_type`: \"dual\"|\"single\" (affects data model)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel",
         "operationId": "solar_return_data_api_v5_chart_data_solar_return_post",
         "requestBody": {
           "content": {
@@ -783,10 +870,10 @@
     "/api/v5/charts/solar-return": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Returns"
         ],
         "summary": "Solar Return Chart",
-        "description": "POST /api/v5/charts/solar-return\n\nReturns solar return data and rendered SVG chart.\n\nRequest body: Same as chart-data plus rendering options (theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title)\n\nResponse adds:\n- return_type: \"Solar\"\n- wheel_type: \"dual\" | \"single\"\n- chart or chart_wheel+chart_grid",
+        "description": "**POST** `/api/v5/charts/solar-return`\n\nReturns solar return data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `return_type`: \"Solar\"\n- `wheel_type`: \"dual\" | \"single\"\n- `chart` (or `chart_wheel` + `chart_grid`)",
         "operationId": "solar_return_chart_api_v5_charts_solar_return_post",
         "requestBody": {
           "content": {
@@ -850,10 +937,10 @@
     "/api/v5/chart-data/lunar-return": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Returns"
         ],
         "summary": "Lunar Return Data",
-        "description": "POST /api/v5/chart-data/lunar-return\n\nCalculates the lunar return and returns data only.\n\nRequest body: Same as solar-return chart-data.\n\nResponse: { status, chart_data }",
+        "description": "**POST** `/api/v5/chart-data/lunar-return`\n\nCalculates the lunar return and returns data only.\n\n**Parameters:**\n- Same as solar-return chart-data.\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel",
         "operationId": "lunar_return_data_api_v5_chart_data_lunar_return_post",
         "requestBody": {
           "content": {
@@ -917,10 +1004,10 @@
     "/api/v5/charts/lunar-return": {
       "post": {
         "tags": [
-          "Endpoints"
+          "Returns"
         ],
         "summary": "Lunar Return Chart",
-        "description": "POST /api/v5/charts/lunar-return\n\nReturns lunar return data and rendered SVG chart.\n\nRequest body: Same as chart-data plus rendering options (theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title)\n\nResponse adds:\n- return_type: \"Lunar\"\n- wheel_type: \"dual\" | \"single\"\n- chart or chart_wheel+chart_grid",
+        "description": "**POST** `/api/v5/charts/lunar-return`\n\nReturns lunar return data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `return_type`: \"Lunar\"\n- `wheel_type`: \"dual\" | \"single\"\n- `chart` (or `chart_wheel` + `chart_grid`)",
         "operationId": "lunar_return_chart_api_v5_charts_lunar_return_post",
         "requestBody": {
           "content": {
@@ -939,73 +1026,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ReturnChartResponseModel"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v5/compatibility-score": {
-      "post": {
-        "tags": [
-          "Endpoints"
-        ],
-        "summary": "Compatibility Score",
-        "description": "POST /api/v5/compatibility-score\n\nCalculates the Ciro Discepolo compatibility score between two subjects.\n\nRequest body:\n- first_subject, second_subject\n- active_points / active_aspects overrides (optional)\n\nResponse:\n- status: \"OK\"\n- score, score_description, is_destiny_sign, aspects\n- chart_data: underlying Synastry chart data used for the calculation",
-        "operationId": "compatibility_score_api_v5_compatibility_score_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RelationshipScoreRequestModel"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompatibilityScoreResponseModel"
                 }
               }
             }
@@ -1132,15 +1152,27 @@
             "type": "integer",
             "title": "P2"
           },
+          "p1_speed": {
+            "type": "number",
+            "title": "P1 Speed",
+            "description": "Speed of the first point",
+            "default": 0.0
+          },
+          "p2_speed": {
+            "type": "number",
+            "title": "P2 Speed",
+            "description": "Speed of the second point",
+            "default": 0.0
+          },
           "aspect_movement": {
             "type": "string",
             "enum": [
               "Applying",
               "Separating",
-              "Exact"
+              "Static"
             ],
             "title": "Aspect Movement",
-            "description": "Indicates whether the aspect is applying (planets moving toward exact aspect), separating (planets moving away from exact aspect), or exact (within tight orb)."
+            "description": "Indicates whether the aspect is applying (orb decreasing), separating (orb increasing), or static (no relative motion)."
           }
         },
         "type": "object",
@@ -4424,6 +4456,276 @@
         ],
         "title": "LunarPhaseModel",
         "description": "Model representing lunar phase information.\n\nAttributes:\n    degrees_between_s_m: Angular separation between Sun and Moon in degrees.\n    moon_phase: Numerical phase identifier for the Moon.\n    moon_emoji: Emoji representation of the lunar phase.\n    moon_phase_name: Text name of the lunar phase."
+      },
+      "NowChartRequestModel": {
+        "properties": {
+          "active_points": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Sun",
+                    "Moon",
+                    "Mercury",
+                    "Venus",
+                    "Mars",
+                    "Jupiter",
+                    "Saturn",
+                    "Uranus",
+                    "Neptune",
+                    "Pluto",
+                    "Mean_North_Lunar_Node",
+                    "True_North_Lunar_Node",
+                    "Mean_South_Lunar_Node",
+                    "True_South_Lunar_Node",
+                    "Chiron",
+                    "Mean_Lilith",
+                    "True_Lilith",
+                    "Earth",
+                    "Pholus",
+                    "Ceres",
+                    "Pallas",
+                    "Juno",
+                    "Vesta",
+                    "Eris",
+                    "Sedna",
+                    "Haumea",
+                    "Makemake",
+                    "Ixion",
+                    "Orcus",
+                    "Quaoar",
+                    "Regulus",
+                    "Spica",
+                    "Pars_Fortunae",
+                    "Pars_Spiritus",
+                    "Pars_Amoris",
+                    "Pars_Fidei",
+                    "Vertex",
+                    "Anti_Vertex",
+                    "Ascendant",
+                    "Medium_Coeli",
+                    "Descendant",
+                    "Imum_Coeli"
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Points",
+            "description": "Override the active points used for calculations.",
+            "examples": [
+              [
+                "Sun",
+                "Moon",
+                "Mercury",
+                "Venus",
+                "Mars",
+                "Jupiter",
+                "Saturn",
+                "Uranus",
+                "Neptune",
+                "Pluto",
+                "True_North_Lunar_Node",
+                "True_South_Lunar_Node",
+                "Chiron",
+                "Mean_Lilith",
+                "Ascendant",
+                "Medium_Coeli",
+                "Descendant",
+                "Imum_Coeli"
+              ]
+            ]
+          },
+          "active_aspects": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ActiveAspect"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Aspects",
+            "description": "Override the active aspects and their orbs.",
+            "examples": [
+              [
+                {
+                  "name": "conjunction",
+                  "orb": 10
+                },
+                {
+                  "name": "opposition",
+                  "orb": 10
+                },
+                {
+                  "name": "trine",
+                  "orb": 8
+                },
+                {
+                  "name": "sextile",
+                  "orb": 6
+                },
+                {
+                  "name": "square",
+                  "orb": 5
+                },
+                {
+                  "name": "quintile",
+                  "orb": 1
+                }
+              ]
+            ]
+          },
+          "distribution_method": {
+            "type": "string",
+            "enum": [
+              "weighted",
+              "pure_count"
+            ],
+            "title": "Distribution Method",
+            "description": "Element/quality distribution strategy.",
+            "default": "weighted"
+          },
+          "custom_distribution_weights": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Distribution Weights",
+            "description": "Custom weights used when distribution_method='weighted'.",
+            "examples": [
+              {
+                "ascendant": 2.0,
+                "jupiter": 1.0,
+                "mars": 1.5,
+                "medium_coeli": 1.5,
+                "mercury": 1.5,
+                "moon": 2.0,
+                "saturn": 1.0,
+                "sun": 2.0,
+                "venus": 1.5
+              }
+            ]
+          },
+          "theme": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "light",
+                  "dark",
+                  "dark-high-contrast",
+                  "classic",
+                  "strawberry",
+                  "black-and-white"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Theme",
+            "description": "Visual theme for the generated SVG chart.",
+            "default": "classic",
+            "examples": [
+              "light",
+              "dark",
+              "dark-high-contrast",
+              "classic",
+              "strawberry",
+              "black-and-white"
+            ]
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "EN",
+                  "FR",
+                  "PT",
+                  "IT",
+                  "CN",
+                  "ES",
+                  "RU",
+                  "TR",
+                  "DE",
+                  "HI"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language",
+            "description": "Language used for chart labels.",
+            "default": "EN",
+            "examples": [
+              "EN",
+              "FR",
+              "PT",
+              "IT",
+              "CN",
+              "ES",
+              "RU",
+              "TR",
+              "DE",
+              "HI"
+            ]
+          },
+          "split_chart": {
+            "type": "boolean",
+            "title": "Split Chart",
+            "description": "Return wheel and aspect grid as separate SVG strings in 'chart_wheel' and 'chart_grid' keys.",
+            "default": false
+          },
+          "transparent_background": {
+            "type": "boolean",
+            "title": "Transparent Background",
+            "description": "Render chart with transparent background instead of theme default.",
+            "default": false
+          },
+          "show_house_position_comparison": {
+            "type": "boolean",
+            "title": "Show House Position Comparison",
+            "description": "Display the house comparison table next to the chart wheel.",
+            "default": true
+          },
+          "custom_title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Title",
+            "description": "Temporarily override the rendered chart title (max 40 characters).",
+            "examples": [
+              "Custom Chart Title"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "NowChartRequestModel",
+        "description": "Request payload for the 'now' chart endpoint (with SVG rendering)."
       },
       "PlanetReturnModel": {
         "properties": {

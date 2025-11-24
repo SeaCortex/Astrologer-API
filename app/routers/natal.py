@@ -77,7 +77,7 @@ async def now_subject(request: Request) -> JSONResponse:
         )
 
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/now/chart", response_model=ChartResponseModel)
@@ -149,7 +149,7 @@ async def now_chart(request_body: NowChartRequestModel, request: Request) -> JSO
         return JSONResponse(content=payload, status_code=200)
 
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/subject", response_model=SubjectResponseModel)
@@ -174,7 +174,7 @@ async def subject_data(birth_data_request: BirthDataRequestModel, request: Reque
         return JSONResponse(content={"status": "OK", "subject": dump(subject)}, status_code=200)
 
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/chart-data/natal", response_model=ChartDataResponseModel)
@@ -200,7 +200,7 @@ async def natal_chart_data(request_body: BirthChartDataRequestModel, request: Re
         chart_data = create_natal_chart_data(request_body)
         return JSONResponse(content=chart_data_payload(chart_data), status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/charts/natal", response_model=ChartResponseModel)
@@ -239,4 +239,4 @@ async def natal_chart(request_body: BirthChartRequestModel, request: Request) ->
         )
         return JSONResponse(content=payload, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
-        return handle_exception(exc, request)
+        return await handle_exception(exc, request)
