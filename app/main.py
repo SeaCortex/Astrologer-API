@@ -5,9 +5,11 @@
 import logging
 import logging.config
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import main_router
+from .routers import misc, natal, synastry, transit, composite, returns
 from .config.settings import settings
 from .middleware.secret_key_checker_middleware import SecretKeyCheckerMiddleware
 
@@ -18,7 +20,7 @@ app = FastAPI(
     docs_url=settings.docs_url,
     redoc_url=settings.redoc_url,
     title="Astrologer API",
-    version="4.0.0",
+    version="5.0.0",
     summary="Astrology Made Easy",
     description="The Astrologer API is a RESTful service providing extensive astrology calculations, designed for seamless integration into projects. It offers a rich set of astrological charts and data, making it an invaluable tool for both developers and astrology enthusiasts.",
     contact={
@@ -36,12 +38,26 @@ app = FastAPI(
 # Routers 
 #------------------------------------------------------------------------------
 
-app.include_router(main_router.router, tags=["Endpoints"])
+app.include_router(misc.router, tags=["Status"])
+app.include_router(natal.router, tags=["Natal"])
+app.include_router(synastry.router, tags=["Synastry"])
+app.include_router(transit.router, tags=["Transit"])
+app.include_router(composite.router, tags=["Composite"])
+app.include_router(returns.router, tags=["Returns"])
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    logging.error(f"Global exception: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=500,
+        content={"status": "KO", "message": "Internal Server Error"},
+    )
 
 #------------------------------------------------------------------------------
 # Middleware 
 #------------------------------------------------------------------------------
 
+# Secret Key Checker Middleware
 if settings.debug is True:
     pass
 
@@ -53,3 +69,13 @@ else:
             settings.rapid_api_secret_key,
         ],
     )
+
+
+# CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)

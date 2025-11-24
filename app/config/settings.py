@@ -3,17 +3,21 @@
 """
 
 import pathlib
-from logging import getLogger
+from logging import getLogger, StreamHandler, INFO
 from os import getenv
 from pydantic_settings import BaseSettings
 from tomllib import load as load_toml
+from uvicorn.logging import DefaultFormatter
 
 
 logger = getLogger(__name__)
+logger.setLevel(INFO)
+handler = StreamHandler()
+handler.setFormatter(DefaultFormatter(fmt="%(levelprefix)s %(message)s"))
+logger.addHandler(handler)
 
 ENV_TYPE = getenv("ENV_TYPE", False)
 RAPID_API_SECRET_KEY = getenv("RAPID_API_SECRET_KEY", False)
-GEONAMES_USERNAME = getenv("GEONAMES_USERNAME", False)
 
 # Open config file
 if ENV_TYPE == "production":
@@ -40,7 +44,6 @@ else:
 class Settings(BaseSettings):
     # Environment variables
     rapid_api_secret_key: str = getenv("RAPID_API_SECRET_KEY", "")
-    geonames_username: str = getenv("GEONAMES_USERNAME", "")
     env_type: str | bool = ENV_TYPE
 
     # Config file

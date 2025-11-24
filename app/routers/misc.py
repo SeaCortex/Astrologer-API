@@ -1,0 +1,44 @@
+from fastapi import APIRouter, Request
+from fastapi.responses import JSONResponse
+from logging import getLogger
+from ..types.response_models import StatusResponseModel, ApiStatusResponseModel
+from ..config.settings import settings
+
+logger = getLogger(__name__)
+router = APIRouter()
+
+@router.get("/api/v5/health", response_description="Health check", include_in_schema=False, response_model=StatusResponseModel)
+async def health(request: Request) -> JSONResponse:
+    """
+    **GET** `/api/v5/health`
+
+    Simple liveness probe for the API.
+
+    **Returns:**
+    - `status`: "OK"
+    """
+    logger.info(f"{request.url}: Health check")
+    logger.debug(f"Request: {request.method} {request.url}")
+    return JSONResponse(content={"status": "OK"}, status_code=200)
+
+
+@router.get("/", response_description="Status of the API", include_in_schema=False, response_model=ApiStatusResponseModel)
+async def status(request: Request) -> JSONResponse:
+    """
+    **GET** `/`
+
+    Returns basic API status and environment information. Not included in the public schema.
+
+    **Returns:**
+    - `status`: "OK"
+    - `environment`: deployment environment name
+    - `debug`: whether debug mode is enabled
+    """
+    logger.info(f"{request.url}: API is up and running")
+    logger.debug(f"Request: {request.method} {request.url}")
+    response_dict = {
+        "status": "OK",
+        "environment": settings.env_type,
+        "debug": settings.debug,
+    }
+    return JSONResponse(content=response_dict, status_code=200)
