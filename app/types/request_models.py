@@ -328,8 +328,66 @@ class TransitChartDataRequestModel(ChartDataConfigurationMixin):
     )
 
 
-class NowChartRequestModel(ChartRenderingMixin):
+class NowSubjectDefinitionModel(BaseModel):
+    """Configuration for the 'now' subject (name, zodiac, etc.)."""
+
+    name: str = Field(default="Now", description="Display name for the subject.")
+    zodiac_type: Optional[ZodiacType] = Field(
+        default="Tropical",
+        description="Zodiac type used for the calculation.",
+        examples=list(get_args(ZodiacType)),
+    )
+    sidereal_mode: Optional[SiderealMode] = Field(
+        default=None,
+        description="Sidereal ayanamsha used when zodiac_type is 'Sidereal'.",
+        examples=[None],
+    )
+    perspective_type: Optional[PerspectiveType] = Field(
+        default="Apparent Geocentric",
+        description="Astronomical perspective used for the calculation.",
+        examples=list(get_args(PerspectiveType)),
+    )
+    houses_system_identifier: Optional[HousesSystemIdentifier] = Field(
+        default="P",
+        description="Identifier for the house system.",
+        examples=list(get_args(HousesSystemIdentifier)),
+    )
+
+    @model_validator(mode="after")
+    def validate_zodiac_configuration(self) -> "NowSubjectDefinitionModel":
+        zodiac_type = self.zodiac_type
+        sidereal_mode = self.sidereal_mode
+
+        if sidereal_mode and zodiac_type != "Sidereal":
+            raise ValueError("Set zodiac_type='Sidereal' when sidereal_mode is provided.")
+        
+        if zodiac_type == "Sidereal" and not sidereal_mode:
+             # Optional: enforce sidereal_mode if zodiac_type is Sidereal, 
+             # or let it default if the backend handles it. 
+             # The original validator said: "sidereal_mode requires zodiac_type='Sidereal'"
+             # which implies the reverse check.
+             pass
+
+        return self
+
+    @field_validator("perspective_type", mode="before")
+    @classmethod
+    def default_perspective_type(cls, value: Optional[PerspectiveType]) -> PerspectiveType:
+        return value or "Apparent Geocentric"
+
+    @field_validator("houses_system_identifier", mode="before")
+    @classmethod
+    def default_house_system(cls, value: Optional[HousesSystemIdentifier]) -> HousesSystemIdentifier:
+        return value or "P"
+
+
+class NowChartRequestModel(NowSubjectDefinitionModel, ChartRenderingMixin):
     """Request payload for the 'now' chart endpoint (with SVG rendering)."""
+    pass
+
+
+class NowSubjectRequestModel(NowSubjectDefinitionModel):
+    """Request payload for the 'now' subject endpoint."""
     pass
 
 

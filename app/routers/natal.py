@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse
 from kerykeion import AstrologicalSubjectFactory, ChartDataFactory
 from ..types.request_models import (
     NowChartRequestModel,
+    NowSubjectRequestModel,
     BirthDataRequestModel,
     BirthChartDataRequestModel,
     BirthChartRequestModel,
@@ -29,19 +30,22 @@ from ..utils.router_utils import (
 logger = getLogger(__name__)
 router = APIRouter()
 
-@router.get("/api/v5/now/subject", response_model=SubjectResponseModel)
-async def now_subject(request: Request) -> JSONResponse:
+@router.post("/api/v5/now/subject", response_model=SubjectResponseModel)
+async def now_subject(request_body: NowSubjectRequestModel, request: Request) -> JSONResponse:
     """
-    **GET** `/api/v5/now/subject`
+    **POST** `/api/v5/now/subject`
 
     Returns an astrological subject computed for the current UTC time at Greenwich (offline mode).
+
+    **Parameters:**
+    - `name`, `zodiac_type`, `sidereal_mode`, `perspective_type`, `houses_system_identifier`
 
     **Returns:**
     - `status`: "OK"
     - `subject`: AstrologicalSubjectModel (serialized)
     """
     logger.info(f"{request.url}: Current subject request")
-    logger.debug(f"Request: {request.method} {request.url}")
+    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
 
     try:
         try:
@@ -51,7 +55,7 @@ async def now_subject(request: Request) -> JSONResponse:
             utc_datetime = datetime.now(timezone.utc)
 
         subject = AstrologicalSubjectFactory.from_birth_data(
-            name="Now",
+            name=request_body.name,
             year=utc_datetime.year,  # type: ignore[arg-type]
             month=utc_datetime.month,  # type: ignore[arg-type]
             day=utc_datetime.day,  # type: ignore[arg-type]
@@ -64,6 +68,10 @@ async def now_subject(request: Request) -> JSONResponse:
             lat=51.477928,
             tz_str="Etc/UTC",
             online=False,
+            zodiac_type=request_body.zodiac_type,
+            sidereal_mode=request_body.sidereal_mode,
+            perspective_type=request_body.perspective_type,
+            houses_system_identifier=request_body.houses_system_identifier,
             active_points=resolve_active_points(None),
             suppress_geonames_warning=True,
         )
@@ -113,7 +121,7 @@ async def now_chart(request_body: NowChartRequestModel, request: Request) -> JSO
             utc_datetime = datetime.now(timezone.utc)
 
         subject = AstrologicalSubjectFactory.from_birth_data(
-            name="Now",
+            name=request_body.name,
             year=utc_datetime.year,  # type: ignore[arg-type]
             month=utc_datetime.month,  # type: ignore[arg-type]
             day=utc_datetime.day,  # type: ignore[arg-type]
@@ -126,6 +134,10 @@ async def now_chart(request_body: NowChartRequestModel, request: Request) -> JSO
             lat=51.477928,
             tz_str="Etc/UTC",
             online=False,
+            zodiac_type=request_body.zodiac_type,
+            sidereal_mode=request_body.sidereal_mode,
+            perspective_type=request_body.perspective_type,
+            houses_system_identifier=request_body.houses_system_identifier,
             active_points=resolve_active_points(request_body.active_points),
             suppress_geonames_warning=True,
         )

@@ -13,7 +13,8 @@ from fastapi.testclient import TestClient
 
 
 def test_now_subject(client: TestClient):
-    resp = client.get("/api/v5/now/subject")
+    """Test default behavior (POST with empty body)."""
+    resp = client.post("/api/v5/now/subject", json={})
     assert resp.status_code == 200
     body = resp.json()
     assert body["status"] == "OK"
@@ -21,6 +22,24 @@ def test_now_subject(client: TestClient):
     assert subject["name"] == "Now"
     # Il conftest congela l'orario, l'ISO deve iniziare con quel valore
     assert subject["iso_formatted_utc_datetime"].startswith("2024-06-01T12:30:00+")
+
+
+def test_now_subject_custom_config(client: TestClient):
+    """Test custom configuration for now subject."""
+    payload = {
+        "name": "Custom Now",
+        "zodiac_type": "Sidereal",
+        "sidereal_mode": "LAHIRI",
+        "houses_system_identifier": "W"
+    }
+    resp = client.post("/api/v5/now/subject", json=payload)
+    assert resp.status_code == 200
+    body = resp.json()
+    subject = body["subject"]
+    assert subject["name"] == "Custom Now"
+    assert subject["zodiac_type"] == "Sidereal"
+    assert subject["sidereal_mode"] == "LAHIRI"
+    assert subject["houses_system_identifier"] == "W"
 
 
 def test_now_chart_default(client: TestClient):
@@ -56,14 +75,26 @@ def test_now_chart_split(client: TestClient):
     assert "chart_grid" in body and "<svg" in body["chart_grid"]
 
 
-def test_now_chart_custom_theme(client: TestClient):
-    """Test custom theme application."""
-    # We can't easily check the SVG content for the theme without parsing, 
-    # but we can check that the request is accepted and returns OK.
-    payload = {"theme": "dark", "language": "IT"}
+
+
+
+def test_now_chart_custom_config(client: TestClient):
+    """Test custom subject configuration in chart request."""
+    payload = {
+        "name": "Chart Now",
+        "zodiac_type": "Sidereal",
+        "sidereal_mode": "LAHIRI",
+        "custom_title": "My Title"
+    }
     resp = client.post("/api/v5/now/chart", json=payload)
-    if resp.status_code != 200:
-        print(resp.json())
     assert resp.status_code == 200
     body = resp.json()
-    assert isinstance(body["chart"], str)
+    
+    # Check chart data reflects config
+    data = body["chart_data"]
+    assert data["subject"]["name"] == "Chart Now"
+    assert data["subject"]["zodiac_type"] == "Sidereal"
+    assert data["subject"]["sidereal_mode"] == "LAHIRI"
+    
+    # Check title in SVG (simple check)
+    assert "My Title" in body["chart"]
