@@ -30,7 +30,7 @@ Headers:
 Minimal birth chart request (SVG + data):
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/charts/natal' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/natal' \
     -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
     -H 'X-RapidAPI-Key: YOUR_API_KEY' \
@@ -65,37 +65,37 @@ Prefer separate SVGs? Use "split_chart": true. You'll receive chart_wheel and ch
 
 ## Endpoints
 
-### `/api/v5/charts/natal` (POST)  
+### `/api/v5/chart/natal` (POST)  
 Returns a birth chart as an SVG along with full natal data.
 
 ### `/api/v5/chart-data/natal` (POST)  
 Returns birth chart data only, without SVG.
 
-### `/api/v5/charts/synastry` (POST)  
+### `/api/v5/chart/synastry` (POST)  
 Returns a synastry chart as an SVG along with combined data for both subjects.
 
 ### `/api/v5/chart-data/synastry` (POST)  
 Returns synastry data only, without SVG.
 
-### `/api/v5/charts/transit` (POST)  
+### `/api/v5/chart/transit` (POST)  
 Returns a transit chart as an SVG, including both natal and current (moment) data.
 
 ### `/api/v5/chart-data/transit` (POST)  
 Returns transit data only, without SVG.
 
-### `/api/v5/charts/composite` (POST)  
+### `/api/v5/chart/composite` (POST)  
 Returns a composite chart as an SVG along with midpoint data.
 
 ### `/api/v5/chart-data/composite` (POST)  
 Returns composite data only, without SVG.
 
-### `/api/v5/charts/solar-return` (POST)  
+### `/api/v5/chart/solar-return` (POST)  
 Returns a solar return chart as an SVG (dual or single wheel) along with related data.
 
 ### `/api/v5/chart-data/solar-return` (POST)  
 Returns solar return data only, without SVG.
 
-### `/api/v5/charts/lunar-return` (POST)  
+### `/api/v5/chart/lunar-return` (POST)  
 Returns a lunar return chart as an SVG (dual or single wheel) along with related data.
 
 ### `/api/v5/chart-data/lunar-return` (POST)  
@@ -121,7 +121,7 @@ Full reference: site-docs/README.md • Swagger • Redoc • OpenAPI (links bel
 ### 1) Natal chart (SVG + data)
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/charts/natal' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/natal' \
     -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
     -H 'X-RapidAPI-Key: YOUR_API_KEY' \
@@ -144,7 +144,7 @@ Two SVGs (wheel + grid) with split_chart:
 Request:
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/charts/natal' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/natal' \
     -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
     -H 'X-RapidAPI-Key: YOUR_API_KEY' \
@@ -184,7 +184,7 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart-data/natal' \
 ### 2) Synastry chart
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/charts/synastry' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/synastry' \
     -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
     -H 'X-RapidAPI-Key: YOUR_API_KEY' \
@@ -221,7 +221,7 @@ curl 'https://astrologer.p.rapidapi.com/api/v5/now/chart' \
 Transit for a natal subject at a chosen moment:
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/charts/transit' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/transit' \
     -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
     -H 'X-RapidAPI-Key: YOUR_API_KEY' \
@@ -234,7 +234,7 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/charts/transit' \
 ### 4) Solar return
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/charts/solar-return' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/solar-return' \
     -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
     -H 'X-RapidAPI-Key: YOUR_API_KEY' \
@@ -460,7 +460,7 @@ Tip: For best accuracy, send actual coordinates when you can. Geonames is free u
 
 - 422 Unprocessable Entity: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title.
 - Timezone errors: Use a valid tz database name (e.g. "Europe/Rome").
-- Empty SVG or missing wheel/grid: Use `/charts/*` endpoints for rendering. `/chart-data/*` never return SVG.
+- Empty SVG or missing wheel/grid: Use `/chart/*` endpoints for rendering. `/chart-data/*` never return SVG.
 
 
 ## Documentation

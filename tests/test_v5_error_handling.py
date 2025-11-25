@@ -51,7 +51,7 @@ def test_lunar_return_domain_error_exposes_message(monkeypatch: pytest.MonkeyPat
         raise_domain_error,
     )
 
-    response = client.post("/api/v5/charts/lunar-return", json=_build_lunar_return_payload())
+    response = client.post("/api/v5/chart/lunar-return", json=_build_lunar_return_payload())
 
     assert response.status_code == 400
     body = response.json()

@@ -44,7 +44,7 @@ def test_solar_return_dual_chart_data(client: TestClient):
 
 def test_solar_return_dual_chart_svg(client: TestClient):
     payload = {"subject": deepcopy(BASE_SUBJECT), "year": 2024, "wheel_type": "dual"}
-    resp = client.post("/api/v5/charts/solar-return", json=payload)
+    resp = client.post("/api/v5/chart/solar-return", json=payload)
     assert resp.status_code == 200
     body = resp.json()
     assert isinstance(body["chart"], str) and "<svg" in body["chart"]
@@ -67,11 +67,10 @@ def test_lunar_return_single_chart_data(client: TestClient):
 
 def test_lunar_return_single_chart_svg(client: TestClient):
     payload = {"subject": deepcopy(BASE_SUBJECT), "year": 2024, "wheel_type": "single"}
-    resp = client.post("/api/v5/charts/lunar-return", json=payload)
+    resp = client.post("/api/v5/chart/lunar-return", json=payload)
     assert resp.status_code == 200
     body = resp.json()
     assert isinstance(body["chart"], str) and "<svg" in body["chart"]
     assert body["return_type"] == "Lunar"
     assert body["wheel_type"] == "single"
     assert body["chart_data"]["chart_type"] == "SingleReturnChart"
-

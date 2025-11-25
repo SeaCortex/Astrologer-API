@@ -44,10 +44,10 @@ async def composite_chart_data(request_body: CompositeChartDataRequestModel, req
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/charts/composite", response_model=ChartResponseModel)
+@router.post("/api/v5/chart/composite", response_model=ChartResponseModel)
 async def composite_chart(request_body: CompositeChartRequestModel, request: Request) -> JSONResponse:
     """
-    **POST** `/api/v5/charts/composite`
+    **POST** `/api/v5/chart/composite`
 
     Returns composite chart data and rendered SVG chart.
 

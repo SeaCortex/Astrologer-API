@@ -52,10 +52,10 @@ async def synastry_chart_data(request_body: SynastryChartDataRequestModel, reque
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/charts/synastry", response_model=ChartResponseModel)
+@router.post("/api/v5/chart/synastry", response_model=ChartResponseModel)
 async def synastry_chart(request_body: SynastryChartRequestModel, request: Request) -> JSONResponse:
     """
-    **POST** `/api/v5/charts/synastry`
+    **POST** `/api/v5/chart/synastry`
 
     Returns synastry chart data and a dual-wheel SVG chart.
 

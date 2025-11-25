@@ -169,7 +169,7 @@ def test_natal_chart_accepts_active_points():
 
 
 def test_natal_chart_svg_accepts_theme():
-    """Verify /charts/natal DOES accept 'theme' parameter."""
+    """Verify /chart/natal DOES accept 'theme' parameter."""
     payload = {
         "subject": {
             "name": "Test Subject",
@@ -189,7 +189,7 @@ def test_natal_chart_svg_accepts_theme():
         "show_house_position_comparison": False,
     }
 
-    response = client.post("/api/v5/charts/natal", json=payload)
+    response = client.post("/api/v5/chart/natal", json=payload)
 
     # Should succeed
     assert response.status_code == 200

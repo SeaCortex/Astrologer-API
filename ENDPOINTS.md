@@ -65,7 +65,7 @@ Available for `/charts/*` endpoints and `/api/v5/now/chart` (with SVG rendering)
 
 ### Computation Configuration Options
 
-Available for **all** chart endpoints (both `/chart-data/*` and `/charts/*`):
+Available for **all** chart endpoints (both `/chart-data/*` and `/chart/*`):
 
 -   `active_points`: Array of points to include (default: all major planets and points)
 -   `active_aspects`: Array of aspect configurations with orbs
@@ -253,7 +253,7 @@ Returns complete natal chart data without SVG rendering.
 
 #### Natal Chart with SVG
 
-**POST** `/api/v5/charts/natal`
+**POST** `/api/v5/chart/natal`
 
 Returns natal chart data and rendered SVG chart.
 
@@ -344,7 +344,7 @@ Returns synastry comparison data between two subjects.
 
 #### Synastry Chart with SVG
 
-**POST** `/api/v5/charts/synastry`
+**POST** `/api/v5/chart/synastry`
 
 Returns synastry data and rendered dual-wheel chart.
 
@@ -413,7 +413,7 @@ Returns transit analysis for current planetary positions affecting a natal chart
 
 #### Transit Chart with SVG
 
-**POST** `/api/v5/charts/transit`
+**POST** `/api/v5/chart/transit`
 
 Returns transit data and rendered chart.
 
@@ -462,7 +462,7 @@ Returns midpoint composite chart between two subjects.
 
 #### Composite Chart with SVG
 
-**POST** `/api/v5/charts/composite`
+**POST** `/api/v5/chart/composite`
 
 Returns composite data and rendered chart.
 
@@ -525,7 +525,7 @@ Calculates solar return chart for a specific year.
 
 #### Solar Return Chart with SVG
 
-**POST** `/api/v5/charts/solar-return`
+**POST** `/api/v5/chart/solar-return`
 
 Returns solar return data and rendered chart.
 
@@ -547,7 +547,7 @@ Calculates lunar return chart.
 
 #### Lunar Return Chart with SVG
 
-**POST** `/api/v5/charts/lunar-return`
+**POST** `/api/v5/chart/lunar-return`
 
 Returns lunar return data and rendered chart.
 

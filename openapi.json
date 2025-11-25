@@ -284,14 +284,14 @@
         ]
       }
     },
-    "/api/v5/charts/natal": {
+    "/api/v5/chart/natal": {
       "post": {
         "tags": [
           "Natal"
         ],
         "summary": "Natal Chart",
-        "description": "**POST** `/api/v5/charts/natal`\n\nReturns natal chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`\n- `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- `transparent_background`\n- `show_house_position_comparison` (hide the comparison table when false)\n- `custom_title` (temporary title override, max 40 chars)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG (when split_chart=false)\n- `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)",
-        "operationId": "natal_chart_api_v5_charts_natal_post",
+        "description": "**POST** `/api/v5/chart/natal`\n\nReturns natal chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`\n- `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- `transparent_background`\n- `show_house_position_comparison` (hide the comparison table when false)\n- `custom_title` (temporary title override, max 40 chars)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG (when split_chart=false)\n- `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)",
+        "operationId": "natal_chart_api_v5_chart_natal_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -418,14 +418,14 @@
         ]
       }
     },
-    "/api/v5/charts/synastry": {
+    "/api/v5/chart/synastry": {
       "post": {
         "tags": [
           "Synastry"
         ],
         "summary": "Synastry Chart",
-        "description": "**POST** `/api/v5/charts/synastry`\n\nReturns synastry chart data and a dual-wheel SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`\n- `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid` when split_chart=true)\n- `chart_data`",
-        "operationId": "synastry_chart_api_v5_charts_synastry_post",
+        "description": "**POST** `/api/v5/chart/synastry`\n\nReturns synastry chart data and a dual-wheel SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`\n- `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid` when split_chart=true)\n- `chart_data`",
+        "operationId": "synastry_chart_api_v5_chart_synastry_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -619,14 +619,14 @@
         ]
       }
     },
-    "/api/v5/charts/transit": {
+    "/api/v5/chart/transit": {
       "post": {
         "tags": [
           "Transit"
         ],
         "summary": "Transit Chart",
-        "description": "**POST** `/api/v5/charts/transit`\n\nReturns transit data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid`)\n- `chart_data`",
-        "operationId": "transit_chart_api_v5_charts_transit_post",
+        "description": "**POST** `/api/v5/chart/transit`\n\nReturns transit data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid`)\n- `chart_data`",
+        "operationId": "transit_chart_api_v5_chart_transit_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -753,14 +753,14 @@
         ]
       }
     },
-    "/api/v5/charts/composite": {
+    "/api/v5/chart/composite": {
       "post": {
         "tags": [
           "Composite"
         ],
         "summary": "Composite Chart",
-        "description": "**POST** `/api/v5/charts/composite`\n\nReturns composite chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid`)\n- `chart_data`",
-        "operationId": "composite_chart_api_v5_charts_composite_post",
+        "description": "**POST** `/api/v5/chart/composite`\n\nReturns composite chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid`)\n- `chart_data`",
+        "operationId": "composite_chart_api_v5_chart_composite_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -887,14 +887,14 @@
         ]
       }
     },
-    "/api/v5/charts/solar-return": {
+    "/api/v5/chart/solar-return": {
       "post": {
         "tags": [
           "Returns"
         ],
         "summary": "Solar Return Chart",
-        "description": "**POST** `/api/v5/charts/solar-return`\n\nReturns solar return data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `return_type`: \"Solar\"\n- `wheel_type`: \"dual\" | \"single\"\n- `chart` (or `chart_wheel` + `chart_grid`)",
-        "operationId": "solar_return_chart_api_v5_charts_solar_return_post",
+        "description": "**POST** `/api/v5/chart/solar-return`\n\nReturns solar return data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `return_type`: \"Solar\"\n- `wheel_type`: \"dual\" | \"single\"\n- `chart` (or `chart_wheel` + `chart_grid`)",
+        "operationId": "solar_return_chart_api_v5_chart_solar_return_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1021,14 +1021,14 @@
         ]
       }
     },
-    "/api/v5/charts/lunar-return": {
+    "/api/v5/chart/lunar-return": {
       "post": {
         "tags": [
           "Returns"
         ],
         "summary": "Lunar Return Chart",
-        "description": "**POST** `/api/v5/charts/lunar-return`\n\nReturns lunar return data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `return_type`: \"Lunar\"\n- `wheel_type`: \"dual\" | \"single\"\n- `chart` (or `chart_wheel` + `chart_grid`)",
-        "operationId": "lunar_return_chart_api_v5_charts_lunar_return_post",
+        "description": "**POST** `/api/v5/chart/lunar-return`\n\nReturns lunar return data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `return_type`: \"Lunar\"\n- `wheel_type`: \"dual\" | \"single\"\n- `chart` (or `chart_wheel` + `chart_grid`)",
+        "operationId": "lunar_return_chart_api_v5_chart_lunar_return_post",
         "requestBody": {
           "content": {
             "application/json": {

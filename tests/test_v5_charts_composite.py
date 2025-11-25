@@ -57,9 +57,8 @@ def test_composite_chart_data(client: TestClient):
 
 def test_composite_chart_svg(client: TestClient):
     payload = {"first_subject": deepcopy(BASE_SUBJECT), "second_subject": deepcopy(ROME_SUBJECT)}
-    resp = client.post("/api/v5/charts/composite", json=payload)
+    resp = client.post("/api/v5/chart/composite", json=payload)
     assert resp.status_code == 200
     body = resp.json()
     assert isinstance(body["chart"], str) and "<svg" in body["chart"]
     assert body["chart_data"]["chart_type"] == "Composite"
-

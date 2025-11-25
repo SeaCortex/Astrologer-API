@@ -45,10 +45,10 @@ async def solar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/charts/solar-return", response_model=ReturnChartResponseModel)
+@router.post("/api/v5/chart/solar-return", response_model=ReturnChartResponseModel)
 async def solar_return_chart(request_body: PlanetaryReturnRequestModel, request: Request) -> JSONResponse:
     """
-    **POST** `/api/v5/charts/solar-return`
+    **POST** `/api/v5/chart/solar-return`
 
     Returns solar return data and rendered SVG chart.
 
@@ -105,10 +105,10 @@ async def lunar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/charts/lunar-return", response_model=ReturnChartResponseModel)
+@router.post("/api/v5/chart/lunar-return", response_model=ReturnChartResponseModel)
 async def lunar_return_chart(request_body: PlanetaryReturnRequestModel, request: Request) -> JSONResponse:
     """
-    **POST** `/api/v5/charts/lunar-return`
+    **POST** `/api/v5/chart/lunar-return`
 
     Returns lunar return data and rendered SVG chart.
 

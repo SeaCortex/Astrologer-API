@@ -22,7 +22,7 @@ def test_natal_chart_split(client: TestClient):
         "split_chart": True,
     }
 
-    resp = client.post("/api/v5/charts/natal", json=payload)
+    resp = client.post("/api/v5/chart/natal", json=payload)
     assert resp.status_code == 200
 
     data = resp.json()
@@ -53,7 +53,7 @@ def test_natal_chart_normal(client: TestClient):
         "split_chart": False,
     }
 
-    resp = client.post("/api/v5/charts/natal", json=payload)
+    resp = client.post("/api/v5/chart/natal", json=payload)
     assert resp.status_code == 200
 
     data = resp.json()
@@ -95,7 +95,7 @@ def test_synastry_chart_split(client: TestClient):
         "split_chart": True,
     }
 
-    resp = client.post("/api/v5/charts/synastry", json=payload)
+    resp = client.post("/api/v5/chart/synastry", json=payload)
     assert resp.status_code == 200
 
     data = resp.json()
@@ -136,7 +136,7 @@ def test_transit_chart_split(client: TestClient):
         "split_chart": True,
     }
 
-    resp = client.post("/api/v5/charts/transit", json=payload)
+    resp = client.post("/api/v5/chart/transit", json=payload)
     assert resp.status_code == 200
 
     data = resp.json()
@@ -177,7 +177,7 @@ def test_composite_chart_split(client: TestClient):
         "split_chart": True,
     }
 
-    resp = client.post("/api/v5/charts/composite", json=payload)
+    resp = client.post("/api/v5/chart/composite", json=payload)
     assert resp.status_code == 200
 
     data = resp.json()
@@ -206,7 +206,7 @@ def test_solar_return_split(client: TestClient):
         "split_chart": True,
     }
 
-    resp = client.post("/api/v5/charts/solar-return", json=payload)
+    resp = client.post("/api/v5/chart/solar-return", json=payload)
     assert resp.status_code == 200
 
     data = resp.json()
@@ -237,7 +237,7 @@ def test_lunar_return_split(client: TestClient):
         "split_chart": True,
     }
 
-    resp = client.post("/api/v5/charts/lunar-return", json=payload)
+    resp = client.post("/api/v5/chart/lunar-return", json=payload)
     assert resp.status_code == 200
 
     data = resp.json()

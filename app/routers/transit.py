@@ -45,10 +45,10 @@ async def transit_chart_data(request_body: TransitChartDataRequestModel, request
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/charts/transit", response_model=ChartResponseModel)
+@router.post("/api/v5/chart/transit", response_model=ChartResponseModel)
 async def transit_chart(request_body: TransitChartRequestModel, request: Request) -> JSONResponse:
     """
-    **POST** `/api/v5/charts/transit`
+    **POST** `/api/v5/chart/transit`
 
     Returns transit data and rendered SVG chart.
 

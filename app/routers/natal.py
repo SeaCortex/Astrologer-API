@@ -215,10 +215,10 @@ async def natal_chart_data(request_body: BirthChartDataRequestModel, request: Re
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/charts/natal", response_model=ChartResponseModel)
+@router.post("/api/v5/chart/natal", response_model=ChartResponseModel)
 async def natal_chart(request_body: BirthChartRequestModel, request: Request) -> JSONResponse:
     """
-    **POST** `/api/v5/charts/natal`
+    **POST** `/api/v5/chart/natal`
 
     Returns natal chart data and rendered SVG chart.
 

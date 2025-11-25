@@ -49,9 +49,8 @@ def test_transit_chart_data(client: TestClient):
 
 def test_transit_chart_svg(client: TestClient):
     payload = {"first_subject": deepcopy(BASE_SUBJECT), "transit_subject": _make_transit_subject()}
-    resp = client.post("/api/v5/charts/transit", json=payload)
+    resp = client.post("/api/v5/chart/transit", json=payload)
     assert resp.status_code == 200
     body = resp.json()
     assert isinstance(body["chart"], str) and "<svg" in body["chart"]
     assert body["chart_data"]["chart_type"] == "Transit"
-
