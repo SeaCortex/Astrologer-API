@@ -1,6 +1,6 @@
 [project]
 name = "astrologer-api"
-version = "4.0.0"
+version = "5.0.0"
 description = "Astrologer API: FastAPI service for astrology charts and data"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -14,7 +14,7 @@ dependencies = [
     "pytz",
     "scour",
     "typing-extensions",
-    "kerykeion==5.2.1",
+    "kerykeion==5.2.2",
     "pyjwt>=2.10.1",
 ]
 

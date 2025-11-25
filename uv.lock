@@ -57,7 +57,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "fastapi" },
-    { name = "kerykeion", specifier = "==5.2.1" },
+    { name = "kerykeion", specifier = "==5.2.2" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
     { name = "pyjwt", specifier = ">=2.10.1" },
@@ -377,7 +377,7 @@ wheels = [
 
 [[package]]
 name = "kerykeion"
-version = "5.2.1"
+version = "5.2.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pydantic" },
@@ -389,9 +389,9 @@ dependencies = [
     { name = "simple-ascii-tables" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/31/e8/61510b35f684d675ec605bc9237ff74095a5cf68a46b7f4628ae5f9c93c5/kerykeion-5.2.1.tar.gz", hash = "sha256:f301a86400e7b2ea8e933e59de84725ee823a3cd682ae0133ae5b3233ba015fe", size = 4664407, upload-time = "2025-11-24T23:49:06.704Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/5f/a9/1db86ee110c408c7b7067c010512213b15df58abd5185f0153f3b7cd30e8/kerykeion-5.2.2.tar.gz", hash = "sha256:a48658139291183ba1c96120fd5a0cd170454245c0b8a0d5ddf95149c13490f5", size = 4664421, upload-time = "2025-11-25T09:33:18.267Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d6/be/3aaaf1379c13030322e5d8dab5268768be26a9ef2b7fe429e81ffd4f977c/kerykeion-5.2.1-py3-none-any.whl", hash = "sha256:cf3922078310f7451d49cb8515b7ee6a848f47c2395f6ab77539a7abab0d2a64", size = 637616, upload-time = "2025-11-24T23:49:02.6Z" },
+    { url = "https://files.pythonhosted.org/packages/a4/bf/eaaa5eba00da440d3ec864d317d4744298988cfa19b5ae30bc040cfa9b68/kerykeion-5.2.2-py3-none-any.whl", hash = "sha256:97b6b74967b1b730710396f714e1603bc9f85c951125219c8cf41d6998cec57e", size = 637752, upload-time = "2025-11-25T09:33:14.532Z" },
 ]
 
 [[package]]
