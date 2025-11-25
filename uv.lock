@@ -27,7 +27,7 @@ wheels = [
 
 [[package]]
 name = "astrologer-api"
-version = "4.0.0"
+version = "5.0.0"
 source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
