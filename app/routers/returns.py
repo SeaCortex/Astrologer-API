@@ -8,11 +8,13 @@ from ..types.request_models import (
 from ..types.response_models import (
     ChartDataResponseModel,
     ReturnChartResponseModel,
+    ReturnContextResponseModel,
 )
 from ..utils.router_utils import (
     calculate_return_chart_data,
     chart_data_payload,
     chart_payload,
+    context_payload,
     handle_exception,
 )
 
@@ -139,3 +141,66 @@ async def lunar_return_chart(request_body: PlanetaryReturnRequestModel, request:
         return JSONResponse(content=payload, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/context/solar-return", response_model=ReturnContextResponseModel)
+async def solar_return_context(request_body: PlanetaryReturnDataRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/context/solar-return`
+
+    Calculates the solar return and returns data with AI-optimized context.
+
+    **Parameters:**
+    - `subject`: SubjectModel (natal)
+    - `year` or `month`+`year` or `iso_datetime`
+    - `wheel_type`: "dual"|"single" (affects data model)
+
+    **Returns:**
+    - `status`: "OK"
+    - `context`: AI-optimized context string
+    - `chart_data`: ChartDataModel
+    - `return_type`: "Solar"
+    - `wheel_type`: "dual" | "single"
+    """
+    logger.info(f"{request.url}: Solar return context request")
+    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+
+    try:
+        chart_data = calculate_return_chart_data(request_body, "Solar")
+        payload = context_payload(chart_data)
+        payload["return_type"] = "Solar"
+        payload["wheel_type"] = request_body.wheel_type
+        return JSONResponse(content=payload, status_code=200)
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/context/lunar-return", response_model=ReturnContextResponseModel)
+async def lunar_return_context(request_body: PlanetaryReturnDataRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/context/lunar-return`
+
+    Calculates the lunar return and returns data with AI-optimized context.
+
+    **Parameters:**
+    - Same as solar-return context.
+
+    **Returns:**
+    - `status`: "OK"
+    - `context`: AI-optimized context string
+    - `chart_data`: ChartDataModel
+    - `return_type`: "Lunar"
+    - `wheel_type`: "dual" | "single"
+    """
+    logger.info(f"{request.url}: Lunar return context request")
+    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+
+    try:
+        chart_data = calculate_return_chart_data(request_body, "Lunar")
+        payload = context_payload(chart_data)
+        payload["return_type"] = "Lunar"
+        payload["wheel_type"] = request_body.wheel_type
+        return JSONResponse(content=payload, status_code=200)
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+

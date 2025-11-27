@@ -11,11 +11,13 @@ from ..types.response_models import (
     ChartDataResponseModel,
     ChartResponseModel,
     CompatibilityScoreResponseModel,
+    ContextResponseModel,
 )
 from ..utils.router_utils import (
     build_subject,
     chart_data_payload,
     chart_payload,
+    context_payload,
     create_synastry_chart_data,
     dump,
     handle_exception,
@@ -131,3 +133,31 @@ async def compatibility_score(request_body: RelationshipScoreRequestModel, reque
 
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/context/synastry", response_model=ContextResponseModel)
+async def synastry_context(request_body: SynastryChartDataRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/context/synastry`
+
+    Returns synastry chart data with AI-optimized context.
+
+    **Parameters:**
+    - `first_subject`, `second_subject`: SubjectModel
+    - `include_house_comparison`, `include_relationship_score` (flags)
+    - `active_points` / `active_aspects` overrides
+
+    **Returns:**
+    - `status`: "OK"
+    - `context`: AI-optimized context string
+    - `chart_data`: ChartDataModel
+    """
+    logger.info(f"{request.url}: Synastry context request")
+    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+
+    try:
+        chart_data = create_synastry_chart_data(request_body)
+        return JSONResponse(content=context_payload(chart_data), status_code=200)
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+

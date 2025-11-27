@@ -79,3 +79,23 @@ class CompatibilityScoreResponseModel(StatusResponseModel):
         description="Aspects considered for the score calculation.",
     )
     chart_data: DualChartDataModel = Field(description="Underlying chart data used to compute the score.")
+
+
+class SubjectContextResponseModel(SubjectResponseModel):
+    """Response payload containing a single astrological subject with AI context."""
+
+    subject_context: str = Field(description="AI-optimized context string for the subject.")
+
+
+class ContextResponseModel(ChartDataResponseModel):
+    """Response payload returning chart data with AI-optimized context."""
+
+    context: str = Field(description="AI-optimized context string for the chart data.")
+
+
+class ReturnContextResponseModel(ContextResponseModel):
+    """Response payload for solar and lunar return context requests."""
+
+    return_type: Literal["Solar", "Lunar"] = Field(description="Type of planetary return.")
+    wheel_type: Literal["dual", "single"] = Field(description="Rendered wheel configuration.")
+

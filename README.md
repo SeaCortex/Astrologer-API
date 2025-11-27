@@ -3,15 +3,14 @@
 Astrologer API lets you add **professional-grade astrology features** to any app — fast.  
 It delivers both **plug-and-play SVG charts** and **rich astrological data** for natal, synastry, transits, composites, and returns.
 
-- NASA-grade astronomical accuracy
-- Production-ready JSON + beautiful SVGs
-- Used in astrology apps, compatibility/dating systems, dashboards and SaaS tools
+-   NASA-grade astronomical accuracy
+-   Production-ready JSON + beautiful SVGs
+-   Used in astrology apps, compatibility/dating systems, dashboards and SaaS tools
 
 Birth chart example (dark theme):
 ![Birth chart example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/main/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
 
 👉 Ready to use it? Subscribe on RapidAPI: https://rapidapi.com/gbattaglia/api/astrologer/pricing
-
 
 ## Quick start
 
@@ -56,65 +55,96 @@ Response shape:
 {
     "status": "OK",
     "chart": "<svg>...</svg>",
-    "chart_data": { /* aspects, houses, distributions, subjects */ }
+    "chart_data": {
+        /* aspects, houses, distributions, subjects */
+    }
 }
 ```
 
 Prefer separate SVGs? Use "split_chart": true. You'll receive chart_wheel and chart_grid instead of chart. See the split example below.
 
-
 ## Endpoints
 
-### `/api/v5/chart/natal` (POST)  
+### `/api/v5/chart/natal` (POST)
+
 Returns a birth chart as an SVG along with full natal data.
 
-### `/api/v5/chart-data/natal` (POST)  
+### `/api/v5/chart-data/natal` (POST)
+
 Returns birth chart data only, without SVG.
 
-### `/api/v5/chart/synastry` (POST)  
+### `/api/v5/chart/synastry` (POST)
+
 Returns a synastry chart as an SVG along with combined data for both subjects.
 
-### `/api/v5/chart-data/synastry` (POST)  
+### `/api/v5/chart-data/synastry` (POST)
+
 Returns synastry data only, without SVG.
 
-### `/api/v5/chart/transit` (POST)  
+### `/api/v5/chart/transit` (POST)
+
 Returns a transit chart as an SVG, including both natal and current (moment) data.
 
-### `/api/v5/chart-data/transit` (POST)  
+### `/api/v5/chart-data/transit` (POST)
+
 Returns transit data only, without SVG.
 
-### `/api/v5/chart/composite` (POST)  
+### `/api/v5/chart/composite` (POST)
+
 Returns a composite chart as an SVG along with midpoint data.
 
-### `/api/v5/chart-data/composite` (POST)  
+### `/api/v5/chart-data/composite` (POST)
+
 Returns composite data only, without SVG.
 
-### `/api/v5/chart/solar-return` (POST)  
+### `/api/v5/chart/solar-return` (POST)
+
 Returns a solar return chart as an SVG (dual or single wheel) along with related data.
 
-### `/api/v5/chart-data/solar-return` (POST)  
+### `/api/v5/chart-data/solar-return` (POST)
+
 Returns solar return data only, without SVG.
 
-### `/api/v5/chart/lunar-return` (POST)  
+### `/api/v5/chart/lunar-return` (POST)
+
 Returns a lunar return chart as an SVG (dual or single wheel) along with related data.
 
-### `/api/v5/chart-data/lunar-return` (POST)  
+### `/api/v5/chart-data/lunar-return` (POST)
+
 Returns lunar return data only, without SVG.
 
-### `/api/v5/compatibility-score` (POST)  
+### `/api/v5/compatibility-score` (POST)
+
 Calculates the Ciro Discepolo compatibility score and provides a synastry summary.
 
-### `/api/v5/subject` (POST)  
+### `/api/v5/subject` (POST)
+
 Returns a normalized subject object only, without aspects or SVG.
 
-### `/api/v5/now/subject` (GET)  
+### `/api/v5/now/subject` (GET)
+
 Returns the subject for the current UTC time (Greenwich).
 
-### `/api/v5/now/chart` (GET)  
+### `/api/v5/now/chart` (GET)
+
 Returns the current time chart as an SVG along with data.
 
-Full reference: site-docs/README.md • Swagger • Redoc • OpenAPI (links below)
+### Context Endpoints (AI/LLM Integration)
 
+The API provides AI-optimized context endpoints that return structured textual descriptions instead of SVG charts. These are designed for LLM integration and AI applications:
+
+-   `/api/v5/context/subject` (POST) - Subject data with AI context
+-   `/api/v5/context/natal` (POST) - Natal chart data with AI context
+-   `/api/v5/context/synastry` (POST) - Synastry data with AI context
+-   `/api/v5/context/composite` (POST) - Composite data with AI context
+-   `/api/v5/context/transit` (POST) - Transit data with AI context
+-   `/api/v5/context/solar-return` (POST) - Solar return data with AI context
+-   `/api/v5/context/lunar-return` (POST) - Lunar return data with AI context
+-   `/api/v5/now/context` (POST) - Current moment with AI context
+
+These endpoints accept the same parameters as their corresponding chart-data endpoints but return `context` (AI-optimized text) instead of SVG charts.
+
+Full reference: ENDPOINTS.md • Swagger • Redoc • OpenAPI (links below)
 
 ## Copy‑paste examples
 
@@ -134,12 +164,12 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/natal' \
 
 Two SVGs (wheel + grid) with split_chart:
 
-- When you add "split_chart": true, the response does not include the single "chart" key.
-- Instead you get two SVGs:
-    - chart_wheel: the zodiac wheel (signs, houses, degrees, glyphs)
-    - chart_grid: the aspect grid/table and legend
-- Useful when you need separate positioning, animation, or different sizes for wheel and grid.
-- Works with all /charts/* endpoints and can be combined with transparent_background.
+-   When you add "split_chart": true, the response does not include the single "chart" key.
+-   Instead you get two SVGs:
+    -   chart_wheel: the zodiac wheel (signs, houses, degrees, glyphs)
+    -   chart_grid: the aspect grid/table and legend
+-   Useful when you need separate positioning, animation, or different sizes for wheel and grid.
+-   Works with all /charts/\* endpoints and can be combined with transparent_background.
 
 Request:
 
@@ -161,7 +191,9 @@ Response (shape):
     "status": "OK",
     "chart_wheel": "<svg>...</svg>",
     "chart_grid": "<svg>...</svg>",
-    "chart_data": { /* ... */ }
+    "chart_data": {
+        /* ... */
+    }
 }
 ```
 
@@ -246,23 +278,23 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/solar-return' \
     }'
 ```
 
-
 ## Options at a glance
 
 There are two kinds of options:
 
-- Computation options (work everywhere, including /chart-data/*):
-    - active_points, active_aspects
-    - distribution_method: "weighted" (default) or "pure_count"
-    - custom_distribution_weights: override weights selectively
+-   Computation options (work everywhere, including /chart-data/\*):
 
-- Rendering options (only for /charts/* endpoints):
-    - theme: light, dark, dark-high-contrast, classic
-    - language: EN, FR, PT, ES, TR, RU, IT, CN, DE, HI
-    - split_chart: true to receive wheel and grid separately
-    - transparent_background: true for transparent SVG background
-    - show_house_position_comparison: false hides the comparison table and widens the SVG layout
-    - custom_title: short (≤40 chars) override for the title printed on the chart
+    -   active_points, active_aspects
+    -   distribution_method: "weighted" (default) or "pure_count"
+    -   custom_distribution_weights: override weights selectively
+
+-   Rendering options (only for /charts/\* endpoints):
+    -   theme: light, dark, dark-high-contrast, classic
+    -   language: EN, FR, PT, ES, TR, RU, IT, CN, DE, HI
+    -   split_chart: true to receive wheel and grid separately
+    -   transparent_background: true for transparent SVG background
+    -   show_house_position_comparison: false hides the comparison table and widens the SVG layout
+    -   custom_title: short (≤40 chars) override for the title printed on the chart
 
 Quick example with custom weights:
 
@@ -285,47 +317,49 @@ Quick example with custom weights:
 
 For full lists of points/aspects/themes and defaults, see the docs below.
 
-
 ## Languages
 
 Localize chart labels and texts by setting the language parameter (default: EN).
 
 Supported codes:
-- EN (English)
-- FR (French)
-- PT (Portuguese)
-- ES (Spanish)
-- TR (Turkish)
-- RU (Russian)
-- IT (Italian)
-- CN (Chinese)
-- DE (German)
-- HI (Hindi)
+
+-   EN (English)
+-   FR (French)
+-   PT (Portuguese)
+-   ES (Spanish)
+-   TR (Turkish)
+-   RU (Russian)
+-   IT (Italian)
+-   CN (Chinese)
+-   DE (German)
+-   HI (Hindi)
 
 Example:
 
 ```json
 {
-    "subject": { /* ... */ },
+    "subject": {
+        /* ... */
+    },
     "language": "RU"
 }
 ```
 
-
 ## Transparent background
 
-Render charts without a background fill so you can overlay them on any design. Works with any theme and across all /charts/* endpoints. Can be combined with split_chart.
+Render charts without a background fill so you can overlay them on any design. Works with any theme and across all /charts/\* endpoints. Can be combined with split_chart.
 
 Example:
 
 ```json
 {
-    "subject": { /* ... */ },
+    "subject": {
+        /* ... */
+    },
     "theme": "dark",
     "transparent_background": true
 }
 ```
-
 
 ## Hide the house comparison table
 
@@ -333,11 +367,12 @@ On single-wheel charts the default layout includes the house comparison table. S
 
 ```json
 {
-    "subject": { /* ... */ },
+    "subject": {
+        /* ... */
+    },
     "show_house_position_comparison": false
 }
 ```
-
 
 ## Custom chart titles
 
@@ -345,24 +380,25 @@ Provide a short (`<= 40` chars) `custom_title` to override the text rendered abo
 
 ```json
 {
-    "subject": { /* ... */ },
+    "subject": {
+        /* ... */
+    },
     "custom_title": "Alice & Bob (Q1 2025)"
 }
 ```
-
 
 ## Zodiac types (Tropical vs Sidereal)
 
 Choose the zodiac in the subject object:
 
-- zodiac_type: "Tropic" (default) or "Sidereal"
-- If "Sidereal", also set sidereal_mode (ayanamsha)
+-   zodiac_type: "Tropic" (default) or "Sidereal"
+-   If "Sidereal", also set sidereal_mode (ayanamsha)
 
 Supported sidereal_mode values include:
 
-- FAGAN_BRADLEY, LAHIRI, DELUCE, RAMAN, USHASHASHI, KRISHNAMURTI, DJWHAL_KHUL, YUKTESHWAR, JN_BHASIN,
-- BABYL_KUGLER1, BABYL_KUGLER2, BABYL_KUGLER3, BABYL_HUBER, BABYL_ETPSC,
-- ALDEBARAN_15TAU, HIPPARCHOS, SASSANIAN, J2000, J1900, B1950
+-   FAGAN_BRADLEY, LAHIRI, DELUCE, RAMAN, USHASHASHI, KRISHNAMURTI, DJWHAL_KHUL, YUKTESHWAR, JN_BHASIN,
+-   BABYL_KUGLER1, BABYL_KUGLER2, BABYL_KUGLER3, BABYL_HUBER, BABYL_ETPSC,
+-   ALDEBARAN_15TAU, HIPPARCHOS, SASSANIAN, J2000, J1900, B1950
 
 Example (Sidereal):
 
@@ -384,34 +420,33 @@ Example (Sidereal):
 }
 ```
 
-
 ## House systems
 
 Select the house system via subject.house_system using one of the codes:
 
-- A: Equal
-- B: Alcabitius
-- C: Campanus
-- D: Equal (MC)
-- F: Carter poli-equ.
-- H: Horizon/Azimut
-- I: Sunshine
-- i: Sunshine/Alt.
-- K: Koch
-- L: Pullen SD
-- M: Morinus
-- N: Equal/1=Aries
-- O: Porphyry
-- P: Placidus (common default)
-- Q: Pullen SR
-- R: Regiomontanus
-- S: Sripati
-- T: Polich/Page (Koch/Topocentric variant)
-- U: Krusinski-Pisa-Goelzer
-- V: Equal/Vehlow
-- W: Equal/Whole Sign
-- X: Axial rotation/Meridian houses
-- Y: APC houses
+-   A: Equal
+-   B: Alcabitius
+-   C: Campanus
+-   D: Equal (MC)
+-   F: Carter poli-equ.
+-   H: Horizon/Azimut
+-   I: Sunshine
+-   i: Sunshine/Alt.
+-   K: Koch
+-   L: Pullen SD
+-   M: Morinus
+-   N: Equal/1=Aries
+-   O: Porphyry
+-   P: Placidus (common default)
+-   Q: Pullen SR
+-   R: Regiomontanus
+-   S: Sripati
+-   T: Polich/Page (Koch/Topocentric variant)
+-   U: Krusinski-Pisa-Goelzer
+-   V: Equal/Vehlow
+-   W: Equal/Whole Sign
+-   X: Axial rotation/Meridian houses
+-   Y: APC houses
 
 Example:
 
@@ -432,7 +467,6 @@ Example:
     }
 }
 ```
-
 
 ## Automatic coordinates (optional)
 
@@ -455,21 +489,18 @@ Skip longitude/latitude/timezone by providing a Geonames username. When `geoname
 
 Tip: For best accuracy, send actual coordinates when you can. Geonames is free up to ~10k requests/day.
 
-
 ## Troubleshooting
 
-- 422 Unprocessable Entity: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title.
-- Timezone errors: Use a valid tz database name (e.g. "Europe/Rome").
-- Empty SVG or missing wheel/grid: Use `/chart/*` endpoints for rendering. `/chart-data/*` never return SVG.
-
+-   422 Unprocessable Entity: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title.
+-   Timezone errors: Use a valid tz database name (e.g. "Europe/Rome").
+-   Empty SVG or missing wheel/grid: Use `/chart/*` endpoints for rendering. `/chart-data/*` never return SVG.
 
 ## Documentation
 
-- Swagger (interactive): https://www.kerykeion.net/astrologer-api-swagger/
-- Redoc (reference): https://www.kerykeion.net/astrologer-api-redoc/
-- OpenAPI JSON: https://raw.githubusercontent.com/g-battaglia/Astrologer-API/master/openapi.json
-- Project docs: site-docs/README.md
-
+-   Swagger (interactive): https://www.kerykeion.net/astrologer-api-swagger/
+-   Redoc (reference): https://www.kerykeion.net/astrologer-api-redoc/
+-   OpenAPI JSON: https://raw.githubusercontent.com/g-battaglia/Astrologer-API/master/openapi.json
+-   Project docs: site-docs/README.md
 
 ## Subscription and support
 

@@ -8,10 +8,12 @@ from ..types.request_models import (
 from ..types.response_models import (
     ChartDataResponseModel,
     ChartResponseModel,
+    ContextResponseModel,
 )
 from ..utils.router_utils import (
     chart_data_payload,
     chart_payload,
+    context_payload,
     create_transit_chart_data,
     handle_exception,
 )
@@ -76,3 +78,31 @@ async def transit_chart(request_body: TransitChartRequestModel, request: Request
         return JSONResponse(content=payload, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/context/transit", response_model=ContextResponseModel)
+async def transit_context(request_body: TransitChartDataRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/context/transit`
+
+    Returns transit chart data with AI-optimized context.
+
+    **Parameters:**
+    - `first_subject`: SubjectModel (natal)
+    - `transit_subject`: SubjectModel (transit moment)
+    - `include_house_comparison` flag
+
+    **Returns:**
+    - `status`: "OK"
+    - `context`: AI-optimized context string
+    - `chart_data`: ChartDataModel
+    """
+    logger.info(f"{request.url}: Transit context request")
+    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+
+    try:
+        chart_data = create_transit_chart_data(request_body)
+        return JSONResponse(content=context_payload(chart_data), status_code=200)
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+

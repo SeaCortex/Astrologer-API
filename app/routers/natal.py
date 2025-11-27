@@ -14,17 +14,21 @@ from ..types.response_models import (
     SubjectResponseModel,
     ChartResponseModel,
     ChartDataResponseModel,
+    SubjectContextResponseModel,
+    ContextResponseModel,
 )
 from ..utils.get_time_from_google import get_time_from_google
 from ..utils.router_utils import (
     build_subject,
     chart_data_payload,
     chart_payload,
+    context_payload,
     create_natal_chart_data,
     dump,
     handle_exception,
     resolve_active_points,
     resolve_active_aspects,
+    subject_context_payload,
 )
 
 logger = getLogger(__name__)
@@ -252,3 +256,110 @@ async def natal_chart(request_body: BirthChartRequestModel, request: Request) ->
         return JSONResponse(content=payload, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/context/subject", response_model=SubjectContextResponseModel)
+async def subject_context(birth_data_request: BirthDataRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/context/subject`
+
+    Builds and returns an astrological subject with AI-optimized context.
+
+    **Parameters:**
+    - `subject`: SubjectModel (offline preferred or GeoNames via geonames_username)
+
+    **Returns:**
+    - `status`: "OK"
+    - `subject`: AstrologicalSubjectModel (serialized)
+    - `subject_context`: AI-optimized context string
+    """
+    logger.info(f"{request.url}: Subject context request")
+    logger.debug(f"Request: {request.method} {request.url} Body: {birth_data_request.model_dump_json()}")
+
+    try:
+        subject = build_subject(birth_data_request.subject)
+        return JSONResponse(content=subject_context_payload(subject), status_code=200)
+
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/context/natal", response_model=ContextResponseModel)
+async def natal_context(request_body: BirthChartDataRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/context/natal`
+
+    Returns natal chart data with AI-optimized context.
+
+    **Parameters:**
+    - `subject`: SubjectModel
+    - `active_points` / `active_aspects` (optional overrides)
+    - `distribution_method`, `custom_distribution_weights` (optional)
+
+    **Returns:**
+    - `status`: "OK"
+    - `context`: AI-optimized context string
+    - `chart_data`: ChartDataModel
+    """
+    logger.info(f"{request.url}: Natal context request")
+    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+
+    try:
+        chart_data = create_natal_chart_data(request_body)
+        return JSONResponse(content=context_payload(chart_data), status_code=200)
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/now/context", response_model=SubjectContextResponseModel)
+async def now_context(request_body: NowSubjectRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/now/context`
+
+    Returns an astrological subject with AI context for the current UTC time at Greenwich.
+
+    **Parameters:**
+    - `name`, `zodiac_type`, `sidereal_mode`, `perspective_type`, `houses_system_identifier`
+
+    **Returns:**
+    - `status`: "OK"
+    - `subject`: AstrologicalSubjectModel (serialized)
+    - `subject_context`: AI-optimized context string
+    """
+    logger.info(f"{request.url}: Current context request")
+    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+
+    try:
+        try:
+            utc_datetime = get_time_from_google()
+        except Exception as time_exc:  # pragma: no cover - fallback path
+            logger.warning("Falling back to system UTC time: %s", time_exc)
+            utc_datetime = datetime.now(timezone.utc)
+
+        subject = AstrologicalSubjectFactory.from_birth_data(
+            name=request_body.name,
+            year=utc_datetime.year,  # type: ignore[arg-type]
+            month=utc_datetime.month,  # type: ignore[arg-type]
+            day=utc_datetime.day,  # type: ignore[arg-type]
+            hour=utc_datetime.hour,  # type: ignore[arg-type]
+            minute=utc_datetime.minute,  # type: ignore[arg-type]
+            seconds=utc_datetime.second,  # type: ignore[arg-type]
+            city="Greenwich",
+            nation="GB",
+            lng=-0.001545,
+            lat=51.477928,
+            tz_str="Etc/UTC",
+            online=False,
+            zodiac_type=request_body.zodiac_type,
+            sidereal_mode=request_body.sidereal_mode,
+            perspective_type=request_body.perspective_type,
+            houses_system_identifier=request_body.houses_system_identifier,
+            active_points=resolve_active_points(None),
+            suppress_geonames_warning=True,
+        )
+
+        return JSONResponse(content=subject_context_payload(subject), status_code=200)
+
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+

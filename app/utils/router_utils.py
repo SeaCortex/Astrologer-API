@@ -10,6 +10,7 @@ from kerykeion import (
     ChartDataFactory,
     ChartDrawer,
     CompositeSubjectFactory,
+    to_context,
 )
 from kerykeion.planetary_return_factory import PlanetaryReturnFactory
 from kerykeion.schemas import ActiveAspect, KerykeionException
@@ -304,6 +305,40 @@ def chart_payload(
     )
     payload.update(charts)
     return payload
+
+
+def subject_context_payload(subject) -> dict:
+    """
+    Wrap subject data with AI-optimized context in a standard response payload.
+    
+    Args:
+        subject: The astrological subject object.
+        
+    Returns:
+        dict: The response payload containing status, subject_context, and subject.
+    """
+    return {
+        "status": "OK",
+        "subject_context": to_context(subject),
+        "subject": dump(subject),
+    }
+
+
+def context_payload(chart_data) -> dict:
+    """
+    Wrap chart data with AI-optimized context in a standard response payload.
+    
+    Args:
+        chart_data: The chart data object.
+        
+    Returns:
+        dict: The response payload containing status, context, and chart_data.
+    """
+    return {
+        "status": "OK",
+        "context": to_context(chart_data),
+        "chart_data": dump(chart_data),
+    }
 
 
 async def handle_exception(exc: Exception, request: Request) -> JSONResponse:
