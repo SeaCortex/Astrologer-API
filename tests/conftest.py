@@ -47,6 +47,7 @@ def freeze_time(monkeypatch: pytest.MonkeyPatch):
     Patchiamo la funzione `get_time_from_google` per restituire sempre FREEZE_TIME.
     Questo rende riproducibili i test che controllano timestamp e output correlati.
     """
-    monkeypatch.setattr("app.routers.natal.get_time_from_google", lambda: FREEZE_TIME)
+    monkeypatch.setattr("app.routers.misc.get_time_from_google", lambda: FREEZE_TIME)
+    monkeypatch.setattr("app.routers.context.get_time_from_google", lambda: FREEZE_TIME)
     yield
 

@@ -47,7 +47,7 @@ def test_lunar_return_domain_error_exposes_message(monkeypatch: pytest.MonkeyPat
         raise KerykeionException(error_message)
 
     monkeypatch.setattr(
-        "app.routers.returns.calculate_return_chart_data",
+        "app.routers.charts.calculate_return_chart_data",
         raise_domain_error,
     )
 
@@ -67,7 +67,7 @@ def test_natal_chart_unexpected_error_exposes_message(monkeypatch: pytest.Monkey
         raise RuntimeError(error_message)
 
     monkeypatch.setattr(
-        "app.routers.natal.create_natal_chart_data",
+        "app.routers.data.create_natal_chart_data",
         raise_generic_error,
     )
 

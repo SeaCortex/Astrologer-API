@@ -9,7 +9,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import misc, natal, synastry, transit, composite, returns
+from .routers import misc, charts, data, context
 from .config.settings import settings
 from .middleware.secret_key_checker_middleware import SecretKeyCheckerMiddleware
 
@@ -35,15 +35,13 @@ app = FastAPI(
 )
 
 #------------------------------------------------------------------------------
-# Routers 
+# Routers 
 #------------------------------------------------------------------------------
 
-app.include_router(misc.router, tags=["Status"])
-app.include_router(natal.router, tags=["Natal"])
-app.include_router(synastry.router, tags=["Synastry"])
-app.include_router(transit.router, tags=["Transit"])
-app.include_router(composite.router, tags=["Composite"])
-app.include_router(returns.router, tags=["Returns"])
+app.include_router(misc.router, tags=["Miscellaneous"])
+app.include_router(charts.router, tags=["Charts"])
+app.include_router(data.router, tags=["Chart Data"])
+app.include_router(context.router, tags=["AI Context"])
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):

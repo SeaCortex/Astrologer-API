@@ -48,13 +48,11 @@ def test_error_geonames_path_on_subject(client: TestClient):
 
 def test_error_internal_500_on_natal_chart(client: TestClient, monkeypatch: pytest.MonkeyPatch):
     """Simuliamo un errore interno patchando la factory dei dati del grafico natal."""
-    # Import locale per patchare il simbolo corretto
-    import app.routers.natal as rmod
 
     def boom(*args, **kwargs):  # pragma: no cover - funzione di patch
         raise RuntimeError("Boom")
 
-    monkeypatch.setattr(rmod.ChartDataFactory, "create_natal_chart_data", boom, raising=True)
+    monkeypatch.setattr("app.routers.charts.create_natal_chart_data", boom)
 
     resp = client.post("/api/v5/chart/natal", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 500
