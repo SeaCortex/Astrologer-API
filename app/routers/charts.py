@@ -33,12 +33,12 @@ logger = getLogger(__name__)
 router = APIRouter()
 
 
-@router.post("/api/v5/chart/natal", response_model=ChartResponseModel)
+@router.post("/api/v5/chart/birth", response_model=ChartResponseModel)
 async def natal_chart(request_body: BirthChartRequestModel, request: Request) -> JSONResponse:
     """
-    **POST** `/api/v5/chart/natal`
+    **POST** `/api/v5/chart/birth`
 
-    Returns natal chart data and rendered SVG chart.
+    Returns birth chart data and rendered SVG chart.
 
     **Parameters:**
     - `theme`, `language`
@@ -53,7 +53,7 @@ async def natal_chart(request_body: BirthChartRequestModel, request: Request) ->
     - `chart`: SVG (when split_chart=false)
     - `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)
     """
-    logger.info(f"{request.url}: Natal chart request")
+    logger.info(f"{request.url}: Birth chart request")
     logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
 
     try:
