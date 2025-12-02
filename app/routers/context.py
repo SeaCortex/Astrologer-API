@@ -68,10 +68,10 @@ async def subject_context(birth_data_request: BirthDataRequestModel, request: Re
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/context/natal", response_model=ContextResponseModel)
+@router.post("/api/v5/context/birth-chart", response_model=ContextResponseModel)
 async def natal_context(request_body: BirthChartDataRequestModel, request: Request) -> JSONResponse:
     """
-    **POST** `/api/v5/context/natal`
+    **POST** `/api/v5/context/birth-chart`
 
     Returns natal chart data with AI-optimized context.
 

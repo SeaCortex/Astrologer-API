@@ -94,8 +94,8 @@ def test_now_context(client: TestClient):
 
 
 def test_natal_context(client: TestClient):
-    """Test /api/v5/context/natal endpoint."""
-    resp = client.post("/api/v5/context/natal", json={"subject": deepcopy(BASE_SUBJECT)})
+    """Test /api/v5/context/birth-chart endpoint."""
+    resp = client.post("/api/v5/context/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 200
     
     body = resp.json()
@@ -298,7 +298,7 @@ def test_lunar_return_context(client: TestClient):
 
 def test_context_content_quality(client: TestClient):
     """Test che il context contenga informazioni astrologiche rilevanti."""
-    resp = client.post("/api/v5/context/natal", json={"subject": deepcopy(BASE_SUBJECT)})
+    resp = client.post("/api/v5/context/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 200
     
     context = resp.json()["context"]
@@ -327,7 +327,7 @@ def test_context_content_quality(client: TestClient):
 
 def test_context_vs_chart_data_consistency(client: TestClient):
     """Test che i dati nel context siano coerenti con chart_data."""
-    resp = client.post("/api/v5/context/natal", json={"subject": deepcopy(BASE_SUBJECT)})
+    resp = client.post("/api/v5/context/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 200
     
     body = resp.json()

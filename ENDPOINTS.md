@@ -656,7 +656,7 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 #### Natal Context
 
-**POST** `/api/v5/context/natal`
+**POST** `/api/v5/context/birth-chart`
 
 **Request:** Same as `/api/v5/chart-data/natal`
 
@@ -776,7 +776,7 @@ Context strings are designed for direct injection into AI prompts:
 import requests
 
 response = requests.post(
-    "https://astrologer.p.rapidapi.com/api/v5/context/natal",
+    "https://astrologer.p.rapidapi.com/api/v5/context/birth-chart",
     headers={
         "X-RapidAPI-Host": "astrologer.p.rapidapi.com",
         "X-RapidAPI-Key": "YOUR_API_KEY"

@@ -134,7 +134,7 @@ Returns the current time chart as an SVG along with data.
 The API provides AI-optimized context endpoints that return structured textual descriptions instead of SVG charts. These are designed for LLM integration and AI applications:
 
 -   `/api/v5/context/subject` (POST) - Subject data with AI context
--   `/api/v5/context/natal` (POST) - Natal chart data with AI context
+-   `/api/v5/context/birth-chart` (POST) - Natal chart data with AI context
 -   `/api/v5/context/synastry` (POST) - Synastry data with AI context
 -   `/api/v5/context/composite` (POST) - Composite data with AI context
 -   `/api/v5/context/transit` (POST) - Transit data with AI context
