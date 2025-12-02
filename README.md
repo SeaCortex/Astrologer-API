@@ -8,7 +8,7 @@ It delivers both **plug-and-play SVG charts** and **rich astrological data** for
 -   Used in astrology apps, compatibility/dating systems, dashboards and SaaS tools
 
 Birth chart example (dark theme):
-![Birth chart example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/main/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
+![Birth chart example](https://gitlab.com/g-battaglia/kerykeion/-/raw/main/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
 
 👉 Ready to use it? Subscribe on RapidAPI: https://rapidapi.com/gbattaglia/api/astrologer/pricing
 
@@ -469,4 +469,6 @@ Subscribe: https://rapidapi.com/gbattaglia/api/astrologer/pricing
 
 If you need higher quotas or a custom plan beyond the default tiers, reach out via [kerykeion.astrology@gmail.com](mailto:kerykeion.astrology@gmail.com) to discuss tailored options.
 
-Licensing note: Astrologer API is open source (AGPLv3). Using the hosted API via RapidAPI is allowed in any app, including closed‑source. If you disclose providers, you may use: “Astrological data and charts are generated using Astrologer API.”
+Licensing note: Astrologer API is open source (AGPLv3). Using the hosted API via RapidAPI is allowed in any app, including closed‑source since is a third-party service.
+
+[Astrologer-API Source Code](https://gitlab.com/g-battaglia/Astrologer-API)
