@@ -21,7 +21,7 @@ app = FastAPI(
     redoc_url=settings.redoc_url,
     title="Astrologer API",
     version="5.0.0",
-    summary="Astrology Made Easy",
+    summary="Data Driven Astrology",
     description="The Astrologer API is a RESTful service providing extensive astrology calculations, designed for seamless integration into projects. It offers a rich set of astrological charts and data, making it an invaluable tool for both developers and astrology enthusiasts.",
     contact={
         "name": "Kerykeion Astrology",
