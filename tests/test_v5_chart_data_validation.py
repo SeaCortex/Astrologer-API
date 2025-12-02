@@ -8,7 +8,7 @@ client = TestClient(app)
 
 
 def test_natal_chart_data_rejects_theme():
-    """Verify /chart-data/natal rejects 'theme' parameter."""
+    """Verify /chart-data/birth-chart rejects 'theme' parameter."""
     payload = {
         "subject": {
             "name": "Test Subject",
@@ -26,7 +26,7 @@ def test_natal_chart_data_rejects_theme():
         "theme": "dark",  # This should NOT be accepted
     }
 
-    response = client.post("/api/v5/chart-data/natal", json=payload)
+    response = client.post("/api/v5/chart-data/birth-chart", json=payload)
     
     # Should return 422 Unprocessable Entity due to unexpected field
     assert response.status_code == 422
@@ -35,7 +35,7 @@ def test_natal_chart_data_rejects_theme():
 
 
 def test_natal_chart_data_rejects_split_chart():
-    """Verify /chart-data/natal rejects 'split_chart' parameter."""
+    """Verify /chart-data/birth-chart rejects 'split_chart' parameter."""
     payload = {
         "subject": {
             "name": "Test Subject",
@@ -53,7 +53,7 @@ def test_natal_chart_data_rejects_split_chart():
         "split_chart": True,  # This should NOT be accepted
     }
 
-    response = client.post("/api/v5/chart-data/natal", json=payload)
+    response = client.post("/api/v5/chart-data/birth-chart", json=payload)
     
     # Should return 422 Unprocessable Entity due to unexpected field
     assert response.status_code == 422
@@ -62,7 +62,7 @@ def test_natal_chart_data_rejects_split_chart():
 
 
 def test_natal_chart_data_rejects_transparent_background():
-    """Verify /chart-data/natal rejects 'transparent_background' parameter."""
+    """Verify /chart-data/birth-chart rejects 'transparent_background' parameter."""
     payload = {
         "subject": {
             "name": "Test Subject",
@@ -80,7 +80,7 @@ def test_natal_chart_data_rejects_transparent_background():
         "transparent_background": True,  # This should NOT be accepted
     }
 
-    response = client.post("/api/v5/chart-data/natal", json=payload)
+    response = client.post("/api/v5/chart-data/birth-chart", json=payload)
     
     # Should return 422 Unprocessable Entity due to unexpected field
     assert response.status_code == 422
@@ -89,7 +89,7 @@ def test_natal_chart_data_rejects_transparent_background():
 
 
 def test_natal_chart_data_rejects_show_house_toggle():
-    """Verify /chart-data/natal rejects 'show_house_position_comparison'."""
+    """Verify /chart-data/birth-chart rejects 'show_house_position_comparison'."""
     payload = {
         "subject": {
             "name": "Test Subject",
@@ -107,7 +107,7 @@ def test_natal_chart_data_rejects_show_house_toggle():
         "show_house_position_comparison": False,
     }
 
-    response = client.post("/api/v5/chart-data/natal", json=payload)
+    response = client.post("/api/v5/chart-data/birth-chart", json=payload)
 
     assert response.status_code == 422
     errors = response.json()["detail"]
@@ -115,7 +115,7 @@ def test_natal_chart_data_rejects_show_house_toggle():
 
 
 def test_natal_chart_data_rejects_custom_title():
-    """Verify /chart-data/natal rejects 'custom_title'."""
+    """Verify /chart-data/birth-chart rejects 'custom_title'."""
     payload = {
         "subject": {
             "name": "Test Subject",
@@ -133,7 +133,7 @@ def test_natal_chart_data_rejects_custom_title():
         "custom_title": "Temporary override",
     }
 
-    response = client.post("/api/v5/chart-data/natal", json=payload)
+    response = client.post("/api/v5/chart-data/birth-chart", json=payload)
 
     assert response.status_code == 422
     errors = response.json()["detail"]
@@ -141,7 +141,7 @@ def test_natal_chart_data_rejects_custom_title():
 
 
 def test_natal_chart_accepts_active_points():
-    """Verify /chart-data/natal DOES accept computation params like 'active_points'."""
+    """Verify /chart-data/birth-chart DOES accept computation params like 'active_points'."""
     payload = {
         "subject": {
             "name": "Test Subject",
@@ -159,7 +159,7 @@ def test_natal_chart_accepts_active_points():
         "active_points": ["Sun", "Moon"],  # This SHOULD be accepted
     }
 
-    response = client.post("/api/v5/chart-data/natal", json=payload)
+    response = client.post("/api/v5/chart-data/birth-chart", json=payload)
     
     # Should succeed
     assert response.status_code == 200

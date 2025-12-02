@@ -200,7 +200,7 @@ Returns astrological subject data without chart rendering.
 
 #### Natal Chart Data
 
-**POST** `/api/v5/chart-data/natal`
+**POST** `/api/v5/chart-data/birth-chart`
 
 Returns complete natal chart data without SVG rendering.
 
@@ -658,7 +658,7 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 **POST** `/api/v5/context/birth-chart`
 
-**Request:** Same as `/api/v5/chart-data/natal`
+**Request:** Same as `/api/v5/chart-data/birth-chart`
 
 **Response:**
 

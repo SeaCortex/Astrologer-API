@@ -31,7 +31,7 @@ BASE_SUBJECT: Dict[str, object] = {
 
 
 def test_natal_chart_data(client: TestClient):
-    resp = client.post("/api/v5/chart-data/natal", json={"subject": deepcopy(BASE_SUBJECT)})
+    resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 200
     data = resp.json()["chart_data"]
 

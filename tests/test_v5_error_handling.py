@@ -71,7 +71,7 @@ def test_natal_chart_unexpected_error_exposes_message(monkeypatch: pytest.Monkey
         raise_generic_error,
     )
 
-    response = client.post("/api/v5/chart-data/natal", json=_build_natal_chart_payload())
+    response = client.post("/api/v5/chart-data/birth-chart", json=_build_natal_chart_payload())
 
     assert response.status_code == 500
     body = response.json()

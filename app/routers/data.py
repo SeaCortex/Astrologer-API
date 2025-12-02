@@ -32,10 +32,10 @@ logger = getLogger(__name__)
 router = APIRouter()
 
 
-@router.post("/api/v5/chart-data/natal", response_model=ChartDataResponseModel)
+@router.post("/api/v5/chart-data/birth-chart", response_model=ChartDataResponseModel)
 async def natal_chart_data(request_body: BirthChartDataRequestModel, request: Request) -> JSONResponse:
     """
-    **POST** `/api/v5/chart-data/natal`
+    **POST** `/api/v5/chart-data/birth-chart`
 
     Returns full natal chart data without SVG rendering.
 

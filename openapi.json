@@ -686,13 +686,13 @@
         ]
       }
     },
-    "/api/v5/chart-data/natal": {
+    "/api/v5/chart-data/birth-chart": {
       "post": {
         "tags": [
           "Chart Data"
         ],
         "summary": "Natal Chart Data",
-        "description": "**POST** `/api/v5/chart-data/natal`\n\nReturns full natal chart data without SVG rendering.\n\n**Parameters:**\n- `subject`: SubjectModel\n- `active_points` / `active_aspects` (optional overrides)\n- `distribution_method`, `custom_distribution_weights` (optional)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel",
+        "description": "**POST** `/api/v5/chart-data/birth-chart`\n\nReturns full natal chart data without SVG rendering.\n\n**Parameters:**\n- `subject`: SubjectModel\n- `active_points` / `active_aspects` (optional overrides)\n- `distribution_method`, `custom_distribution_weights` (optional)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel",
         "operationId": "natal_chart_data_api_v5_chart_data_natal_post",
         "requestBody": {
           "content": {

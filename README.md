@@ -69,7 +69,7 @@ Prefer separate SVGs? Use "split_chart": true. You'll receive chart_wheel and ch
 
 Returns a birth chart as an SVG along with full natal data.
 
-### `/api/v5/chart-data/natal` (POST)
+### `/api/v5/chart-data/birth-chart` (POST)
 
 Returns birth chart data only, without SVG.
 
@@ -206,7 +206,7 @@ Make the SVG background transparent:
 Data‑only variant:
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart-data/natal' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart-data/birth-chart' \
     -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
     -H 'X-RapidAPI-Key: YOUR_API_KEY' \
