@@ -253,7 +253,7 @@ Returns complete natal chart data without SVG rendering.
 
 #### Natal Chart with SVG
 
-**POST** `/api/v5/chart/natal`
+**POST** `/api/v5/chart/birth-chart`
 
 Returns natal chart data and rendered SVG chart.
 
