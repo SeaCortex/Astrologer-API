@@ -1,950 +1,513 @@
-# Astrologer API v5 Endpoints
+# Astrologer API
 
-This document describes the v5 REST API endpoints for the Astrologer API. All endpoints accept JSON payloads and return JSON responses.
+Astrologer API lets you add **professional-grade astrology features** to any app, fast!  
+It delivers both **plug-and-play SVG charts** and **rich astrological data** for natal, synastry, transits, composites, and returns.
 
-## Base URL
+-   NASA-grade astronomical accuracy
+-   Production-ready JSON + beautiful SVGs
+-   Used in astrology apps, compatibility/dating systems, dashboards and SaaS tools
 
-```
-https://astrologer.p.rapidapi.com
-```
+Birth chart example (dark theme):
+![Birth chart example](https://raw.githubusercontent.com/g-battaglia/kerykeion/refs/heads/main/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
 
-## Authentication
+👉 Ready to use it? [SUBSCRIBE NOW](https://rapidapi.com/gbattaglia/api/astrologer/pricing) Subscribe on RapidAPI.
 
-All requests require the following headers:
+> Looking fort the old V4 docs? See [V4 Docs](https://github.com/g-battaglia/Astrologer-API/tree/v4).
 
-```
-X-RapidAPI-Host: astrologer.p.rapidapi.com
-X-RapidAPI-Key: YOUR_API_KEY
-```
+## Quick start
 
-## Common Request Parameters
+Every request must include your RapidAPI key.
 
-### Subject Model
+Headers:
 
-Used across most endpoints to define a person's birth data:
-
-```json
+```javascript
 {
-    "name": "John Doe",
-    "year": 1990,
-    "month": 6,
-    "day": 15,
-    "hour": 12,
-    "minute": 30,
-    "second": 0,
-    "city": "London",
-    "nation": "GB",
-    "timezone": "Europe/London",
-    "longitude": -0.1278,
-    "latitude": 51.5074,
-    "altitude": null,
-    "zodiac_type": "Tropical",
-    "sidereal_mode": null,
-    "perspective_type": "Apparent Geocentric",
-    "houses_system_identifier": "P",
-    "is_dst": null,
-    "geonames_username": null
+    'X-RapidAPI-Host': 'astrologer.p.rapidapi.com',
+    'X-RapidAPI-Key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
 }
 ```
 
-**Location Options:**
+Minimal birth chart request (SVG + data):
 
--   Provide `longitude`, `latitude`, and `timezone` for offline mode (recommended)
--   OR provide `geonames_username` to use GeoNames API for location lookup (requires city and nation)
+```bash
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/birth-chart' \
+    -H 'Content-Type: application/json' \
+    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
+    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -d '{
+        "subject": {
+            "name": "John Doe",
+            "year": 1980,
+            "month": 12,
+            "day": 12,
+            "hour": 12,
+            "minute": 12,
+            "longitude": 0,
+            "latitude": 51.4825766,
+            "timezone": "Europe/London"
+        },
+        "theme": "dark"
+    }'
+```
 
-### Chart Configuration Options
+Response shape:
 
-Available for `/charts/*` endpoints and `/api/v5/now/chart` (with SVG rendering):
+```json
+{
+    "status": "OK",
+    "chart": "<svg>...</svg>",
+    "chart_data": {
+        /* aspects, houses, distributions, subjects */
+    }
+}
+```
 
--   `theme`: Visual theme ("classic", "dark", "light", "strawberry", "dark-high-contrast", "black-and-white")
--   `language`: Chart language ("EN", "IT", "FR", "ES", "PT", "CN", "RU", "TR", "DE", "HI")
--   `split_chart`: Boolean - return separate `chart_wheel` and `chart_grid` SVG strings (default: false)
--   `transparent_background`: Boolean - render chart with transparent background instead of theme default
--   `show_house_position_comparison`: Boolean - include the house comparison table (set to false to hide it and widen the chart)
--   `custom_title`: String ≤40 chars - temporary override for the rendered chart title (trimmed if blank)
-
-### Computation Configuration Options
-
-Available for **all** chart endpoints (both `/chart-data/*` and `/chart/*`):
-
--   `active_points`: Array of points to include (default: all major planets and points)
--   `active_aspects`: Array of aspect configurations with orbs
--   `distribution_method`: "weighted" (default) or "pure_count"
--   `custom_distribution_weights`: Custom weight mapping for element/quality distribution
-
-**Note:** `/chart-data/*` endpoints return data only (no SVG) and do **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`). These parameters will be rejected with a 422 error if provided.
+Prefer separate SVGs? Use "split_chart": true. You'll receive chart_wheel and chart_grid instead of chart. See the split example below.
 
 ## Endpoints
 
-### Health Check
+### `/api/v5/chart/birth-chart` (POST)
 
-**GET** `/api/v5/health`
+Returns a birth chart as an SVG along with full natal data.
 
-Returns API health status.
+### `/api/v5/chart-data/birth-chart` (POST)
 
-**Response:**
+Returns birth chart data only, without SVG.
 
-```json
-{
-    "status": "OK"
-}
+### `/api/v5/chart/synastry` (POST)
+
+Returns a synastry chart as an SVG along with combined data for both subjects.
+
+### `/api/v5/chart-data/synastry` (POST)
+
+Returns synastry data only, without SVG.
+
+### `/api/v5/chart/transit` (POST)
+
+Returns a transit chart as an SVG, including both natal and current (moment) data.
+
+### `/api/v5/chart-data/transit` (POST)
+
+Returns transit data only, without SVG.
+
+### `/api/v5/chart/composite` (POST)
+
+Returns a composite chart as an SVG along with midpoint data.
+
+### `/api/v5/chart-data/composite` (POST)
+
+Returns composite data only, without SVG.
+
+### `/api/v5/chart/solar-return` (POST)
+
+Returns a solar return chart as an SVG (dual or single wheel) along with related data.
+
+### `/api/v5/chart-data/solar-return` (POST)
+
+Returns solar return data only, without SVG.
+
+### `/api/v5/chart/lunar-return` (POST)
+
+Returns a lunar return chart as an SVG (dual or single wheel) along with related data.
+
+### `/api/v5/chart-data/lunar-return` (POST)
+
+Returns lunar return data only, without SVG.
+
+### `/api/v5/compatibility-score` (POST)
+
+Calculates the Ciro Discepolo compatibility score and provides a synastry summary.
+
+### `/api/v5/subject` (POST)
+
+Returns a normalized subject object only, without aspects or SVG.
+
+### `/api/v5/now/subject` (GET)
+
+Returns the subject for the current UTC time (Greenwich).
+
+### `/api/v5/now/chart` (GET)
+
+Returns the current time chart as an SVG along with data.
+
+### Context Endpoints (AI/LLM Integration)
+
+The API provides AI-optimized context endpoints that return structured textual descriptions instead of SVG charts. These are designed for LLM integration and AI applications:
+
+-   `/api/v5/context/subject` (POST) - Subject data with AI context
+-   `/api/v5/context/birth-chart` (POST) - Natal chart data with AI context
+-   `/api/v5/context/synastry` (POST) - Synastry data with AI context
+-   `/api/v5/context/composite` (POST) - Composite data with AI context
+-   `/api/v5/context/transit` (POST) - Transit data with AI context
+-   `/api/v5/context/solar-return` (POST) - Solar return data with AI context
+-   `/api/v5/context/lunar-return` (POST) - Lunar return data with AI context
+-   `/api/v5/now/context` (POST) - Current moment with AI context
+
+These endpoints accept the same parameters as their corresponding chart-data endpoints but return `context` (AI-optimized text) instead of SVG charts.
+
+Full reference: ENDPOINTS.md • Swagger • Redoc • OpenAPI (links below)
+
+## Copy‑paste examples
+
+### 1) Natal chart (SVG + data)
+
+```bash
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/birth-chart' \
+    -H 'Content-Type: application/json' \
+    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
+    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -d '{
+        "subject": { "name": "Ada", "year": 1990, "month": 5, "day": 1, "hour": 10, "minute": 0, "longitude": 12.4964, "latitude": 41.9028, "timezone": "Europe/Rome" },
+        "theme": "light",
+        "language": "EN"
+    }'
 ```
 
----
+Two SVGs (wheel + grid) with split_chart:
 
-### Current Moment
+-   When you add "split_chart": true, the response does not include the single "chart" key.
+-   Instead you get two SVGs:
+    -   chart_wheel: the zodiac wheel (signs, houses, degrees, glyphs)
+    -   chart_grid: the aspect grid/table and legend
+-   Useful when you need separate positioning, animation, or different sizes for wheel and grid.
+-   Works with all /charts/\* endpoints and can be combined with transparent_background.
 
-#### Get Current Subject
+Request:
 
-**POST** `/api/v5/now/subject`
-
-Returns astrological data for the current UTC time at Greenwich with optional configuration.
-
-**Request:**
-
-```json
-{
-    "name": "Now",
-    "zodiac_type": "Tropical",
-    "sidereal_mode": null,
-    "perspective_type": "Apparent Geocentric",
-    "houses_system_identifier": "P"
-}
+```bash
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/birth-chart' \
+    -H 'Content-Type: application/json' \
+    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
+    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -d '{
+        "subject": { "name": "Ada", "year": 1990, "month": 5, "day": 1, "hour": 10, "minute": 0, "longitude": 12.4964, "latitude": 41.9028, "timezone": "Europe/Rome" },
+        "split_chart": true
+    }'
 ```
 
-**Note:** All fields are optional. If not provided, defaults will be used (name="Now", zodiac_type="Tropical", perspective_type="Apparent Geocentric", houses_system_identifier="P").
-
-**Response:**
+Response (shape):
 
 ```json
 {
     "status": "OK",
-    "subject": {
-        /* AstrologicalSubjectModel */
-    }
-}
-```
-
-#### Get Current Chart
-
-**POST** `/api/v5/now/chart`
-
-Returns chart data and SVG for the current UTC time at Greenwich with optional subject and rendering configuration.
-
-**Request:**
-
-```json
-{
-  "name": "Now",
-  "zodiac_type": "Tropical",
-  "sidereal_mode": null,
-  "perspective_type": "Apparent Geocentric",
-  "houses_system_identifier": "P",
-  "theme": "classic",
-  "language": "EN",
-  "split_chart": false,
-  "transparent_background": false,
-  "show_house_position_comparison": true,
-  "custom_title": null,
-  "active_points": [...],
-  "active_aspects": [...]
-}
-```
-
-**Note:** All fields are optional. Subject configuration (name, zodiac_type, etc.) defaults to "Now" with Tropical zodiac. Rendering and computation options follow the standard chart configuration rules.
-
-**Response:**
-
-```json
-{
-    "status": "OK",
+    "chart_wheel": "<svg>...</svg>",
+    "chart_grid": "<svg>...</svg>",
     "chart_data": {
-        /* ChartDataModel */
-    },
-    "chart": "<svg>...</svg>"
-}
-```
-
----
-
-### Subject Data
-
-**POST** `/api/v5/subject`
-
-Returns astrological subject data without chart rendering.
-
-**Request:**
-
-```json
-{
-    "subject": {
-        /* SubjectModel */
+        /* ... */
     }
 }
 ```
 
-**Response:**
+Make the SVG background transparent:
 
-```json
-{
-    "status": "OK",
-    "subject": {
-        /* AstrologicalSubjectModel */
-    }
-}
+```bash
+... -d '{ "subject": { /* as above */ }, "transparent_background": true }'
 ```
 
----
+Data‑only variant:
 
-### Natal Charts
-
-#### Natal Chart Data
-
-**POST** `/api/v5/chart-data/birth-chart`
-
-Returns complete natal chart data without SVG rendering.
-
-**Request:**
-
-```json
-{
-  "subject": { /* SubjectModel */ },
-  "active_points": ["Sun", "Moon", "Mercury", ...],
-  "active_aspects": [{"name": "conjunction", "orb": 10}, ...],
-  "distribution_method": "weighted",
-  "custom_distribution_weights": {"sun": 3.0, "moon": 2.5}
-}
+```bash
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart-data/birth-chart' \
+    -H 'Content-Type: application/json' \
+    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
+    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -d '{ "subject": { "name": "Ada", "year": 1990, "month": 5, "day": 1, "hour": 10, "minute": 0, "longitude": 12.4964, "latitude": 41.9028, "timezone": "Europe/Rome" } }'
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
+### 2) Synastry chart
 
-**Response:**
-
-```json
-{
-  "status": "OK",
-  "chart_data": {
-    "chart_type": "Natal",
-    "subject": { /* AstrologicalSubjectModel */ },
-    "aspects": [ /* Filtered aspects */ ],
-    "element_distribution": {
-      "fire": 5.0,
-      "earth": 3.5,
-      "air": 4.0,
-      "water": 2.5,
-      "fire_percentage": 33,
-      "earth_percentage": 23,
-      "air_percentage": 27,
-      "water_percentage": 17
-    },
-    "quality_distribution": {
-      "cardinal": 4.0,
-      "fixed": 6.0,
-      "mutable": 5.0,
-      "cardinal_percentage": 27,
-      "fixed_percentage": 40,
-      "mutable_percentage": 33
-    },
-    "active_points": [...],
-    "active_aspects": [...]
-  }
-}
+```bash
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/synastry' \
+    -H 'Content-Type: application/json' \
+    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
+    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -d '{
+        "first_subject": { "name": "Alice", "year": 1990, "month": 7, "day": 5, "hour": 9, "minute": 30, "longitude": -0.1278, "latitude": 51.5074, "timezone": "Europe/London" },
+        "second_subject": { "name": "Bob", "year": 1988, "month": 1, "day": 20, "hour": 18, "minute": 15, "longitude": 2.3522, "latitude": 48.8566, "timezone": "Europe/Paris" },
+        "theme": "dark"
+    }'
 ```
 
-#### Natal Chart with SVG
+Compatibility score only (fast):
 
-**POST** `/api/v5/chart/birth-chart`
-
-Returns natal chart data and rendered SVG chart.
-
-**Request:**
-
-```json
-{
-  "subject": { /* SubjectModel */ },
-  "theme": "classic",
-  "language": "EN",
-  "split_chart": false,
-  "transparent_background": false,
-  "show_house_position_comparison": true,
-  "custom_title": null,
-  "active_points": [...],
-  "active_aspects": [...],
-  "distribution_method": "weighted",
-  "custom_distribution_weights": {}
-}
+```bash
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/compatibility-score' \
+    -H 'Content-Type: application/json' \
+    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
+    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -d '{
+        "first_subject": { /* as above */ },
+        "second_subject": { /* as above */ }
+    }'
 ```
 
-**Response:**
+### 3) Transits (now or custom moment)
 
-```json
-{
-    "status": "OK",
-    "chart_data": {
-        /* Same as chart-data endpoint */
-    },
-    "chart": "<svg>...</svg>"
-}
+Current time (simple GET):
+
+```bash
+curl 'https://astrologer.p.rapidapi.com/api/v5/now/chart' \
+    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
+    -H 'X-RapidAPI-Key: YOUR_API_KEY'
 ```
 
----
+Transit for a natal subject at a chosen moment:
 
-### Synastry Charts
-
-#### Synastry Chart Data
-
-**POST** `/api/v5/chart-data/synastry`
-
-Returns synastry comparison data between two subjects.
-
-**Request:**
-
-```json
-{
-  "first_subject": { /* SubjectModel */ },
-  "second_subject": { /* SubjectModel */ },
-  "include_house_comparison": true,
-  "include_relationship_score": true,
-  "active_points": [...],
-  "active_aspects": [...],
-  "distribution_method": "weighted",
-  "custom_distribution_weights": {}
-}
+```bash
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/transit' \
+    -H 'Content-Type: application/json' \
+    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
+    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -d '{
+        "first_subject": { /* natal subject */ },
+        "transit_subject": { "year": 2025, "month": 1, "day": 1, "hour": 0, "minute": 0, "longitude": 0, "latitude": 51.48, "timezone": "Europe/London" }
+    }'
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
+### 4) Solar return
 
-**Response:**
-
-```json
-{
-  "status": "OK",
-  "chart_data": {
-    "chart_type": "Synastry",
-    "first_subject": { /* AstrologicalSubjectModel */ },
-    "second_subject": { /* AstrologicalSubjectModel */ },
-    "aspects": [ /* Inter-chart aspects */ ],
-    "house_comparison": {
-      "first_points_in_second_houses": [...],
-      "second_points_in_first_houses": [...]
-    },
-    "relationship_score": {
-      "score_value": 18,
-      "score_description": "Very Important",
-      "is_destiny_sign": true,
-      "aspects": [...]
-    },
-    "element_distribution": { /* Combined distribution */ },
-    "quality_distribution": { /* Combined distribution */ },
-    "active_points": [...],
-    "active_aspects": [...]
-  }
-}
+```bash
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/solar-return' \
+    -H 'Content-Type: application/json' \
+    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
+    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -d '{
+        "subject": { /* natal */ },
+        "year": 2025,
+        "wheel_type": "dual",
+        "return_location": { "longitude": -74.0060, "latitude": 40.7128, "timezone": "America/New_York" }
+    }'
 ```
 
-#### Synastry Chart with SVG
+## Options at a glance
 
-**POST** `/api/v5/chart/synastry`
+There are two kinds of options:
 
-Returns synastry data and rendered dual-wheel chart.
+-   Computation options (work everywhere, including /chart-data/\*):
 
-**Request:** Same as `/api/v5/chart-data/synastry` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
+    -   active_points, active_aspects
+    -   distribution_method: "weighted" (default) or "pure_count"
+    -   custom_distribution_weights: override weights selectively
 
-**Response:** Same as chart-data endpoint plus `"chart": "<svg>...</svg>"` (or `"chart_wheel"` and `"chart_grid"` if split_chart=true)
+-   Rendering options (only for /charts/\* endpoints):
+    -   theme: light, dark, dark-high-contrast, classic
+    -   language: EN, FR, PT, ES, TR, RU, IT, CN, DE, HI
+    -   split_chart: true to receive wheel and grid separately
+    -   transparent_background: true for transparent SVG background
+    -   show_house_position_comparison: false hides the comparison table and widens the SVG layout
+    -   custom_title: short (≤40 chars) override for the title printed on the chart
 
----
-
-### Transit Charts
-
-#### Transit Chart Data
-
-**POST** `/api/v5/chart-data/transit`
-
-Returns transit analysis for current planetary positions affecting a natal chart.
-
-**Request:**
-
-```json
-{
-  "first_subject": { /* Natal SubjectModel */ },
-  "transit_subject": {
-    "name": "Transit",
-    "year": 2024,
-    "month": 10,
-    "day": 27,
-    "hour": 12,
-    "minute": 0,
-    "city": "London",
-    "nation": "GB",
-    "timezone": "Europe/London",
-    "longitude": -0.1278,
-    "latitude": 51.5074
-  },
-  "include_house_comparison": true,
-  "active_points": [...],
-  "active_aspects": [...],
-  "distribution_method": "weighted"
-}
-```
-
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
-
-**Response:**
-
-```json
-{
-  "status": "OK",
-  "chart_data": {
-    "chart_type": "Transit",
-    "first_subject": { /* Natal subject */ },
-    "second_subject": { /* Transit subject */ },
-    "aspects": [ /* Transit-to-natal aspects */ ],
-    "house_comparison": {
-      "first_points_in_second_houses": [...],
-      "second_points_in_first_houses": [...]
-    },
-    "element_distribution": { /* Combined */ },
-    "quality_distribution": { /* Combined */ },
-    "active_points": [...],
-    "active_aspects": [...]
-  }
-}
-```
-
-#### Transit Chart with SVG
-
-**POST** `/api/v5/chart/transit`
-
-Returns transit data and rendered chart.
-
-**Request:** Same as `/api/v5/chart-data/transit` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
-
----
-
-### Composite Charts
-
-#### Composite Chart Data
-
-**POST** `/api/v5/chart-data/composite`
-
-Returns midpoint composite chart between two subjects.
-
-**Request:**
-
-```json
-{
-  "first_subject": { /* SubjectModel */ },
-  "second_subject": { /* SubjectModel */ },
-  "active_points": [...],
-  "active_aspects": [...],
-  "distribution_method": "weighted"
-}
-```
-
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
-
-**Response:**
-
-```json
-{
-  "status": "OK",
-  "chart_data": {
-    "chart_type": "Composite",
-    "subject": { /* CompositeSubjectModel */ },
-    "aspects": [ /* Internal composite aspects */ ],
-    "element_distribution": {...},
-    "quality_distribution": {...},
-    "active_points": [...],
-    "active_aspects": [...]
-  }
-}
-```
-
-#### Composite Chart with SVG
-
-**POST** `/api/v5/chart/composite`
-
-Returns composite data and rendered chart.
-
-**Request:** Same as `/api/v5/chart-data/composite` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
-
----
-
-### Planetary Returns
-
-#### Solar Return Chart Data
-
-**POST** `/api/v5/chart-data/solar-return`
-
-Calculates solar return chart for a specific year.
-
-**Request:**
-
-```json
-{
-  "subject": { /* Natal SubjectModel */ },
-  "year": 2024,
-  "month": null,
-  "iso_datetime": null,
-  "wheel_type": "dual",
-  "include_house_comparison": true,
-  "return_location": {
-    "city": "New York",
-    "nation": "US",
-    "longitude": -74.0060,
-    "latitude": 40.7128,
-    "timezone": "America/New_York"
-  },
-  "active_points": [...],
-  "active_aspects": [...],
-  "distribution_method": "weighted"
-}
-```
-
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
-
-**Response:**
-
-```json
-{
-  "status": "OK",
-  "chart_data": {
-    "chart_type": "DualReturnChart",
-    "first_subject": { /* Natal subject */ },
-    "second_subject": {
-      "return_type": "Solar",
-      /* Return chart data */
-    },
-    "aspects": [ /* Return-to-natal aspects */ ],
-    "house_comparison": {...},
-    "element_distribution": {...},
-    "quality_distribution": {...}
-  }
-}
-```
-
-#### Solar Return Chart with SVG
-
-**POST** `/api/v5/chart/solar-return`
-
-Returns solar return data and rendered chart.
-
-**Request:** Same as `/api/v5/chart-data/solar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
-
-**Response:** Adds `"return_type": "Solar"` and `"wheel_type": "dual"` or `"single"`
-
-#### Lunar Return Chart Data
-
-**POST** `/api/v5/chart-data/lunar-return`
-
-Calculates lunar return chart.
-
-**Request:** Same structure as solar return
-
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
-
-**Response:** Same structure with `"return_type": "Lunar"`
-
-#### Lunar Return Chart with SVG
-
-**POST** `/api/v5/chart/lunar-return`
-
-Returns lunar return data and rendered chart.
-
-**Request:** Same as `/api/v5/chart-data/lunar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
-
----
-
-### Relationship Score
-
-**POST** `/api/v5/compatibility-score`
-
-Calculates Ciro Discepolo compatibility score between two subjects.
-
-**Request:**
-
-```json
-{
-  "first_subject": { /* SubjectModel */ },
-  "second_subject": { /* SubjectModel */ },
-  "active_points": [...],
-  "active_aspects": [...]
-}
-```
-
-**Response:**
-
-```json
-{
-    "status": "OK",
-    "score": 18,
-    "score_description": "Very Important",
-    "is_destiny_sign": true,
-    "aspects": [
-        {
-            "p1_name": "Sun",
-            "p2_name": "Moon",
-            "aspect": "conjunction",
-            "orbit": 1.34
-        }
-    ],
-    "chart_data": {
-        "chart_type": "Synastry"
-        /* Full synastry data */
-    }
-}
-```
-
----
-
-## AI Context Endpoints
-
-The API provides 8 context endpoints that parallel the chart endpoints. Instead of returning SVG charts, these endpoints return AI-optimized context strings generated by Kerykeion's `to_context()` function, suitable for LLM consumption.
-
-**Key Features:**
-
--   Non-qualitative, factual astronomical positions
--   Structured text format optimized for AI/LLM prompts
--   Complete information including planetary positions, aspects, houses, and distributions
--   Same request parameters as corresponding chart-data endpoints
-
-### Subject Context Endpoints
-
-#### Subject Context
-
-**POST** `/api/v5/context/subject`
-
-Returns astrological subject with AI-optimized context.
-
-**Request:** Same as `/api/v5/subject`
-
-**Response:**
-
-```json
-{
-    "status": "OK",
-    "subject_context": "Chart for \"Name\"...",
-    "subject": {
-        /* AstrologicalSubjectModel */
-    }
-}
-```
-
-#### Current Moment Context
-
-**POST** `/api/v5/now/context`
-
-Returns current UTC moment with AI context.
-
-**Request:** Same as `/api/v5/now/subject`
-
-**Response:**
-
-```json
-{
-    "status": "OK",
-    "subject_context": "Chart for \"Now\"...",
-    "subject": {
-        /* AstrologicalSubjectModel */
-    }
-}
-```
-
-### Chart Context Endpoints
-
-All chart context endpoints return structured JSON data plus AI context string.
-
-#### Natal Context
-
-**POST** `/api/v5/context/birth-chart`
-
-**Request:** Same as `/api/v5/chart-data/birth-chart`
-
-**Response:**
-
-```json
-{
-    "status": "OK",
-    "context": "Natal Chart Analysis\n==================================================\n\nChart for \"Name\"...",
-    "chart_data": {
-        /* SingleChartDataModel */
-    }
-}
-```
-
-#### Synastry Context
-
-**POST** `/api/v5/context/synastry`
-
-**Request:** Same as `/api/v5/chart-data/synastry`
-
-**Response:**
-
-```json
-{
-    "status": "OK",
-    "context": "Synastry Chart Analysis\n==================================================\n\nFirst Subject:...",
-    "chart_data": {
-        /* DualChartDataModel */
-    }
-}
-```
-
-#### Composite Context
-
-**POST** `/api/v5/context/composite`
-
-**Request:** Same as `/api/v5/chart-data/composite`
-
-**Response:**
-
-```json
-{
-    "status": "OK",
-    "context": "Composite Chart Analysis...",
-    "chart_data": {
-        /* SingleChartDataModel */
-    }
-}
-```
-
-#### Transit Context
-
-**POST** `/api/v5/context/transit`
-
-**Request:** Same as `/api/v5/chart-data/transit`
-
-**Response:**
-
-```json
-{
-    "status": "OK",
-    "context": "Transit Chart Analysis...",
-    "chart_data": {
-        /* DualChartDataModel */
-    }
-}
-```
-
-### Return Context Endpoints
-
-#### Solar Return Context
-
-**POST** `/api/v5/context/solar-return`
-
-**Request:** Same as `/api/v5/chart-data/solar-return`
-
-**Response:**
-
-```json
-{
-    "status": "OK",
-    "context": "DualReturnChart Chart Analysis...",
-    "chart_data": {
-        /* ChartDataModel */
-    },
-    "return_type": "Solar",
-    "wheel_type": "dual"
-}
-```
-
-#### Lunar Return Context
-
-**POST** `/api/v5/context/lunar-return`
-
-**Request:** Same as `/api/v5/chart-data/lunar-return`
-
-**Response:**
-
-```json
-{
-    "status": "OK",
-    "context": "DualReturnChart Chart Analysis...",
-    "chart_data": {
-        /* ChartDataModel */
-    },
-    "return_type": "Lunar",
-    "wheel_type": "dual"
-}
-```
-
-### Integration with AI/LLMs
-
-Context strings are designed for direct injection into AI prompts:
-
-```python
-import requests
-
-response = requests.post(
-    "https://astrologer.p.rapidapi.com/api/v5/context/birth-chart",
-    headers={
-        "X-RapidAPI-Host": "astrologer.p.rapidapi.com",
-        "X-RapidAPI-Key": "YOUR_API_KEY"
-    },
-    json={"subject": {...}}
-)
-
-context = response.json()["context"]
-
-prompt = f"""
-You are an expert astrologer. Analyze this natal chart:
-
-{context}
-
-Provide insights on career potential.
-"""
-```
-
-**Benefits:**
-
--   **No Visual Parsing**: LLMs get structured text instead of needing to parse SVG
--   **Factual Data**: Non-qualitative, precise astronomical positions
--   **Complete Information**: All planetary positions, aspects, houses, and distributions
--   **Consistent Format**: Standardized output across all chart types
-
----
-
-## Response Models
-
-### Chart Types
-
--   `"Natal"` - Single subject birth chart
--   `"Synastry"` - Two-subject relationship comparison
--   `"Transit"` - Current transits to natal chart
--   `"Composite"` - Midpoint composite chart
--   `"DualReturnChart"` - Return chart with natal comparison
--   `"SingleReturnChart"` - Return chart alone
-
-### Element Distribution Model
-
-```json
-{
-    "fire": 5.0,
-    "earth": 3.5,
-    "air": 4.0,
-    "water": 2.5,
-    "fire_percentage": 33,
-    "earth_percentage": 23,
-    "air_percentage": 27,
-    "water_percentage": 17
-}
-```
-
-### Quality Distribution Model
-
-```json
-{
-    "cardinal": 4.0,
-    "fixed": 6.0,
-    "mutable": 5.0,
-    "cardinal_percentage": 27,
-    "fixed_percentage": 40,
-    "mutable_percentage": 33
-}
-```
-
-### Aspect Model
-
-```json
-{
-    "p1_name": "Sun",
-    "p2_name": "Moon",
-    "aspect": "conjunction",
-    "orbit": 1.34,
-    "aspect_degrees": 0,
-    "aid": 1,
-    "diff": 1.34,
-    "p1": {
-        /* Point details */
-    },
-    "p2": {
-        /* Point details */
-    }
-}
-```
-
----
-
-## Distribution Methods
-
-### Weighted (Default)
-
-Uses traditional astrological weights:
-
--   Sun, Moon, Ascendant: 2.0
--   Personal planets (Mercury, Venus, Mars), Angles: 1.5
--   Social planets (Jupiter, Saturn): 1.0
--   Modern planets (Uranus, Neptune, Pluto): 0.5
--   Asteroids and TNOs: 0.3-0.4
-
-### Pure Count
-
-Every active point counts as exactly 1.0.
-
-### Custom Weights
-
-Override specific weights:
+Quick example with custom weights:
 
 ```json
 {
     "distribution_method": "weighted",
     "custom_distribution_weights": {
-        "sun": 3.0,
-        "moon": 2.5,
-        "venus": 2.0,
-        "__default__": 0.75
+        "sun": 2.0,
+        "moon": 2.0,
+        "ascendant": 2.0,
+        "medium_coeli": 1.5,
+        "mercury": 1.5,
+        "venus": 1.5,
+        "mars": 1.5,
+        "jupiter": 1.0,
+        "saturn": 1.0
     }
 }
 ```
 
----
+For full lists of points/aspects/themes and defaults, see the docs below.
 
-## Error Responses
+## Languages
 
-### 400 Bad Request
+Localize chart labels and texts by setting the language parameter (default: EN).
 
-```json
-{
-    "status": "ERROR",
-    "message": "Error description"
-}
-```
+Supported codes:
 
-### 422 Validation Error
+-   EN (English)
+-   FR (French)
+-   PT (Portuguese)
+-   ES (Spanish)
+-   TR (Turkish)
+-   RU (Russian)
+-   IT (Italian)
+-   CN (Chinese)
+-   DE (German)
+-   HI (Hindi)
 
-```json
-{
-    "detail": [
-        {
-            "loc": ["body", "subject", "year"],
-            "msg": "field required",
-            "type": "value_error.missing"
-        }
-    ]
-}
-```
-
-### 500 Internal Server Error
+Example:
 
 ```json
 {
-    "status": "ERROR",
-    "message": "Internal server error"
+    "subject": {
+        /* ... */
+    },
+    "language": "RU"
 }
 ```
 
----
+## Transparent background
 
-## Rate Limits
+Render charts without a background fill so you can overlay them on any design. Works with any theme and across all /charts/\* endpoints. Can be combined with split_chart.
 
-Rate limits depend on your RapidAPI subscription tier. Check your plan details at [RapidAPI](https://rapidapi.com/gbattaglia/api/astrologer/pricing).
+Example:
 
----
+```json
+{
+    "subject": {
+        /* ... */
+    },
+    "theme": "dark",
+    "transparent_background": true
+}
+```
 
-## Support
+## Hide the house comparison table
 
-For issues or questions:
+On single-wheel charts the default layout includes the house comparison table. Set `show_house_position_comparison` to `false` to hide that panel and allow the SVG to use the extra width.
 
--   GitHub: [Astrologer-API](https://github.com/g-battaglia/Astrologer-API)
--   Email: kerykeion.astrology@gmail.com
--   Website: [kerykeion.net](https://www.kerykeion.net/)
+```json
+{
+    "subject": {
+        /* ... */
+    },
+    "show_house_position_comparison": false
+}
+```
+
+## Custom chart titles
+
+Provide a short (`<= 40` chars) `custom_title` to override the text rendered above the chart for that single request. Whitespace is trimmed and empty strings are ignored.
+
+```json
+{
+    "subject": {
+        /* ... */
+    },
+    "custom_title": "Alice & Bob (Q1 2025)"
+}
+```
+
+## Zodiac types (Tropical vs Sidereal)
+
+Choose the zodiac in the subject object:
+
+-   zodiac_type: "Tropic" (default) or "Sidereal"
+-   If "Sidereal", also set sidereal_mode (ayanamsha)
+
+Supported sidereal_mode values include:
+
+-   FAGAN_BRADLEY, LAHIRI, DELUCE, RAMAN, USHASHASHI, KRISHNAMURTI, DJWHAL_KHUL, YUKTESHWAR, JN_BHASIN,
+-   BABYL_KUGLER1, BABYL_KUGLER2, BABYL_KUGLER3, BABYL_HUBER, BABYL_ETPSC,
+-   ALDEBARAN_15TAU, HIPPARCHOS, SASSANIAN, J2000, J1900, B1950
+
+Example (Sidereal):
+
+```json
+{
+    "subject": {
+        "name": "John Doe",
+        "year": 1980,
+        "month": 12,
+        "day": 12,
+        "hour": 12,
+        "minute": 12,
+        "longitude": 0,
+        "latitude": 51.4826,
+        "timezone": "Europe/London",
+        "zodiac_type": "Sidereal",
+        "sidereal_mode": "FAGAN_BRADLEY"
+    }
+}
+```
+
+## House systems
+
+Select the house system via subject.house_system using one of the codes:
+
+-   A: Equal
+-   B: Alcabitius
+-   C: Campanus
+-   D: Equal (MC)
+-   F: Carter poli-equ.
+-   H: Horizon/Azimut
+-   I: Sunshine
+-   i: Sunshine/Alt.
+-   K: Koch
+-   L: Pullen SD
+-   M: Morinus
+-   N: Equal/1=Aries
+-   O: Porphyry
+-   P: Placidus (common default)
+-   Q: Pullen SR
+-   R: Regiomontanus
+-   S: Sripati
+-   T: Polich/Page (Koch/Topocentric variant)
+-   U: Krusinski-Pisa-Goelzer
+-   V: Equal/Vehlow
+-   W: Equal/Whole Sign
+-   X: Axial rotation/Meridian houses
+-   Y: APC houses
+
+Example:
+
+```json
+{
+    "subject": {
+        "name": "John Doe",
+        "year": 1980,
+        "month": 12,
+        "day": 12,
+        "hour": 12,
+        "minute": 12,
+        "longitude": 0,
+        "latitude": 51.4826,
+        "timezone": "Europe/London",
+        "zodiac_type": "Tropic",
+        "house_system": "P"
+    }
+}
+```
+
+## Automatic coordinates (optional)
+
+Skip longitude/latitude/timezone by providing a Geonames username. When `geonames_username` is present in `subject`, coordinates and timezone are looked up automatically.
+
+```json
+{
+    "subject": {
+        "city": "Jamaica, New York",
+        "nation": "US",
+        "year": 1980,
+        "month": 12,
+        "day": 12,
+        "hour": 12,
+        "minute": 12,
+        "geonames_username": "YOUR_GEONAMES_USERNAME"
+    }
+}
+```
+
+Tip: For best accuracy, send actual coordinates when you can. Geonames is free up to ~10k requests/day.
+
+## Troubleshooting
+
+-   422 Unprocessable Entity: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title.
+-   Timezone errors: Use a valid tz database name (e.g. "Europe/Rome").
+-   Empty SVG or missing wheel/grid: Use `/chart/*` endpoints for rendering. `/chart-data/*` never return SVG.
+
+## Documentation
+
+-   Swagger (interactive): https://www.kerykeion.net/astrologer-api-swagger/
+-   Redoc (reference): https://www.kerykeion.net/astrologer-api-redoc/
+-   OpenAPI JSON: https://raw.githubusercontent.com/g-battaglia/Astrologer-API/master/openapi.json
+-   Project docs: site-docs/README.md
+
+## Subscription and support
+
+Subscribe: https://rapidapi.com/gbattaglia/api/astrologer/pricing
+
+If you need higher quotas or a custom plan beyond the default tiers, reach out via [kerykeion.astrology@gmail.com](mailto:kerykeion.astrology@gmail.com) to discuss tailored options.
+
+Licensing note: Astrologer API is open source (AGPLv3). Using the hosted API via RapidAPI is allowed in any app, including closed‑source. If you disclose providers, you may use: “Astrological data and charts are generated using Astrologer API.”
