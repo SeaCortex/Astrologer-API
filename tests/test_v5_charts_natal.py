@@ -43,7 +43,7 @@ def test_natal_chart_data(client: TestClient):
 
 
 def test_natal_chart_svg(client: TestClient):
-    resp = client.post("/api/v5/chart/natal", json={"subject": deepcopy(BASE_SUBJECT)})
+    resp = client.post("/api/v5/chart/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 200
     body = resp.json()
 

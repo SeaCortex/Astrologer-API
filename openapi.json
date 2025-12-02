@@ -284,14 +284,14 @@
         ]
       }
     },
-    "/api/v5/chart/natal": {
+    "/api/v5/chart/birth-chart": {
       "post": {
         "tags": [
           "Charts"
         ],
         "summary": "Natal Chart",
-        "description": "**POST** `/api/v5/chart/natal`\n\nReturns natal chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`\n- `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- `transparent_background`\n- `show_house_position_comparison` (hide the comparison table when false)\n- `custom_title` (temporary title override, max 40 chars)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG (when split_chart=false)\n- `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)",
-        "operationId": "natal_chart_api_v5_chart_natal_post",
+        "description": "**POST** `/api/v5/chart/birth-chart`\n\nReturns birth chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`\n- `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- `transparent_background`\n- `show_house_position_comparison` (hide the comparison table when false)\n- `custom_title` (temporary title override, max 40 chars)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG (when split_chart=false)\n- `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)",
+        "operationId": "natal_chart_api_v5_chart_birth_chart_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -693,7 +693,7 @@
         ],
         "summary": "Natal Chart Data",
         "description": "**POST** `/api/v5/chart-data/birth-chart`\n\nReturns full natal chart data without SVG rendering.\n\n**Parameters:**\n- `subject`: SubjectModel\n- `active_points` / `active_aspects` (optional overrides)\n- `distribution_method`, `custom_distribution_weights` (optional)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel",
-        "operationId": "natal_chart_data_api_v5_chart_data_natal_post",
+        "operationId": "natal_chart_data_api_v5_chart_data_birth_chart_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1162,7 +1162,7 @@
         ],
         "summary": "Natal Context",
         "description": "**POST** `/api/v5/context/birth-chart`\n\nReturns natal chart data with AI-optimized context.\n\n**Parameters:**\n- `subject`: SubjectModel\n- `active_points` / `active_aspects` (optional overrides)\n- `distribution_method`, `custom_distribution_weights` (optional)\n\n**Returns:**\n- `status`: \"OK\"\n- `context`: AI-optimized context string\n- `chart_data`: ChartDataModel",
-        "operationId": "natal_context_api_v5_context_natal_post",
+        "operationId": "natal_context_api_v5_context_birth_chart_post",
         "requestBody": {
           "content": {
             "application/json": {

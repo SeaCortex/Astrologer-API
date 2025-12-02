@@ -22,7 +22,7 @@ def test_natal_chart_split(client: TestClient):
         "split_chart": True,
     }
 
-    resp = client.post("/api/v5/chart/natal", json=payload)
+    resp = client.post("/api/v5/chart/birth-chart", json=payload)
     assert resp.status_code == 200
 
     data = resp.json()
@@ -53,7 +53,7 @@ def test_natal_chart_normal(client: TestClient):
         "split_chart": False,
     }
 
-    resp = client.post("/api/v5/chart/natal", json=payload)
+    resp = client.post("/api/v5/chart/birth-chart", json=payload)
     assert resp.status_code == 200
 
     data = resp.json()

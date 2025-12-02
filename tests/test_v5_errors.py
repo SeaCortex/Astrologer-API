@@ -54,7 +54,7 @@ def test_error_internal_500_on_natal_chart(client: TestClient, monkeypatch: pyte
 
     monkeypatch.setattr("app.routers.charts.create_natal_chart_data", boom)
 
-    resp = client.post("/api/v5/chart/natal", json={"subject": deepcopy(BASE_SUBJECT)})
+    resp = client.post("/api/v5/chart/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 500
     assert resp.json() == {
         "status": "ERROR",

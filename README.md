@@ -29,7 +29,7 @@ Headers:
 Minimal birth chart request (SVG + data):
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/natal' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/birth-chart' \
     -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
     -H 'X-RapidAPI-Key: YOUR_API_KEY' \
@@ -65,7 +65,7 @@ Prefer separate SVGs? Use "split_chart": true. You'll receive chart_wheel and ch
 
 ## Endpoints
 
-### `/api/v5/chart/natal` (POST)
+### `/api/v5/chart/birth-chart` (POST)
 
 Returns a birth chart as an SVG along with full natal data.
 
@@ -151,7 +151,7 @@ Full reference: ENDPOINTS.md • Swagger • Redoc • OpenAPI (links below)
 ### 1) Natal chart (SVG + data)
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/natal' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/birth-chart' \
     -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
     -H 'X-RapidAPI-Key: YOUR_API_KEY' \
@@ -174,7 +174,7 @@ Two SVGs (wheel + grid) with split_chart:
 Request:
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/natal' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/birth-chart' \
     -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
     -H 'X-RapidAPI-Key: YOUR_API_KEY' \
