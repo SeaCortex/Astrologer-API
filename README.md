@@ -65,69 +65,31 @@ Prefer separate SVGs? Use "split_chart": true. You'll receive chart_wheel and ch
 
 ## Endpoints
 
-### `/api/v5/chart/birth-chart` (POST)
+### Chart Endpoints (SVG charts + data)
 
-Returns a birth chart as an SVG along with full natal data.
+The API provides chart endpoints that return rendered SVG charts together with full astrological data.
 
-### `/api/v5/chart-data/birth-chart` (POST)
+-   `/api/v5/chart/birth-chart` (POST) - Natal chart SVG + data
+-   `/api/v5/chart/synastry` (POST) - Synastry chart SVG + combined data
+-   `/api/v5/chart/transit` (POST) - Transit chart SVG + natal and transit data
+-   `/api/v5/chart/composite` (POST) - Composite chart SVG + midpoint data
+-   `/api/v5/chart/solar-return` (POST) - Solar return chart SVG + data
+-   `/api/v5/chart/lunar-return` (POST) - Lunar return chart SVG + data
+-   `/api/v5/now/chart` (GET) - Current moment chart SVG + data
 
-Returns birth chart data only, without SVG.
+### Data Endpoints (JSON only, no SVG)
 
-### `/api/v5/chart/synastry` (POST)
+Use these endpoints when you only need structured astrological data without rendered charts.
 
-Returns a synastry chart as an SVG along with combined data for both subjects.
-
-### `/api/v5/chart-data/synastry` (POST)
-
-Returns synastry data only, without SVG.
-
-### `/api/v5/chart/transit` (POST)
-
-Returns a transit chart as an SVG, including both natal and current (moment) data.
-
-### `/api/v5/chart-data/transit` (POST)
-
-Returns transit data only, without SVG.
-
-### `/api/v5/chart/composite` (POST)
-
-Returns a composite chart as an SVG along with midpoint data.
-
-### `/api/v5/chart-data/composite` (POST)
-
-Returns composite data only, without SVG.
-
-### `/api/v5/chart/solar-return` (POST)
-
-Returns a solar return chart as an SVG (dual or single wheel) along with related data.
-
-### `/api/v5/chart-data/solar-return` (POST)
-
-Returns solar return data only, without SVG.
-
-### `/api/v5/chart/lunar-return` (POST)
-
-Returns a lunar return chart as an SVG (dual or single wheel) along with related data.
-
-### `/api/v5/chart-data/lunar-return` (POST)
-
-Returns lunar return data only, without SVG.
-
-### `/api/v5/compatibility-score` (POST)
-
-Calculates the Ciro Discepolo compatibility score and provides a synastry summary.
-
-### `/api/v5/subject` (POST)
-
-Returns a normalized subject object only, without aspects or SVG.
-
-### `/api/v5/now/subject` (GET)
-
-Returns the subject for the current UTC time (Greenwich).
-
-### `/api/v5/now/chart` (GET)
-
-Returns the current time chart as an SVG along with data.
+-   `/api/v5/chart-data/birth-chart` (POST) - Natal chart data only
+-   `/api/v5/chart-data/synastry` (POST) - Synastry data only
+-   `/api/v5/chart-data/transit` (POST) - Transit data only
+-   `/api/v5/chart-data/composite` (POST) - Composite data only
+-   `/api/v5/chart-data/solar-return` (POST) - Solar return data only
+-   `/api/v5/chart-data/lunar-return` (POST) - Lunar return data only
+-   `/api/v5/subject` (POST) - Normalized subject object only
+-   `/api/v5/now/subject` (GET) - Current UTC subject data
+-   `/api/v5/compatibility-score` (POST) - Ciro Discepolo compatibility score + summary
 
 ### Context Endpoints (AI/LLM Integration)
 
@@ -497,10 +459,9 @@ Tip: For best accuracy, send actual coordinates when you can. Geonames is free u
 
 ## Documentation
 
--   Swagger (interactive): https://www.kerykeion.net/astrologer-api-swagger/
--   Redoc (reference): https://www.kerykeion.net/astrologer-api-redoc/
--   OpenAPI JSON: https://raw.githubusercontent.com/g-battaglia/Astrologer-API/master/openapi.json
--   Project docs: site-docs/README.md
+-   [Swagger (interactive)](https://www.kerykeion.net/astrologer-api-swagger/)
+-   [Redoc (reference)](https://www.kerykeion.net/astrologer-api-redoc/)
+-   [OpenAPI JSON](https://raw.githubusercontent.com/g-battaglia/Astrologer-API/master/openapi.json)
 
 ## Subscription and support
 
