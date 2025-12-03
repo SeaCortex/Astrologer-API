@@ -56,41 +56,41 @@ The API uses standard HTTP status codes:
 
 Endpoints that return raw calculated data (JSON) without visual charts. Ideal for custom frontend rendering or data analysis.
 
--   [**Subject**](data/subject.md): Calculate a subject's astrological data.
--   [**Now Subject**](data/now_subject.md): Get the astrological data for the current moment.
--   [**Compatibility Score**](data/compatibility_score.md): Calculate a numerical compatibility score between two people.
+-   [**Subject**](data/subject.md) ([Example](examples/subject.md)): Calculate a subject's astrological data.
+-   [**Now Subject**](data/now_subject.md) ([Example](examples/now_subject.md)): Get the astrological data for the current moment.
+-   [**Compatibility Score**](data/compatibility_score.md) ([Example](examples/compatibility_score.md)): Calculate a numerical compatibility score between two people.
 -   **Chart Data**:
-    -   [Natal Chart Data](data/chart_data_natal.md)
-    -   [Synastry Chart Data](data/chart_data_synastry.md)
-    -   [Composite Chart Data](data/chart_data_composite.md)
-    -   [Transit Chart Data](data/chart_data_transit.md)
-    -   [Solar Return Data](data/chart_data_solar_return.md)
-    -   [Lunar Return Data](data/chart_data_lunar_return.md)
+    -   [Natal Chart Data](data/chart_data_natal.md) ([Example](examples/natal_chart_data.md))
+    -   [Synastry Chart Data](data/chart_data_synastry.md) ([Example](examples/synastry_chart_data.md))
+    -   [Composite Chart Data](data/chart_data_composite.md) ([Example](examples/composite_chart_data.md))
+    -   [Transit Chart Data](data/chart_data_transit.md) ([Example](examples/transit_chart_data.md))
+    -   [Solar Return Data](data/chart_data_solar_return.md) ([Example](examples/solar_return_chart_data.md))
+    -   [Lunar Return Data](data/chart_data_lunar_return.md) ([Example](examples/lunar_return_chart_data.md))
 
 ### 🎨 Chart Endpoints (SVG)
 
 Endpoints that return rendered SVG charts along with the calculation data.
 
--   [**Natal Chart**](charts/natal_chart.md)
--   [**Now Chart**](charts/now_chart.md)
--   [**Synastry Chart**](charts/synastry_chart.md)
--   [**Composite Chart**](charts/composite_chart.md)
--   [**Transit Chart**](charts/transit_chart.md)
--   [**Solar Return Chart**](charts/solar_return_chart.md)
--   [**Lunar Return Chart**](charts/lunar_return_chart.md)
+-   [**Natal Chart**](charts/natal_chart.md) ([Example](examples/natal_chart_svg.md))
+-   [**Now Chart**](charts/now_chart.md) ([Example](examples/now_chart_svg.md))
+-   [**Synastry Chart**](charts/synastry_chart.md) ([Example](examples/synastry_chart_svg.md))
+-   [**Composite Chart**](charts/composite_chart.md) ([Example](examples/composite_chart_svg.md))
+-   [**Transit Chart**](charts/transit_chart.md) ([Example](examples/transit_chart_svg.md))
+-   [**Solar Return Chart**](charts/solar_return_chart.md) ([Example](examples/solar_return_chart_svg.md))
+-   [**Lunar Return Chart**](charts/lunar_return_chart.md) ([Example](examples/lunar_return_chart_svg.md))
 
 ### 🧠 Context Endpoints (AI)
 
 Endpoints that return AI-optimized textual interpretations and context.
 
--   [**Subject Context**](context/subject_context.md)
--   [**Now Context**](context/now_context.md)
--   [**Natal Chart Context**](context/natal_context.md)
--   [**Synastry Context**](context/synastry_context.md)
--   [**Composite Context**](context/composite_context.md)
--   [**Transit Context**](context/transit_context.md)
--   [**Solar Return Context**](context/solar_return_context.md)
--   [**Lunar Return Context**](context/lunar_return_context.md)
+-   [**Subject Context**](context/subject_context.md) ([Example](examples/subject_context.md))
+-   [**Now Context**](context/now_context.md) ([Example](examples/now_context.md))
+-   [**Natal Chart Context**](context/natal_context.md) ([Example](examples/natal_context.md))
+-   [**Synastry Context**](context/synastry_context.md) ([Example](examples/synastry_context.md))
+-   [**Composite Context**](context/composite_context.md) ([Example](examples/composite_context.md))
+-   [**Transit Context**](context/transit_context.md) ([Example](examples/transit_context.md))
+-   [**Solar Return Context**](context/solar_return_context.md) ([Example](examples/solar_return_context.md))
+-   [**Lunar Return Context**](context/lunar_return_context.md) ([Example](examples/lunar_return_context.md))
 
 ---
 
