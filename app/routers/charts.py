@@ -4,12 +4,14 @@ Chart endpoints - SVG rendering.
 All endpoints that return rendered SVG charts via /api/v5/chart/*.
 """
 
+from datetime import datetime, timezone
 from logging import getLogger
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 
 from ..types.request_models import (
     BirthChartRequestModel,
+    NowChartRequestModel,
     SynastryChartRequestModel,
     CompositeChartRequestModel,
     TransitChartRequestModel,
@@ -27,10 +29,83 @@ from ..utils.router_utils import (
     create_composite_chart_data,
     create_transit_chart_data,
     handle_exception,
+    resolve_active_points,
+    resolve_active_aspects,
 )
+from ..utils.get_time_from_google import get_time_from_google
+from kerykeion import AstrologicalSubjectFactory, ChartDataFactory
 
 logger = getLogger(__name__)
 router = APIRouter()
+
+
+@router.post("/api/v5/now/chart", response_model=ChartResponseModel)
+async def now_chart(request_body: NowChartRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/now/chart`
+
+    Returns chart data and SVG for the current UTC time at Greenwich.
+
+    **Parameters:**
+    - `name`, configuration, rendering options
+
+    **Returns:**
+    - `status`: "OK"
+    - `chart_data`: ChartDataModel
+    - `chart`: SVG (or `chart_wheel` + `chart_grid`)
+    """
+    logger.info(f"{request.url}: Current time chart request")
+    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+
+    try:
+        try:
+            utc_datetime = get_time_from_google()
+        except Exception as time_exc:  # pragma: no cover - fallback path
+            logger.warning("Falling back to system UTC time: %s", time_exc)
+            utc_datetime = datetime.now(timezone.utc)
+
+        subject = AstrologicalSubjectFactory.from_birth_data(
+            name=request_body.name,
+            year=utc_datetime.year,  # type: ignore[arg-type]
+            month=utc_datetime.month,  # type: ignore[arg-type]
+            day=utc_datetime.day,  # type: ignore[arg-type]
+            hour=utc_datetime.hour,  # type: ignore[arg-type]
+            minute=utc_datetime.minute,  # type: ignore[arg-type]
+            seconds=utc_datetime.second,  # type: ignore[arg-type]
+            city="Greenwich",
+            nation="GB",
+            lng=-0.001545,
+            lat=51.477928,
+            tz_str="Etc/UTC",
+            online=False,
+            zodiac_type=request_body.zodiac_type,
+            sidereal_mode=request_body.sidereal_mode,
+            perspective_type=request_body.perspective_type,
+            houses_system_identifier=request_body.houses_system_identifier,
+            active_points=resolve_active_points(request_body.active_points),
+            suppress_geonames_warning=True,
+        )
+
+        chart_data = ChartDataFactory.create_natal_chart_data(
+            subject=subject,
+            active_aspects=resolve_active_aspects(request_body.active_aspects),
+            distribution_method=request_body.distribution_method,
+            custom_distribution_weights=request_body.custom_distribution_weights,
+        )
+
+        payload = chart_payload(
+            chart_data,
+            request_body.theme,
+            request_body.language,
+            request_body.split_chart,
+            request_body.transparent_background,
+            request_body.show_house_position_comparison,
+            request_body.custom_title,
+        )
+        return JSONResponse(content=payload, status_code=200)
+
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/chart/birth-chart", response_model=ChartResponseModel)

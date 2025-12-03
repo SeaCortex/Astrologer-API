@@ -38,10 +38,10 @@ app = FastAPI(
 # Routers 
 #------------------------------------------------------------------------------
 
-app.include_router(misc.router, tags=["Miscellaneous"])
 app.include_router(charts.router, tags=["Charts"])
 app.include_router(data.router, tags=["Chart Data"])
 app.include_router(context.router, tags=["AI Context"])
+app.include_router(misc.router, tags=["Miscellaneous"])
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
