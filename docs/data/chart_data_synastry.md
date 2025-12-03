@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart-data/synastry`
 
+> **📘 [View Complete Example](../examples/synastry_chart_data.md)**
+
 This endpoint calculates the synastry (relationship) data between two subjects. It returns the positions for both subjects and the inter-aspects between them.
 
 ### Request Body

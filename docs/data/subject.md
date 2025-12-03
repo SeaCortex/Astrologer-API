@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/subject`
 
+> **📘 [View Complete Example](../examples/subject.md)**
+
 This endpoint allows you to create an astrological subject object from raw birth data. It performs all necessary astronomical calculations (ephemeris) to determine the positions of planets, houses, and other astrological points for the given time and location.
 
 The returned `AstrologicalSubjectModel` contains all the calculated data required to generate charts or perform further analysis. This endpoint is useful when you need the raw calculated data without generating a visual chart.

@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/now/context`
 
+> **📘 [View Complete Example](../examples/now_context.md)**
+
 Generates an AI-powered astrological interpretation for the **current moment** (UTC). This is ideal for "Daily Horoscope", "Current Sky", or "Astrological Weather" features, providing a real-time textual snapshot of the planetary atmosphere.
 
 It automatically calculates the positions of celestial bodies for "now" and generates a descriptive context.

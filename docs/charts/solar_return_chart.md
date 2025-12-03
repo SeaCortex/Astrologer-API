@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart/solar-return`
 
+> **📘 [View Complete Example](../examples/solar_return_chart_svg.md)**
+
 Generates a Solar Return chart SVG. Can be a single wheel (return only) or dual wheel (natal + return).
 
 ### Request Body

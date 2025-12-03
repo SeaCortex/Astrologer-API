@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart/composite`
 
+> **📘 [View Complete Example](../examples/composite_chart_svg.md)**
+
 Generates a composite chart SVG. This is a single wheel chart representing the midpoint relationship.
 
 ### Request Body

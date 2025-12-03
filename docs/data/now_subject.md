@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/now/subject`
 
+> **📘 [View Complete Example](../examples/now_subject.md)**
+
 This endpoint generates an astrological subject for the **current moment** (UTC). It is essentially a "real-time" astrology calculator. It automatically fetches the current time and sets the location to Greenwich (UTC reference) to provide a universal "now" perspective.
 
 This is useful for:

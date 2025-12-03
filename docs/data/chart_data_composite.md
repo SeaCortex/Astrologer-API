@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart-data/composite`
 
+> **📘 [View Complete Example](../examples/composite_chart_data.md)**
+
 This endpoint calculates the composite chart for two subjects. A composite chart is a single chart derived from the midpoints of the two subjects' planetary positions. It represents the "relationship itself" as a third entity.
 
 ### Request Body

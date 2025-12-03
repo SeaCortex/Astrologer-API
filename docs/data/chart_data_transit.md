@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart-data/transit`
 
+> **📘 [View Complete Example](../examples/transit_chart_data.md)**
+
 This endpoint calculates the transits for a specific subject at a specific time. It compares the natal chart (inner wheel) with the transit chart (outer wheel, current sky).
 
 ### Request Body

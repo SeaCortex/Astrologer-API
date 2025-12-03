@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/context/subject`
 
+> **📘 [View Complete Example](../examples/subject_context.md)**
+
 Generates an AI-powered astrological interpretation based on a subject's birth data. This endpoint provides a textual analysis of the subject's key astrological placements, suitable for generating horoscopes, personality insights, or character descriptions.
 
 It uses a Large Language Model (LLM) to synthesize the astrological data into a coherent, human-readable narrative.

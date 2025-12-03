@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart-data/lunar-return`
 
+> **📘 [View Complete Example](../examples/lunar_return_chart_data.md)**
+
 Calculates the Lunar Return chart for a given month/year. The Lunar Return occurs when the Moon returns to the exact same position as in the natal chart (happens every ~27 days).
 
 ### Request Body

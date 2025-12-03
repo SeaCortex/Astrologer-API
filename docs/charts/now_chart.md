@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/now/chart`
 
+> **📘 [View Complete Example](../examples/now_chart_svg.md)**
+
 This endpoint generates a visual chart (SVG) for the **current moment** (UTC at Greenwich). It is useful for displaying the current state of the sky in a visual format.
 
 ### Request Body

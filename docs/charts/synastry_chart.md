@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart/synastry`
 
+> **📘 [View Complete Example](../examples/synastry_chart_svg.md)**
+
 Generates a dual-wheel synastry chart SVG. The first subject is placed on the inner wheel, and the second subject on the outer wheel.
 
 ### Request Body

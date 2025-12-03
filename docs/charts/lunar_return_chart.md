@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart/lunar-return`
 
+> **📘 [View Complete Example](../examples/lunar_return_chart_svg.md)**
+
 Generates a Lunar Return chart SVG.
 
 ### Request Body

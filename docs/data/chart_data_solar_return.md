@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart-data/solar-return`
 
+> **📘 [View Complete Example](../examples/solar_return_chart_data.md)**
+
 Calculates the Solar Return chart for a given year. The Solar Return occurs when the Sun returns to the exact same position (longitude) as in the natal chart.
 
 ### Request Body

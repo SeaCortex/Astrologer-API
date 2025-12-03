@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/context/birth-chart`
 
+> **📘 [View Complete Example](../examples/natal_context.md)**
+
 Generates an AI-powered interpretation of a full natal chart. Unlike the simple subject context, this endpoint analyzes the complete chart data, including house systems and aspects, providing a deeper and more comprehensive reading of the birth chart's dynamics.
 
 ### Request Body

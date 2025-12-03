@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart/transit`
 
+> **📘 [View Complete Example](../examples/transit_chart_svg.md)**
+
 Generates a transit chart SVG (dual wheel). Inner wheel is the natal chart, outer wheel is the transit chart.
 
 ### Request Body

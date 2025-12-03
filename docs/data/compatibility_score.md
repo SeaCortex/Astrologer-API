@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/compatibility-score`
 
+> **📘 [View Complete Example](../examples/compatibility_score.md)**
+
 This endpoint calculates a compatibility score (Synastry) between two subjects based on Ciro Discepolo's method. It evaluates the astrological aspects between the planets of the two subjects to determine a numerical score and a qualitative description of the relationship potential.
 
 It also checks for "Destiny Signs" relationships (e.g., same Sun sign, or specific complementary signs).

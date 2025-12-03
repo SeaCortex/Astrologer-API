@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/context/lunar-return`
 
+> **📘 [View Complete Example](../examples/lunar_return_context.md)**
+
 Generates an AI-powered interpretation of a Lunar Return chart. The Lunar Return occurs roughly every 28 days when the Moon returns to its exact natal position. This chart is used to forecast the emotional themes and events for the coming month.
 
 ### Request Body

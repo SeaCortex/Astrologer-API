@@ -2,6 +2,8 @@
 
 ## `POST /api/v5/chart/birth-chart`
 
+> **📘 [View Complete Example](../examples/natal_chart_svg.md)**
+
 This endpoint generates a visual birth chart (SVG) along with the calculated astrological data. It supports various customization options for the chart's appearance.
 
 ### Request Body
