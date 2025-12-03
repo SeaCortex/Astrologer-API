@@ -4,7 +4,25 @@
 
 > **📘 [View Complete Example](../examples/composite_chart_svg.md)**
 
-Generates a composite chart SVG. This is a single wheel chart representing the midpoint relationship.
+This endpoint generates a **composite chart** as a single-wheel SVG visualization. Unlike synastry (which compares two separate charts), a composite chart creates a completely new chart by calculating the mathematical midpoints between the two subjects' planetary positions. This resulting chart represents the relationship itself as a unique entity.
+
+**Key Concept**:
+The composite chart answers the question: "What is the nature of _this_ relationship?" rather than "How do these two people interact?" It symbolizes the relationship's purpose, destiny, and core characteristics.
+
+**Calculation Method**:
+
+-   Each planet's position is the midpoint between the two subjects' corresponding planets
+-   House cusps are similarly calculated from midpoints
+-   The result is a standalone chart representing the relationship's "soul"
+
+**Use cases:**
+
+-   **Relationship Purpose Analysis**: Understand the deeper meaning and mission of a partnership
+-   **Couple's Counseling**: Explore the relationship's inherent strengths and challenges
+-   **Business Ventures**: Analyze the potential and character of a partnership
+-   **Long-term Forecasting**: See how the relationship evolves through transits to the composite chart
+
+The composite chart is particularly valuable for committed relationships, as it provides insights that synastry alone cannot reveal. It's considered essential reading for couples seeking to understand their union's spiritual and practical dimensions.
 
 ### Request Body
 

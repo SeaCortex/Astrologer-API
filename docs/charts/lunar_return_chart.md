@@ -4,7 +4,44 @@
 
 > **📘 [View Complete Example](../examples/lunar_return_chart_svg.md)**
 
-Generates a Lunar Return chart SVG.
+This endpoint generates a **Lunar Return chart**, a monthly predictive chart that occurs when the transiting Moon returns to the exact position of your natal Moon (approximately every 27.3 days). While less commonly known than Solar Returns, Lunar Returns are powerful tools for understanding monthly emotional rhythms and short-term forecasting.
+
+The Lunar Return chart is valid for approximately one month and reveals:
+
+-   Emotional themes and inner experiences
+-   Domestic and family matters
+-   Health and daily routines
+-   Short-term opportunities and challenges
+-   Public reception and popularity fluctuations
+
+**Chart Options**:
+
+-   **Dual Wheel** (default): Shows natal chart (inner) and lunar return (outer)
+-   **Single Wheel**: Shows only the lunar return chart
+
+**Key Differences from Solar Returns**:
+
+-   **Frequency**: Monthly instead of yearly
+-   **Focus**: Emotional/domestic vs. major life themes
+-   **Duration**: ~27 days vs. 1 year
+-   **Interpretation**: More fluid and subtle; reflects inner states and immediate environment
+
+**Use cases:**
+
+-   **Monthly Planning**: Understand the emotional tone of each lunar cycle
+-   **Timing Short-term Events**: Choose optimal dates within the month
+-   **Emotional Forecasting**: Anticipate mood shifts and inner needs
+-   **Complementing Solar Returns**: Add monthly detail to yearly forecasts
+-   **Women's Health**: Particularly useful for understanding monthly cycles and fertility patterns
+
+**Best Practices**:
+
+-   Track several consecutive Lunar Returns to see patterns
+-   Pay special attention to the Lunar Return Ascendant and Moon's house placement
+-   Note which natal house is activated by the Lunar Return Ascendant
+-   Consider Lunar Returns alongside transits for comprehensive timing
+
+This chart type is especially valued by astrologers who work with clients on an ongoing basis, providing monthly check-ins and guidance.
 
 ### Request Body
 

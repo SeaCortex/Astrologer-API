@@ -4,7 +4,23 @@
 
 > **📘 [View Complete Example](../examples/natal_chart_svg.md)**
 
-This endpoint generates a visual birth chart (SVG) along with the calculated astrological data. It supports various customization options for the chart's appearance.
+This endpoint generates a **visual birth chart** (natal chart) as an SVG image, along with the complete calculated astrological data. A birth chart is a snapshot of the sky at the exact moment and location of a person's birth, showing the positions of planets, houses, and astrological points.
+
+The returned SVG is a professional-quality chart wheel that can be:
+
+-   Embedded directly in web pages or mobile apps
+-   Downloaded and printed
+-   Customized with themes (classic, dark, high contrast)
+-   Split into separate wheel and aspect grid components
+
+**Use cases:**
+
+-   Generating personalized birth charts for users
+-   Creating printable chart reports
+-   Building astrology reading applications
+-   Visualizing natal placements for interpretation
+
+The endpoint combines the power of precise astronomical calculations with beautiful visual rendering, making it ideal for both professional astrologers and hobbyists.
 
 ### Request Body
 

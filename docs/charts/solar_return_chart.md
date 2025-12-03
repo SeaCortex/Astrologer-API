@@ -4,7 +4,38 @@
 
 > **📘 [View Complete Example](../examples/solar_return_chart_svg.md)**
 
-Generates a Solar Return chart SVG. Can be a single wheel (return only) or dual wheel (natal + return).
+This endpoint generates a **Solar Return chart**, one of the most important timing techniques in predictive astrology. A Solar Return occurs annually when the transiting Sun returns to the exact degree, minute, and second of your natal Sun position - essentially, it's your true "astrological birthday."
+
+The Solar Return chart is valid for one full year (from one birthday to the next) and outlines the major themes, opportunities, and challenges you'll encounter during that solar year.
+
+**Chart Options**:
+
+-   **Dual Wheel** (default): Shows natal chart (inner) and solar return (outer) for comparison
+-   **Single Wheel**: Shows only the solar return chart
+
+**Relocation Feature**:
+The chart can be calculated for different locations, which is significant because:
+
+-   The chart is cast for the exact moment the Sun returns
+-   The location determines the Ascendant and house cusps
+-   Many astrologers relocate for their birthday to improve their Solar Return chart
+
+**Use cases:**
+
+-   **Annual Forecasting**: Preview the year ahead from birthday to birthday
+-   **Birthday Planning**: Choose where to spend your birthday for optimal chart positioning
+-   **Life Planning**: Understand which life areas will be emphasized this year
+-   **Professional Consultations**: Essential for any predictive astrology reading
+-   **Personal Review**: Reflect on patterns and themes as each solar year unfolds
+
+**Key Points to Analyze**:
+
+-   The Solar Return Ascendant and its ruler
+-   Planets in angular houses (1st, 4th, 7th, 10th) - these dominate the year
+-   Aspects between Solar Return planets and natal planets
+-   The house position of the Solar Return Sun
+
+This chart type is foundational for yearly planning and is widely used by professional astrologers worldwide.
 
 ### Request Body
 

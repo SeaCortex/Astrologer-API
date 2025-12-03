@@ -4,7 +4,32 @@
 
 > **📘 [View Complete Example](../examples/transit_chart_svg.md)**
 
-Generates a transit chart SVG (dual wheel). Inner wheel is the natal chart, outer wheel is the transit chart.
+This endpoint generates a **transit chart** as a dual-wheel SVG visualization, showing how current (or future) planetary positions interact with a person's natal chart. Transits are the foundation of predictive astrology, revealing timing for opportunities, challenges, and significant life events.
+
+The chart displays:
+
+-   **Inner Wheel**: The natal (birth) chart - the permanent foundation
+-   **Outer Wheel**: The transit chart - current or future planetary positions
+-   **Transit-to-Natal Aspects**: How transiting planets aspect natal planets and points
+
+**Key Concept**:
+Transits act like "cosmic weather" passing over your natal chart. A transiting planet activates specific areas of your life and natal potentials when it forms aspects to your natal planets.
+
+**Use cases:**
+
+-   **Personal Forecasting**: Predict important periods for career, relationships, health
+-   **Timing Decisions**: Choose optimal moments for major life changes
+-   **Understanding Current Events**: Gain perspective on why certain themes are emerging
+-   **Yearly Planning**: Map out the astrological landscape for the year ahead
+-   **Crisis Counseling**: Understand the astrological context of challenging periods
+
+**Common Transit Queries**:
+
+-   Saturn Return (ages ~29 and ~58): Major life restructuring
+-   Jupiter transits: Growth opportunities and expansion periods
+-   Outer planet transits (Uranus, Neptune, Pluto): Deep transformation cycles
+
+This is one of the most practically useful chart types, essential for anyone serious about timing and forecasting in astrology.
 
 ### Request Body
 

@@ -4,7 +4,24 @@
 
 > **📘 [View Complete Example](../examples/synastry_chart_svg.md)**
 
-Generates a dual-wheel synastry chart SVG. The first subject is placed on the inner wheel, and the second subject on the outer wheel.
+This endpoint generates a **synastry chart** (relationship compatibility chart) as a dual-wheel SVG visualization. Synastry is the astrological technique of comparing two birth charts to analyze relationship dynamics, compatibility, and potential challenges between two people.
+
+The chart displays:
+
+-   **Inner Wheel**: The first subject's natal chart
+-   **Outer Wheel**: The second subject's natal chart
+-   **Inter-Aspects**: The astrological aspects (connections) between the two charts
+-   **Optional House Comparison Table**: Shows how each person's planets fall into the other's houses
+
+**Use cases:**
+
+-   **Romantic Compatibility Analysis**: Evaluate relationship potential between partners
+-   **Business Partnerships**: Assess professional compatibility
+-   **Family Dynamics**: Understand parent-child or sibling relationships
+-   **Friendship Analysis**: Explore platonic connections
+-   **Coaching & Counseling**: Provide visual aids for relationship therapy
+
+The synastry chart reveals how two individuals interact on an energetic level, highlighting areas of harmony (trines, sextiles) and challenge (squares, oppositions). This is one of the most requested chart types in professional astrology practice.
 
 ### Request Body
 
