@@ -2,12 +2,16 @@
 
 ## `POST /api/v5/now/context`
 
-This endpoint returns an AI-optimized textual description for the **current moment** (UTC at Greenwich). It describes the current astrological atmosphere, useful for "Daily Horoscope" or "Current Vibes" features.
+Generates an AI-powered astrological interpretation for the **current moment** (UTC). This is ideal for "Daily Horoscope", "Current Sky", or "Astrological Weather" features, providing a real-time textual snapshot of the planetary atmosphere.
+
+It automatically calculates the positions of celestial bodies for "now" and generates a descriptive context.
 
 ### Request Body
 
--   **`name`** (string, optional): Name override.
--   **`zodiac_type`**, **`sidereal_mode`**, etc. (configuration).
+-   **`name`** (string, optional): A custom name for the context (e.g., "Today's Vibe"). Default: "Now".
+-   **`zodiac_type`** (string, optional): "Tropical" (default) or "Sidereal".
+-   **`sidereal_mode`** (string, optional): Required if `zodiac_type` is "Sidereal".
+-   **`houses_system_identifier`** (string, optional): House system code (default: "P").
 
 #### Complete Request Example
 
@@ -20,9 +24,9 @@ This endpoint returns an AI-optimized textual description for the **current mome
 
 ### Response Body
 
--   **`status`** (string): "OK".
--   **`subject_context`** (string): The generated text context.
--   **`subject`** (object): The calculated subject data.
+-   **`status`** (string): "OK" on success.
+-   **`subject_context`** (string): The generated AI text interpretation of the current sky.
+-   **`subject`** (object): The calculated subject data for the current moment.
 
 #### Complete Response Example
 
@@ -30,6 +34,21 @@ This endpoint returns an AI-optimized textual description for the **current mome
 {
   "status": "OK",
   "subject_context": "Current Atmosphere (Now): The Sun is in Scorpio...",
-  "subject": { ... }
+  "subject": {
+    "name": "Current Atmosphere",
+    "year": 2023,
+    "month": 10,
+    "day": 27,
+    "hour": 14,
+    "minute": 30,
+    "city": "Greenwich",
+    "nation": "GB",
+    "lng": -0.0015,
+    "lat": 51.4779,
+    "tz_str": "Etc/UTC",
+    "sun": { ... },
+    "moon": { ... }
+    // ... full subject data
+  }
 }
 ```

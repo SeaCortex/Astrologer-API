@@ -2,11 +2,11 @@
 
 ## `POST /api/v5/context/birth-chart`
 
-Returns AI-optimized context for a full natal chart, including chart data and SVG rendering.
+Generates an AI-powered interpretation of a full natal chart. Unlike the simple subject context, this endpoint analyzes the complete chart data, including house systems and aspects, providing a deeper and more comprehensive reading of the birth chart's dynamics.
 
 ### Request Body
 
--   **`subject`** (object, required): The subject.
+-   **`subject`** (object, required): The subject's birth data.
     ```json
     {
         "name": "Subject Name",
@@ -22,7 +22,7 @@ Returns AI-optimized context for a full natal chart, including chart data and SV
         "tz_str": "Europe/London"
     }
     ```
--   **`theme`**, **`language`**, etc. (rendering options).
+-   **`theme`**, **`language`**, etc. (rendering options, though this endpoint returns data/context, not SVG).
 
 #### Complete Request Example
 
@@ -47,18 +47,21 @@ Returns AI-optimized context for a full natal chart, including chart data and SV
 
 ### Response Body
 
--   **`status`** (string): "OK".
--   **`context`** (string): The AI context string.
--   **`chart_data`** (object): Chart data.
--   **`chart`** (string): SVG.
+-   **`status`** (string): "OK" on success.
+-   **`context`** (string): The generated AI text interpretation of the natal chart.
+-   **`chart_data`** (object): The complete calculated chart data.
 
 #### Complete Response Example
 
 ```json
 {
   "status": "OK",
-  "context": "Natal Chart Analysis for...",
-  "chart_data": { ... },
-  "chart": "<svg>...</svg>"
+  "context": "Natal Chart Analysis for Subject Name...\nThe Sun is in Capricorn...",
+  "chart_data": {
+    "subject": { ... },
+    "houses_list": [ ... ],
+    "aspects_list": [ ... ]
+    // ... full chart data
+  }
 }
 ```

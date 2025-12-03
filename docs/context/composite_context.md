@@ -2,7 +2,7 @@
 
 ## `POST /api/v5/context/composite`
 
-Returns AI-optimized context for a composite chart.
+Generates an AI-powered interpretation of a composite chart. A composite chart is a single chart calculated from the midpoints of two people's charts, representing the relationship itself as a third entity. This endpoint provides insights into the purpose, destiny, and core nature of the partnership.
 
 ### Request Body
 
@@ -75,18 +75,20 @@ Returns AI-optimized context for a composite chart.
 
 ### Response Body
 
--   **`status`** (string): "OK".
--   **`context`** (string): Composite chart analysis context.
--   **`chart_data`** (object): Composite data.
--   **`chart`** (string): SVG.
+-   **`status`** (string): "OK" on success.
+-   **`context`** (string): The generated AI text interpretation of the composite chart.
+-   **`chart_data`** (object): The complete calculated composite chart data.
 
 #### Complete Response Example
 
 ```json
 {
   "status": "OK",
-  "context": "Composite Chart Analysis...",
-  "chart_data": { ... },
-  "chart": "<svg>...</svg>"
+  "context": "Composite Chart Analysis...\nThe relationship has a Sun in the 7th House...",
+  "chart_data": {
+    "subject": { ... }, // Composite subject
+    "aspects_list": [ ... ]
+    // ... full composite data
+  }
 }
 ```

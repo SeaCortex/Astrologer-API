@@ -2,11 +2,11 @@
 
 ## `POST /api/v5/context/lunar-return`
 
-Returns AI-optimized context for a lunar return chart.
+Generates an AI-powered interpretation of a Lunar Return chart. The Lunar Return occurs roughly every 28 days when the Moon returns to its exact natal position. This chart is used to forecast the emotional themes and events for the coming month.
 
 ### Request Body
 
--   **`subject`** (object, required): Natal subject.
+-   **`subject`** (object, required): The Natal Subject.
     ```json
     {
         "name": "John Doe",
@@ -22,8 +22,9 @@ Returns AI-optimized context for a lunar return chart.
         "tz_str": "Europe/London"
     }
     ```
--   **`year`** (integer, required): Year.
--   **`month`** (integer, required): Month.
+-   **`year`** (integer, required): The year of the return.
+-   **`month`** (integer, required): The month of the return.
+-   **`return_location`** (object, optional): Relocation for the return.
 -   **`theme`**, etc.
 
 #### Complete Request Example
@@ -50,18 +51,21 @@ Returns AI-optimized context for a lunar return chart.
 
 ### Response Body
 
--   **`status`** (string): "OK".
--   **`context`** (string): Lunar return analysis context.
--   **`chart_data`** (object): Return data.
--   **`chart`** (string): SVG.
+-   **`status`** (string): "OK" on success.
+-   **`context`** (string): The generated AI text interpretation of the lunar return.
+-   **`chart_data`** (object): The complete calculated lunar return chart data.
 
 #### Complete Response Example
 
 ```json
 {
   "status": "OK",
-  "context": "Lunar Return Analysis...",
-  "chart_data": { ... },
-  "chart": "<svg>...</svg>"
+  "context": "Lunar Return Analysis for May 2024...\nThe Moon is in the 4th House...",
+  "chart_data": {
+    "natal_subject": { ... },
+    "return_subject": { ... },
+    "aspects_list": [ ... ]
+    // ... full return data
+  }
 }
 ```

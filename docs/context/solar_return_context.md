@@ -2,11 +2,11 @@
 
 ## `POST /api/v5/context/solar-return`
 
-Returns AI-optimized context for a solar return chart.
+Generates an AI-powered interpretation of a Solar Return chart. The Solar Return occurs once a year when the Sun returns to its exact natal position. This chart is used to forecast the themes and events for the year ahead (from one birthday to the next).
 
 ### Request Body
 
--   **`subject`** (object, required): Natal subject.
+-   **`subject`** (object, required): The Natal Subject.
     ```json
     {
         "name": "John Doe",
@@ -22,7 +22,8 @@ Returns AI-optimized context for a solar return chart.
         "tz_str": "Europe/London"
     }
     ```
--   **`year`** (integer, required): Return year.
+-   **`year`** (integer, required): The year for which to calculate the return (e.g., 2024 for the 2024-2025 birthday year).
+-   **`return_location`** (object, optional): Location where the subject spends their birthday (relocation).
 -   **`theme`**, etc.
 
 #### Complete Request Example
@@ -48,18 +49,21 @@ Returns AI-optimized context for a solar return chart.
 
 ### Response Body
 
--   **`status`** (string): "OK".
--   **`context`** (string): Solar return analysis context.
--   **`chart_data`** (object): Return data.
--   **`chart`** (string): SVG.
+-   **`status`** (string): "OK" on success.
+-   **`context`** (string): The generated AI text interpretation of the solar return.
+-   **`chart_data`** (object): The complete calculated solar return chart data.
 
 #### Complete Response Example
 
 ```json
 {
   "status": "OK",
-  "context": "Solar Return Analysis...",
-  "chart_data": { ... },
-  "chart": "<svg>...</svg>"
+  "context": "Solar Return Analysis for 2024...\nThe Ascendant of the return chart is in...",
+  "chart_data": {
+    "natal_subject": { ... },
+    "return_subject": { ... },
+    "aspects_list": [ ... ]
+    // ... full return data
+  }
 }
 ```

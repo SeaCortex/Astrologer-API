@@ -2,7 +2,9 @@
 
 ## `POST /api/v5/context/subject`
 
-This endpoint returns an AI-optimized textual description (context) for a given subject. It analyzes the subject's astrological data and provides a coherent summary suitable for feeding into an LLM or displaying to a user.
+Generates an AI-powered astrological interpretation based on a subject's birth data. This endpoint provides a textual analysis of the subject's key astrological placements, suitable for generating horoscopes, personality insights, or character descriptions.
+
+It uses a Large Language Model (LLM) to synthesize the astrological data into a coherent, human-readable narrative.
 
 ### Request Body
 
@@ -45,9 +47,9 @@ This endpoint returns an AI-optimized textual description (context) for a given 
 
 ### Response Body
 
--   **`status`** (string): "OK".
--   **`subject_context`** (string): The generated text context.
--   **`subject`** (object): The calculated subject data.
+-   **`status`** (string): "OK" on success.
+-   **`subject_context`** (string): The generated AI text interpretation.
+-   **`subject`** (object): The calculated subject data used for the interpretation.
 
 #### Complete Response Example
 
@@ -55,6 +57,22 @@ This endpoint returns an AI-optimized textual description (context) for a given 
 {
   "status": "OK",
   "subject_context": "Subject Name was born on ... The Sun is in Capricorn in the 10th House...",
-  "subject": { ... }
+  "subject": {
+    "name": "Subject Name",
+    "year": 1990,
+    "month": 1,
+    "day": 1,
+    "hour": 12,
+    "minute": 0,
+    "city": "London",
+    "nation": "GB",
+    "lng": -0.1278,
+    "lat": 51.5074,
+    "tz_str": "Europe/London",
+    "zodiac_type": "Tropical",
+    "sun": { ... },
+    "moon": { ... }
+    // ... full subject data
+  }
 }
 ```

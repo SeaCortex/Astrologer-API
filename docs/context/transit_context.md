@@ -2,11 +2,11 @@
 
 ## `POST /api/v5/context/transit`
 
-Returns AI-optimized context for a transit chart.
+Generates an AI-powered interpretation of a transit chart. This endpoint analyzes how the current (or future) positions of the planets affect a person's natal chart. It is essential for forecasting, understanding current life themes, and predictive astrology.
 
 ### Request Body
 
--   **`first_subject`** (object, required): Natal subject.
+-   **`first_subject`** (object, required): The Natal Subject (the person receiving the transits).
     ```json
     {
         "name": "Natal Subject",
@@ -22,7 +22,7 @@ Returns AI-optimized context for a transit chart.
         "tz_str": "Europe/London"
     }
     ```
--   **`transit_subject`** (object, required): Transit moment.
+-   **`transit_subject`** (object, required): The Transit Moment (the time and place of the event/now).
     ```json
     {
         "name": "Transit Moment",
@@ -75,18 +75,21 @@ Returns AI-optimized context for a transit chart.
 
 ### Response Body
 
--   **`status`** (string): "OK".
--   **`context`** (string): Transit analysis context.
--   **`chart_data`** (object): Transit data.
--   **`chart`** (string): SVG.
+-   **`status`** (string): "OK" on success.
+-   **`context`** (string): The generated AI text interpretation of the transits.
+-   **`chart_data`** (object): The complete calculated transit chart data.
 
 #### Complete Response Example
 
 ```json
 {
   "status": "OK",
-  "context": "Transit Analysis for...",
-  "chart_data": { ... },
-  "chart": "<svg>...</svg>"
+  "context": "Transit Analysis for Natal Subject...\nTransiting Jupiter is conjunct Natal Sun...",
+  "chart_data": {
+    "first_subject": { ... },
+    "second_subject": { ... }, // Transit subject
+    "aspects_list": [ ... ]
+    // ... full transit data
+  }
 }
 ```

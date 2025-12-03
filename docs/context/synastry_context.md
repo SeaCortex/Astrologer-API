@@ -2,11 +2,11 @@
 
 ## `POST /api/v5/context/synastry`
 
-Returns AI-optimized context for a synastry (relationship) chart.
+Generates an AI-powered interpretation of a synastry (relationship) chart. This endpoint analyzes the astrological compatibility and dynamics between two subjects, providing insights into their relationship strengths, challenges, and overall chemistry.
 
 ### Request Body
 
--   **`first_subject`** (object, required): First partner.
+-   **`first_subject`** (object, required): The first partner (Inner Wheel).
     ```json
     {
         "name": "Partner A",
@@ -22,7 +22,7 @@ Returns AI-optimized context for a synastry (relationship) chart.
         "tz_str": "Europe/London"
     }
     ```
--   **`second_subject`** (object, required): Second partner.
+-   **`second_subject`** (object, required): The second partner (Outer Wheel).
     ```json
     {
         "name": "Partner B",
@@ -75,18 +75,21 @@ Returns AI-optimized context for a synastry (relationship) chart.
 
 ### Response Body
 
--   **`status`** (string): "OK".
--   **`context`** (string): Synastry analysis context.
--   **`chart_data`** (object): Synastry data.
--   **`chart`** (string): SVG.
+-   **`status`** (string): "OK" on success.
+-   **`context`** (string): The generated AI text interpretation of the relationship.
+-   **`chart_data`** (object): The complete calculated synastry chart data.
 
 #### Complete Response Example
 
 ```json
 {
   "status": "OK",
-  "context": "Synastry Analysis between...",
-  "chart_data": { ... },
-  "chart": "<svg>...</svg>"
+  "context": "Synastry Analysis between Partner A and Partner B...\nPartner A's Sun is conjunct Partner B's Moon...",
+  "chart_data": {
+    "first_subject": { ... },
+    "second_subject": { ... },
+    "aspects_list": [ ... ]
+    // ... full synastry data
+  }
 }
 ```
