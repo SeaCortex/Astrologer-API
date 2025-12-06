@@ -61,3 +61,33 @@ def test_subject_missing_location_returns_422(client: TestClient):
     body = resp.json()
     assert isinstance(body.get("detail"), list) and body["detail"]
 
+
+def test_subject_respects_active_points(client: TestClient):
+    """Verifica che il parametro active_points venga correttamente applicato al subject."""
+    # Richiesta con active_points personalizzati (solo Sun, Moon, Ascendant, Spica)
+    custom_active_points = ["Sun", "Moon", "Ascendant", "Spica"]
+    resp = client.post(
+        "/api/v5/subject",
+        json={
+            "subject": deepcopy(ROME_SUBJECT),
+            "active_points": custom_active_points,
+        },
+    )
+    assert resp.status_code == 200
+    payload = resp.json()
+    assert payload["status"] == "OK"
+
+    subject = payload["subject"]
+    # active_points nel soggetto deve contenere esattamente quelli richiesti
+    # (l'ordine può variare perché Kerykeion riordina i punti internamente)
+    assert set(subject["active_points"]) == set(custom_active_points)
+    assert len(subject["active_points"]) == len(custom_active_points)
+
+    # Verifica che Spica abbia il campo position valorizzato
+    assert "spica" in subject
+    spica = subject["spica"]
+    assert isinstance(spica, dict)
+    assert "position" in spica
+    assert spica["position"] is not None
+    assert isinstance(spica["position"], (int, float))
+

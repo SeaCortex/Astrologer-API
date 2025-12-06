@@ -71,6 +71,25 @@ def test_subject_context(client: TestClient):
     assert keys.index("subject_context") < keys.index("subject")
 
 
+def test_subject_context_respects_active_points(client: TestClient):
+    """Verifica che il parametro active_points venga correttamente applicato in context/subject."""
+    custom_active_points = ["Sun", "Moon", "Ascendant", "Spica"]
+    resp = client.post(
+        "/api/v5/context/subject",
+        json={
+            "subject": deepcopy(BASE_SUBJECT),
+            "active_points": custom_active_points,
+        },
+    )
+    assert resp.status_code == 200
+    
+    body = resp.json()
+    assert body["status"] == "OK"
+    
+    # active_points nel soggetto deve corrispondere a quelli richiesti
+    assert body["subject"]["active_points"] == custom_active_points
+
+
 def test_now_context(client: TestClient):
     """Test /api/v5/now/context endpoint."""
     resp = client.post("/api/v5/now/context", json={"name": "Now Context Test"})

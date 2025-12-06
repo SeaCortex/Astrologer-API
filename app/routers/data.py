@@ -60,7 +60,8 @@ async def subject_data(birth_data_request: BirthDataRequestModel, request: Reque
     logger.debug(f"Request: {request.method} {request.url} Body: {birth_data_request.model_dump_json()}")
 
     try:
-        subject = build_subject(birth_data_request.subject)
+        active_points = resolve_active_points(birth_data_request.active_points)
+        subject = build_subject(birth_data_request.subject, active_points=active_points)
         return JSONResponse(content={"status": "OK", "subject": dump(subject)}, status_code=200)
 
     except Exception as exc:  # pragma: no cover - defensive
