@@ -87,7 +87,9 @@ def test_subject_context_respects_active_points(client: TestClient):
     assert body["status"] == "OK"
     
     # active_points nel soggetto deve corrispondere a quelli richiesti
-    assert body["subject"]["active_points"] == custom_active_points
+    # (l'ordine può variare perché Kerykeion riordina i punti internamente)
+    assert set(body["subject"]["active_points"]) == set(custom_active_points)
+    assert len(body["subject"]["active_points"]) == len(custom_active_points)
 
 
 def test_now_context(client: TestClient):

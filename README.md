@@ -453,9 +453,41 @@ Tip: For best accuracy, send actual coordinates when you can. Geonames is free u
 
 ## Troubleshooting
 
--   422 Unprocessable Entity: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title.
--   Timezone errors: Use a valid tz database name (e.g. "Europe/Rome").
--   Empty SVG or missing wheel/grid: Use `/chart/*` endpoints for rendering. `/chart-data/*` never return SVG.
+### Strict Input Validation
+
+The API enforces strict input validation and **does not allow extra fields** in requests. If you send a field that doesn't exist in the schema, you'll receive a 422 error with a helpful suggestion.
+
+### Common Field Name Mistakes
+
+| ❌ Wrong              | ✅ Correct                 | Notes                                                               |
+| --------------------- | -------------------------- | ------------------------------------------------------------------- |
+| `country`             | `nation`                   | Use 2-letter ISO 3166-1 alpha-2 code (e.g., "US", "GB")             |
+| `state`               | Include in `city`          | Write `"city": "Amherst, Massachusetts"` instead of separate fields |
+| `house_system`        | `houses_system_identifier` | Use single-letter identifier (e.g., "P" for Placidus)               |
+| `lat` / `lng` / `lon` | `latitude` / `longitude`   | Use full field names                                                |
+| `tz`                  | `timezone`                 | Use IANA timezone (e.g., "America/New_York")                        |
+
+### City and State Format
+
+**Important:** The `state` field does not exist. Include the state or region in the `city` field:
+
+```json
+{
+    "city": "Amherst, Massachusetts",
+    "nation": "US"
+}
+```
+
+This also applies to other administrative divisions:
+
+-   `"city": "Milan, Lombardy"` or just `"city": "Milan"`
+-   `"city": "Paris, Île-de-France"` or just `"city": "Paris"`
+
+### Other Common Issues
+
+-   **422 Unprocessable Entity**: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title.
+-   **Timezone errors**: Use a valid tz database name (e.g. "Europe/Rome").
+-   **Empty SVG or missing wheel/grid**: Use `/chart/*` endpoints for rendering. `/chart-data/*` never return SVG.
 
 ## Documentation
 

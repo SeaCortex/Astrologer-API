@@ -30,7 +30,7 @@ def test_natal_chart_data_rejects_theme():
     
     # Should return 422 Unprocessable Entity due to unexpected field
     assert response.status_code == 422
-    errors = response.json()["detail"]
+    errors = response.json()["errors"]
     assert any("theme" in str(error).lower() for error in errors)
 
 
@@ -57,7 +57,7 @@ def test_natal_chart_data_rejects_split_chart():
     
     # Should return 422 Unprocessable Entity due to unexpected field
     assert response.status_code == 422
-    errors = response.json()["detail"]
+    errors = response.json()["errors"]
     assert any("split_chart" in str(error).lower() for error in errors)
 
 
@@ -84,7 +84,7 @@ def test_natal_chart_data_rejects_transparent_background():
     
     # Should return 422 Unprocessable Entity due to unexpected field
     assert response.status_code == 422
-    errors = response.json()["detail"]
+    errors = response.json()["errors"]
     assert any("transparent_background" in str(error).lower() for error in errors)
 
 
@@ -110,7 +110,7 @@ def test_natal_chart_data_rejects_show_house_toggle():
     response = client.post("/api/v5/chart-data/birth-chart", json=payload)
 
     assert response.status_code == 422
-    errors = response.json()["detail"]
+    errors = response.json()["errors"]
     assert any("show_house_position_comparison" in str(error).lower() for error in errors)
 
 
@@ -136,7 +136,7 @@ def test_natal_chart_data_rejects_custom_title():
     response = client.post("/api/v5/chart-data/birth-chart", json=payload)
 
     assert response.status_code == 422
-    errors = response.json()["detail"]
+    errors = response.json()["errors"]
     assert any("custom_title" in str(error).lower() for error in errors)
 
 

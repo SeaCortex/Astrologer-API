@@ -59,7 +59,7 @@ def test_subject_missing_location_returns_422(client: TestClient):
     assert resp.status_code == 422
     # Dettagli di validazione presenti
     body = resp.json()
-    assert isinstance(body.get("detail"), list) and body["detail"]
+    assert isinstance(body.get("errors"), list) and body["errors"]
 
 
 def test_subject_respects_active_points(client: TestClient):

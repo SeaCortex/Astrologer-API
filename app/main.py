@@ -8,10 +8,12 @@ import logging.config
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError
 
 from .routers import misc, charts, data, context
 from .config.settings import settings
 from .middleware.secret_key_checker_middleware import SecretKeyCheckerMiddleware
+from .utils.validation_helpers import format_extra_field_error
 
 
 logging.config.dictConfig(settings.LOGGING_CONFIG)
@@ -42,6 +44,53 @@ app.include_router(charts.router, tags=["Charts"])
 app.include_router(data.router, tags=["Chart Data"])
 app.include_router(context.router, tags=["AI Context"])
 app.include_router(misc.router, tags=["Miscellaneous"])
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    """
+    Custom handler for validation errors that provides helpful suggestions
+    when users send incorrect field names.
+    """
+    enriched_errors = []
+    
+    for error in exc.errors():
+        error_type = error.get("type", "")
+        
+        # Check if this is an "extra fields not permitted" error
+        if error_type == "extra_forbidden":
+            # Get the field name from the location
+            location = error.get("loc", [])
+            if location:
+                field_name = str(location[-1])
+                enriched_message = format_extra_field_error(field_name, list(location))
+                enriched_errors.append({
+                    "loc": location,
+                    "msg": enriched_message,
+                    "type": error_type,
+                })
+                continue
+        
+        # For other errors, sanitize the error to be JSON serializable
+        # Remove 'ctx' which may contain non-serializable objects like ValueError
+        sanitized_error = {
+            "loc": error.get("loc"),
+            "msg": error.get("msg"),
+            "type": error_type,
+        }
+        enriched_errors.append(sanitized_error)
+    
+    logging.warning(f"Validation error on {request.url}: {enriched_errors}")
+    
+    return JSONResponse(
+        status_code=422,
+        content={
+            "status": "ERROR",
+            "message": "Validation failed",
+            "errors": enriched_errors,
+        },
+    )
+
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):

@@ -28,6 +28,8 @@ DistributionMethod = Literal["weighted", "pure_count"]
 class AbstractBaseSubjectModel(BaseModel, ABC):
     """Shared subject fields used across requests."""
 
+    model_config = {"extra": "forbid"}
+
     year: int = Field(description="Year component of the event.", ge=1800, le=2300, examples=[1980])
     month: int = Field(description="Month component of the event.", ge=1, le=12, examples=[12])
     day: int = Field(description="Day component of the event.", ge=1, le=31, examples=[12])
@@ -126,6 +128,8 @@ class AbstractBaseSubjectModel(BaseModel, ABC):
 class SubjectModel(AbstractBaseSubjectModel):
     """Subject definition used across most endpoints."""
 
+    model_config = {"extra": "forbid"}
+
     name: str = Field(description="Display name for the subject.", examples=["John Doe"])
     zodiac_type: Optional[ZodiacType] = Field(
         default="Tropical",
@@ -177,6 +181,8 @@ class SubjectModel(AbstractBaseSubjectModel):
 
 class TransitSubjectModel(AbstractBaseSubjectModel):
     """Transit subject definition; inherits base validators."""
+
+    model_config = {"extra": "forbid"}
 
     name: Optional[str] = Field(default="Transit", description="Label used for the transit subject.")
 
@@ -331,6 +337,8 @@ class TransitChartDataRequestModel(ChartDataConfigurationMixin):
 class NowSubjectDefinitionModel(BaseModel):
     """Configuration for the 'now' subject (name, zodiac, etc.)."""
 
+    model_config = {"extra": "forbid"}
+
     name: str = Field(default="Now", description="Display name for the subject.")
     zodiac_type: Optional[ZodiacType] = Field(
         default="Tropical",
@@ -400,6 +408,8 @@ class BirthDataRequestModel(ChartDataConfigurationMixin):
 class RelationshipScoreRequestModel(BaseModel):
     """Request payload for the relationship score endpoint."""
 
+    model_config = {"extra": "forbid"}
+
     first_subject: SubjectModel = Field(description="Primary subject for the relationship score.")
     second_subject: SubjectModel = Field(description="Secondary subject for the relationship score.")
     active_points: Optional[list[Union[Planet, AxialCusps]]] = Field(
@@ -417,6 +427,8 @@ class RelationshipScoreRequestModel(BaseModel):
 class SynastryAspectsRequestModel(BaseModel):
     """Request payload for synastry aspects without chart rendering."""
 
+    model_config = {"extra": "forbid"}
+
     first_subject: SubjectModel = Field(description="Primary subject for synastry aspects.")
     second_subject: SubjectModel = Field(description="Secondary subject for synastry aspects.")
     active_points: Optional[list[Union[Planet, AxialCusps]]] = Field(
@@ -433,6 +445,8 @@ class SynastryAspectsRequestModel(BaseModel):
 
 class NatalAspectsRequestModel(BaseModel):
     """Request payload for natal aspects without chart rendering."""
+
+    model_config = {"extra": "forbid"}
 
     subject: SubjectModel = Field(description="Subject used for natal aspects.")
     active_points: Optional[list[Union[Planet, AxialCusps]]] = Field(
@@ -463,6 +477,8 @@ class CompositeChartDataRequestModel(ChartDataConfigurationMixin):
 
 class ReturnLocationModel(BaseModel):
     """Optional location override for planetary return calculations."""
+
+    model_config = {"extra": "forbid"}
 
     city: Optional[str] = Field(default=None, description="Target city for the return chart.")
     nation: Optional[str] = Field(
