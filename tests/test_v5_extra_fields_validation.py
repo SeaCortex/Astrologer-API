@@ -38,9 +38,9 @@ class TestExtraFieldsRejection:
     def test_extra_field_in_subject_returns_422(self, client: TestClient) -> None:
         """Extra fields in subject should return 422 error."""
         payload = {"subject": {**deepcopy(VALID_SUBJECT), "unknown_field": "value"}}
-        
+
         response = client.post("/api/v5/subject", json=payload)
-        
+
         assert response.status_code == 422
         body = response.json()
         assert body["status"] == "ERROR"
@@ -52,13 +52,13 @@ class TestExtraFieldsRejection:
         subject_with_country = deepcopy(VALID_SUBJECT)
         subject_with_country["country"] = "United States"
         payload = {"subject": subject_with_country}
-        
+
         response = client.post("/api/v5/subject", json=payload)
-        
+
         assert response.status_code == 422
         body = response.json()
         assert body["status"] == "ERROR"
-        
+
         # Check that the error message suggests 'nation' as correction
         error_messages = [str(error.get("msg", "")) for error in body.get("errors", [])]
         assert any("nation" in msg for msg in error_messages), f"Expected 'nation' suggestion in {error_messages}"
@@ -68,13 +68,13 @@ class TestExtraFieldsRejection:
         subject_with_state = deepcopy(VALID_SUBJECT)
         subject_with_state["state"] = "Massachusetts"
         payload = {"subject": subject_with_state}
-        
+
         response = client.post("/api/v5/subject", json=payload)
-        
+
         assert response.status_code == 422
         body = response.json()
         assert body["status"] == "ERROR"
-        
+
         # Check that the error message suggests 'city' as correction
         error_messages = [str(error.get("msg", "")) for error in body.get("errors", [])]
         assert any("city" in msg for msg in error_messages), f"Expected 'city' suggestion in {error_messages}"
@@ -84,12 +84,12 @@ class TestExtraFieldsRejection:
         subject_with_house_system = deepcopy(VALID_SUBJECT)
         subject_with_house_system["house_system"] = "K"
         payload = {"subject": subject_with_house_system}
-        
+
         response = client.post("/api/v5/subject", json=payload)
-        
+
         assert response.status_code == 422
         body = response.json()
-        
+
         error_messages = [str(error.get("msg", "")) for error in body.get("errors", [])]
         assert any("houses_system_identifier" in msg for msg in error_messages), f"Expected 'houses_system_identifier' suggestion in {error_messages}"
 
@@ -99,12 +99,12 @@ class TestExtraFieldsRejection:
         subject_with_short_coords["lat"] = 42.37
         subject_with_short_coords["lng"] = -72.52
         payload = {"subject": subject_with_short_coords}
-        
+
         response = client.post("/api/v5/subject", json=payload)
-        
+
         assert response.status_code == 422
         body = response.json()
-        
+
         error_messages = [str(error.get("msg", "")) for error in body.get("errors", [])]
         assert any("latitude" in msg for msg in error_messages), f"Expected 'latitude' suggestion in {error_messages}"
         assert any("longitude" in msg for msg in error_messages), f"Expected 'longitude' suggestion in {error_messages}"
@@ -116,9 +116,9 @@ class TestValidRequestsStillWork:
     def test_valid_subject_request_succeeds(self, client: TestClient) -> None:
         """A properly formatted request should succeed."""
         payload = {"subject": deepcopy(VALID_SUBJECT)}
-        
+
         response = client.post("/api/v5/subject", json=payload)
-        
+
         assert response.status_code == 200
         body = response.json()
         assert body["status"] == "OK"
@@ -127,9 +127,9 @@ class TestValidRequestsStillWork:
     def test_valid_birth_chart_request_succeeds(self, client: TestClient) -> None:
         """Birth chart with valid subject should succeed."""
         payload = {"subject": deepcopy(VALID_SUBJECT)}
-        
+
         response = client.post("/api/v5/chart-data/birth-chart", json=payload)
-        
+
         assert response.status_code == 200
         body = response.json()
         assert body["status"] == "OK"
@@ -145,13 +145,13 @@ class TestMultipleExtraFields:
         subject_with_multiple_extras["state"] = "Massachusetts"
         subject_with_multiple_extras["unknown"] = "value"
         payload = {"subject": subject_with_multiple_extras}
-        
+
         response = client.post("/api/v5/subject", json=payload)
-        
+
         assert response.status_code == 422
         body = response.json()
         errors = body.get("errors", [])
-        
+
         # All three extra fields should be mentioned
         all_errors_str = str(errors)
         assert "country" in all_errors_str
@@ -169,9 +169,9 @@ class TestExtraFieldsInDifferentModels:
             "second_subject": deepcopy(VALID_SUBJECT),
         }
         payload["second_subject"]["name"] = "Second Subject"
-        
+
         response = client.post("/api/v5/chart-data/synastry", json=payload)
-        
+
         assert response.status_code == 422
 
     def test_extra_field_in_transit_subject(self, client: TestClient) -> None:
@@ -192,9 +192,9 @@ class TestExtraFieldsInDifferentModels:
             "first_subject": deepcopy(VALID_SUBJECT),
             "transit_subject": transit_subject,
         }
-        
+
         response = client.post("/api/v5/chart-data/transit", json=payload)
-        
+
         assert response.status_code == 422
 
     def test_extra_field_at_request_level(self, client: TestClient) -> None:
@@ -203,7 +203,7 @@ class TestExtraFieldsInDifferentModels:
             "subject": deepcopy(VALID_SUBJECT),
             "not_a_valid_option": True,
         }
-        
+
         response = client.post("/api/v5/chart-data/birth-chart", json=payload)
-        
+
         assert response.status_code == 422

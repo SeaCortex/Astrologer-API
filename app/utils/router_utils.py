@@ -51,10 +51,10 @@ GEONAMES_ERROR_KEYWORDS = (
 def normalize_coordinate(value: Optional[float]) -> Optional[float]:
     """
     Normalize coordinate values to avoid zero division or other numerical issues.
-    
+
     Args:
         value (Optional[float]): The coordinate value to normalize.
-        
+
     Returns:
         Optional[float]: The normalized coordinate value, or None if input is None.
                          Values close to zero are adjusted to +/- 1e-6.
@@ -69,10 +69,10 @@ def normalize_coordinate(value: Optional[float]) -> Optional[float]:
 def dump(value):
     """
     Recursively dump Pydantic models to dictionaries.
-    
+
     Args:
         value: The value to dump (can be a Pydantic model, list, tuple, or primitive).
-        
+
     Returns:
         The dumped value as a dictionary or primitive type.
     """
@@ -88,10 +88,10 @@ def dump(value):
 def resolve_nation(value: Optional[str]) -> Optional[str]:
     """
     Resolve nation code to uppercase or None.
-    
+
     Args:
         value (Optional[str]): The nation code.
-        
+
     Returns:
         Optional[str]: The uppercase nation code, or None if input is invalid/null.
     """
@@ -103,10 +103,10 @@ def resolve_nation(value: Optional[str]) -> Optional[str]:
 def resolve_active_points(points: Optional[Sequence[str]]) -> list[str]:
     """
     Resolve active points, falling back to defaults if not provided.
-    
+
     Args:
         points (Optional[Sequence[str]]): List of active points.
-        
+
     Returns:
         list[str]: The resolved list of active points.
     """
@@ -118,10 +118,10 @@ def resolve_active_points(points: Optional[Sequence[str]]) -> list[str]:
 def resolve_active_aspects(aspects: Optional[Sequence[ActiveAspect]]) -> list[dict]:
     """
     Resolve active aspects, falling back to defaults if not provided.
-    
+
     Args:
         aspects (Optional[Sequence[ActiveAspect]]): List of active aspects.
-        
+
     Returns:
         list[dict]: The resolved list of active aspects as dictionaries.
     """
@@ -133,11 +133,11 @@ def resolve_active_aspects(aspects: Optional[Sequence[ActiveAspect]]) -> list[di
 def build_subject(subject_request: SubjectModel, *, active_points: Optional[Sequence[str]] = None) -> object:
     """
     Build an AstrologicalSubject instance from a request model.
-    
+
     Args:
         subject_request (SubjectModel): The subject data from the request.
         active_points (Optional[Sequence[str]]): Optional list of active points to override defaults.
-        
+
     Returns:
         AstrologicalSubject: The constructed astrological subject.
     """
@@ -173,12 +173,12 @@ def build_subject(subject_request: SubjectModel, *, active_points: Optional[Sequ
 def build_transit_subject(transit_request, reference_subject, *, active_points: Optional[Sequence[str]] = None) -> object:
     """
     Build a Transit Subject instance, inheriting settings from a reference subject.
-    
+
     Args:
         transit_request: The transit data request model.
         reference_subject: The reference (natal) subject to inherit settings from.
         active_points (Optional[Sequence[str]]): Optional list of active points.
-        
+
     Returns:
         AstrologicalSubject: The constructed transit subject.
     """
@@ -218,11 +218,13 @@ def render_chart(
     split_chart: bool = False,
     transparent_background: bool = False,
     show_house_position_comparison: bool = True,
+    show_cusp_position_comparison: bool = True,
+    show_degree_indicators: bool = True,
     custom_title: Optional[str] = None,
 ) -> dict:
     """
     Render chart(s) based on configuration.
-    
+
     Args:
         chart_data: The chart data object.
         theme (Optional[str]): The visual theme for the chart.
@@ -230,8 +232,10 @@ def render_chart(
         split_chart (bool): Whether to return separate wheel and grid SVGs.
         transparent_background (bool): Whether the chart background should be transparent.
         show_house_position_comparison (bool): Whether to show house comparison table.
+        show_cusp_position_comparison (bool): Whether to show cusp position comparison table (dual charts).
+        show_degree_indicators (bool): Whether to show radial lines and degree numbers for planets.
         custom_title (Optional[str]): Custom title for the chart.
-        
+
     Returns:
         dict: The complete payload with chart data and SVG strings.
     """
@@ -241,9 +245,11 @@ def render_chart(
         chart_language=language or "EN",
         transparent_background=transparent_background,
         show_house_position_comparison=show_house_position_comparison,
+        show_cusp_position_comparison=show_cusp_position_comparison,
+        show_degree_indicators=show_degree_indicators,
         custom_title=custom_title,
     )
-    
+
     if split_chart:
         return {
             "chart_wheel": drawer.generate_wheel_only_svg_string(minify=True),
@@ -256,10 +262,10 @@ def render_chart(
 def chart_data_payload(chart_data) -> dict:
     """
     Wrap chart data in a standard response payload.
-    
+
     Args:
         chart_data: The chart data object.
-        
+
     Returns:
         dict: The response payload containing status and dumped chart data.
     """
@@ -276,11 +282,13 @@ def chart_payload(
     split_chart: bool = False,
     transparent_background: bool = False,
     show_house_position_comparison: bool = True,
+    show_cusp_position_comparison: bool = True,
+    show_degree_indicators: bool = True,
     custom_title: Optional[str] = None,
 ) -> dict:
     """
     Generate a complete chart payload including data and rendered SVG(s).
-    
+
     Args:
         chart_data: The chart data object.
         theme (Optional[str]): The visual theme for the chart.
@@ -288,8 +296,10 @@ def chart_payload(
         split_chart (bool): Whether to return separate wheel and grid SVGs.
         transparent_background (bool): Whether the chart background should be transparent.
         show_house_position_comparison (bool): Whether to show house comparison table.
+        show_cusp_position_comparison (bool): Whether to show cusp position comparison table (dual charts).
+        show_degree_indicators (bool): Whether to show radial lines and degree numbers for planets.
         custom_title (Optional[str]): Custom title for the chart.
-        
+
     Returns:
         dict: The complete payload with chart data and SVG strings.
     """
@@ -301,6 +311,8 @@ def chart_payload(
         split_chart,
         transparent_background,
         show_house_position_comparison,
+        show_cusp_position_comparison,
+        show_degree_indicators,
         custom_title,
     )
     payload.update(charts)
@@ -310,10 +322,10 @@ def chart_payload(
 def subject_context_payload(subject) -> dict:
     """
     Wrap subject data with AI-optimized context in a standard response payload.
-    
+
     Args:
         subject: The astrological subject object.
-        
+
     Returns:
         dict: The response payload containing status, subject_context, and subject.
     """
@@ -327,10 +339,10 @@ def subject_context_payload(subject) -> dict:
 def context_payload(chart_data) -> dict:
     """
     Wrap chart data with AI-optimized context in a standard response payload.
-    
+
     Args:
         chart_data: The chart data object.
-        
+
     Returns:
         dict: The response payload containing status, context, and chart_data.
     """
@@ -344,24 +356,24 @@ def context_payload(chart_data) -> dict:
 async def handle_exception(exc: Exception, request: Request) -> JSONResponse:
     """
     Handle exceptions and return appropriate JSON responses.
-    
+
     Args:
         exc (Exception): The exception raised.
         request (Request): The incoming request object.
-        
+
     Returns:
         JSONResponse: The error response with appropriate status code and message.
     """
     message = str(exc).strip() or exc.__class__.__name__
-    
+
     # Log the complete request body for debugging
     try:
         body = await request.body()
-        body_str = body.decode('utf-8') if body else "Empty body"
+        body_str = body.decode("utf-8") if body else "Empty body"
         logger.error(f"{request.url}: {message} | Request body: {body_str}", exc_info=True)
     except Exception as body_exc:
         logger.error(f"{request.url}: {message} | Failed to read request body: {body_exc}", exc_info=True)
-    
+
     if any(keyword in message for keyword in GEONAMES_ERROR_KEYWORDS):
         return JSONResponse(
             content={
@@ -385,11 +397,11 @@ async def handle_exception(exc: Exception, request: Request) -> JSONResponse:
 def build_return_factory(natal_subject, request_body: Union[PlanetaryReturnRequestModel, PlanetaryReturnDataRequestModel]) -> PlanetaryReturnFactory:
     """
     Build a PlanetaryReturnFactory based on request parameters.
-    
+
     Args:
         natal_subject: The natal subject.
         request_body: The request body containing return location and settings.
-        
+
     Returns:
         PlanetaryReturnFactory: The factory instance for calculating returns.
     """
@@ -410,8 +422,13 @@ def build_return_factory(natal_subject, request_body: Union[PlanetaryReturnReque
                 altitude=location.altitude,
             )
 
-        logger.info("Building return factory with explicit coordinates (offline mode) for location: %s, %s (lat=%.4f, lng=%.4f)", 
-                    location.city or natal_subject.city, nation, location.latitude, location.longitude)
+        logger.info(
+            "Building return factory with explicit coordinates (offline mode) for location: %s, %s (lat=%.4f, lng=%.4f)",
+            location.city or natal_subject.city,
+            nation,
+            location.latitude,
+            location.longitude,
+        )
         return PlanetaryReturnFactory(
             natal_subject,
             city=location.city or natal_subject.city,
@@ -442,14 +459,14 @@ def calculate_return_chart_data(
 ):
     """
     Calculate return chart data (Solar or Lunar).
-    
+
     Args:
         request_body: The request body containing return parameters.
         return_type (str): The type of return ("Solar" or "Lunar").
-        
+
     Returns:
         The calculated chart data.
-        
+
     Raises:
         KerykeionException: If required parameters (year/month) are missing.
     """
@@ -495,10 +512,10 @@ def calculate_return_chart_data(
 def create_natal_chart_data(request_body: Union[BirthChartRequestModel, BirthChartDataRequestModel]):
     """
     Create natal chart data from request.
-    
+
     Args:
         request_body: The request body containing subject and calculation parameters.
-        
+
     Returns:
         The calculated natal chart data.
     """
@@ -518,10 +535,10 @@ def create_natal_chart_data(request_body: Union[BirthChartRequestModel, BirthCha
 def create_synastry_chart_data(request_body: Union[SynastryChartRequestModel, SynastryChartDataRequestModel]):
     """
     Create synastry chart data from request.
-    
+
     Args:
         request_body: The request body containing two subjects and calculation parameters.
-        
+
     Returns:
         The calculated synastry chart data.
     """
@@ -545,10 +562,10 @@ def create_synastry_chart_data(request_body: Union[SynastryChartRequestModel, Sy
 def create_transit_chart_data(request_body: Union[TransitChartRequestModel, TransitChartDataRequestModel]):
     """
     Create transit chart data from request.
-    
+
     Args:
         request_body: The request body containing natal subject, transit subject, and parameters.
-        
+
     Returns:
         The calculated transit chart data.
     """
@@ -575,10 +592,10 @@ def create_transit_chart_data(request_body: Union[TransitChartRequestModel, Tran
 def create_composite_chart_data(request_body: Union[CompositeChartRequestModel, CompositeChartDataRequestModel]):
     """
     Create composite chart data from request.
-    
+
     Args:
         request_body: The request body containing two subjects and parameters.
-        
+
     Returns:
         The calculated composite chart data.
     """

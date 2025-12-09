@@ -100,6 +100,8 @@ async def now_chart(request_body: NowChartRequestModel, request: Request) -> JSO
             request_body.split_chart,
             request_body.transparent_background,
             request_body.show_house_position_comparison,
+            request_body.show_cusp_position_comparison,
+            request_body.show_degree_indicators,
             request_body.custom_title,
         )
         return JSONResponse(content=payload, status_code=200)
@@ -120,6 +122,8 @@ async def natal_chart(request_body: BirthChartRequestModel, request: Request) ->
     - `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)
     - `transparent_background`
     - `show_house_position_comparison` (hide the comparison table when false)
+    - `show_cusp_position_comparison` (hide the cusp comparison table when false, for dual charts)
+    - `show_degree_indicators` (hide radial lines and degree numbers when false)
     - `custom_title` (temporary title override, max 40 chars)
 
     **Returns:**
@@ -140,6 +144,8 @@ async def natal_chart(request_body: BirthChartRequestModel, request: Request) ->
             request_body.split_chart,
             request_body.transparent_background,
             request_body.show_house_position_comparison,
+            request_body.show_cusp_position_comparison,
+            request_body.show_degree_indicators,
             request_body.custom_title,
         )
         return JSONResponse(content=payload, status_code=200)
@@ -156,7 +162,7 @@ async def synastry_chart(request_body: SynastryChartRequestModel, request: Reque
 
     **Parameters:**
     - `theme`, `language`, `split_chart`, `transparent_background`
-    - `show_house_position_comparison`, `custom_title`
+    - `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
 
     **Returns:**
     - `chart` (or `chart_wheel` + `chart_grid` when split_chart=true)
@@ -174,6 +180,8 @@ async def synastry_chart(request_body: SynastryChartRequestModel, request: Reque
             request_body.split_chart,
             request_body.transparent_background,
             request_body.show_house_position_comparison,
+            request_body.show_cusp_position_comparison,
+            request_body.show_degree_indicators,
             request_body.custom_title,
         )
         return JSONResponse(content=payload, status_code=200)
@@ -189,7 +197,8 @@ async def composite_chart(request_body: CompositeChartRequestModel, request: Req
     Returns composite chart data and rendered SVG chart.
 
     **Parameters:**
-    - `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
+    - `theme`, `language`, `split_chart`, `transparent_background`
+    - `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
 
     **Returns:**
     - `chart` (or `chart_wheel` + `chart_grid`)
@@ -207,6 +216,8 @@ async def composite_chart(request_body: CompositeChartRequestModel, request: Req
             request_body.split_chart,
             request_body.transparent_background,
             request_body.show_house_position_comparison,
+            request_body.show_cusp_position_comparison,
+            request_body.show_degree_indicators,
             request_body.custom_title,
         )
         return JSONResponse(content=payload, status_code=200)
@@ -222,7 +233,8 @@ async def transit_chart(request_body: TransitChartRequestModel, request: Request
     Returns transit data and rendered SVG chart.
 
     **Parameters:**
-    - `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
+    - `theme`, `language`, `split_chart`, `transparent_background`
+    - `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
 
     **Returns:**
     - `chart` (or `chart_wheel` + `chart_grid`)
@@ -240,6 +252,8 @@ async def transit_chart(request_body: TransitChartRequestModel, request: Request
             request_body.split_chart,
             request_body.transparent_background,
             request_body.show_house_position_comparison,
+            request_body.show_cusp_position_comparison,
+            request_body.show_degree_indicators,
             request_body.custom_title,
         )
         return JSONResponse(content=payload, status_code=200)
@@ -255,7 +269,8 @@ async def solar_return_chart(request_body: PlanetaryReturnRequestModel, request:
     Returns solar return data and rendered SVG chart.
 
     **Parameters:**
-    - `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
+    - `theme`, `language`, `split_chart`, `transparent_background`
+    - `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
 
     **Returns:**
     - `return_type`: "Solar"
@@ -274,6 +289,8 @@ async def solar_return_chart(request_body: PlanetaryReturnRequestModel, request:
             request_body.split_chart,
             request_body.transparent_background,
             request_body.show_house_position_comparison,
+            request_body.show_cusp_position_comparison,
+            request_body.show_degree_indicators,
             request_body.custom_title,
         )
         payload["return_type"] = "Solar"
@@ -291,7 +308,8 @@ async def lunar_return_chart(request_body: PlanetaryReturnRequestModel, request:
     Returns lunar return data and rendered SVG chart.
 
     **Parameters:**
-    - `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
+    - `theme`, `language`, `split_chart`, `transparent_background`
+    - `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
 
     **Returns:**
     - `return_type`: "Lunar"
@@ -310,6 +328,8 @@ async def lunar_return_chart(request_body: PlanetaryReturnRequestModel, request:
             request_body.split_chart,
             request_body.transparent_background,
             request_body.show_house_position_comparison,
+            request_body.show_cusp_position_comparison,
+            request_body.show_degree_indicators,
             request_body.custom_title,
         )
         payload["return_type"] = "Lunar"

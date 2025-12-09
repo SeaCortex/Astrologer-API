@@ -25,4 +25,3 @@ def test_status_root(client: TestClient):
     assert body.get("status") == "OK"
     assert "environment" in body
     assert "debug" in body
-

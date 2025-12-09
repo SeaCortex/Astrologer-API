@@ -90,4 +90,3 @@ def test_subject_respects_active_points(client: TestClient):
     assert "position" in spica
     assert spica["position"] is not None
     assert isinstance(spica["position"], (int, float))
-

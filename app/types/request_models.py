@@ -47,7 +47,7 @@ _POINT_ALIASES: dict[str, str] = {
 
 def _normalize_point_name(name: str) -> str:
     """Normalize a point name to canonical format.
-    
+
     Examples:
         'chiron' -> 'Chiron'
         'MERCURY' -> 'Mercury'
@@ -132,9 +132,7 @@ class AbstractBaseSubjectModel(BaseModel, ABC):
     @classmethod
     def validate_timezone(cls, value: Optional[str]) -> Optional[str]:
         if value and value not in all_timezones:
-            raise ValueError(
-                f"Invalid timezone '{value}'. Please use a valid timezone from the IANA database."
-            )
+            raise ValueError(f"Invalid timezone '{value}'. Please use a valid timezone from the IANA database.")
         return value
 
     @field_validator("nation")
@@ -143,9 +141,7 @@ class AbstractBaseSubjectModel(BaseModel, ABC):
         if not value or value.lower() == "null":
             return "null"
         if len(value) != 2 or not value.isalpha():
-            raise ValueError(
-                f"Invalid nation code: '{value}'. It must be a 2-letter country code (ISO 3166-1 alpha-2)."
-            )
+            raise ValueError(f"Invalid nation code: '{value}'. It must be a 2-letter country code (ISO 3166-1 alpha-2).")
         return value.upper()
 
     @model_validator(mode="after")
@@ -262,17 +258,19 @@ class ChartDataConfigurationMixin(BaseModel):
     custom_distribution_weights: Optional[Mapping[str, float]] = Field(
         default=None,
         description="Custom weights used when distribution_method='weighted'.",
-        examples=[{
-            "sun": 2.0,
-            "moon": 2.0,
-            "ascendant": 2.0,
-            "medium_coeli": 1.5,
-            "mercury": 1.5,
-            "venus": 1.5,
-            "mars": 1.5,
-            "jupiter": 1.0,
-            "saturn": 1.0,
-        }],
+        examples=[
+            {
+                "sun": 2.0,
+                "moon": 2.0,
+                "ascendant": 2.0,
+                "medium_coeli": 1.5,
+                "mercury": 1.5,
+                "venus": 1.5,
+                "mars": 1.5,
+                "jupiter": 1.0,
+                "saturn": 1.0,
+            }
+        ],
     )
 
 
@@ -302,6 +300,14 @@ class ChartRenderingMixin(ChartDataConfigurationMixin):
     show_house_position_comparison: bool = Field(
         default=True,
         description="Display the house comparison table next to the chart wheel.",
+    )
+    show_cusp_position_comparison: bool = Field(
+        default=True,
+        description="Display the cusp position comparison table next to the chart wheel (for dual charts).",
+    )
+    show_degree_indicators: bool = Field(
+        default=True,
+        description="Display radial lines and degree numbers for planet positions on the chart wheel.",
     )
     custom_title: Optional[str] = Field(
         default=None,
@@ -421,13 +427,13 @@ class NowSubjectDefinitionModel(BaseModel):
 
         if sidereal_mode and zodiac_type != "Sidereal":
             raise ValueError("Set zodiac_type='Sidereal' when sidereal_mode is provided.")
-        
+
         if zodiac_type == "Sidereal" and not sidereal_mode:
-             # Optional: enforce sidereal_mode if zodiac_type is Sidereal, 
-             # or let it default if the backend handles it. 
-             # The original validator said: "sidereal_mode requires zodiac_type='Sidereal'"
-             # which implies the reverse check.
-             pass
+            # Optional: enforce sidereal_mode if zodiac_type is Sidereal,
+            # or let it default if the backend handles it.
+            # The original validator said: "sidereal_mode requires zodiac_type='Sidereal'"
+            # which implies the reverse check.
+            pass
 
         return self
 
@@ -444,11 +450,13 @@ class NowSubjectDefinitionModel(BaseModel):
 
 class NowChartRequestModel(NowSubjectDefinitionModel, ChartRenderingMixin):
     """Request payload for the 'now' chart endpoint (with SVG rendering)."""
+
     pass
 
 
 class NowSubjectRequestModel(NowSubjectDefinitionModel):
     """Request payload for the 'now' subject endpoint."""
+
     pass
 
 
@@ -587,9 +595,7 @@ class ReturnLocationModel(BaseModel):
     @classmethod
     def validate_timezone(cls, value: Optional[str]) -> Optional[str]:
         if value and value not in all_timezones:
-            raise ValueError(
-                f"Invalid timezone '{value}'. Please use a valid timezone from the IANA database."
-            )
+            raise ValueError(f"Invalid timezone '{value}'. Please use a valid timezone from the IANA database.")
         return value
 
     @field_validator("nation")
@@ -598,9 +604,7 @@ class ReturnLocationModel(BaseModel):
         if value is None:
             return value
         if len(value) != 2 or not value.isalpha():
-            raise ValueError(
-                f"Invalid nation code: '{value}'. It must be a 2-letter country code (ISO 3166-1 alpha-2)."
-            )
+            raise ValueError(f"Invalid nation code: '{value}'. It must be a 2-letter country code (ISO 3166-1 alpha-2).")
         return value.upper()
 
     @model_validator(mode="after")
@@ -613,17 +617,14 @@ class ReturnLocationModel(BaseModel):
         missing_coordinates = sum(field is None for field in (lat, lng, tz))
 
         if missing_coordinates == 3 and not geonames and not (self.city and self.nation):
-            raise ValueError(
-                "Provide latitude, longitude, timezone, or supply geonames_username with city and nation."
-            )
+            raise ValueError("Provide latitude, longitude, timezone, or supply geonames_username with city and nation.")
 
         if 0 < missing_coordinates < 3 and not geonames:
             raise ValueError("Provide all location fields (latitude, longitude, timezone) or geonames_username.")
 
         # If complete coordinates are provided, they take priority; clear geonames_username
         if missing_coordinates == 0 and geonames:
-            logger.info("Complete coordinates provided (lat=%.4f, lng=%.4f, tz=%s), ignoring geonames_username '%s'",
-                       lat, lng, tz, geonames)
+            logger.info("Complete coordinates provided (lat=%.4f, lng=%.4f, tz=%s), ignoring geonames_username '%s'", lat, lng, tz, geonames)
             self.geonames_username = None
 
         return self

@@ -26,12 +26,7 @@ def test_now_subject(client: TestClient):
 
 def test_now_subject_custom_config(client: TestClient):
     """Test custom configuration for now subject."""
-    payload = {
-        "name": "Custom Now",
-        "zodiac_type": "Sidereal",
-        "sidereal_mode": "LAHIRI",
-        "houses_system_identifier": "W"
-    }
+    payload = {"name": "Custom Now", "zodiac_type": "Sidereal", "sidereal_mode": "LAHIRI", "houses_system_identifier": "W"}
     resp = client.post("/api/v5/now/subject", json=payload)
     assert resp.status_code == 200
     body = resp.json()
@@ -75,26 +70,18 @@ def test_now_chart_split(client: TestClient):
     assert "chart_grid" in body and "<svg" in body["chart_grid"]
 
 
-
-
-
 def test_now_chart_custom_config(client: TestClient):
     """Test custom subject configuration in chart request."""
-    payload = {
-        "name": "Chart Now",
-        "zodiac_type": "Sidereal",
-        "sidereal_mode": "LAHIRI",
-        "custom_title": "My Title"
-    }
+    payload = {"name": "Chart Now", "zodiac_type": "Sidereal", "sidereal_mode": "LAHIRI", "custom_title": "My Title"}
     resp = client.post("/api/v5/now/chart", json=payload)
     assert resp.status_code == 200
     body = resp.json()
-    
+
     # Check chart data reflects config
     data = body["chart_data"]
     assert data["subject"]["name"] == "Chart Now"
     assert data["subject"]["zodiac_type"] == "Sidereal"
     assert data["subject"]["sidereal_mode"] == "LAHIRI"
-    
+
     # Check title in SVG (simple check)
     assert "My Title" in body["chart"]

@@ -52,4 +52,3 @@ def test_compatibility_score(client: TestClient):
     score = data.get("relationship_score")
     assert isinstance(score, dict)
     assert score.get("score_value") is not None
-

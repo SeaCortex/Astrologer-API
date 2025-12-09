@@ -16,144 +16,10 @@
     "version": "5.0.0"
   },
   "paths": {
-    "/api/v5/subject": {
-      "post": {
-        "tags": [
-          "Miscellaneous"
-        ],
-        "summary": "Subject Data",
-        "description": "**POST** `/api/v5/subject`\n\nBuilds and returns an astrological subject.\n\n**Parameters:**\n- `subject`: SubjectModel (offline preferred or GeoNames via geonames_username)\n\n**Returns:**\n- `status`: \"OK\"\n- `subject`: AstrologicalSubjectModel (serialized)",
-        "operationId": "subject_data_api_v5_subject_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BirthDataRequestModel"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubjectResponseModel"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v5/now/subject": {
-      "post": {
-        "tags": [
-          "Miscellaneous"
-        ],
-        "summary": "Now Subject",
-        "description": "**POST** `/api/v5/now/subject`\n\nReturns an astrological subject for the current UTC time at Greenwich.\n\n**Parameters:**\n- `name`, `zodiac_type`, `sidereal_mode`, `perspective_type`, `houses_system_identifier`\n\n**Returns:**\n- `status`: \"OK\"\n- `subject`: AstrologicalSubjectModel",
-        "operationId": "now_subject_api_v5_now_subject_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NowSubjectRequestModel"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubjectResponseModel"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
-      }
-    },
     "/api/v5/now/chart": {
       "post": {
         "tags": [
-          "Miscellaneous"
+          "Charts"
         ],
         "summary": "Now Chart",
         "description": "**POST** `/api/v5/now/chart`\n\nReturns chart data and SVG for the current UTC time at Greenwich.\n\n**Parameters:**\n- `name`, configuration, rendering options\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG (or `chart_wheel` + `chart_grid`)",
@@ -217,80 +83,13 @@
         ]
       }
     },
-    "/api/v5/compatibility-score": {
-      "post": {
-        "tags": [
-          "Miscellaneous"
-        ],
-        "summary": "Compatibility Score",
-        "description": "**POST** `/api/v5/compatibility-score`\n\nCalculates Ciro Discepolo compatibility score between two subjects.\n\n**Parameters:**\n- `first_subject`, `second_subject`: SubjectModel\n- `active_points` / `active_aspects` overrides\n\n**Returns:**\n- `status`: \"OK\"\n- `score`: Compatibility score value\n- `score_description`: Text description of score\n- `is_destiny_sign`: Boolean indicating destiny sign relationship\n- `aspects`: List of aspects used in score calculation\n- `chart_data`: Full synastry chart data",
-        "operationId": "compatibility_score_api_v5_compatibility_score_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SynastryChartDataRequestModel"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompatibilityScoreResponseModel"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
-      }
-    },
     "/api/v5/chart/birth-chart": {
       "post": {
         "tags": [
           "Charts"
         ],
         "summary": "Natal Chart",
-        "description": "**POST** `/api/v5/chart/birth-chart`\n\nReturns birth chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`\n- `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- `transparent_background`\n- `show_house_position_comparison` (hide the comparison table when false)\n- `custom_title` (temporary title override, max 40 chars)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG (when split_chart=false)\n- `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)",
+        "description": "**POST** `/api/v5/chart/birth-chart`\n\nReturns birth chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`\n- `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- `transparent_background`\n- `show_house_position_comparison` (hide the comparison table when false)\n- `show_cusp_position_comparison` (hide the cusp comparison table when false, for dual charts)\n- `show_degree_indicators` (hide radial lines and degree numbers when false)\n- `custom_title` (temporary title override, max 40 chars)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG (when split_chart=false)\n- `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)",
         "operationId": "natal_chart_api_v5_chart_birth_chart_post",
         "requestBody": {
           "content": {
@@ -357,7 +156,7 @@
           "Charts"
         ],
         "summary": "Synastry Chart",
-        "description": "**POST** `/api/v5/chart/synastry`\n\nReturns synastry chart data and a dual-wheel SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`\n- `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid` when split_chart=true)\n- `chart_data`",
+        "description": "**POST** `/api/v5/chart/synastry`\n\nReturns synastry chart data and a dual-wheel SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`\n- `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid` when split_chart=true)\n- `chart_data`",
         "operationId": "synastry_chart_api_v5_chart_synastry_post",
         "requestBody": {
           "content": {
@@ -424,7 +223,7 @@
           "Charts"
         ],
         "summary": "Composite Chart",
-        "description": "**POST** `/api/v5/chart/composite`\n\nReturns composite chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid`)\n- `chart_data`",
+        "description": "**POST** `/api/v5/chart/composite`\n\nReturns composite chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`\n- `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid`)\n- `chart_data`",
         "operationId": "composite_chart_api_v5_chart_composite_post",
         "requestBody": {
           "content": {
@@ -491,7 +290,7 @@
           "Charts"
         ],
         "summary": "Transit Chart",
-        "description": "**POST** `/api/v5/chart/transit`\n\nReturns transit data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid`)\n- `chart_data`",
+        "description": "**POST** `/api/v5/chart/transit`\n\nReturns transit data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`\n- `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`\n\n**Returns:**\n- `chart` (or `chart_wheel` + `chart_grid`)\n- `chart_data`",
         "operationId": "transit_chart_api_v5_chart_transit_post",
         "requestBody": {
           "content": {
@@ -558,7 +357,7 @@
           "Charts"
         ],
         "summary": "Solar Return Chart",
-        "description": "**POST** `/api/v5/chart/solar-return`\n\nReturns solar return data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `return_type`: \"Solar\"\n- `wheel_type`: \"dual\" | \"single\"\n- `chart` (or `chart_wheel` + `chart_grid`)",
+        "description": "**POST** `/api/v5/chart/solar-return`\n\nReturns solar return data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`\n- `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`\n\n**Returns:**\n- `return_type`: \"Solar\"\n- `wheel_type`: \"dual\" | \"single\"\n- `chart` (or `chart_wheel` + `chart_grid`)",
         "operationId": "solar_return_chart_api_v5_chart_solar_return_post",
         "requestBody": {
           "content": {
@@ -625,7 +424,7 @@
           "Charts"
         ],
         "summary": "Lunar Return Chart",
-        "description": "**POST** `/api/v5/chart/lunar-return`\n\nReturns lunar return data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`\n\n**Returns:**\n- `return_type`: \"Lunar\"\n- `wheel_type`: \"dual\" | \"single\"\n- `chart` (or `chart_wheel` + `chart_grid`)",
+        "description": "**POST** `/api/v5/chart/lunar-return`\n\nReturns lunar return data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`, `split_chart`, `transparent_background`\n- `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`\n\n**Returns:**\n- `return_type`: \"Lunar\"\n- `wheel_type`: \"dual\" | \"single\"\n- `chart` (or `chart_wheel` + `chart_grid`)",
         "operationId": "lunar_return_chart_api_v5_chart_lunar_return_post",
         "requestBody": {
           "content": {
@@ -644,6 +443,207 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ReturnChartResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "RapidAPIKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-rapidapi-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "<YOUR_RAPIDAPI_KEY>"
+            }
+          },
+          {
+            "name": "x-rapidapi-host",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "astrologer.p.rapidapi.com"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v5/subject": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Subject Data",
+        "description": "**POST** `/api/v5/subject`\n\nBuilds and returns an astrological subject.\n\n**Parameters:**\n- `subject`: SubjectModel (offline preferred or GeoNames via geonames_username)\n\n**Returns:**\n- `status`: \"OK\"\n- `subject`: AstrologicalSubjectModel (serialized)",
+        "operationId": "subject_data_api_v5_subject_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BirthDataRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubjectResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "RapidAPIKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-rapidapi-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "<YOUR_RAPIDAPI_KEY>"
+            }
+          },
+          {
+            "name": "x-rapidapi-host",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "astrologer.p.rapidapi.com"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v5/now/subject": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Now Subject",
+        "description": "**POST** `/api/v5/now/subject`\n\nReturns an astrological subject for the current UTC time at Greenwich.\n\n**Parameters:**\n- `name`, `zodiac_type`, `sidereal_mode`, `perspective_type`, `houses_system_identifier`\n\n**Returns:**\n- `status`: \"OK\"\n- `subject`: AstrologicalSubjectModel",
+        "operationId": "now_subject_api_v5_now_subject_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NowSubjectRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubjectResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "RapidAPIKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-rapidapi-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "<YOUR_RAPIDAPI_KEY>"
+            }
+          },
+          {
+            "name": "x-rapidapi-host",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "astrologer.p.rapidapi.com"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v5/compatibility-score": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Compatibility Score",
+        "description": "**POST** `/api/v5/compatibility-score`\n\nCalculates Ciro Discepolo compatibility score between two subjects.\n\n**Parameters:**\n- `first_subject`, `second_subject`: SubjectModel\n- `active_points` / `active_aspects` overrides\n\n**Returns:**\n- `status`: \"OK\"\n- `score`: Compatibility score value\n- `score_description`: Text description of score\n- `is_destiny_sign`: Boolean indicating destiny sign relationship\n- `aspects`: List of aspects used in score calculation\n- `chart_data`: Full synastry chart data",
+        "operationId": "compatibility_score_api_v5_compatibility_score_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SynastryChartDataRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompatibilityScoreResponseModel"
                 }
               }
             }
@@ -2902,6 +2902,18 @@
             "description": "Display the house comparison table next to the chart wheel.",
             "default": true
           },
+          "show_cusp_position_comparison": {
+            "type": "boolean",
+            "title": "Show Cusp Position Comparison",
+            "description": "Display the cusp position comparison table next to the chart wheel (for dual charts).",
+            "default": true
+          },
+          "show_degree_indicators": {
+            "type": "boolean",
+            "title": "Show Degree Indicators",
+            "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
+            "default": true
+          },
           "custom_title": {
             "anyOf": [
               {
@@ -3692,6 +3704,18 @@
             "type": "boolean",
             "title": "Show House Position Comparison",
             "description": "Display the house comparison table next to the chart wheel.",
+            "default": true
+          },
+          "show_cusp_position_comparison": {
+            "type": "boolean",
+            "title": "Show Cusp Position Comparison",
+            "description": "Display the cusp position comparison table next to the chart wheel (for dual charts).",
+            "default": true
+          },
+          "show_degree_indicators": {
+            "type": "boolean",
+            "title": "Show Degree Indicators",
+            "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
             "default": true
           },
           "custom_title": {
@@ -4759,6 +4783,20 @@
             },
             "type": "array",
             "title": "Second Points In First Houses"
+          },
+          "first_cusps_in_second_houses": {
+            "items": {
+              "$ref": "#/components/schemas/PointInHouseModel"
+            },
+            "type": "array",
+            "title": "First Cusps In Second Houses"
+          },
+          "second_cusps_in_first_houses": {
+            "items": {
+              "$ref": "#/components/schemas/PointInHouseModel"
+            },
+            "type": "array",
+            "title": "Second Cusps In First Houses"
           }
         },
         "type": "object",
@@ -5295,6 +5333,18 @@
             "description": "Display the house comparison table next to the chart wheel.",
             "default": true
           },
+          "show_cusp_position_comparison": {
+            "type": "boolean",
+            "title": "Show Cusp Position Comparison",
+            "description": "Display the cusp position comparison table next to the chart wheel (for dual charts).",
+            "default": true
+          },
+          "show_degree_indicators": {
+            "type": "boolean",
+            "title": "Show Degree Indicators",
+            "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
+            "default": true
+          },
           "custom_title": {
             "anyOf": [
               {
@@ -5624,6 +5674,7 @@
             ]
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "title": "NowSubjectRequestModel",
         "description": "Request payload for the 'now' subject endpoint."
@@ -6890,6 +6941,18 @@
             "description": "Display the house comparison table next to the chart wheel.",
             "default": true
           },
+          "show_cusp_position_comparison": {
+            "type": "boolean",
+            "title": "Show Cusp Position Comparison",
+            "description": "Display the cusp position comparison table next to the chart wheel (for dual charts).",
+            "default": true
+          },
+          "show_degree_indicators": {
+            "type": "boolean",
+            "title": "Show Degree Indicators",
+            "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
+            "default": true
+          },
           "custom_title": {
             "anyOf": [
               {
@@ -7406,6 +7469,7 @@
             "description": "Geonames username to resolve the provided city when coordinates are missing."
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "title": "ReturnLocationModel",
         "description": "Optional location override for planetary return calculations."
@@ -7885,6 +7949,7 @@
             ]
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "required": [
           "year",
@@ -8358,6 +8423,18 @@
             "type": "boolean",
             "title": "Show House Position Comparison",
             "description": "Display the house comparison table next to the chart wheel.",
+            "default": true
+          },
+          "show_cusp_position_comparison": {
+            "type": "boolean",
+            "title": "Show Cusp Position Comparison",
+            "description": "Display the cusp position comparison table next to the chart wheel (for dual charts).",
+            "default": true
+          },
+          "show_degree_indicators": {
+            "type": "boolean",
+            "title": "Show Degree Indicators",
+            "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
             "default": true
           },
           "custom_title": {
@@ -8842,6 +8919,18 @@
             "description": "Display the house comparison table next to the chart wheel.",
             "default": true
           },
+          "show_cusp_position_comparison": {
+            "type": "boolean",
+            "title": "Show Cusp Position Comparison",
+            "description": "Display the cusp position comparison table next to the chart wheel (for dual charts).",
+            "default": true
+          },
+          "show_degree_indicators": {
+            "type": "boolean",
+            "title": "Show Degree Indicators",
+            "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
+            "default": true
+          },
           "custom_title": {
             "anyOf": [
               {
@@ -9080,6 +9169,7 @@
             "default": "Transit"
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "required": [
           "year",

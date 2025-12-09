@@ -27,7 +27,7 @@ def test_natal_chart_data_rejects_theme():
     }
 
     response = client.post("/api/v5/chart-data/birth-chart", json=payload)
-    
+
     # Should return 422 Unprocessable Entity due to unexpected field
     assert response.status_code == 422
     errors = response.json()["errors"]
@@ -54,7 +54,7 @@ def test_natal_chart_data_rejects_split_chart():
     }
 
     response = client.post("/api/v5/chart-data/birth-chart", json=payload)
-    
+
     # Should return 422 Unprocessable Entity due to unexpected field
     assert response.status_code == 422
     errors = response.json()["errors"]
@@ -81,7 +81,7 @@ def test_natal_chart_data_rejects_transparent_background():
     }
 
     response = client.post("/api/v5/chart-data/birth-chart", json=payload)
-    
+
     # Should return 422 Unprocessable Entity due to unexpected field
     assert response.status_code == 422
     errors = response.json()["errors"]
@@ -160,7 +160,7 @@ def test_natal_chart_accepts_active_points():
     }
 
     response = client.post("/api/v5/chart-data/birth-chart", json=payload)
-    
+
     # Should succeed
     assert response.status_code == 200
     data = response.json()

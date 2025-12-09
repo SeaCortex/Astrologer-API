@@ -61,6 +61,8 @@ Available for `/charts/*` endpoints and `/api/v5/now/chart` (with SVG rendering)
 - `split_chart`: Boolean - return separate `chart_wheel` and `chart_grid` SVG strings (default: false)
 - `transparent_background`: Boolean - render chart with transparent background instead of theme default
 - `show_house_position_comparison`: Boolean - include the house comparison table (set to false to hide it and widen the chart)
+- `show_cusp_position_comparison`: Boolean - include the cusp position comparison table for dual charts (default: true)
+- `show_degree_indicators`: Boolean - display radial lines and degree numbers for planet positions on the chart wheel (default: true)
 - `custom_title`: String ≤40 chars - temporary override for the rendered chart title (trimmed if blank)
 
 ### Computation Configuration Options
@@ -72,7 +74,7 @@ Available for **all** chart endpoints (both `/chart-data/*` and `/chart/*`):
 - `distribution_method`: "weighted" (default) or "pure_count"
 - `custom_distribution_weights`: Custom weight mapping for element/quality distribution
 
-**Note:** `/chart-data/*` endpoints return data only (no SVG) and do **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`). These parameters will be rejected with a 422 error if provided.
+**Note:** `/chart-data/*` endpoints return data only (no SVG) and do **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`). These parameters will be rejected with a 422 error if provided.
 
 ## Endpoints
 
@@ -145,6 +147,8 @@ Returns chart data and SVG for the current UTC time at Greenwich with optional s
   "split_chart": false,
   "transparent_background": false,
   "show_house_position_comparison": true,
+  "show_cusp_position_comparison": true,
+  "show_degree_indicators": true,
   "custom_title": null,
   "active_points": [...],
   "active_aspects": [...]
@@ -216,7 +220,7 @@ Returns complete natal chart data without SVG rendering.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
 
 **Response:**
 
@@ -267,6 +271,8 @@ Returns natal chart data and rendered SVG chart.
   "split_chart": false,
   "transparent_background": false,
   "show_house_position_comparison": true,
+  "show_cusp_position_comparison": true,
+  "show_degree_indicators": true,
   "custom_title": null,
   "active_points": [...],
   "active_aspects": [...],
@@ -312,7 +318,7 @@ Returns synastry comparison data between two subjects.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
 
 **Response:**
 
@@ -348,7 +354,7 @@ Returns synastry comparison data between two subjects.
 
 Returns synastry data and rendered dual-wheel chart.
 
-**Request:** Same as `/api/v5/chart-data/synastry` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/synastry` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
 
 **Response:** Same as chart-data endpoint plus `"chart": "<svg>...</svg>"` (or `"chart_wheel"` and `"chart_grid"` if split_chart=true)
 
@@ -387,7 +393,7 @@ Returns transit analysis for current planetary positions affecting a natal chart
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
 
 **Response:**
 
@@ -417,7 +423,7 @@ Returns transit analysis for current planetary positions affecting a natal chart
 
 Returns transit data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/transit` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/transit` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
 
 ---
 
@@ -441,7 +447,7 @@ Returns midpoint composite chart between two subjects.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
 
 **Response:**
 
@@ -466,7 +472,7 @@ Returns midpoint composite chart between two subjects.
 
 Returns composite data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/composite` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/composite` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
 
 ---
 
@@ -501,7 +507,7 @@ Calculates solar return chart for a specific year.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
 
 **Response:**
 
@@ -529,7 +535,7 @@ Calculates solar return chart for a specific year.
 
 Returns solar return data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/solar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/solar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
 
 **Response:** Adds `"return_type": "Solar"` and `"wheel_type": "dual"` or `"single"`
 
@@ -541,7 +547,7 @@ Calculates lunar return chart.
 
 **Request:** Same structure as solar return
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
 
 **Response:** Same structure with `"return_type": "Lunar"`
 
@@ -551,7 +557,7 @@ Calculates lunar return chart.
 
 Returns lunar return data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/lunar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/lunar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
 
 ---
 

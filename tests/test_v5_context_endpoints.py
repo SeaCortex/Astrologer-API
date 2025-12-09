@@ -51,21 +51,21 @@ def test_subject_context(client: TestClient):
     """Test /api/v5/context/subject endpoint."""
     resp = client.post("/api/v5/context/subject", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 200
-    
+
     body = resp.json()
     assert body["status"] == "OK"
-    
+
     # Verifica presenza subject_context
     assert "subject_context" in body
     assert isinstance(body["subject_context"], str)
     assert len(body["subject_context"]) > 0
     assert "Chart for" in body["subject_context"]
-    
+
     # Verifica presenza subject
     assert "subject" in body
     assert isinstance(body["subject"], dict)
     assert body["subject"]["name"] == "Context Test"
-    
+
     # Verifica ordine campi (subject_context prima di subject)
     keys = list(body.keys())
     assert keys.index("subject_context") < keys.index("subject")
@@ -82,10 +82,10 @@ def test_subject_context_respects_active_points(client: TestClient):
         },
     )
     assert resp.status_code == 200
-    
+
     body = resp.json()
     assert body["status"] == "OK"
-    
+
     # active_points nel soggetto deve corrispondere a quelli richiesti
     # (l'ordine può variare perché Kerykeion riordina i punti internamente)
     assert set(body["subject"]["active_points"]) == set(custom_active_points)
@@ -96,19 +96,19 @@ def test_now_context(client: TestClient):
     """Test /api/v5/now/context endpoint."""
     resp = client.post("/api/v5/now/context", json={"name": "Now Context Test"})
     assert resp.status_code == 200
-    
+
     body = resp.json()
     assert body["status"] == "OK"
-    
+
     # Verifica presenza subject_context
     assert "subject_context" in body
     assert isinstance(body["subject_context"], str)
     assert len(body["subject_context"]) > 0
-    
+
     # Verifica presenza subject
     assert "subject" in body
     assert isinstance(body["subject"], dict)
-    
+
     # Verifica ordine campi
     keys = list(body.keys())
     assert keys.index("subject_context") < keys.index("subject")
@@ -118,23 +118,23 @@ def test_natal_context(client: TestClient):
     """Test /api/v5/context/birth-chart endpoint."""
     resp = client.post("/api/v5/context/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 200
-    
+
     body = resp.json()
     assert body["status"] == "OK"
-    
+
     # Verifica presenza context
     assert "context" in body
     assert isinstance(body["context"], str)
     assert len(body["context"]) > 0
     assert "Natal Chart Analysis" in body["context"] or "Chart for" in body["context"]
-    
+
     # Verifica presenza chart_data
     assert "chart_data" in body
     data = body["chart_data"]
     assert data["chart_type"] == "Natal"
     assert "subject" in data
     assert isinstance(data["aspects"], list)
-    
+
     # Verifica ordine campi (context prima di chart_data)
     keys = list(body.keys())
     assert keys.index("context") < keys.index("chart_data")
@@ -150,23 +150,23 @@ def test_synastry_context(client: TestClient):
         },
     )
     assert resp.status_code == 200
-    
+
     body = resp.json()
     assert body["status"] == "OK"
-    
+
     # Verifica presenza context
     assert "context" in body
     assert isinstance(body["context"], str)
     assert len(body["context"]) > 0
     assert "Synastry" in body["context"] or "First Subject" in body["context"]
-    
+
     # Verifica presenza chart_data
     assert "chart_data" in body
     data = body["chart_data"]
     assert data["chart_type"] == "Synastry"
     assert "first_subject" in data
     assert "second_subject" in data
-    
+
     # Verifica ordine campi
     keys = list(body.keys())
     assert keys.index("context") < keys.index("chart_data")
@@ -182,21 +182,21 @@ def test_composite_context(client: TestClient):
         },
     )
     assert resp.status_code == 200
-    
+
     body = resp.json()
     assert body["status"] == "OK"
-    
+
     # Verifica presenza context
     assert "context" in body
     assert isinstance(body["context"], str)
     assert len(body["context"]) > 0
-    
+
     # Verifica presenza chart_data
     assert "chart_data" in body
     data = body["chart_data"]
     assert data["chart_type"] == "Composite"
     assert "subject" in data
-    
+
     # Verifica ordine campi
     keys = list(body.keys())
     assert keys.index("context") < keys.index("chart_data")
@@ -217,7 +217,7 @@ def test_transit_context(client: TestClient):
         "latitude": 41.9028,
         "timezone": "Europe/Rome",
     }
-    
+
     resp = client.post(
         "/api/v5/context/transit",
         json={
@@ -226,22 +226,22 @@ def test_transit_context(client: TestClient):
         },
     )
     assert resp.status_code == 200
-    
+
     body = resp.json()
     assert body["status"] == "OK"
-    
+
     # Verifica presenza context
     assert "context" in body
     assert isinstance(body["context"], str)
     assert len(body["context"]) > 0
-    
+
     # Verifica presenza chart_data
     assert "chart_data" in body
     data = body["chart_data"]
     assert data["chart_type"] == "Transit"
     assert "first_subject" in data
     assert "second_subject" in data
-    
+
     # Verifica ordine campi
     keys = list(body.keys())
     assert keys.index("context") < keys.index("chart_data")
@@ -258,24 +258,24 @@ def test_solar_return_context(client: TestClient):
         },
     )
     assert resp.status_code == 200
-    
+
     body = resp.json()
     assert body["status"] == "OK"
-    
+
     # Verifica presenza context
     assert "context" in body
     assert isinstance(body["context"], str)
     assert len(body["context"]) > 0
-    
+
     # Verifica presenza chart_data
     assert "chart_data" in body
     data = body["chart_data"]
     assert data["chart_type"] == "DualReturnChart"
-    
+
     # Verifica campi specifici dei return
     assert body["return_type"] == "Solar"
     assert body["wheel_type"] == "dual"
-    
+
     # Verifica ordine campi (context prima di chart_data)
     keys = list(body.keys())
     assert keys.index("context") < keys.index("chart_data")
@@ -293,25 +293,25 @@ def test_lunar_return_context(client: TestClient):
         },
     )
     assert resp.status_code == 200
-    
+
     body = resp.json()
     assert body["status"] == "OK"
-    
+
     # Verifica presenza context
     assert "context" in body
     assert isinstance(body["context"], str)
     assert len(body["context"]) > 0
-    
+
     # Verifica presenza chart_data
     assert "chart_data" in body
     data = body["chart_data"]
     # Single wheel type restituisce SingleReturnChart
     assert data["chart_type"] in ["SingleReturnChart", "DualReturnChart"]
-    
+
     # Verifica campi specifici dei return
     assert body["return_type"] == "Lunar"
     assert body["wheel_type"] == "single"
-    
+
     # Verifica ordine campi
     keys = list(body.keys())
     assert keys.index("context") < keys.index("chart_data")
@@ -321,13 +321,13 @@ def test_context_content_quality(client: TestClient):
     """Test che il context contenga informazioni astrologiche rilevanti."""
     resp = client.post("/api/v5/context/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 200
-    
+
     context = resp.json()["context"]
-    
+
     # Verifica che il context contenga elementi chiave
     assert "Chart for" in context or "Natal" in context
     assert "Birth data" in context or "1990" in context
-    
+
     # Verifica che contenga almeno alcuni pianeti
     planet_found = False
     for planet in ["Sun", "Moon", "Mercury", "Venus", "Mars"]:
@@ -335,11 +335,10 @@ def test_context_content_quality(client: TestClient):
             planet_found = True
             break
     assert planet_found, "Context should mention at least one planet"
-    
+
     # Verifica che contenga informazioni su segni zodiacali
     sign_found = False
-    for sign in ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", 
-                 "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]:
+    for sign in ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"]:
         if sign in context:
             sign_found = True
             break
@@ -350,15 +349,15 @@ def test_context_vs_chart_data_consistency(client: TestClient):
     """Test che i dati nel context siano coerenti con chart_data."""
     resp = client.post("/api/v5/context/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
     assert resp.status_code == 200
-    
+
     body = resp.json()
     context = body["context"]
     chart_data = body["chart_data"]
-    
+
     # Verifica che il nome del soggetto sia presente in entrambi
     subject_name = chart_data["subject"]["name"]
     assert subject_name in context
-    
+
     # Verifica coerenza del tipo di chart
     if "Natal" in context or chart_data["chart_type"] == "Natal":
         assert chart_data["chart_type"] == "Natal"

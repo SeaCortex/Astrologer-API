@@ -51,4 +51,3 @@ def freeze_time(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr("app.routers.context.get_time_from_google", lambda: FREEZE_TIME)
     monkeypatch.setattr("app.routers.data.get_time_from_google", lambda: FREEZE_TIME)
     yield
-

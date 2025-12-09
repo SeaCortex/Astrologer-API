@@ -1,5 +1,5 @@
 """
-    This is part of Astrologer API (C) 2023 Giacomo Battaglia
+This is part of Astrologer API (C) 2023 Giacomo Battaglia
 """
 
 import logging
@@ -36,9 +36,9 @@ app = FastAPI(
     },
 )
 
-#------------------------------------------------------------------------------
-# Routers 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# Routers
+# ------------------------------------------------------------------------------
 
 app.include_router(charts.router, tags=["Charts"])
 app.include_router(data.router, tags=["Chart Data"])
@@ -53,10 +53,10 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     when users send incorrect field names.
     """
     enriched_errors = []
-    
+
     for error in exc.errors():
         error_type = error.get("type", "")
-        
+
         # Check if this is an "extra fields not permitted" error
         if error_type == "extra_forbidden":
             # Get the field name from the location
@@ -64,13 +64,15 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
             if location:
                 field_name = str(location[-1])
                 enriched_message = format_extra_field_error(field_name, list(location))
-                enriched_errors.append({
-                    "loc": location,
-                    "msg": enriched_message,
-                    "type": error_type,
-                })
+                enriched_errors.append(
+                    {
+                        "loc": location,
+                        "msg": enriched_message,
+                        "type": error_type,
+                    }
+                )
                 continue
-        
+
         # For other errors, sanitize the error to be JSON serializable
         # Remove 'ctx' which may contain non-serializable objects like ValueError
         sanitized_error = {
@@ -79,9 +81,9 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
             "type": error_type,
         }
         enriched_errors.append(sanitized_error)
-    
+
     logging.warning(f"Validation error on {request.url}: {enriched_errors}")
-    
+
     return JSONResponse(
         status_code=422,
         content={
@@ -100,9 +102,10 @@ async def global_exception_handler(request: Request, exc: Exception):
         content={"status": "KO", "message": "Internal Server Error"},
     )
 
-#------------------------------------------------------------------------------
-# Middleware 
-#------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
+# Middleware
+# ------------------------------------------------------------------------------
 
 # Secret Key Checker Middleware
 if settings.debug is True:

@@ -98,4 +98,3 @@ class ReturnContextResponseModel(ContextResponseModel):
 
     return_type: Literal["Solar", "Lunar"] = Field(description="Type of planetary return.")
     wheel_type: Literal["dual", "single"] = Field(description="Rendered wheel configuration.")
-

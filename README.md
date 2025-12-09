@@ -244,18 +244,20 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/solar-return' \
 
 There are two kinds of options:
 
--   Computation options (work everywhere, including /chart-data/\*):
+-   Computation options (work everywhere, including /chart-data/*):
 
     -   active_points, active_aspects
     -   distribution_method: "weighted" (default) or "pure_count"
     -   custom_distribution_weights: override weights selectively
 
--   Rendering options (only for /charts/\* endpoints):
+-   Rendering options (only for /charts/* endpoints):
     -   theme: light, dark, dark-high-contrast, classic
     -   language: EN, FR, PT, ES, TR, RU, IT, CN, DE, HI
     -   split_chart: true to receive wheel and grid separately
     -   transparent_background: true for transparent SVG background
-    -   show_house_position_comparison: false hides the comparison table and widens the SVG layout
+    -   show_house_position_comparison: false hides the house comparison table and widens the SVG layout
+    -   show_cusp_position_comparison: false hides cusp comparison grids on dual charts (Synastry, Transit dual wheels, DualReturnChart)
+    -   show_degree_indicators: false hides radial lines and degree numbers around the wheel (single and dual charts)
     -   custom_title: short (≤40 chars) override for the title printed on the chart
 
 Quick example with custom weights:
@@ -323,16 +325,22 @@ Example:
 }
 ```
 
-## Hide the house comparison table
+## Hide comparison tables and degree indicators
 
 On single-wheel charts the default layout includes the house comparison table. Set `show_house_position_comparison` to `false` to hide that panel and allow the SVG to use the extra width.
+
+On dual charts (Synastry, Transit dual wheels, DualReturnChart) the API also renders cusp comparison grids by default. Set `show_cusp_position_comparison` to `false` to hide those tables while keeping the wheel.
+
+All chart types now display radial lines and degree numbers for planet positions; you can turn them off with `show_degree_indicators: false` for a cleaner look.
 
 ```json
 {
     "subject": {
         /* ... */
     },
-    "show_house_position_comparison": false
+    "show_house_position_comparison": false,
+    "show_cusp_position_comparison": false,
+    "show_degree_indicators": false
 }
 ```
 
@@ -485,7 +493,7 @@ This also applies to other administrative divisions:
 
 ### Other Common Issues
 
--   **422 Unprocessable Entity**: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, custom_title.
+-   **422 Unprocessable Entity**: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, show_cusp_position_comparison, show_degree_indicators, custom_title.
 -   **Timezone errors**: Use a valid tz database name (e.g. "Europe/Rome").
 -   **Empty SVG or missing wheel/grid**: Use `/chart/*` endpoints for rendering. `/chart-data/*` never return SVG.
 
