@@ -22,6 +22,52 @@ from kerykeion.settings.config_constants import DEFAULT_ACTIVE_ASPECTS, DEFAULT_
 
 logger = getLogger(__name__)
 
+# ---------------------------------------------------------------------------
+# Active Points Normalization
+# ---------------------------------------------------------------------------
+# Pre-computed lookup tables for case-insensitive point name normalization.
+# Built once at module load for O(1) lookups per point.
+
+_POINT_LOWER_TO_CANONICAL: dict[str, str] = {p.lower(): p for p in get_args(Planet)}
+
+_POINT_ALIASES: dict[str, str] = {
+    "mean_node": "Mean_North_Lunar_Node",
+    "true_node": "True_North_Lunar_Node",
+    "north_node": "Mean_North_Lunar_Node",
+    "south_node": "Mean_South_Lunar_Node",
+    "mean_south_node": "Mean_South_Lunar_Node",
+    "true_south_node": "True_South_Lunar_Node",
+    "mc": "Medium_Coeli",
+    "ic": "Imum_Coeli",
+    "asc": "Ascendant",
+    "desc": "Descendant",
+    "lilith": "Mean_Lilith",
+}
+
+
+def _normalize_point_name(name: str) -> str:
+    """Normalize a point name to canonical format.
+    
+    Examples:
+        'chiron' -> 'Chiron'
+        'MERCURY' -> 'Mercury'
+        'mean_node' -> 'Mean_North_Lunar_Node'
+    """
+    lower = name.lower()
+    return _POINT_ALIASES.get(lower) or _POINT_LOWER_TO_CANONICAL.get(lower) or name
+
+
+def _normalize_active_points(value: Optional[list]) -> Optional[list]:
+    """Normalize a list of point names. Used by Pydantic validators."""
+    if value is None:
+        return None
+    return [_normalize_point_name(p) if isinstance(p, str) else p for p in value]
+
+
+# ---------------------------------------------------------------------------
+# Type Aliases
+# ---------------------------------------------------------------------------
+
 DistributionMethod = Literal["weighted", "pure_count"]
 
 
@@ -206,6 +252,13 @@ class ChartDataConfigurationMixin(BaseModel):
         default="weighted",
         description="Element/quality distribution strategy.",
     )
+
+    @field_validator("active_points", mode="before")
+    @classmethod
+    def normalize_active_points(cls, value: Optional[list]) -> Optional[list]:
+        """Normalize point names to canonical format, accepting case-insensitive and aliased inputs."""
+        return _normalize_active_points(value)
+
     custom_distribution_weights: Optional[Mapping[str, float]] = Field(
         default=None,
         description="Custom weights used when distribution_method='weighted'.",
@@ -423,6 +476,12 @@ class RelationshipScoreRequestModel(BaseModel):
         examples=[DEFAULT_ACTIVE_ASPECTS],
     )
 
+    @field_validator("active_points", mode="before")
+    @classmethod
+    def normalize_active_points(cls, value: Optional[list]) -> Optional[list]:
+        """Normalize point names to canonical format."""
+        return _normalize_active_points(value)
+
 
 class SynastryAspectsRequestModel(BaseModel):
     """Request payload for synastry aspects without chart rendering."""
@@ -442,6 +501,12 @@ class SynastryAspectsRequestModel(BaseModel):
         examples=[DEFAULT_ACTIVE_ASPECTS],
     )
 
+    @field_validator("active_points", mode="before")
+    @classmethod
+    def normalize_active_points(cls, value: Optional[list]) -> Optional[list]:
+        """Normalize point names to canonical format."""
+        return _normalize_active_points(value)
+
 
 class NatalAspectsRequestModel(BaseModel):
     """Request payload for natal aspects without chart rendering."""
@@ -459,6 +524,12 @@ class NatalAspectsRequestModel(BaseModel):
         description="Override active aspects and their orbs.",
         examples=[DEFAULT_ACTIVE_ASPECTS],
     )
+
+    @field_validator("active_points", mode="before")
+    @classmethod
+    def normalize_active_points(cls, value: Optional[list]) -> Optional[list]:
+        """Normalize point names to canonical format."""
+        return _normalize_active_points(value)
 
 
 class CompositeChartRequestModel(ChartRenderingMixin):
