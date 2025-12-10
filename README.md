@@ -106,7 +106,16 @@ The API provides AI-optimized context endpoints that return structured textual d
 
 These endpoints accept the same parameters as their corresponding chart-data endpoints but return `context` (AI-optimized text) instead of SVG charts.
 
-Full reference: ENDPOINTS.md • Swagger • Redoc • OpenAPI (links below)
+
+## Documentation
+
+- [Quick Endpoints Reference](https://raw.githubusercontent.com/g-battaglia/v5/ENDPOINTS.md)
+- [Swagger OpenAPI (interactive)](https://www.kerykeion.net/astrologer-api-swagger/)
+- [Redoc OpenAPI (reference)](https://www.kerykeion.net/astrologer-api-redoc/)
+- [OpenAPI JSON](https://raw.githubusercontent.com/g-battaglia/Astrologer-API/v5/openapi.json)
+- [Full Documentation](https://www.kerykeion.net/content/astrologer-api/)
+- [Interactive Playground](https://www.kerykeion.net/content/astrologer-api/)
+
 
 ## Copy‑paste examples
 
@@ -498,12 +507,6 @@ This also applies to other administrative divisions:
 -   **422 Unprocessable Entity**: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, show_cusp_position_comparison, show_degree_indicators, custom_title.
 -   **Timezone errors**: Use a valid tz database name (e.g. "Europe/Rome").
 -   **Empty SVG or missing wheel/grid**: Use `/chart/*` endpoints for rendering. `/chart-data/*` never return SVG.
-
-## Documentation
-
--   [Swagger (interactive)](https://www.kerykeion.net/astrologer-api-swagger/)
--   [Redoc (reference)](https://www.kerykeion.net/astrologer-api-redoc/)
--   [OpenAPI JSON](https://raw.githubusercontent.com/g-battaglia/Astrologer-API/master/openapi.json)
 
 ## Subscription and support
 
