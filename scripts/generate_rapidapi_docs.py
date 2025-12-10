@@ -303,8 +303,15 @@ def update_responses(operation: dict, response_example: dict | None) -> None:
     if "application/json" not in content:
         return
     
-    # Set the example
-    content["application/json"]["example"] = response_example
+    # Set the example and remove schema $ref for RapidAPI compatibility
+    # RapidAPI has issues with complex anyOf schemas, so we provide just the example
+    json_content = content["application/json"]
+    
+    # Remove the schema reference (RapidAPI doesn't need it when example is provided)
+    if "schema" in json_content:
+        del json_content["schema"]
+    
+    json_content["example"] = response_example
 
 
 def update_openapi_with_docs(openapi_data: dict, docs: list[dict]) -> int:
