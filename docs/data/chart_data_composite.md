@@ -1,3 +1,8 @@
+---
+title: 'Composite Chart Data'
+order: 6
+---
+
 # Composite Chart Data Endpoint
 
 ## `POST /api/v5/chart-data/composite`

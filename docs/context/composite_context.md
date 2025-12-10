@@ -1,3 +1,8 @@
+---
+title: 'Composite Context'
+order: 5
+---
+
 # Composite Context Endpoint
 
 ## `POST /api/v5/context/composite`

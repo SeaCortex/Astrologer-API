@@ -1,3 +1,8 @@
+---
+title: 'Solar Return Chart'
+order: 6
+---
+
 # Solar Return Chart Endpoint
 
 ## `POST /api/v5/chart/solar-return`

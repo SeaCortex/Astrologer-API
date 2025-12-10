@@ -1,3 +1,8 @@
+---
+title: 'Now Chart'
+order: 2
+---
+
 # Now Chart Endpoint
 
 ## `POST /api/v5/now/chart`

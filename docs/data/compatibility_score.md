@@ -1,3 +1,8 @@
+---
+title: 'Compatibility Score'
+order: 3
+---
+
 # Compatibility Score Endpoint
 
 ## `POST /api/v5/compatibility-score`

@@ -1,3 +1,8 @@
+---
+title: 'Synastry Chart Data'
+order: 5
+---
+
 # Synastry Chart Data Endpoint
 
 ## `POST /api/v5/chart-data/synastry`

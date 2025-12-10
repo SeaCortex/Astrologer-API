@@ -1,3 +1,8 @@
+---
+title: 'Solar Return Context'
+order: 7
+---
+
 # Solar Return Context Endpoint
 
 ## `POST /api/v5/context/solar-return`

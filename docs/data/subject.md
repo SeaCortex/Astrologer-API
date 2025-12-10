@@ -1,3 +1,8 @@
+---
+title: 'Subject Data'
+order: 1
+---
+
 # Subject Data Endpoint
 
 ## `POST /api/v5/subject`

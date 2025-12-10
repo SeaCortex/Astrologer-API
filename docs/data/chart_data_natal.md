@@ -1,3 +1,8 @@
+---
+title: 'Natal Chart Data'
+order: 4
+---
+
 # Natal Chart Data Endpoint
 
 ## `POST /api/v5/chart-data/birth-chart`

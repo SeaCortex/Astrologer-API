@@ -1,3 +1,8 @@
+---
+title: 'Lunar Return Chart'
+order: 7
+---
+
 # Lunar Return Chart Endpoint
 
 ## `POST /api/v5/chart/lunar-return`
