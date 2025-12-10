@@ -359,7 +359,71 @@ def update_openapi_with_docs(openapi_data: dict, docs: list[dict]) -> int:
 
 
 # =============================================================================
-# STEP 4: WRITE OUTPUT FILE
+# STEP 4: REORDER ENDPOINTS
+# =============================================================================
+
+# Define the exact order of endpoints as shown in RapidAPI dashboard
+ENDPOINT_ORDER = [
+    # Charts (SVG)
+    "/api/v5/chart/birth-chart",
+    "/api/v5/chart/synastry",
+    "/api/v5/chart/transit",
+    "/api/v5/chart/composite",
+    "/api/v5/chart/solar-return",
+    "/api/v5/chart/lunar-return",
+    "/api/v5/now/chart",
+    # Chart Data
+    "/api/v5/chart-data/birth-chart",
+    "/api/v5/chart-data/synastry",
+    "/api/v5/chart-data/transit",
+    "/api/v5/chart-data/composite",
+    "/api/v5/chart-data/solar-return",
+    "/api/v5/chart-data/lunar-return",
+    "/api/v5/subject",
+    "/api/v5/now/subject",
+    "/api/v5/compatibility-score",
+    # AI Context
+    "/api/v5/context/birth-chart",
+    "/api/v5/context/synastry",
+    "/api/v5/context/transit",
+    "/api/v5/context/composite",
+    "/api/v5/context/solar-return",
+    "/api/v5/context/lunar-return",
+    "/api/v5/context/subject",
+    "/api/v5/now/context",
+]
+
+
+def reorder_paths(openapi_data: dict) -> None:
+    """
+    Reorder the paths in OpenAPI spec to match the desired RapidAPI order.
+    
+    Endpoints are ordered according to ENDPOINT_ORDER constant.
+    Any endpoints not in the list are appended at the end.
+    """
+    print("\nReordering endpoints:")
+    
+    old_paths = openapi_data.get("paths", {})
+    new_paths = {}
+    
+    # Add paths in the specified order
+    for endpoint in ENDPOINT_ORDER:
+        if endpoint in old_paths:
+            new_paths[endpoint] = old_paths[endpoint]
+            print(f"  {len(new_paths):2d}. {endpoint}")
+    
+    # Add any remaining paths not in the order list
+    for endpoint in old_paths:
+        if endpoint not in new_paths:
+            new_paths[endpoint] = old_paths[endpoint]
+            print(f"  {len(new_paths):2d}. {endpoint} (not in order list)")
+    
+    openapi_data["paths"] = new_paths
+    print(f"  Total: {len(new_paths)} endpoints reordered")
+
+
+# =============================================================================
+# STEP 5: WRITE OUTPUT FILE
 # =============================================================================
 
 def save_rapidapi_json(openapi_data: dict) -> None:
@@ -384,7 +448,8 @@ def main() -> None:
     1. Load openapi.json
     2. Parse all markdown docs from RapidAPI_Docs/
     3. Update operationId, description, examples, remove 422
-    4. Write rapidapi.json
+    4. Reorder endpoints to match RapidAPI dashboard
+    5. Write rapidapi.json
     """
     print("=" * 60)
     print("Generate RapidAPI OpenAPI Spec")
@@ -399,7 +464,10 @@ def main() -> None:
     # Step 3: Update OpenAPI with documentation
     updated_count = update_openapi_with_docs(openapi_data, docs)
     
-    # Step 4: Write output
+    # Step 4: Reorder endpoints
+    reorder_paths(openapi_data)
+    
+    # Step 5: Write output
     save_rapidapi_json(openapi_data)
     
     # Summary
