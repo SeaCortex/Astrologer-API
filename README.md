@@ -115,7 +115,7 @@ These endpoints accept the same parameters as their corresponding chart-data end
 -   [Redoc OpenAPI (reference)](https://www.kerykeion.net/astrologer-api-redoc/)
 -   [OpenAPI JSON](https://raw.githubusercontent.com/g-battaglia/Astrologer-API/v5/openapi.json)
 -   [Full Documentation](https://www.kerykeion.net/content/astrologer-api/)
--   [Interactive Playground](https://www.kerykeion.net/content/astrologer-api/)
+-   [Interactive Playground](https://astrologer-api-playground.kerykeion.net/)
 
 ## Copy‑paste examples
 
