@@ -451,24 +451,37 @@ Example:
 
 ## Automatic coordinates (optional)
 
-Skip longitude/latitude/timezone by providing a Geonames username. When `geonames_username` is present in `subject`, coordinates and timezone are looked up automatically.
+Astrologer-API can automatically resolve **latitude**, **longitude**, and **timezone** from a city name using GeoNames.
+When `geonames_username` is present in `subject`, explicit `latitude` / `longitude` / `timezone` fields are not required and the API will look them up for you.
+
+1. **Create a free GeoNames account**  
+   Sign up for a free username here:  
+   <a href="https://www.geonames.org/login" target="_blank" rel="noopener noreferrer">https://www.geonames.org/login</a>
+
+2. **Send `city`, `nation`, and your `geonames_username`**  
+   - `city`: full city name, including state/region if helpful  
+     - e.g. `"city": "Jamaica, New York"`  
+   - `nation`: 2-letter ISO country code (e.g. `"US"`, `"GB"`, `"IT"`)  
+   - `geonames_username`: the username you registered on GeoNames
+
+Example request:
 
 ```json
 {
-    "subject": {
-        "city": "Jamaica, New York",
-        "nation": "US",
-        "year": 1980,
-        "month": 12,
-        "day": 12,
-        "hour": 12,
-        "minute": 12,
-        "geonames_username": "YOUR_GEONAMES_USERNAME"
-    }
+	"subject": {
+		"city": "Jamaica, New York",
+		"nation": "US",
+		"year": 1980,
+		"month": 12,
+		"day": 12,
+		"hour": 12,
+		"minute": 12,
+		"geonames_username": "YOUR_GEONAMES_USERNAME"
+	}
 }
 ```
 
-Tip: For best accuracy, send actual coordinates when you can. Geonames is free up to ~10k requests/day.
+Tip: For best accuracy, send actual coordinates when you can. GeoNames is free up to ~10k requests/day; beyond that, consider caching or using explicit `latitude` / `longitude` / `timezone`.
 
 ## Troubleshooting
 
