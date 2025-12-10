@@ -26,7 +26,7 @@ Generates an AI-powered interpretation of a Solar Return chart. The Solar Return
     ```
 -   **`year`** (integer, required): The year for which to calculate the return (e.g., 2024 for the 2024-2025 birthday year).
 -   **`return_location`** (object, optional): Location where the subject spends their birthday (relocation).
--   **`theme`**, etc.
+-   **Computation options**: `active_points`, `active_aspects`, `distribution_method`, `custom_distribution_weights` (identical to `/api/v5/chart-data/solar-return`). Rendering options such as `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title` are **not** accepted here.
 
 #### Complete Request Example
 

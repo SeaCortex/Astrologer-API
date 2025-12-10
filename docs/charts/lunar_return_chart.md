@@ -65,6 +65,9 @@ This chart type is especially valued by astrologers who work with clients on an 
 -   **`month`** (integer, required): Month.
 -   **`wheel_type`** (string, optional): "dual" or "single".
 -   **`theme`**, **`language`**, **`split_chart`** (rendering options).
+-   **`show_house_position_comparison`** (bool, optional): Display house comparison tables for natal vs Lunar Return (dual wheel only; default: true).
+-   **`show_cusp_position_comparison`** (bool, optional): Display cusp comparison grids for natal vs Lunar Return houses (dual wheel only; default: true).
+-   **`show_degree_indicators`** (bool, optional): Display radial lines and degree numbers for planet positions on the wheels (default: true).
 
 #### Complete Request Example
 

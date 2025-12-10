@@ -8,7 +8,7 @@ Generates an AI-powered interpretation of a full natal chart. Unlike the simple 
 
 ### Request Body
 
--   **`subject`** (object, required): The subject's birth data.
+-   **`subject`** (object, required): The subject's birth data (same structure as `/api/v5/chart-data/birth-chart`).
     ```json
     {
         "name": "Subject Name",
@@ -24,7 +24,7 @@ Generates an AI-powered interpretation of a full natal chart. Unlike the simple 
         "tz_str": "Europe/London"
     }
     ```
--   **`theme`**, **`language`**, etc. (rendering options, though this endpoint returns data/context, not SVG).
+-   **Computation options**: `active_points`, `active_aspects`, `distribution_method`, `custom_distribution_weights` (identical to the natal chart-data endpoint). Rendering options such as `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title` are **not** accepted here.
 
 #### Complete Request Example
 
@@ -42,8 +42,7 @@ Generates an AI-powered interpretation of a full natal chart. Unlike the simple 
         "lng": -0.1278,
         "lat": 51.5074,
         "tz_str": "Europe/London"
-    },
-    "theme": "classic"
+    }
 }
 ```
 

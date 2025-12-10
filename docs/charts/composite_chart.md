@@ -59,6 +59,8 @@ The composite chart is particularly valuable for committed relationships, as it 
     }
     ```
 -   **`theme`**, **`language`**, **`split_chart`** (rendering options).
+-   **`show_house_position_comparison`** (bool, optional): Show or hide the house/points comparison table for the composite chart (default: true).
+-   **`show_degree_indicators`** (bool, optional): Display radial lines and degree numbers for planet positions on the wheel (default: true).
 
 #### Complete Request Example
 

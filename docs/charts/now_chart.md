@@ -22,7 +22,7 @@ This endpoint is perfect for applications that need to display the "cosmic now" 
 
 -   **`name`** (string, optional): Custom name for the chart title (default: "Now").
 -   **`zodiac_type`**, **`sidereal_mode`**, **`houses_system_identifier`** (optional configuration).
--   **`theme`**, **`language`**, **`split_chart`**, etc. (rendering options).
+-   **`theme`**, **`language`**, **`split_chart`**, `transparent_background`, `show_house_position_comparison`, `show_degree_indicators`, `custom_title` (rendering options).
 
 #### Complete Request Example
 

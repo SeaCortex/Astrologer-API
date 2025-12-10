@@ -44,6 +44,8 @@ The endpoint combines the power of precise astronomical calculations with beauti
 -   **`language`** (string, optional): Language for chart labels (e.g., "EN", "IT", "ES"). Default: "EN".
 -   **`split_chart`** (bool, optional): If true, returns the chart wheel and aspect grid as separate SVG strings. Default: false.
 -   **`transparent_background`** (bool, optional): If true, the chart background will be transparent. Default: false.
+-   **`show_house_position_comparison`** (bool, optional): Show or hide the houses/points comparison table next to the wheel. Default: true.
+-   **`show_degree_indicators`** (bool, optional): Show radial lines and degree numbers for planet positions on the wheel. Default: true.
 -   **`custom_title`** (string, optional): Override the default chart title.
 
 #### Complete Request Example

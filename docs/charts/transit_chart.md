@@ -66,6 +66,9 @@ This is one of the most practically useful chart types, essential for anyone ser
     }
     ```
 -   **`theme`**, **`language`**, **`split_chart`** (rendering options).
+-   **`show_house_position_comparison`** (bool, optional): Display the house comparison table for natal vs transit (default: true).
+-   **`show_cusp_position_comparison`** (bool, optional): Display cusp comparison grids for natal vs transit houses (default: true).
+-   **`show_degree_indicators`** (bool, optional): Display radial lines and degree numbers for planet positions on the wheels (default: true).
 
 #### Complete Request Example
 

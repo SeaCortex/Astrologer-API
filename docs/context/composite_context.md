@@ -40,7 +40,7 @@ Generates an AI-powered interpretation of a composite chart. A composite chart i
         "tz_str": "America/New_York"
     }
     ```
--   **`theme`**, etc.
+-   **Computation options**: `active_points`, `active_aspects`, `distribution_method`, `custom_distribution_weights` (identical to `/api/v5/chart-data/composite`). Rendering options such as `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title` are **not** accepted here.
 
 #### Complete Request Example
 

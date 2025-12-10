@@ -27,7 +27,7 @@ Generates an AI-powered interpretation of a Lunar Return chart. The Lunar Return
 -   **`year`** (integer, required): The year of the return.
 -   **`month`** (integer, required): The month of the return.
 -   **`return_location`** (object, optional): Relocation for the return.
--   **`theme`**, etc.
+-   **Computation options**: `active_points`, `active_aspects`, `distribution_method`, `custom_distribution_weights` (identical to `/api/v5/chart-data/lunar-return`). Rendering options such as `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title` are **not** accepted here.
 
 #### Complete Request Example
 

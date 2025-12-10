@@ -40,7 +40,7 @@ Generates an AI-powered interpretation of a transit chart. This endpoint analyze
         "tz_str": "Europe/London"
     }
     ```
--   **`theme`**, etc.
+-   **Computation options**: flags such as `include_house_comparison`, `active_points`, `active_aspects`, `distribution_method`, `custom_distribution_weights` (identical to `/api/v5/chart-data/transit`). Rendering options like `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title` are **not** accepted here.
 
 #### Complete Request Example
 
