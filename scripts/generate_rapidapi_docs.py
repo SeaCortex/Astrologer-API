@@ -11,6 +11,7 @@ This script creates a customized OpenAPI JSON file for RapidAPI by:
 
 Usage:
     python scripts/generate_rapidapi_docs.py
+    python scripts/generate_rapidapi_docs.py -u https://custom-url.example.com
 
 Markdown Format Expected:
     ## Endpoint
@@ -36,6 +37,7 @@ Markdown Format Expected:
     ```
 """
 
+import argparse
 import json
 import re
 from pathlib import Path
@@ -345,6 +347,12 @@ def update_openapi_with_docs(openapi_data: dict, docs: list[dict]) -> int:
         # Update responses (and remove 422)
         update_responses(operation, doc["response_example"])
         
+        # Remove security and parameters
+        if "security" in operation:
+            del operation["security"]
+        if "parameters" in operation:
+            del operation["parameters"]
+        
         # Log
         print(f"  Updated: {endpoint}")
         print(f"           operationId: {old_operation_id!r} -> {doc['name']!r}")
@@ -449,8 +457,20 @@ def main() -> None:
     2. Parse all markdown docs from RapidAPI_Docs/
     3. Update operationId, description, examples, remove 422
     4. Reorder endpoints to match RapidAPI dashboard
-    5. Write rapidapi.json
+    5. Override server URL if provided
+    6. Write rapidapi.json
     """
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(
+        description="Generate RapidAPI OpenAPI Spec from markdown documentation."
+    )
+    parser.add_argument(
+        "-u", "--url",
+        type=str,
+        help="Override the server URL in the OpenAPI spec (e.g., https://astrologer-api.example.com)"
+    )
+    args = parser.parse_args()
+    
     print("=" * 60)
     print("Generate RapidAPI OpenAPI Spec")
     print("=" * 60)
@@ -467,7 +487,15 @@ def main() -> None:
     # Step 4: Reorder endpoints
     reorder_paths(openapi_data)
     
-    # Step 5: Write output
+    # Step 5: Override server URL if provided
+    if args.url:
+        print(f"\nOverriding server URL: {args.url}")
+        if "servers" in openapi_data and openapi_data["servers"]:
+            openapi_data["servers"][0]["url"] = args.url
+        else:
+            openapi_data["servers"] = [{"url": args.url}]
+    
+    # Step 6: Write output
     save_rapidapi_json(openapi_data)
     
     # Summary
