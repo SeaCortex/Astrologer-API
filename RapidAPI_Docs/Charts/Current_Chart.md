@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/now/chart
+
 ## Name
 Now: Current Datetime Birth Chart
 

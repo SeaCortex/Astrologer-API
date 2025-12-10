@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/compatibility-score
+
 ## Name
 
 Compatibility Score

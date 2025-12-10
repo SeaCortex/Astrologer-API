@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/chart-data/synastry
+
 ## Name
 
 Synastry Data

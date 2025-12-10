@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/context/synastry
+
 ## Name
 
 Synastry Chart - AI Context

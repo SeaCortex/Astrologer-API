@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/chart/transit
+
 ## Name
 
 Transit Chart

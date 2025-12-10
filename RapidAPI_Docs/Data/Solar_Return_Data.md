@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/chart-data/solar-return
+
 ## Name
 
 Solar Return Data

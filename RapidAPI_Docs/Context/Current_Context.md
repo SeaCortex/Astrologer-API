@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/now/context
+
 ## Name
 UTC Current Date Time Birth - AI Context
 

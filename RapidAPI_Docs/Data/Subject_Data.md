@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/subject
+
 ## Name
 
 Astrological Subject Data

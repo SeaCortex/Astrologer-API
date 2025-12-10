@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/context/subject
+
 ## Name
 Astrological Subject - AI Context
 

@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/context/transit
+
 ## Name
 
 Transit Chart - AI Context

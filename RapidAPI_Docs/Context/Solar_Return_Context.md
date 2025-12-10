@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/context/solar-return
+
 ## Name
 Solar Return - AI Context
 

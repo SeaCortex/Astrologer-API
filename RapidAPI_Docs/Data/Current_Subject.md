@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/now/subject
+
 ## Name
 
 Current UTC Date Time Subject Data

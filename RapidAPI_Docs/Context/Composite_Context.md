@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/context/composite
+
 ## Name
 
 Composite Chart - AI Context

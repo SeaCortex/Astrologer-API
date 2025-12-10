@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/context/lunar-return
+
 ## Name
 
 Lunar Return - AI Context

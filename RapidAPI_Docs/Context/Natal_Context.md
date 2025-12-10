@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/context/birth-chart
+
 ## Name
 Birth Chart - AI Context
 

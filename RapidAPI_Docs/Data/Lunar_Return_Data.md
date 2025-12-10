@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/chart-data/lunar-return
+
 ## Name
 
 Lunar Return Data

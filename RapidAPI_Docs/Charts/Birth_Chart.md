@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/chart/birth-chart
+
 ## Name
  Birth Chart
 ## Description

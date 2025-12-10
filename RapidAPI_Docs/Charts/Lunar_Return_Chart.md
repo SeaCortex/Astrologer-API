@@ -1,3 +1,6 @@
+## Endpoint
+/api/v5/chart/lunar-return
+
 ## Name
 Lunar (Moon) Return Chart
 
