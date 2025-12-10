@@ -54,7 +54,7 @@ Response shape:
 ```json
 {
     "status": "OK",
-    "chart": "<svg>...</svg>",
+    "chart": "<svg>...</svg>", // The rendered SVG chart is returned here as a string
     "chart_data": {
         /* aspects, houses, distributions, subjects */
     }
@@ -63,11 +63,13 @@ Response shape:
 
 Prefer separate SVGs? Use "split_chart": true. You'll receive chart_wheel and chart_grid instead of chart. See the split example below.
 
+NOTE: The rendered SVG chart is returned in the `chart` key of the JSON response.
+
 ## Endpoints
 
 ### Chart Endpoints (SVG charts + data)
 
-The API provides chart endpoints that return rendered SVG charts together with full astrological data.
+The API provides chart endpoints that return rendered SVG charts (found in the `chart` key) together with full astrological data.
 
 -   `/api/v5/chart/birth-chart` (POST) - Natal chart SVG + data
 -   `/api/v5/chart/synastry` (POST) - Synastry chart SVG + combined data
@@ -106,16 +108,14 @@ The API provides AI-optimized context endpoints that return structured textual d
 
 These endpoints accept the same parameters as their corresponding chart-data endpoints but return `context` (AI-optimized text) instead of SVG charts.
 
-
 ## Documentation
 
-- [Quick Endpoints Reference](https://raw.githubusercontent.com/g-battaglia/v5/ENDPOINTS.md)
-- [Swagger OpenAPI (interactive)](https://www.kerykeion.net/astrologer-api-swagger/)
-- [Redoc OpenAPI (reference)](https://www.kerykeion.net/astrologer-api-redoc/)
-- [OpenAPI JSON](https://raw.githubusercontent.com/g-battaglia/Astrologer-API/v5/openapi.json)
-- [Full Documentation](https://www.kerykeion.net/content/astrologer-api/)
-- [Interactive Playground](https://www.kerykeion.net/content/astrologer-api/)
-
+-   [Quick Endpoints Reference](https://raw.githubusercontent.com/g-battaglia/v5/ENDPOINTS.md)
+-   [Swagger OpenAPI (interactive)](https://www.kerykeion.net/astrologer-api-swagger/)
+-   [Redoc OpenAPI (reference)](https://www.kerykeion.net/astrologer-api-redoc/)
+-   [OpenAPI JSON](https://raw.githubusercontent.com/g-battaglia/Astrologer-API/v5/openapi.json)
+-   [Full Documentation](https://www.kerykeion.net/content/astrologer-api/)
+-   [Interactive Playground](https://www.kerykeion.net/content/astrologer-api/)
 
 ## Copy‑paste examples
 
@@ -140,7 +140,7 @@ Two SVGs (wheel + grid) with split_chart:
     -   chart_wheel: the zodiac wheel (signs, houses, degrees, glyphs)
     -   chart_grid: the aspect grid/table and legend
 -   Useful when you need separate positioning, animation, or different sizes for wheel and grid.
--   Works with all /charts/* endpoints and can be combined with transparent_background.
+-   Works with all /charts/\* endpoints and can be combined with transparent_background.
 
 Request:
 
@@ -255,13 +255,13 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/solar-return' \
 
 There are two kinds of options:
 
--   Computation options (work everywhere, including /chart-data/*):
+-   Computation options (work everywhere, including /chart-data/\*):
 
     -   active_points, active_aspects
     -   distribution_method: "weighted" (default) or "pure_count"
     -   custom_distribution_weights: override weights selectively
 
--   Rendering options (only for /charts/* endpoints):
+-   Rendering options (only for /charts/\* endpoints):
     -   theme: light, dark, dark-high-contrast, classic
     -   language: EN, FR, PT, ES, TR, RU, IT, CN, DE, HI
     -   split_chart: true to receive wheel and grid separately
@@ -322,7 +322,7 @@ Example:
 
 ## Transparent background
 
-Render charts without a background fill so you can overlay them on any design. Works with any theme and across all /charts/* endpoints. Can be combined with split_chart.
+Render charts without a background fill so you can overlay them on any design. Works with any theme and across all /charts/\* endpoints. Can be combined with split_chart.
 
 Example:
 
@@ -507,6 +507,63 @@ This also applies to other administrative divisions:
 -   **422 Unprocessable Entity**: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, show_cusp_position_comparison, show_degree_indicators, custom_title.
 -   **Timezone errors**: Use a valid tz database name (e.g. "Europe/Rome").
 -   **Empty SVG or missing wheel/grid**: Use `/chart/*` endpoints for rendering. `/chart-data/*` never return SVG.
+
+## Integration Guide
+
+Since the API returns raw SVG strings, you can easily embed them in any web application.
+
+### 1. Pure HTML/Javascript
+
+```html
+<div id="chart-container"></div>
+
+<script>
+    // Assume 'data' is the JSON response from the API
+    const chartSvg = data.chart;
+    document.getElementById('chart-container').innerHTML = chartSvg;
+</script>
+```
+
+### 2. React (Next.js / CRA)
+
+Use `dangerouslySetInnerHTML` to render the SVG string.
+
+```jsx
+function AstrologyChart({ svgString }) {
+    return (
+        <div
+            className="chart-wrapper"
+            dangerouslySetInnerHTML={{ __html: svgString }}
+        />
+    );
+}
+```
+
+### 3. Vue.js (Nuxt / Vite)
+
+Use the `v-html` directive.
+
+```vue
+<template>
+    <div class="chart-wrapper" v-html="svgString"></div>
+</template>
+
+<script setup>
+defineProps(['svgString']);
+</script>
+```
+
+### Styling
+
+The SVGs are responsive by default. You can control their size via the container:
+
+```css
+.chart-wrapper svg {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+}
+```
 
 ## Subscription and support
 
