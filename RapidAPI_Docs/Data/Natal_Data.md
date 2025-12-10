@@ -1,6 +1,6 @@
 ## Name
 
-Natal Data
+Birth Chart Data
 
 ## Description
 

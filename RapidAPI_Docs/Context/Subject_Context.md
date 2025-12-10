@@ -1,6 +1,5 @@
 ## Name
-
-Subject Context
+Astrological Subject - AI Context
 
 ## Description
 

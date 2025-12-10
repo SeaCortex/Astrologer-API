@@ -1,7 +1,5 @@
 ## Name
-
-Natal Chart
-
+ Birth Chart
 ## Description
 
 Generates a natal chart (birth chart) for a specific person and time. Returns both the calculated astrological data and a rendered SVG chart. You can customize the visual appearance (theme, language) and calculation parameters (house system, zodiac type).

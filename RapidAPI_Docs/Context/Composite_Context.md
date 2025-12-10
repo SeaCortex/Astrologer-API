@@ -1,6 +1,5 @@
 ## Name
-
-Composite Context
+Composite Chart - AI Context
 
 ## Description
 

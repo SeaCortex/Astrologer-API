@@ -1,6 +1,5 @@
 ## Name
-
-Current Context
+UTC Current Date Time Birth - AI Context
 
 ## Description
 

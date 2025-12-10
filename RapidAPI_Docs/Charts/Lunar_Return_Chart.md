@@ -1,6 +1,5 @@
 ## Name
-
-Lunar Return Chart
+Lunar (Moon) Return Chart
 
 ## Description
 

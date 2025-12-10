@@ -1,6 +1,5 @@
 ## Name
-
-Solar Return Context
+Solar Return - AI Context
 
 ## Description
 

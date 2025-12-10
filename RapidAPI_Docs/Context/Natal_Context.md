@@ -1,6 +1,5 @@
 ## Name
-
-Natal Context
+Birth Chart - AI Context
 
 ## Description
 

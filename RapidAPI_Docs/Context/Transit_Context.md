@@ -1,6 +1,6 @@
 ## Name
 
-Transit Context
+Transit Chart - AI Context
 
 ## Description
 

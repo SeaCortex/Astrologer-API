@@ -1,6 +1,6 @@
 ## Name
 
-Synastry Context
+Synastry Chart - AI Context
 
 ## Description
 

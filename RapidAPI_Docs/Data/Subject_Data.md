@@ -1,6 +1,6 @@
 ## Name
 
-Subject Data
+Astrological Subject Data
 
 ## Description
 

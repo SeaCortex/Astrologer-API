@@ -1,6 +1,5 @@
 ## Name
-
-Current Chart
+Now: Current Datetime Birth Chart
 
 ## Description
 
