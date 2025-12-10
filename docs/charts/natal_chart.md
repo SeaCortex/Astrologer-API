@@ -35,9 +35,9 @@ The endpoint combines the power of precise astronomical calculations with beauti
         "minute": 30,
         "city": "Berlin",
         "nation": "DE",
-        "lng": 13.405,
-        "lat": 52.52,
-        "tz_str": "Europe/Berlin"
+        "longitude": 13.405,
+        "latitude": 52.52,
+        "timezone": "Europe/Berlin"
     }
     ```
 -   **`theme`** (string, optional): Color theme for the chart (e.g., "classic", "dark", "high_contrast"). Default: "classic".
@@ -61,9 +61,9 @@ The endpoint combines the power of precise astronomical calculations with beauti
         "minute": 30,
         "city": "Berlin",
         "nation": "DE",
-        "lng": 13.405,
-        "lat": 52.52,
-        "tz_str": "Europe/Berlin"
+        "longitude": 13.405,
+        "latitude": 52.52,
+        "timezone": "Europe/Berlin"
     },
     "theme": "dark",
     "language": "EN",

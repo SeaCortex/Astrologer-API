@@ -23,9 +23,9 @@ The request body must contain a `subject` object with the following fields:
         "minute": 30,
         "city": "London",
         "nation": "GB",
-        "lng": -0.1278,
-        "lat": 51.5074,
-        "tz_str": "Europe/London",
+        "longitude": -0.1278,
+        "latitude": 51.5074,
+        "timezone": "Europe/London",
         "zodiac_type": "Tropical",
         "houses_system_identifier": "P"
     }
@@ -44,9 +44,9 @@ The request body must contain a `subject` object with the following fields:
         "minute": 30,
         "city": "London",
         "nation": "GB",
-        "lng": -0.1278,
-        "lat": 51.5074,
-        "tz_str": "Europe/London",
+        "longitude": -0.1278,
+        "latitude": 51.5074,
+        "timezone": "Europe/London",
         "zodiac_type": "Tropical",
         "houses_system_identifier": "P"
     }

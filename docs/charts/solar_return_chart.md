@@ -50,9 +50,9 @@ This chart type is foundational for yearly planning and is widely used by profes
         "minute": 0,
         "city": "London",
         "nation": "GB",
-        "lng": -0.1278,
-        "lat": 51.5074,
-        "tz_str": "Europe/London"
+        "longitude": -0.1278,
+        "latitude": 51.5074,
+        "timezone": "Europe/London"
     }
     ```
 -   **`year`** (integer, required): Return year.

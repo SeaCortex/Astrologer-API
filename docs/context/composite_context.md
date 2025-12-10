@@ -19,9 +19,9 @@ Generates an AI-powered interpretation of a composite chart. A composite chart i
         "minute": 0,
         "city": "London",
         "nation": "GB",
-        "lng": -0.1278,
-        "lat": 51.5074,
-        "tz_str": "Europe/London"
+        "longitude": -0.1278,
+        "latitude": 51.5074,
+        "timezone": "Europe/London"
     }
     ```
 -   **`second_subject`** (object, required): Second partner.
@@ -35,9 +35,9 @@ Generates an AI-powered interpretation of a composite chart. A composite chart i
         "minute": 30,
         "city": "New York",
         "nation": "US",
-        "lng": -74.006,
-        "lat": 40.7128,
-        "tz_str": "America/New_York"
+        "longitude": -74.006,
+        "latitude": 40.7128,
+        "timezone": "America/New_York"
     }
     ```
 -   **Computation options**: `active_points`, `active_aspects`, `distribution_method`, `custom_distribution_weights` (identical to `/api/v5/chart-data/composite`). Rendering options such as `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title` are **not** accepted here.

@@ -19,9 +19,9 @@ Generates an AI-powered interpretation of a Lunar Return chart. The Lunar Return
         "minute": 0,
         "city": "London",
         "nation": "GB",
-        "lng": -0.1278,
-        "lat": 51.5074,
-        "tz_str": "Europe/London"
+        "longitude": -0.1278,
+        "latitude": 51.5074,
+        "timezone": "Europe/London"
     }
     ```
 -   **`year`** (integer, required): The year of the return.

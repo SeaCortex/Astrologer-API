@@ -19,9 +19,9 @@ This endpoint returns the full calculated data for a natal chart (birth chart) w
         "minute": 15,
         "city": "Paris",
         "nation": "FR",
-        "lng": 2.3522,
-        "lat": 48.8566,
-        "tz_str": "Europe/Paris"
+        "longitude": 2.3522,
+        "latitude": 48.8566,
+        "timezone": "Europe/Paris"
     }
     ```
 -   **`active_points`** (list, optional): List of planets/points to include (e.g., ["Sun", "Moon", "Asc"]). Defaults to standard set.

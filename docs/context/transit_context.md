@@ -19,9 +19,9 @@ Generates an AI-powered interpretation of a transit chart. This endpoint analyze
         "minute": 0,
         "city": "London",
         "nation": "GB",
-        "lng": -0.1278,
-        "lat": 51.5074,
-        "tz_str": "Europe/London"
+        "longitude": -0.1278,
+        "latitude": 51.5074,
+        "timezone": "Europe/London"
     }
     ```
 -   **`transit_subject`** (object, required): The Transit Moment (the time and place of the event/now).

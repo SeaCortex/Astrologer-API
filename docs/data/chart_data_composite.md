@@ -19,9 +19,9 @@ This endpoint calculates the composite chart for two subjects. A composite chart
         "minute": 0,
         "city": "Rome",
         "nation": "IT",
-        "lng": 12.4964,
-        "lat": 41.9028,
-        "tz_str": "Europe/Rome"
+        "longitude": 12.4964,
+        "latitude": 41.9028,
+        "timezone": "Europe/Rome"
     }
     ```
 -   **`second_subject`** (object, required): Second partner.
@@ -35,9 +35,9 @@ This endpoint calculates the composite chart for two subjects. A composite chart
         "minute": 30,
         "city": "Milan",
         "nation": "IT",
-        "lng": 9.19,
-        "lat": 45.4642,
-        "tz_str": "Europe/Rome"
+        "longitude": 9.19,
+        "latitude": 45.4642,
+        "timezone": "Europe/Rome"
     }
     ```
 -   **`active_points`**, **`active_aspects`** (optional overrides).

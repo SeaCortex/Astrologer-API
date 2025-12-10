@@ -19,9 +19,9 @@ Calculates the Solar Return chart for a given year. The Solar Return occurs when
         "minute": 0,
         "city": "London",
         "nation": "GB",
-        "lng": -0.1278,
-        "lat": 51.5074,
-        "tz_str": "Europe/London"
+        "longitude": -0.1278,
+        "latitude": 51.5074,
+        "timezone": "Europe/London"
     }
     ```
 -   **`year`** (integer, required): The year for which to calculate the return.
@@ -51,9 +51,9 @@ Calculates the Solar Return chart for a given year. The Solar Return occurs when
     "return_location": {
         "city": "Paris",
         "nation": "FR",
-        "lng": 2.3522,
-        "lat": 48.8566,
-        "tz_str": "Europe/Paris"
+        "longitude": 2.3522,
+        "latitude": 48.8566,
+        "timezone": "Europe/Paris"
     }
 }
 ```

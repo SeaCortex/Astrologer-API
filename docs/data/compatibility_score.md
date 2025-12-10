@@ -23,9 +23,9 @@ Requires two subject objects: `first_subject` and `second_subject`.
         "minute": 0,
         "city": "London",
         "nation": "GB",
-        "lng": -0.1278,
-        "lat": 51.5074,
-        "tz_str": "Europe/London"
+        "longitude": -0.1278,
+        "latitude": 51.5074,
+        "timezone": "Europe/London"
     }
     ```
 -   **`second_subject`** (object, required): Birth data of the second person.
@@ -39,9 +39,9 @@ Requires two subject objects: `first_subject` and `second_subject`.
         "minute": 30,
         "city": "New York",
         "nation": "US",
-        "lng": -74.006,
-        "lat": 40.7128,
-        "tz_str": "America/New_York"
+        "longitude": -74.006,
+        "latitude": 40.7128,
+        "timezone": "America/New_York"
     }
     ```
 -   **`active_points`** (list, optional): Override planets to include.

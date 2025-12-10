@@ -36,9 +36,9 @@ The synastry chart reveals how two individuals interact on an energetic level, h
         "minute": 0,
         "city": "London",
         "nation": "GB",
-        "lng": -0.1278,
-        "lat": 51.5074,
-        "tz_str": "Europe/London"
+        "longitude": -0.1278,
+        "latitude": 51.5074,
+        "timezone": "Europe/London"
     }
     ```
 -   **`second_subject`** (object, required): Outer wheel subject.
@@ -52,9 +52,9 @@ The synastry chart reveals how two individuals interact on an energetic level, h
         "minute": 30,
         "city": "New York",
         "nation": "US",
-        "lng": -74.006,
-        "lat": 40.7128,
-        "tz_str": "America/New_York"
+        "longitude": -74.006,
+        "latitude": 40.7128,
+        "timezone": "America/New_York"
     }
     ```
 -   **`theme`**, **`language`**, **`split_chart`** (rendering options).

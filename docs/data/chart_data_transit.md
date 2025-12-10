@@ -19,9 +19,9 @@ This endpoint calculates the transits for a specific subject at a specific time.
         "minute": 0,
         "city": "London",
         "nation": "GB",
-        "lng": -0.1278,
-        "lat": 51.5074,
-        "tz_str": "Europe/London"
+        "longitude": -0.1278,
+        "latitude": 51.5074,
+        "timezone": "Europe/London"
     }
     ```
 -   **`transit_subject`** (object, required): The transit moment (time and location).

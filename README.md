@@ -75,7 +75,7 @@ The API provides chart endpoints that return rendered SVG charts together with f
 -   `/api/v5/chart/composite` (POST) - Composite chart SVG + midpoint data
 -   `/api/v5/chart/solar-return` (POST) - Solar return chart SVG + data
 -   `/api/v5/chart/lunar-return` (POST) - Lunar return chart SVG + data
--   `/api/v5/now/chart` (GET) - Current moment chart SVG + data
+-   `/api/v5/now/chart` (POST) - Current moment chart SVG + data
 
 ### Data Endpoints (JSON only, no SVG)
 
@@ -88,7 +88,7 @@ Use these endpoints when you only need structured astrological data without rend
 -   `/api/v5/chart-data/solar-return` (POST) - Solar return data only
 -   `/api/v5/chart-data/lunar-return` (POST) - Lunar return data only
 -   `/api/v5/subject` (POST) - Normalized subject object only
--   `/api/v5/now/subject` (GET) - Current UTC subject data
+-   `/api/v5/now/subject` (POST) - Current UTC subject data
 -   `/api/v5/compatibility-score` (POST) - Ciro Discepolo compatibility score + summary
 
 ### Context Endpoints (AI/LLM Integration)
@@ -131,7 +131,7 @@ Two SVGs (wheel + grid) with split_chart:
     -   chart_wheel: the zodiac wheel (signs, houses, degrees, glyphs)
     -   chart_grid: the aspect grid/table and legend
 -   Useful when you need separate positioning, animation, or different sizes for wheel and grid.
--   Works with all /charts/\* endpoints and can be combined with transparent_background.
+-   Works with all /charts/* endpoints and can be combined with transparent_background.
 
 Request:
 
@@ -204,12 +204,14 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/compatibility-score' \
 
 ### 3) Transits (now or custom moment)
 
-Current time (simple GET):
+Current time (simple POST):
 
 ```bash
-curl 'https://astrologer.p.rapidapi.com/api/v5/now/chart' \
+curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/now/chart' \
+    -H 'Content-Type: application/json' \
     -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
-    -H 'X-RapidAPI-Key: YOUR_API_KEY'
+    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -d '{}'
 ```
 
 Transit for a natal subject at a chosen moment:
@@ -311,7 +313,7 @@ Example:
 
 ## Transparent background
 
-Render charts without a background fill so you can overlay them on any design. Works with any theme and across all /charts/\* endpoints. Can be combined with split_chart.
+Render charts without a background fill so you can overlay them on any design. Works with any theme and across all /charts/* endpoints. Can be combined with split_chart.
 
 Example:
 
@@ -361,7 +363,7 @@ Provide a short (`<= 40` chars) `custom_title` to override the text rendered abo
 
 Choose the zodiac in the subject object:
 
--   zodiac_type: "Tropic" (default) or "Sidereal"
+-   zodiac_type: "Tropical" (default) or "Sidereal"
 -   If "Sidereal", also set sidereal_mode (ayanamsha)
 
 Supported sidereal_mode values include:
@@ -392,7 +394,7 @@ Example (Sidereal):
 
 ## House systems
 
-Select the house system via subject.house_system using one of the codes:
+Select the house system via subject.houses_system_identifier using one of the codes:
 
 -   A: Equal
 -   B: Alcabitius
@@ -432,8 +434,8 @@ Example:
         "longitude": 0,
         "latitude": 51.4826,
         "timezone": "Europe/London",
-        "zodiac_type": "Tropic",
-        "house_system": "P"
+        "zodiac_type": "Tropical",
+        "houses_system_identifier": "P"
     }
 }
 ```
