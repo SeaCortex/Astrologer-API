@@ -27,15 +27,16 @@ Endpoint: `/api/v5/context/birth-chart`
 ## Response Body
 ```json
 {
-  "detail": [
+  "status": "ERROR",
+  "message": "Validation failed",
+  "errors": [
     {
-      "type": "extra_forbidden",
       "loc": [
         "body",
         "theme"
       ],
-      "msg": "Extra inputs are not permitted",
-      "input": "classic"
+      "msg": "Extra field 'theme' is not allowed in 'theme'.",
+      "type": "extra_forbidden"
     }
   ]
 }

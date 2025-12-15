@@ -3925,6 +3925,274 @@ Endpoint: `/api/v5/compatibility-score`
           "projected_house_name": "Eleventh_House",
           "projected_house_owner_name": "Partner A"
         }
+      ],
+      "first_cusps_in_second_houses": [
+        {
+          "point_name": "First_House",
+          "point_degree": 24.944039779735835,
+          "point_sign": "Ari",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "First_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Second_House",
+          "point_degree": 1.5318039763036708,
+          "point_sign": "Gem",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Second_House",
+          "projected_house_number": 7,
+          "projected_house_name": "Seventh_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Third_House",
+          "point_degree": 22.316160981664936,
+          "point_sign": "Gem",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Third_House",
+          "projected_house_number": 8,
+          "projected_house_name": "Eighth_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Fourth_House",
+          "point_degree": 9.882489967799529,
+          "point_sign": "Can",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fourth_House",
+          "projected_house_number": 9,
+          "projected_house_name": "Ninth_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Fifth_House",
+          "point_degree": 29.363392480659684,
+          "point_sign": "Can",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fifth_House",
+          "projected_house_number": 9,
+          "projected_house_name": "Ninth_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Sixth_House",
+          "point_degree": 28.134321907641436,
+          "point_sign": "Leo",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Sixth_House",
+          "projected_house_number": 10,
+          "projected_house_name": "Tenth_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Seventh_House",
+          "point_degree": 24.944039779735846,
+          "point_sign": "Lib",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Seventh_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Eighth_House",
+          "point_degree": 1.531803976303678,
+          "point_sign": "Sag",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eighth_House",
+          "projected_house_number": 1,
+          "projected_house_name": "First_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Ninth_House",
+          "point_degree": 22.31616098166495,
+          "point_sign": "Sag",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Ninth_House",
+          "projected_house_number": 2,
+          "projected_house_name": "Second_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Tenth_House",
+          "point_degree": 9.882489967799529,
+          "point_sign": "Cap",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Tenth_House",
+          "projected_house_number": 3,
+          "projected_house_name": "Third_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Eleventh_House",
+          "point_degree": 29.363392480659684,
+          "point_sign": "Cap",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eleventh_House",
+          "projected_house_number": 3,
+          "projected_house_name": "Third_House",
+          "projected_house_owner_name": "Partner B"
+        },
+        {
+          "point_name": "Twelfth_House",
+          "point_degree": 28.134321907641436,
+          "point_sign": "Aqu",
+          "point_owner_name": "Partner A",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Twelfth_House",
+          "projected_house_number": 4,
+          "projected_house_name": "Fourth_House",
+          "projected_house_owner_name": "Partner B"
+        }
+      ],
+      "second_cusps_in_first_houses": [
+        {
+          "point_name": "First_House",
+          "point_degree": 7.376840931429342,
+          "point_sign": "Sco",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "First_House",
+          "projected_house_number": 7,
+          "projected_house_name": "Seventh_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Second_House",
+          "point_degree": 6.170957762803539,
+          "point_sign": "Sag",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Second_House",
+          "projected_house_number": 8,
+          "projected_house_name": "Eighth_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Third_House",
+          "point_degree": 9.382867447451588,
+          "point_sign": "Cap",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Third_House",
+          "projected_house_number": 9,
+          "projected_house_name": "Ninth_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Fourth_House",
+          "point_degree": 14.926015399748394,
+          "point_sign": "Aqu",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fourth_House",
+          "projected_house_number": 11,
+          "projected_house_name": "Eleventh_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Fifth_House",
+          "point_degree": 17.798281340974825,
+          "point_sign": "Pis",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fifth_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Sixth_House",
+          "point_degree": 15.149649819711442,
+          "point_sign": "Ari",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Sixth_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Seventh_House",
+          "point_degree": 7.376840931429342,
+          "point_sign": "Tau",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Seventh_House",
+          "projected_house_number": 1,
+          "projected_house_name": "First_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Eighth_House",
+          "point_degree": 6.170957762803539,
+          "point_sign": "Gem",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eighth_House",
+          "projected_house_number": 2,
+          "projected_house_name": "Second_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Ninth_House",
+          "point_degree": 9.382867447451588,
+          "point_sign": "Can",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Ninth_House",
+          "projected_house_number": 3,
+          "projected_house_name": "Third_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Tenth_House",
+          "point_degree": 14.926015399748422,
+          "point_sign": "Leo",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Tenth_House",
+          "projected_house_number": 5,
+          "projected_house_name": "Fifth_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Eleventh_House",
+          "point_degree": 17.798281340974825,
+          "point_sign": "Vir",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eleventh_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "Partner A"
+        },
+        {
+          "point_name": "Twelfth_House",
+          "point_degree": 15.149649819711442,
+          "point_sign": "Lib",
+          "point_owner_name": "Partner B",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Twelfth_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "Partner A"
+        }
       ]
     },
     "relationship_score": {
@@ -5051,24 +5319,24 @@ Endpoint: `/api/v5/compatibility-score`
       "mutable_percentage": 11
     },
     "active_points": [
-      "Descendant",
-      "True_South_Lunar_Node",
-      "Neptune",
       "Ascendant",
-      "Moon",
-      "Mars",
-      "True_North_Lunar_Node",
-      "Chiron",
-      "Sun",
-      "Uranus",
-      "Medium_Coeli",
-      "Saturn",
       "Mean_Lilith",
-      "Pluto",
-      "Venus",
-      "Mercury",
+      "Saturn",
+      "Moon",
+      "Descendant",
+      "Neptune",
+      "Chiron",
+      "Medium_Coeli",
+      "Jupiter",
+      "Mars",
+      "Uranus",
+      "True_North_Lunar_Node",
       "Imum_Coeli",
-      "Jupiter"
+      "Sun",
+      "True_South_Lunar_Node",
+      "Venus",
+      "Pluto",
+      "Mercury"
     ],
     "active_aspects": [
       {

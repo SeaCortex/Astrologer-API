@@ -29,7 +29,7 @@ Endpoint: `/api/v5/context/lunar-return`
 ```json
 {
   "status": "OK",
-  "context": "DualReturnChart Chart Analysis\n==================================================\n\nFirst Subject:\nChart for \"John Doe\"\nBirth data: 1990-01-01 12:30, London, GB\nCoordinates: 51.51\u00b0N, -0.13\u00b0W\nTimezone: Europe/London\nZodiac system: Tropical\nHouse system: Placidus\nPerspective: Apparent Geocentric\n\nCelestial Points:\n  - Sun at 10.84\u00b0 in Capricorn in Ninth House, quality: Cardinal, element: Earth, direct motion, speed 1.0195\u00b0/day, declination -23.00\u00b0\n  - Moon at 3.55\u00b0 in Pisces in Eleventh House, quality: Mutable, element: Water, direct motion, speed 13.4742\u00b0/day, declination -8.81\u00b0\n  - Mercury at 25.67\u00b0 in Capricorn in Tenth House, quality: Cardinal, element: Earth, retrograde, speed -0.2987\u00b0/day, declination -20.39\u00b0\n  - Venus at 6.22\u00b0 in Aquarius in Tenth House, quality: Fixed, element: Air, retrograde, speed -0.1312\u00b0/day, declination -16.87\u00b0\n  - Mars at 10.01\u00b0 in Sagittarius in Seventh House, quality: Mutable, element: Fire, direct motion, speed 0.7038\u00b0/day, declination -21.99\u00b0\n  - Jupiter at 5.15\u00b0 in Cancer in Third House, quality: Cardinal, element: Water, retrograde, speed -0.1345\u00b0/day, declination 23.23\u00b0\n  - Saturn at 15.66\u00b0 in Capricorn in Ninth House, quality: Cardinal, element: Earth, direct motion, speed 0.1183\u00b0/day, declination -22.23\u00b0\n  - Uranus at 5.79\u00b0 in Capricorn in Ninth House, quality: Cardinal, element: Earth, direct motion, speed 0.0600\u00b0/day, declination -23.59\u00b0\n  - Neptune at 12.04\u00b0 in Capricorn in Ninth House, quality: Cardinal, element: Earth, direct motion, speed 0.0379\u00b0/day, declination -22.05\u00b0\n  - Pluto at 17.09\u00b0 in Scorpio in Seventh House, quality: Fixed, element: Water, direct motion, speed 0.0273\u00b0/day, declination -2.25\u00b0\n  - Chiron at 13.81\u00b0 in Cancer in Third House, quality: Cardinal, element: Water, retrograde, speed -0.0685\u00b0/day, declination 15.46\u00b0\n  - Mean_Lilith at 6.47\u00b0 in Scorpio in Sixth House, quality: Fixed, element: Water, direct motion, speed 0.1120\u00b0/day, declination -18.42\u00b0\n\nAxes and Angles:\n  - Ascendant at 10.21\u00b0 in Taurus in First House, quality: Fixed, element: Earth, direct motion, speed 360.0000\u00b0/day\n  - Descendant at 10.21\u00b0 in Scorpio in Seventh House, quality: Fixed, element: Water, direct motion, speed 360.0000\u00b0/day\n  - Medium_Coeli at 16.85\u00b0 in Capricorn in Tenth House, quality: Cardinal, element: Earth, direct motion, speed 360.0000\u00b0/day\n  - Imum_Coeli at 16.85\u00b0 in Cancer in Fourth House, quality: Cardinal, element: Water, direct motion, speed 360.0000\u00b0/day\n\nLunar Nodes:\n  - True_North_Lunar_Node at 16.87\u00b0 in Aquarius in Eleventh House, quality: Fixed, element: Air, direct motion, speed 0.0236\u00b0/day, declination -15.78\u00b0\n  - True_South_Lunar_Node at 16.87\u00b0 in Leo in Fifth House, quality: Fixed, element: Fire, direct motion, speed -0.0236\u00b0/day, declination 15.78\u00b0\n\nHouse cusps:\n  - First_House cusp at 10.21\u00b0 in Tau\n  - Second_House cusp at 10.24\u00b0 in Gem\n  - Third_House cusp at 29.34\u00b0 in Gem\n  - Fourth_House cusp at 16.85\u00b0 in Can\n  - Fifth_House cusp at 7.64\u00b0 in Leo\n  - Sixth_House cusp at 10.18\u00b0 in Vir\n  - Seventh_House cusp at 10.21\u00b0 in Sco\n  - Eighth_House cusp at 10.24\u00b0 in Sag\n  - Ninth_House cusp at 29.34\u00b0 in Sag\n  - Tenth_House cusp at 16.85\u00b0 in Cap\n  - Eleventh_House cusp at 7.64\u00b0 in Aqu\n  - Twelfth_House cusp at 10.18\u00b0 in Pis\n\nLunar phase: Waxing Crescent (phase 5), 52.71\u00b0 separation between Sun and Moon, emoji: \ud83c\udf12\n\n==================================================\nSecond Subject:\nChart for \"John Doe Lunar Return\"\nZodiac system: Tropical\nHouse system: Placidus\nPerspective: Apparent Geocentric\nReturn type: Lunar\n\nCelestial Points:\n  - Sun at 13.09\u00b0 in Taurus in Third House, quality: Fixed, element: Earth, direct motion, speed 0.9699\u00b0/day, declination 15.77\u00b0\n  - Moon at 3.55\u00b0 in Pisces in First House, quality: Mutable, element: Water, direct motion, speed 14.2966\u00b0/day, declination -13.46\u00b0\n  - Mercury at 18.20\u00b0 in Aries in Second House, quality: Cardinal, element: Fire, direct motion, speed 0.5696\u00b0/day, declination 4.71\u00b0\n  - Venus at 4.38\u00b0 in Taurus in Third House, quality: Fixed, element: Earth, direct motion, speed 1.2319\u00b0/day, declination 11.87\u00b0\n  - Mars at 1.84\u00b0 in Aries in Second House, quality: Cardinal, element: Fire, direct motion, speed 0.7698\u00b0/day, declination -0.43\u00b0\n  - Jupiter at 24.60\u00b0 in Taurus in Third House, quality: Fixed, element: Earth, direct motion, speed 0.2341\u00b0/day, declination 18.19\u00b0\n  - Saturn at 16.81\u00b0 in Pisces in First House, quality: Mutable, element: Water, direct motion, speed 0.0851\u00b0/day, declination -6.82\u00b0\n  - Uranus at 22.50\u00b0 in Taurus in Third House, quality: Fixed, element: Earth, direct motion, speed 0.0575\u00b0/day, declination 18.14\u00b0\n  - Neptune at 28.99\u00b0 in Pisces in Second House, quality: Mutable, element: Water, direct motion, speed 0.0293\u00b0/day, declination -1.53\u00b0\n  - Pluto at 2.10\u00b0 in Aquarius in First House, quality: Fixed, element: Air, retrograde, speed -0.0001\u00b0/day, declination -22.65\u00b0\n  - Chiron at 20.81\u00b0 in Aries in Second House, quality: Cardinal, element: Fire, direct motion, speed 0.0557\u00b0/day, declination 9.19\u00b0\n  - Mean_Lilith at 23.64\u00b0 in Virgo in Eighth House, quality: Mutable, element: Earth, direct motion, speed 0.1109\u00b0/day, declination 4.20\u00b0\n\nAxes and Angles:\n  - Ascendant at 22.05\u00b0 in Capricorn in First House, quality: Cardinal, element: Earth, direct motion, speed 360.0000\u00b0/day\n  - Descendant at 22.05\u00b0 in Cancer in Seventh House, quality: Cardinal, element: Water, direct motion, speed 360.0000\u00b0/day\n  - Medium_Coeli at 26.06\u00b0 in Scorpio in Tenth House, quality: Fixed, element: Water, direct motion, speed 360.0000\u00b0/day\n  - Imum_Coeli at 26.06\u00b0 in Taurus in Fourth House, quality: Fixed, element: Earth, direct motion, speed 360.0000\u00b0/day\n\nLunar Nodes:\n  - True_North_Lunar_Node at 15.37\u00b0 in Aries in Second House, quality: Cardinal, element: Fire, direct motion, speed 0.0222\u00b0/day, declination 6.05\u00b0\n  - True_South_Lunar_Node at 15.37\u00b0 in Libra in Eighth House, quality: Cardinal, element: Air, direct motion, speed -0.0222\u00b0/day, declination -6.05\u00b0\n\nHouse cusps:\n  - First_House cusp at 22.05\u00b0 in Cap\n  - Second_House cusp at 19.32\u00b0 in Pis\n  - Third_House cusp at 0.95\u00b0 in Tau\n  - Fourth_House cusp at 26.06\u00b0 in Tau\n  - Fifth_House cusp at 14.56\u00b0 in Gem\n  - Sixth_House cusp at 1.58\u00b0 in Can\n  - Seventh_House cusp at 22.05\u00b0 in Can\n  - Eighth_House cusp at 19.32\u00b0 in Vir\n  - Ninth_House cusp at 0.95\u00b0 in Sco\n  - Tenth_House cusp at 26.06\u00b0 in Sco\n  - Eleventh_House cusp at 14.56\u00b0 in Sag\n  - Twelfth_House cusp at 1.58\u00b0 in Cap\n\nLunar phase: Waning Crescent (phase 23), 290.46\u00b0 separation between Sun and Moon, emoji: \ud83c\udf18\n\n==================================================\nInter-chart aspects (113 total):\n  - trine between \"John Doe\"'s Sun and \"John Doe Lunar Return\"'s Sun, orb 2.25\u00b0\n  - trine between \"John Doe\"'s Sun and \"John Doe Lunar Return\"'s Venus, orb 6.46\u00b0\n  - sextile between \"John Doe\"'s Sun and \"John Doe Lunar Return\"'s Saturn, orb 5.98\u00b0\n  - square between \"John Doe\"'s Sun and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 4.53\u00b0\n  - square between \"John Doe\"'s Sun and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 4.53\u00b0\n  - conjunction between \"John Doe\"'s Moon and \"John Doe Lunar Return\"'s Moon, orb 0.00\u00b0\n  - sextile between \"John Doe\"'s Moon and \"John Doe Lunar Return\"'s Venus, orb 0.83\u00b0\n  - sextile between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Mars, orb 6.17\u00b0\n  - trine between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Jupiter, orb 1.07\u00b0\n  - trine between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Uranus, orb 3.16\u00b0\n  - sextile between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Neptune, orb 3.32\u00b0\n  - conjunction between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Pluto, orb 6.44\u00b0\n  - square between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Chiron, orb 4.85\u00b0\n  - conjunction between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Ascendant, orb 3.61\u00b0\n  - sextile between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Medium_Coeli, orb 0.39\u00b0\n  - opposition between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Descendant, orb 3.61\u00b0\n  - trine between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Imum_Coeli, orb 0.39\u00b0\n  - trine between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Mean_Lilith, orb 2.02\u00b0\n  - quintile between \"John Doe\"'s Venus and \"John Doe Lunar Return\"'s Mercury, orb 0.02\u00b0\n  - square between \"John Doe\"'s Venus and \"John Doe Lunar Return\"'s Venus, orb 1.84\u00b0\n  - sextile between \"John Doe\"'s Venus and \"John Doe Lunar Return\"'s Mars, orb 4.38\u00b0\n  - conjunction between \"John Doe\"'s Venus and \"John Doe Lunar Return\"'s Pluto, orb 4.12\u00b0\n  - trine between \"John Doe\"'s Mars and \"John Doe Lunar Return\"'s Mercury, orb 8.18\u00b0\n  - trine between \"John Doe\"'s Mars and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 5.35\u00b0\n  - sextile between \"John Doe\"'s Mars and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 5.35\u00b0\n  - trine between \"John Doe\"'s Jupiter and \"John Doe Lunar Return\"'s Moon, orb 1.60\u00b0\n  - sextile between \"John Doe\"'s Jupiter and \"John Doe Lunar Return\"'s Venus, orb 0.77\u00b0\n  - square between \"John Doe\"'s Jupiter and \"John Doe Lunar Return\"'s Mars, orb 3.31\u00b0\n  - trine between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Sun, orb 2.57\u00b0\n  - square between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Mercury, orb 2.54\u00b0\n  - trine between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Jupiter, orb 8.94\u00b0\n  - sextile between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Saturn, orb 1.15\u00b0\n  - trine between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Uranus, orb 6.84\u00b0\n  - quintile between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Neptune, orb 1.33\u00b0\n  - square between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 0.29\u00b0\n  - square between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Chiron, orb 5.15\u00b0\n  - conjunction between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Ascendant, orb 6.39\u00b0\n  - opposition between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Descendant, orb 6.39\u00b0\n  - trine between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Mean_Lilith, orb 7.98\u00b0\n  - square between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 0.29\u00b0\n  - trine between \"John Doe\"'s Uranus and \"John Doe Lunar Return\"'s Sun, orb 7.30\u00b0\n  - sextile between \"John Doe\"'s Uranus and \"John Doe Lunar Return\"'s Moon, orb 2.24\u00b0\n  - trine between \"John Doe\"'s Uranus and \"John Doe Lunar Return\"'s Venus, orb 1.41\u00b0\n  - square between \"John Doe\"'s Uranus and \"John Doe Lunar Return\"'s Mars, orb 3.95\u00b0\n  - quintile between \"John Doe\"'s Uranus and \"John Doe Lunar Return\"'s Saturn, orb 0.97\u00b0\n  - trine between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s Sun, orb 1.05\u00b0\n  - trine between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s Venus, orb 7.66\u00b0\n  - sextile between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s Saturn, orb 4.77\u00b0\n  - square between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 3.33\u00b0\n  - conjunction between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s Ascendant, orb 10.01\u00b0\n  - square between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 3.33\u00b0\n  - opposition between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Sun, orb 4.01\u00b0\n  - opposition between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Jupiter, orb 7.50\u00b0\n  - trine between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Saturn, orb 0.28\u00b0\n  - opposition between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Uranus, orb 5.41\u00b0\n  - sextile between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Ascendant, orb 4.96\u00b0\n  - conjunction between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Medium_Coeli, orb 8.96\u00b0\n  - trine between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Descendant, orb 4.96\u00b0\n  - opposition between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Imum_Coeli, orb 8.96\u00b0\n  - square between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s Sun, orb 3.78\u00b0\n  - sextile between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s Mercury, orb 1.33\u00b0\n  - square between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s Uranus, orb 5.64\u00b0\n  - sextile between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 1.50\u00b0\n  - sextile between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s Chiron, orb 3.94\u00b0\n  - trine between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 1.50\u00b0\n  - sextile between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s Sun, orb 0.72\u00b0\n  - square between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s Mercury, orb 4.38\u00b0\n  - trine between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s Saturn, orb 3.00\u00b0\n  - square between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 1.56\u00b0\n  - opposition between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s Ascendant, orb 8.24\u00b0\n  - conjunction between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s Descendant, orb 8.24\u00b0\n  - square between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 1.56\u00b0\n  - conjunction between \"John Doe\"'s Ascendant and \"John Doe Lunar Return\"'s Sun, orb 2.88\u00b0\n  - sextile between \"John Doe\"'s Ascendant and \"John Doe Lunar Return\"'s Moon, orb 6.66\u00b0\n  - conjunction between \"John Doe\"'s Ascendant and \"John Doe Lunar Return\"'s Venus, orb 5.83\u00b0\n  - quintile between \"John Doe\"'s Ascendant and \"John Doe Lunar Return\"'s Descendant, orb 0.15\u00b0\n  - trine between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Sun, orb 3.77\u00b0\n  - square between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Mercury, orb 1.34\u00b0\n  - trine between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Jupiter, orb 7.75\u00b0\n  - sextile between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Saturn, orb 0.04\u00b0\n  - trine between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Uranus, orb 5.65\u00b0\n  - quintile between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Neptune, orb 0.14\u00b0\n  - square between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 1.48\u00b0\n  - square between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Chiron, orb 3.96\u00b0\n  - conjunction between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Ascendant, orb 5.20\u00b0\n  - opposition between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Descendant, orb 5.20\u00b0\n  - trine between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Mean_Lilith, orb 6.79\u00b0\n  - square between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 1.48\u00b0\n  - opposition between \"John Doe\"'s Descendant and \"John Doe Lunar Return\"'s Sun, orb 2.88\u00b0\n  - trine between \"John Doe\"'s Descendant and \"John Doe Lunar Return\"'s Moon, orb 6.66\u00b0\n  - opposition between \"John Doe\"'s Descendant and \"John Doe Lunar Return\"'s Venus, orb 5.83\u00b0\n  - trine between \"John Doe\"'s Descendant and \"John Doe Lunar Return\"'s Saturn, orb 6.61\u00b0\n  - quintile between \"John Doe\"'s Descendant and \"John Doe Lunar Return\"'s Ascendant, orb 0.15\u00b0\n  - sextile between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Sun, orb 3.77\u00b0\n  - square between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Mercury, orb 1.34\u00b0\n  - quintile between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Venus, orb 0.47\u00b0\n  - trine between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Saturn, orb 0.04\u00b0\n  - sextile between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Uranus, orb 5.65\u00b0\n  - square between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 1.48\u00b0\n  - square between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Chiron, orb 3.96\u00b0\n  - opposition between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Ascendant, orb 5.20\u00b0\n  - conjunction between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Descendant, orb 5.20\u00b0\n  - sextile between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Mean_Lilith, orb 6.79\u00b0\n  - square between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 1.48\u00b0\n  - opposition between \"John Doe\"'s Mean_Lilith and \"John Doe Lunar Return\"'s Sun, orb 6.62\u00b0\n  - trine between \"John Doe\"'s Mean_Lilith and \"John Doe Lunar Return\"'s Moon, orb 2.92\u00b0\n  - opposition between \"John Doe\"'s Mean_Lilith and \"John Doe Lunar Return\"'s Venus, orb 2.09\u00b0\n  - square between \"John Doe\"'s Mean_Lilith and \"John Doe Lunar Return\"'s Pluto, orb 4.36\u00b0\n  - square between \"John Doe\"'s True_South_Lunar_Node and \"John Doe Lunar Return\"'s Sun, orb 3.78\u00b0\n  - trine between \"John Doe\"'s True_South_Lunar_Node and \"John Doe Lunar Return\"'s Mercury, orb 1.33\u00b0\n  - trine between \"John Doe\"'s True_South_Lunar_Node and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 1.50\u00b0\n  - trine between \"John Doe\"'s True_South_Lunar_Node and \"John Doe Lunar Return\"'s Chiron, orb 3.94\u00b0\n  - sextile between \"John Doe\"'s True_South_Lunar_Node and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 1.50\u00b0\n\n==================================================\nHouse Overlay Analysis:\n\n\"John Doe\"'s points in \"John Doe Lunar Return\"'s houses:\n  - \"John Doe\"'s Sun at 10.84\u00b0 Cap (in John Doe's Ninth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Moon at 3.55\u00b0 Pis (in John Doe's Eleventh_House) falls in \"John Doe Lunar Return\"'s First_House\n  - \"John Doe\"'s Mercury at 25.67\u00b0 Cap (in John Doe's Tenth_House) falls in \"John Doe Lunar Return\"'s First_House\n  - \"John Doe\"'s Venus at 6.22\u00b0 Aqu (in John Doe's Tenth_House) falls in \"John Doe Lunar Return\"'s First_House\n  - \"John Doe\"'s Mars at 10.01\u00b0 Sag (in John Doe's Seventh_House) falls in \"John Doe Lunar Return\"'s Tenth_House\n  - \"John Doe\"'s Jupiter at 5.15\u00b0 Can (in John Doe's Third_House) falls in \"John Doe Lunar Return\"'s Sixth_House\n  - \"John Doe\"'s Saturn at 15.66\u00b0 Cap (in John Doe's Ninth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Uranus at 5.79\u00b0 Cap (in John Doe's Ninth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Neptune at 12.04\u00b0 Cap (in John Doe's Ninth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Pluto at 17.09\u00b0 Sco (in John Doe's Seventh_House) falls in \"John Doe Lunar Return\"'s Ninth_House\n  - \"John Doe\"'s True_North_Lunar_Node at 16.87\u00b0 Aqu (in John Doe's Eleventh_House) falls in \"John Doe Lunar Return\"'s First_House\n  - \"John Doe\"'s True_South_Lunar_Node at 16.87\u00b0 Leo (in John Doe's Fifth_House) falls in \"John Doe Lunar Return\"'s Seventh_House\n  - \"John Doe\"'s Mean_Lilith at 6.47\u00b0 Sco (in John Doe's Sixth_House) falls in \"John Doe Lunar Return\"'s Ninth_House\n  - \"John Doe\"'s Chiron at 13.81\u00b0 Can (in John Doe's Third_House) falls in \"John Doe Lunar Return\"'s Sixth_House\n  - \"John Doe\"'s Ascendant at 10.21\u00b0 Tau (in John Doe's First_House) falls in \"John Doe Lunar Return\"'s Third_House\n  - \"John Doe\"'s Medium_Coeli at 16.85\u00b0 Cap (in John Doe's Tenth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Descendant at 10.21\u00b0 Sco (in John Doe's Seventh_House) falls in \"John Doe Lunar Return\"'s Ninth_House\n  - \"John Doe\"'s Imum_Coeli at 16.85\u00b0 Can (in John Doe's Fourth_House) falls in \"John Doe Lunar Return\"'s Sixth_House\n\n\"John Doe Lunar Return\"'s points in \"John Doe\"'s houses:\n  - \"John Doe Lunar Return\"'s Sun at 13.09\u00b0 Tau (in John Doe Lunar Return's Third_House) falls in \"John Doe\"'s First_House\n  - \"John Doe Lunar Return\"'s Moon at 3.55\u00b0 Pis (in John Doe Lunar Return's First_House) falls in \"John Doe\"'s Eleventh_House\n  - \"John Doe Lunar Return\"'s Mercury at 18.20\u00b0 Ari (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Venus at 4.38\u00b0 Tau (in John Doe Lunar Return's Third_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Mars at 1.84\u00b0 Ari (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Jupiter at 24.60\u00b0 Tau (in John Doe Lunar Return's Third_House) falls in \"John Doe\"'s First_House\n  - \"John Doe Lunar Return\"'s Saturn at 16.81\u00b0 Pis (in John Doe Lunar Return's First_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Uranus at 22.50\u00b0 Tau (in John Doe Lunar Return's Third_House) falls in \"John Doe\"'s First_House\n  - \"John Doe Lunar Return\"'s Neptune at 28.99\u00b0 Pis (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Pluto at 2.10\u00b0 Aqu (in John Doe Lunar Return's First_House) falls in \"John Doe\"'s Tenth_House\n  - \"John Doe Lunar Return\"'s True_North_Lunar_Node at 15.37\u00b0 Ari (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s True_South_Lunar_Node at 15.37\u00b0 Lib (in John Doe Lunar Return's Eighth_House) falls in \"John Doe\"'s Sixth_House\n  - \"John Doe Lunar Return\"'s Mean_Lilith at 23.64\u00b0 Vir (in John Doe Lunar Return's Eighth_House) falls in \"John Doe\"'s Sixth_House\n  - \"John Doe Lunar Return\"'s Chiron at 20.81\u00b0 Ari (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Ascendant at 22.05\u00b0 Cap (in John Doe Lunar Return's First_House) falls in \"John Doe\"'s Tenth_House\n  - \"John Doe Lunar Return\"'s Medium_Coeli at 26.06\u00b0 Sco (in John Doe Lunar Return's Tenth_House) falls in \"John Doe\"'s Seventh_House\n  - \"John Doe Lunar Return\"'s Descendant at 22.05\u00b0 Can (in John Doe Lunar Return's Seventh_House) falls in \"John Doe\"'s Fourth_House\n  - \"John Doe Lunar Return\"'s Imum_Coeli at 26.06\u00b0 Tau (in John Doe Lunar Return's Fourth_House) falls in \"John Doe\"'s First_House\n\n==================================================\nCombined Element distribution: Fire 10%, Earth 43%, Air 10%, Water 37%\nCombined Quality distribution: Cardinal 49%, Fixed 34%, Mutable 17%\n\nActive points: Descendant, True_South_Lunar_Node, Neptune, Ascendant, Moon, Mars, True_North_Lunar_Node, Chiron, Sun, Uranus, Medium_Coeli, Saturn, Mean_Lilith, Pluto, Venus, Mercury, Imum_Coeli, Jupiter\nActive aspects: conjunction (10\u00b0), opposition (10\u00b0), trine (8\u00b0), sextile (6\u00b0), square (5\u00b0), quintile (1\u00b0)",
+  "context": "DualReturnChart Chart Analysis\n==================================================\n\nFirst Subject:\nChart for \"John Doe\"\nBirth data: 1990-01-01 12:30, London, GB\nCoordinates: 51.51\u00b0N, -0.13\u00b0W\nTimezone: Europe/London\nZodiac system: Tropical\nHouse system: Placidus\nPerspective: Apparent Geocentric\n\nPlanetary positions:\n  - Sun at 10.84\u00b0 in Capricorn in Ninth House, absolute position 280.84\u00b0, quality: Cardinal, element: Earth, direct motion, speed 1.0195\u00b0/day, declination -23.00\u00b0\n  - Moon at 3.55\u00b0 in Pisces in Eleventh House, absolute position 333.55\u00b0, quality: Mutable, element: Water, direct motion, speed 13.4742\u00b0/day, declination -8.81\u00b0\n  - Mercury at 25.67\u00b0 in Capricorn in Tenth House, absolute position 295.67\u00b0, quality: Cardinal, element: Earth, retrograde, speed -0.2987\u00b0/day, declination -20.39\u00b0\n  - Venus at 6.22\u00b0 in Aquarius in Tenth House, absolute position 306.22\u00b0, quality: Fixed, element: Air, retrograde, speed -0.1312\u00b0/day, declination -16.87\u00b0\n  - Mars at 10.01\u00b0 in Sagittarius in Seventh House, absolute position 250.01\u00b0, quality: Mutable, element: Fire, direct motion, speed 0.7038\u00b0/day, declination -21.99\u00b0\n  - Jupiter at 5.15\u00b0 in Cancer in Third House, absolute position 95.15\u00b0, quality: Cardinal, element: Water, retrograde, speed -0.1345\u00b0/day, declination 23.23\u00b0\n  - Saturn at 15.66\u00b0 in Capricorn in Ninth House, absolute position 285.66\u00b0, quality: Cardinal, element: Earth, direct motion, speed 0.1183\u00b0/day, declination -22.23\u00b0\n  - Uranus at 5.79\u00b0 in Capricorn in Ninth House, absolute position 275.79\u00b0, quality: Cardinal, element: Earth, direct motion, speed 0.0600\u00b0/day, declination -23.59\u00b0\n  - Neptune at 12.04\u00b0 in Capricorn in Ninth House, absolute position 282.04\u00b0, quality: Cardinal, element: Earth, direct motion, speed 0.0379\u00b0/day, declination -22.05\u00b0\n  - Pluto at 17.09\u00b0 in Scorpio in Seventh House, absolute position 227.09\u00b0, quality: Fixed, element: Water, direct motion, speed 0.0273\u00b0/day, declination -2.25\u00b0\n  - Chiron at 13.81\u00b0 in Cancer in Third House, absolute position 103.81\u00b0, quality: Cardinal, element: Water, retrograde, speed -0.0685\u00b0/day, declination 15.46\u00b0\n  - Mean_Lilith at 6.47\u00b0 in Scorpio in Sixth House, absolute position 216.47\u00b0, quality: Fixed, element: Water, direct motion, speed 0.1120\u00b0/day, declination -18.42\u00b0\n\nImportant points:\n  - Ascendant at 10.21\u00b0 in Taurus in First House, absolute position 40.21\u00b0, quality: Fixed, element: Earth, direct motion, speed 360.0000\u00b0/day\n  - Descendant at 10.21\u00b0 in Scorpio in Seventh House, absolute position 220.21\u00b0, quality: Fixed, element: Water, direct motion, speed 360.0000\u00b0/day\n  - Medium_Coeli at 16.85\u00b0 in Capricorn in Tenth House, absolute position 286.85\u00b0, quality: Cardinal, element: Earth, direct motion, speed 360.0000\u00b0/day\n  - Imum_Coeli at 16.85\u00b0 in Cancer in Fourth House, absolute position 106.85\u00b0, quality: Cardinal, element: Water, direct motion, speed 360.0000\u00b0/day\n  - True_North_Lunar_Node at 16.87\u00b0 in Aquarius in Eleventh House, absolute position 316.87\u00b0, quality: Fixed, element: Air, direct motion, speed 0.0236\u00b0/day, declination -15.78\u00b0\n  - True_South_Lunar_Node at 16.87\u00b0 in Leo in Fifth House, absolute position 136.87\u00b0, quality: Fixed, element: Fire, direct motion, speed -0.0236\u00b0/day, declination 15.78\u00b0\n\nHouse cusps:\n  - First_House cusp at 10.21\u00b0 in Tau\n  - Second_House cusp at 10.24\u00b0 in Gem\n  - Third_House cusp at 29.34\u00b0 in Gem\n  - Fourth_House cusp at 16.85\u00b0 in Can\n  - Fifth_House cusp at 7.64\u00b0 in Leo\n  - Sixth_House cusp at 10.18\u00b0 in Vir\n  - Seventh_House cusp at 10.21\u00b0 in Sco\n  - Eighth_House cusp at 10.24\u00b0 in Sag\n  - Ninth_House cusp at 29.34\u00b0 in Sag\n  - Tenth_House cusp at 16.85\u00b0 in Cap\n  - Eleventh_House cusp at 7.64\u00b0 in Aqu\n  - Twelfth_House cusp at 10.18\u00b0 in Pis\n\nLunar phase: Waxing Crescent (phase 5), 52.71\u00b0 separation between Sun and Moon, emoji: \ud83c\udf12\n\n==================================================\nSecond Subject:\nChart for \"John Doe Lunar Return\"\nZodiac system: Tropical\nHouse system: Placidus\nPerspective: Apparent Geocentric\nReturn type: Lunar\n\nPlanetary positions:\n  - Sun at 13.09\u00b0 in Taurus in Third House, absolute position 43.09\u00b0, quality: Fixed, element: Earth, direct motion, speed 0.9699\u00b0/day, declination 15.77\u00b0\n  - Moon at 3.55\u00b0 in Pisces in First House, absolute position 333.55\u00b0, quality: Mutable, element: Water, direct motion, speed 14.2966\u00b0/day, declination -13.46\u00b0\n  - Mercury at 18.20\u00b0 in Aries in Second House, absolute position 18.20\u00b0, quality: Cardinal, element: Fire, direct motion, speed 0.5696\u00b0/day, declination 4.71\u00b0\n  - Venus at 4.38\u00b0 in Taurus in Third House, absolute position 34.38\u00b0, quality: Fixed, element: Earth, direct motion, speed 1.2319\u00b0/day, declination 11.87\u00b0\n  - Mars at 1.84\u00b0 in Aries in Second House, absolute position 1.84\u00b0, quality: Cardinal, element: Fire, direct motion, speed 0.7698\u00b0/day, declination -0.43\u00b0\n  - Jupiter at 24.60\u00b0 in Taurus in Third House, absolute position 54.60\u00b0, quality: Fixed, element: Earth, direct motion, speed 0.2341\u00b0/day, declination 18.19\u00b0\n  - Saturn at 16.81\u00b0 in Pisces in First House, absolute position 346.81\u00b0, quality: Mutable, element: Water, direct motion, speed 0.0851\u00b0/day, declination -6.82\u00b0\n  - Uranus at 22.50\u00b0 in Taurus in Third House, absolute position 52.50\u00b0, quality: Fixed, element: Earth, direct motion, speed 0.0575\u00b0/day, declination 18.14\u00b0\n  - Neptune at 28.99\u00b0 in Pisces in Second House, absolute position 358.99\u00b0, quality: Mutable, element: Water, direct motion, speed 0.0293\u00b0/day, declination -1.53\u00b0\n  - Pluto at 2.10\u00b0 in Aquarius in First House, absolute position 302.10\u00b0, quality: Fixed, element: Air, retrograde, speed -0.0001\u00b0/day, declination -22.65\u00b0\n  - Chiron at 20.81\u00b0 in Aries in Second House, absolute position 20.81\u00b0, quality: Cardinal, element: Fire, direct motion, speed 0.0557\u00b0/day, declination 9.19\u00b0\n  - Mean_Lilith at 23.64\u00b0 in Virgo in Eighth House, absolute position 173.64\u00b0, quality: Mutable, element: Earth, direct motion, speed 0.1109\u00b0/day, declination 4.20\u00b0\n\nImportant points:\n  - Ascendant at 22.05\u00b0 in Capricorn in First House, absolute position 292.05\u00b0, quality: Cardinal, element: Earth, direct motion, speed 360.0000\u00b0/day\n  - Descendant at 22.05\u00b0 in Cancer in Seventh House, absolute position 112.05\u00b0, quality: Cardinal, element: Water, direct motion, speed 360.0000\u00b0/day\n  - Medium_Coeli at 26.06\u00b0 in Scorpio in Tenth House, absolute position 236.06\u00b0, quality: Fixed, element: Water, direct motion, speed 360.0000\u00b0/day\n  - Imum_Coeli at 26.06\u00b0 in Taurus in Fourth House, absolute position 56.06\u00b0, quality: Fixed, element: Earth, direct motion, speed 360.0000\u00b0/day\n  - True_North_Lunar_Node at 15.37\u00b0 in Aries in Second House, absolute position 15.37\u00b0, quality: Cardinal, element: Fire, direct motion, speed 0.0222\u00b0/day, declination 6.05\u00b0\n  - True_South_Lunar_Node at 15.37\u00b0 in Libra in Eighth House, absolute position 195.37\u00b0, quality: Cardinal, element: Air, direct motion, speed -0.0222\u00b0/day, declination -6.05\u00b0\n\nHouse cusps:\n  - First_House cusp at 22.05\u00b0 in Cap\n  - Second_House cusp at 19.32\u00b0 in Pis\n  - Third_House cusp at 0.95\u00b0 in Tau\n  - Fourth_House cusp at 26.06\u00b0 in Tau\n  - Fifth_House cusp at 14.56\u00b0 in Gem\n  - Sixth_House cusp at 1.58\u00b0 in Can\n  - Seventh_House cusp at 22.05\u00b0 in Can\n  - Eighth_House cusp at 19.32\u00b0 in Vir\n  - Ninth_House cusp at 0.95\u00b0 in Sco\n  - Tenth_House cusp at 26.06\u00b0 in Sco\n  - Eleventh_House cusp at 14.56\u00b0 in Sag\n  - Twelfth_House cusp at 1.58\u00b0 in Cap\n\nLunar phase: Waning Crescent (phase 23), 290.46\u00b0 separation between Sun and Moon, emoji: \ud83c\udf18\n\n==================================================\nInter-chart aspects (113 total):\n  - trine between \"John Doe\"'s Sun and \"John Doe Lunar Return\"'s Sun, orb 2.25\u00b0, aspect angle 120\u00b0\n  - trine between \"John Doe\"'s Sun and \"John Doe Lunar Return\"'s Venus, orb 6.46\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s Sun and \"John Doe Lunar Return\"'s Saturn, orb 5.98\u00b0, aspect angle 60\u00b0\n  - square between \"John Doe\"'s Sun and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 4.53\u00b0, aspect angle 90\u00b0\n  - square between \"John Doe\"'s Sun and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 4.53\u00b0, aspect angle 90\u00b0\n  - conjunction between \"John Doe\"'s Moon and \"John Doe Lunar Return\"'s Moon, orb 0.00\u00b0, aspect angle 0\u00b0\n  - sextile between \"John Doe\"'s Moon and \"John Doe Lunar Return\"'s Venus, orb 0.83\u00b0, aspect angle 60\u00b0\n  - sextile between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Mars, orb 6.17\u00b0, aspect angle 60\u00b0\n  - trine between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Jupiter, orb 1.07\u00b0, aspect angle 120\u00b0\n  - trine between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Uranus, orb 3.16\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Neptune, orb 3.32\u00b0, aspect angle 60\u00b0\n  - conjunction between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Pluto, orb 6.44\u00b0, aspect angle 0\u00b0\n  - square between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Chiron, orb 4.85\u00b0, aspect angle 90\u00b0\n  - conjunction between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Ascendant, orb 3.61\u00b0, aspect angle 0\u00b0\n  - sextile between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Medium_Coeli, orb 0.39\u00b0, aspect angle 60\u00b0\n  - opposition between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Descendant, orb 3.61\u00b0, aspect angle 180\u00b0\n  - trine between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Imum_Coeli, orb 0.39\u00b0, aspect angle 120\u00b0\n  - trine between \"John Doe\"'s Mercury and \"John Doe Lunar Return\"'s Mean_Lilith, orb 2.02\u00b0, aspect angle 120\u00b0\n  - quintile between \"John Doe\"'s Venus and \"John Doe Lunar Return\"'s Mercury, orb 0.02\u00b0, aspect angle 72\u00b0\n  - square between \"John Doe\"'s Venus and \"John Doe Lunar Return\"'s Venus, orb 1.84\u00b0, aspect angle 90\u00b0\n  - sextile between \"John Doe\"'s Venus and \"John Doe Lunar Return\"'s Mars, orb 4.38\u00b0, aspect angle 60\u00b0\n  - conjunction between \"John Doe\"'s Venus and \"John Doe Lunar Return\"'s Pluto, orb 4.12\u00b0, aspect angle 0\u00b0\n  - trine between \"John Doe\"'s Mars and \"John Doe Lunar Return\"'s Mercury, orb 8.18\u00b0, aspect angle 120\u00b0\n  - trine between \"John Doe\"'s Mars and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 5.35\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s Mars and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 5.35\u00b0, aspect angle 60\u00b0\n  - trine between \"John Doe\"'s Jupiter and \"John Doe Lunar Return\"'s Moon, orb 1.60\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s Jupiter and \"John Doe Lunar Return\"'s Venus, orb 0.77\u00b0, aspect angle 60\u00b0\n  - square between \"John Doe\"'s Jupiter and \"John Doe Lunar Return\"'s Mars, orb 3.31\u00b0, aspect angle 90\u00b0\n  - trine between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Sun, orb 2.57\u00b0, aspect angle 120\u00b0\n  - square between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Mercury, orb 2.54\u00b0, aspect angle 90\u00b0\n  - trine between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Jupiter, orb 8.94\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Saturn, orb 1.15\u00b0, aspect angle 60\u00b0\n  - trine between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Uranus, orb 6.84\u00b0, aspect angle 120\u00b0\n  - quintile between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Neptune, orb 1.33\u00b0, aspect angle 72\u00b0\n  - square between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 0.29\u00b0, aspect angle 90\u00b0\n  - square between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Chiron, orb 5.15\u00b0, aspect angle 90\u00b0\n  - conjunction between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Ascendant, orb 6.39\u00b0, aspect angle 0\u00b0\n  - opposition between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Descendant, orb 6.39\u00b0, aspect angle 180\u00b0\n  - trine between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s Mean_Lilith, orb 7.98\u00b0, aspect angle 120\u00b0\n  - square between \"John Doe\"'s Saturn and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 0.29\u00b0, aspect angle 90\u00b0\n  - trine between \"John Doe\"'s Uranus and \"John Doe Lunar Return\"'s Sun, orb 7.30\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s Uranus and \"John Doe Lunar Return\"'s Moon, orb 2.24\u00b0, aspect angle 60\u00b0\n  - trine between \"John Doe\"'s Uranus and \"John Doe Lunar Return\"'s Venus, orb 1.41\u00b0, aspect angle 120\u00b0\n  - square between \"John Doe\"'s Uranus and \"John Doe Lunar Return\"'s Mars, orb 3.95\u00b0, aspect angle 90\u00b0\n  - quintile between \"John Doe\"'s Uranus and \"John Doe Lunar Return\"'s Saturn, orb 0.97\u00b0, aspect angle 72\u00b0\n  - trine between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s Sun, orb 1.05\u00b0, aspect angle 120\u00b0\n  - trine between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s Venus, orb 7.66\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s Saturn, orb 4.77\u00b0, aspect angle 60\u00b0\n  - square between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 3.33\u00b0, aspect angle 90\u00b0\n  - conjunction between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s Ascendant, orb 10.01\u00b0, aspect angle 0\u00b0\n  - square between \"John Doe\"'s Neptune and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 3.33\u00b0, aspect angle 90\u00b0\n  - opposition between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Sun, orb 4.01\u00b0, aspect angle 180\u00b0\n  - opposition between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Jupiter, orb 7.50\u00b0, aspect angle 180\u00b0\n  - trine between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Saturn, orb 0.28\u00b0, aspect angle 120\u00b0\n  - opposition between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Uranus, orb 5.41\u00b0, aspect angle 180\u00b0\n  - sextile between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Ascendant, orb 4.96\u00b0, aspect angle 60\u00b0\n  - conjunction between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Medium_Coeli, orb 8.96\u00b0, aspect angle 0\u00b0\n  - trine between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Descendant, orb 4.96\u00b0, aspect angle 120\u00b0\n  - opposition between \"John Doe\"'s Pluto and \"John Doe Lunar Return\"'s Imum_Coeli, orb 8.96\u00b0, aspect angle 180\u00b0\n  - square between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s Sun, orb 3.78\u00b0, aspect angle 90\u00b0\n  - sextile between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s Mercury, orb 1.33\u00b0, aspect angle 60\u00b0\n  - square between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s Uranus, orb 5.64\u00b0, aspect angle 90\u00b0\n  - sextile between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 1.50\u00b0, aspect angle 60\u00b0\n  - sextile between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s Chiron, orb 3.94\u00b0, aspect angle 60\u00b0\n  - trine between \"John Doe\"'s True_North_Lunar_Node and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 1.50\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s Sun, orb 0.72\u00b0, aspect angle 60\u00b0\n  - square between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s Mercury, orb 4.38\u00b0, aspect angle 90\u00b0\n  - trine between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s Saturn, orb 3.00\u00b0, aspect angle 120\u00b0\n  - square between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 1.56\u00b0, aspect angle 90\u00b0\n  - opposition between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s Ascendant, orb 8.24\u00b0, aspect angle 180\u00b0\n  - conjunction between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s Descendant, orb 8.24\u00b0, aspect angle 0\u00b0\n  - square between \"John Doe\"'s Chiron and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 1.56\u00b0, aspect angle 90\u00b0\n  - conjunction between \"John Doe\"'s Ascendant and \"John Doe Lunar Return\"'s Sun, orb 2.88\u00b0, aspect angle 0\u00b0\n  - sextile between \"John Doe\"'s Ascendant and \"John Doe Lunar Return\"'s Moon, orb 6.66\u00b0, aspect angle 60\u00b0\n  - conjunction between \"John Doe\"'s Ascendant and \"John Doe Lunar Return\"'s Venus, orb 5.83\u00b0, aspect angle 0\u00b0\n  - quintile between \"John Doe\"'s Ascendant and \"John Doe Lunar Return\"'s Descendant, orb 0.15\u00b0, aspect angle 72\u00b0\n  - trine between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Sun, orb 3.77\u00b0, aspect angle 120\u00b0\n  - square between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Mercury, orb 1.34\u00b0, aspect angle 90\u00b0\n  - trine between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Jupiter, orb 7.75\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Saturn, orb 0.04\u00b0, aspect angle 60\u00b0\n  - trine between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Uranus, orb 5.65\u00b0, aspect angle 120\u00b0\n  - quintile between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Neptune, orb 0.14\u00b0, aspect angle 72\u00b0\n  - square between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 1.48\u00b0, aspect angle 90\u00b0\n  - square between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Chiron, orb 3.96\u00b0, aspect angle 90\u00b0\n  - conjunction between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Ascendant, orb 5.20\u00b0, aspect angle 0\u00b0\n  - opposition between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Descendant, orb 5.20\u00b0, aspect angle 180\u00b0\n  - trine between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s Mean_Lilith, orb 6.79\u00b0, aspect angle 120\u00b0\n  - square between \"John Doe\"'s Medium_Coeli and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 1.48\u00b0, aspect angle 90\u00b0\n  - opposition between \"John Doe\"'s Descendant and \"John Doe Lunar Return\"'s Sun, orb 2.88\u00b0, aspect angle 180\u00b0\n  - trine between \"John Doe\"'s Descendant and \"John Doe Lunar Return\"'s Moon, orb 6.66\u00b0, aspect angle 120\u00b0\n  - opposition between \"John Doe\"'s Descendant and \"John Doe Lunar Return\"'s Venus, orb 5.83\u00b0, aspect angle 180\u00b0\n  - trine between \"John Doe\"'s Descendant and \"John Doe Lunar Return\"'s Saturn, orb 6.61\u00b0, aspect angle 120\u00b0\n  - quintile between \"John Doe\"'s Descendant and \"John Doe Lunar Return\"'s Ascendant, orb 0.15\u00b0, aspect angle 72\u00b0\n  - sextile between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Sun, orb 3.77\u00b0, aspect angle 60\u00b0\n  - square between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Mercury, orb 1.34\u00b0, aspect angle 90\u00b0\n  - quintile between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Venus, orb 0.47\u00b0, aspect angle 72\u00b0\n  - trine between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Saturn, orb 0.04\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Uranus, orb 5.65\u00b0, aspect angle 60\u00b0\n  - square between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 1.48\u00b0, aspect angle 90\u00b0\n  - square between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Chiron, orb 3.96\u00b0, aspect angle 90\u00b0\n  - opposition between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Ascendant, orb 5.20\u00b0, aspect angle 180\u00b0\n  - conjunction between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Descendant, orb 5.20\u00b0, aspect angle 0\u00b0\n  - sextile between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s Mean_Lilith, orb 6.79\u00b0, aspect angle 60\u00b0\n  - square between \"John Doe\"'s Imum_Coeli and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 1.48\u00b0, aspect angle 90\u00b0\n  - opposition between \"John Doe\"'s Mean_Lilith and \"John Doe Lunar Return\"'s Sun, orb 6.62\u00b0, aspect angle 180\u00b0\n  - trine between \"John Doe\"'s Mean_Lilith and \"John Doe Lunar Return\"'s Moon, orb 2.92\u00b0, aspect angle 120\u00b0\n  - opposition between \"John Doe\"'s Mean_Lilith and \"John Doe Lunar Return\"'s Venus, orb 2.09\u00b0, aspect angle 180\u00b0\n  - square between \"John Doe\"'s Mean_Lilith and \"John Doe Lunar Return\"'s Pluto, orb 4.36\u00b0, aspect angle 90\u00b0\n  - square between \"John Doe\"'s True_South_Lunar_Node and \"John Doe Lunar Return\"'s Sun, orb 3.78\u00b0, aspect angle 90\u00b0\n  - trine between \"John Doe\"'s True_South_Lunar_Node and \"John Doe Lunar Return\"'s Mercury, orb 1.33\u00b0, aspect angle 120\u00b0\n  - trine between \"John Doe\"'s True_South_Lunar_Node and \"John Doe Lunar Return\"'s True_North_Lunar_Node, orb 1.50\u00b0, aspect angle 120\u00b0\n  - trine between \"John Doe\"'s True_South_Lunar_Node and \"John Doe Lunar Return\"'s Chiron, orb 3.94\u00b0, aspect angle 120\u00b0\n  - sextile between \"John Doe\"'s True_South_Lunar_Node and \"John Doe Lunar Return\"'s True_South_Lunar_Node, orb 1.50\u00b0, aspect angle 60\u00b0\n\n==================================================\nHouse Overlay Analysis:\n\n\"John Doe\"'s points in \"John Doe Lunar Return\"'s houses:\n  - \"John Doe\"'s Sun at 10.84\u00b0 Cap (in John Doe's Ninth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Moon at 3.55\u00b0 Pis (in John Doe's Eleventh_House) falls in \"John Doe Lunar Return\"'s First_House\n  - \"John Doe\"'s Mercury at 25.67\u00b0 Cap (in John Doe's Tenth_House) falls in \"John Doe Lunar Return\"'s First_House\n  - \"John Doe\"'s Venus at 6.22\u00b0 Aqu (in John Doe's Tenth_House) falls in \"John Doe Lunar Return\"'s First_House\n  - \"John Doe\"'s Mars at 10.01\u00b0 Sag (in John Doe's Seventh_House) falls in \"John Doe Lunar Return\"'s Tenth_House\n  - \"John Doe\"'s Jupiter at 5.15\u00b0 Can (in John Doe's Third_House) falls in \"John Doe Lunar Return\"'s Sixth_House\n  - \"John Doe\"'s Saturn at 15.66\u00b0 Cap (in John Doe's Ninth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Uranus at 5.79\u00b0 Cap (in John Doe's Ninth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Neptune at 12.04\u00b0 Cap (in John Doe's Ninth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Pluto at 17.09\u00b0 Sco (in John Doe's Seventh_House) falls in \"John Doe Lunar Return\"'s Ninth_House\n  - \"John Doe\"'s True_North_Lunar_Node at 16.87\u00b0 Aqu (in John Doe's Eleventh_House) falls in \"John Doe Lunar Return\"'s First_House\n  - \"John Doe\"'s True_South_Lunar_Node at 16.87\u00b0 Leo (in John Doe's Fifth_House) falls in \"John Doe Lunar Return\"'s Seventh_House\n  - \"John Doe\"'s Mean_Lilith at 6.47\u00b0 Sco (in John Doe's Sixth_House) falls in \"John Doe Lunar Return\"'s Ninth_House\n  - \"John Doe\"'s Chiron at 13.81\u00b0 Can (in John Doe's Third_House) falls in \"John Doe Lunar Return\"'s Sixth_House\n  - \"John Doe\"'s Ascendant at 10.21\u00b0 Tau (in John Doe's First_House) falls in \"John Doe Lunar Return\"'s Third_House\n  - \"John Doe\"'s Medium_Coeli at 16.85\u00b0 Cap (in John Doe's Tenth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Descendant at 10.21\u00b0 Sco (in John Doe's Seventh_House) falls in \"John Doe Lunar Return\"'s Ninth_House\n  - \"John Doe\"'s Imum_Coeli at 16.85\u00b0 Can (in John Doe's Fourth_House) falls in \"John Doe Lunar Return\"'s Sixth_House\n\n\"John Doe Lunar Return\"'s points in \"John Doe\"'s houses:\n  - \"John Doe Lunar Return\"'s Sun at 13.09\u00b0 Tau (in John Doe Lunar Return's Third_House) falls in \"John Doe\"'s First_House\n  - \"John Doe Lunar Return\"'s Moon at 3.55\u00b0 Pis (in John Doe Lunar Return's First_House) falls in \"John Doe\"'s Eleventh_House\n  - \"John Doe Lunar Return\"'s Mercury at 18.20\u00b0 Ari (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Venus at 4.38\u00b0 Tau (in John Doe Lunar Return's Third_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Mars at 1.84\u00b0 Ari (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Jupiter at 24.60\u00b0 Tau (in John Doe Lunar Return's Third_House) falls in \"John Doe\"'s First_House\n  - \"John Doe Lunar Return\"'s Saturn at 16.81\u00b0 Pis (in John Doe Lunar Return's First_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Uranus at 22.50\u00b0 Tau (in John Doe Lunar Return's Third_House) falls in \"John Doe\"'s First_House\n  - \"John Doe Lunar Return\"'s Neptune at 28.99\u00b0 Pis (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Pluto at 2.10\u00b0 Aqu (in John Doe Lunar Return's First_House) falls in \"John Doe\"'s Tenth_House\n  - \"John Doe Lunar Return\"'s True_North_Lunar_Node at 15.37\u00b0 Ari (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s True_South_Lunar_Node at 15.37\u00b0 Lib (in John Doe Lunar Return's Eighth_House) falls in \"John Doe\"'s Sixth_House\n  - \"John Doe Lunar Return\"'s Mean_Lilith at 23.64\u00b0 Vir (in John Doe Lunar Return's Eighth_House) falls in \"John Doe\"'s Sixth_House\n  - \"John Doe Lunar Return\"'s Chiron at 20.81\u00b0 Ari (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Ascendant at 22.05\u00b0 Cap (in John Doe Lunar Return's First_House) falls in \"John Doe\"'s Tenth_House\n  - \"John Doe Lunar Return\"'s Medium_Coeli at 26.06\u00b0 Sco (in John Doe Lunar Return's Tenth_House) falls in \"John Doe\"'s Seventh_House\n  - \"John Doe Lunar Return\"'s Descendant at 22.05\u00b0 Can (in John Doe Lunar Return's Seventh_House) falls in \"John Doe\"'s Fourth_House\n  - \"John Doe Lunar Return\"'s Imum_Coeli at 26.06\u00b0 Tau (in John Doe Lunar Return's Fourth_House) falls in \"John Doe\"'s First_House\n\n\"John Doe\"'s cusps in \"John Doe Lunar Return\"'s houses:\n  - \"John Doe\"'s First_House at 10.21\u00b0 Tau (in John Doe's First_House) falls in \"John Doe Lunar Return\"'s Third_House\n  - \"John Doe\"'s Second_House at 10.24\u00b0 Gem (in John Doe's Second_House) falls in \"John Doe Lunar Return\"'s Fourth_House\n  - \"John Doe\"'s Third_House at 29.34\u00b0 Gem (in John Doe's Third_House) falls in \"John Doe Lunar Return\"'s Fifth_House\n  - \"John Doe\"'s Fourth_House at 16.85\u00b0 Can (in John Doe's Fourth_House) falls in \"John Doe Lunar Return\"'s Sixth_House\n  - \"John Doe\"'s Fifth_House at 7.64\u00b0 Leo (in John Doe's Fifth_House) falls in \"John Doe Lunar Return\"'s Seventh_House\n  - \"John Doe\"'s Sixth_House at 10.18\u00b0 Vir (in John Doe's Sixth_House) falls in \"John Doe Lunar Return\"'s Seventh_House\n  - \"John Doe\"'s Seventh_House at 10.21\u00b0 Sco (in John Doe's Seventh_House) falls in \"John Doe Lunar Return\"'s Ninth_House\n  - \"John Doe\"'s Eighth_House at 10.24\u00b0 Sag (in John Doe's Eighth_House) falls in \"John Doe Lunar Return\"'s Tenth_House\n  - \"John Doe\"'s Ninth_House at 29.34\u00b0 Sag (in John Doe's Ninth_House) falls in \"John Doe Lunar Return\"'s Eleventh_House\n  - \"John Doe\"'s Tenth_House at 16.85\u00b0 Cap (in John Doe's Tenth_House) falls in \"John Doe Lunar Return\"'s Twelfth_House\n  - \"John Doe\"'s Eleventh_House at 7.64\u00b0 Aqu (in John Doe's Eleventh_House) falls in \"John Doe Lunar Return\"'s First_House\n  - \"John Doe\"'s Twelfth_House at 10.18\u00b0 Pis (in John Doe's Twelfth_House) falls in \"John Doe Lunar Return\"'s First_House\n\n\"John Doe Lunar Return\"'s cusps in \"John Doe\"'s houses:\n  - \"John Doe Lunar Return\"'s First_House at 22.05\u00b0 Cap (in John Doe Lunar Return's First_House) falls in \"John Doe\"'s Tenth_House\n  - \"John Doe Lunar Return\"'s Second_House at 19.32\u00b0 Pis (in John Doe Lunar Return's Second_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Third_House at 0.95\u00b0 Tau (in John Doe Lunar Return's Third_House) falls in \"John Doe\"'s Twelfth_House\n  - \"John Doe Lunar Return\"'s Fourth_House at 26.06\u00b0 Tau (in John Doe Lunar Return's Fourth_House) falls in \"John Doe\"'s First_House\n  - \"John Doe Lunar Return\"'s Fifth_House at 14.56\u00b0 Gem (in John Doe Lunar Return's Fifth_House) falls in \"John Doe\"'s Second_House\n  - \"John Doe Lunar Return\"'s Sixth_House at 1.58\u00b0 Can (in John Doe Lunar Return's Sixth_House) falls in \"John Doe\"'s Third_House\n  - \"John Doe Lunar Return\"'s Seventh_House at 22.05\u00b0 Can (in John Doe Lunar Return's Seventh_House) falls in \"John Doe\"'s Fourth_House\n  - \"John Doe Lunar Return\"'s Eighth_House at 19.32\u00b0 Vir (in John Doe Lunar Return's Eighth_House) falls in \"John Doe\"'s Sixth_House\n  - \"John Doe Lunar Return\"'s Ninth_House at 0.95\u00b0 Sco (in John Doe Lunar Return's Ninth_House) falls in \"John Doe\"'s Sixth_House\n  - \"John Doe Lunar Return\"'s Tenth_House at 26.06\u00b0 Sco (in John Doe Lunar Return's Tenth_House) falls in \"John Doe\"'s Seventh_House\n  - \"John Doe Lunar Return\"'s Eleventh_House at 14.56\u00b0 Sag (in John Doe Lunar Return's Eleventh_House) falls in \"John Doe\"'s Eighth_House\n  - \"John Doe Lunar Return\"'s Twelfth_House at 1.58\u00b0 Cap (in John Doe Lunar Return's Twelfth_House) falls in \"John Doe\"'s Ninth_House\n\n==================================================\nCombined Element distribution: Fire 10%, Earth 43%, Air 10%, Water 37%\nCombined Quality distribution: Cardinal 49%, Fixed 34%, Mutable 17%\n\nActive points: Ascendant, Mean_Lilith, Saturn, Moon, Descendant, Neptune, Chiron, Medium_Coeli, Jupiter, Mars, Uranus, True_North_Lunar_Node, Imum_Coeli, Sun, True_South_Lunar_Node, Venus, Pluto, Mercury\nActive aspects: conjunction (10\u00b0), opposition (10\u00b0), trine (8\u00b0), sextile (6\u00b0), square (5\u00b0), quintile (1\u00b0)",
   "chart_data": {
     "chart_type": "DualReturnChart",
     "first_subject": {
@@ -1115,8 +1115,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 0,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Sun",
@@ -1132,8 +1132,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 0,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.2318544566237617,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Sun",
@@ -1149,8 +1149,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 0,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08511389138189676,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Sun",
@@ -1166,8 +1166,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 0,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.02219925804638299,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Sun",
@@ -1183,8 +1183,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 0,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.02219925804638299,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Moon",
@@ -1200,8 +1200,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 1,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 14.296646450176528,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Moon",
@@ -1217,8 +1217,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 1,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.2318544566237617,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mercury",
@@ -1234,8 +1234,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 4,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.7698069674395527,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mercury",
@@ -1251,8 +1251,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.2341250763669044,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mercury",
@@ -1268,8 +1268,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.057465617759477755,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mercury",
@@ -1285,8 +1285,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 8,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.029280973064626434,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mercury",
@@ -1302,7 +1302,7 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 9,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": -0.00014375439979630818,
         "aspect_movement": "Static"
       },
       {
@@ -1319,8 +1319,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.055667604425318665,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mercury",
@@ -1336,8 +1336,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mercury",
@@ -1353,8 +1353,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 14,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mercury",
@@ -1370,8 +1370,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mercury",
@@ -1387,8 +1387,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 16,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mercury",
@@ -1404,8 +1404,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 2,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11089284212941006,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Venus",
@@ -1421,8 +1421,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 3,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.5696395049339527,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Venus",
@@ -1438,8 +1438,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 3,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.2318544566237617,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Venus",
@@ -1455,8 +1455,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 3,
         "p2": 4,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.7698069674395527,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Venus",
@@ -1472,7 +1472,7 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 3,
         "p2": 9,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": -0.00014375439979630818,
         "aspect_movement": "Static"
       },
       {
@@ -1489,8 +1489,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 4,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.5696395049339527,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mars",
@@ -1506,8 +1506,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 4,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.02219925804638299,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mars",
@@ -1523,8 +1523,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 4,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.02219925804638299,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Jupiter",
@@ -1540,8 +1540,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 5,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 14.296646450176528,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Jupiter",
@@ -1557,8 +1557,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 5,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.2318544566237617,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Jupiter",
@@ -1574,8 +1574,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 5,
         "p2": 4,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.7698069674395527,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Saturn",
@@ -1591,8 +1591,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Saturn",
@@ -1608,8 +1608,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.5696395049339527,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Saturn",
@@ -1625,8 +1625,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.2341250763669044,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Saturn",
@@ -1642,8 +1642,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08511389138189676,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Saturn",
@@ -1659,8 +1659,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.057465617759477755,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Saturn",
@@ -1676,8 +1676,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 8,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.029280973064626434,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Saturn",
@@ -1693,8 +1693,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.02219925804638299,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Saturn",
@@ -1710,8 +1710,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.055667604425318665,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Saturn",
@@ -1727,8 +1727,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Saturn",
@@ -1744,8 +1744,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Saturn",
@@ -1761,8 +1761,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11089284212941006,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Saturn",
@@ -1778,8 +1778,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 6,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.02219925804638299,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Uranus",
@@ -1795,8 +1795,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 7,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Uranus",
@@ -1812,8 +1812,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 7,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 14.296646450176528,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Uranus",
@@ -1829,8 +1829,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 7,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.2318544566237617,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Uranus",
@@ -1846,8 +1846,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 7,
         "p2": 4,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.7698069674395527,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Uranus",
@@ -1863,8 +1863,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 7,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08511389138189676,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Neptune",
@@ -1880,8 +1880,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 8,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Neptune",
@@ -1897,8 +1897,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 8,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.2318544566237617,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Neptune",
@@ -1914,8 +1914,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 8,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08511389138189676,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Neptune",
@@ -1931,8 +1931,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 8,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.02219925804638299,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Neptune",
@@ -1948,8 +1948,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 8,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Neptune",
@@ -1965,8 +1965,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 8,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.02219925804638299,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Pluto",
@@ -1982,8 +1982,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 9,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Pluto",
@@ -1999,8 +1999,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 9,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.2341250763669044,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Pluto",
@@ -2016,8 +2016,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 9,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08511389138189676,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Pluto",
@@ -2033,8 +2033,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 9,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.057465617759477755,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Pluto",
@@ -2050,8 +2050,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 9,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Pluto",
@@ -2067,8 +2067,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 9,
         "p2": 14,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Pluto",
@@ -2084,8 +2084,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 9,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Pluto",
@@ -2101,8 +2101,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 9,
         "p2": 16,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2118,8 +2118,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 11,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2135,8 +2135,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 11,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.5696395049339527,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2152,8 +2152,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 11,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.057465617759477755,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2169,8 +2169,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 11,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.02219925804638299,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2186,8 +2186,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 11,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.055667604425318665,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2203,8 +2203,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 11,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.02219925804638299,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Chiron",
@@ -2220,8 +2220,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 12,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Chiron",
@@ -2237,8 +2237,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 12,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.5696395049339527,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Chiron",
@@ -2254,8 +2254,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 12,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08511389138189676,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Chiron",
@@ -2271,8 +2271,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 12,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.02219925804638299,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Chiron",
@@ -2288,8 +2288,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 12,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Chiron",
@@ -2305,8 +2305,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 12,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Chiron",
@@ -2322,8 +2322,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 12,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.02219925804638299,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Ascendant",
@@ -2339,8 +2339,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 13,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Ascendant",
@@ -2356,8 +2356,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 13,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 14.296646450176528,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Ascendant",
@@ -2373,8 +2373,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 13,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.2318544566237617,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Ascendant",
@@ -2390,7 +2390,7 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 13,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": 1.2318544566237617,
         "aspect_movement": "Static"
       },
       {
@@ -2407,8 +2407,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2424,8 +2424,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.5696395049339527,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2441,8 +2441,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.2341250763669044,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2458,8 +2458,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08511389138189676,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2475,8 +2475,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.057465617759477755,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2492,8 +2492,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 8,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.029280973064626434,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2509,8 +2509,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.02219925804638299,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2526,8 +2526,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.055667604425318665,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2543,7 +2543,7 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": 0.055667604425318665,
         "aspect_movement": "Static"
       },
       {
@@ -2560,7 +2560,7 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": 0.055667604425318665,
         "aspect_movement": "Static"
       },
       {
@@ -2577,8 +2577,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11089284212941006,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2594,8 +2594,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 14,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.02219925804638299,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Descendant",
@@ -2611,8 +2611,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 15,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Descendant",
@@ -2628,8 +2628,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 15,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 14.296646450176528,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Descendant",
@@ -2645,8 +2645,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 15,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.2318544566237617,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Descendant",
@@ -2662,8 +2662,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 15,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08511389138189676,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Descendant",
@@ -2679,7 +2679,7 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 15,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": 0.08511389138189676,
         "aspect_movement": "Static"
       },
       {
@@ -2696,8 +2696,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2713,8 +2713,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.5696395049339527,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2730,8 +2730,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.2318544566237617,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2747,8 +2747,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08511389138189676,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2764,8 +2764,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.057465617759477755,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2781,8 +2781,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.02219925804638299,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2798,8 +2798,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.055667604425318665,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2815,7 +2815,7 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": 0.055667604425318665,
         "aspect_movement": "Static"
       },
       {
@@ -2832,7 +2832,7 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": 0.055667604425318665,
         "aspect_movement": "Static"
       },
       {
@@ -2849,8 +2849,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11089284212941006,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2866,8 +2866,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 16,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.02219925804638299,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mean_Lilith",
@@ -2883,8 +2883,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 17,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mean_Lilith",
@@ -2900,8 +2900,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 17,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 14.296646450176528,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mean_Lilith",
@@ -2917,8 +2917,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 17,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.2318544566237617,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mean_Lilith",
@@ -2934,7 +2934,7 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 17,
         "p2": 9,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": -0.00014375439979630818,
         "aspect_movement": "Static"
       },
       {
@@ -2951,8 +2951,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 19,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.9699492334027953,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -2968,8 +2968,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 19,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.5696395049339527,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -2985,8 +2985,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 19,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.02219925804638299,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -3002,8 +3002,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 19,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.055667604425318665,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -3019,8 +3019,8 @@ Endpoint: `/api/v5/context/lunar-return`
         "p1": 19,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.02219925804638299,
+        "aspect_movement": "Separating"
       }
     ],
     "house_comparison": {
@@ -3425,6 +3425,274 @@ Endpoint: `/api/v5/context/lunar-return`
           "projected_house_name": "First_House",
           "projected_house_owner_name": "John Doe"
         }
+      ],
+      "first_cusps_in_second_houses": [
+        {
+          "point_name": "First_House",
+          "point_degree": 10.206357251516188,
+          "point_sign": "Tau",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "First_House",
+          "projected_house_number": 3,
+          "projected_house_name": "Third_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Second_House",
+          "point_degree": 10.237193272164902,
+          "point_sign": "Gem",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Second_House",
+          "projected_house_number": 4,
+          "projected_house_name": "Fourth_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Third_House",
+          "point_degree": 29.34468649767578,
+          "point_sign": "Gem",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Third_House",
+          "projected_house_number": 5,
+          "projected_house_name": "Fifth_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Fourth_House",
+          "point_degree": 16.852998924128883,
+          "point_sign": "Can",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fourth_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Fifth_House",
+          "point_degree": 7.638172509881485,
+          "point_sign": "Leo",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fifth_House",
+          "projected_house_number": 7,
+          "projected_house_name": "Seventh_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Sixth_House",
+          "point_degree": 10.177198195457322,
+          "point_sign": "Vir",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Sixth_House",
+          "projected_house_number": 7,
+          "projected_house_name": "Seventh_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Seventh_House",
+          "point_degree": 10.206357251516181,
+          "point_sign": "Sco",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Seventh_House",
+          "projected_house_number": 9,
+          "projected_house_name": "Ninth_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Eighth_House",
+          "point_degree": 10.237193272164916,
+          "point_sign": "Sag",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eighth_House",
+          "projected_house_number": 10,
+          "projected_house_name": "Tenth_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Ninth_House",
+          "point_degree": 29.344686497675752,
+          "point_sign": "Sag",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Ninth_House",
+          "projected_house_number": 11,
+          "projected_house_name": "Eleventh_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Tenth_House",
+          "point_degree": 16.852998924128883,
+          "point_sign": "Cap",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Tenth_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Eleventh_House",
+          "point_degree": 7.638172509881485,
+          "point_sign": "Aqu",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eleventh_House",
+          "projected_house_number": 1,
+          "projected_house_name": "First_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        },
+        {
+          "point_name": "Twelfth_House",
+          "point_degree": 10.177198195457322,
+          "point_sign": "Pis",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Twelfth_House",
+          "projected_house_number": 1,
+          "projected_house_name": "First_House",
+          "projected_house_owner_name": "John Doe Lunar Return"
+        }
+      ],
+      "second_cusps_in_first_houses": [
+        {
+          "point_name": "First_House",
+          "point_degree": 22.05189487326146,
+          "point_sign": "Cap",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "First_House",
+          "projected_house_number": 10,
+          "projected_house_name": "Tenth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Second_House",
+          "point_degree": 19.31849489238226,
+          "point_sign": "Pis",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Second_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Third_House",
+          "point_degree": 0.9469585161834502,
+          "point_sign": "Tau",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Third_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Fourth_House",
+          "point_degree": 26.05851068043421,
+          "point_sign": "Tau",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fourth_House",
+          "projected_house_number": 1,
+          "projected_house_name": "First_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Fifth_House",
+          "point_degree": 14.561854385591573,
+          "point_sign": "Gem",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fifth_House",
+          "projected_house_number": 2,
+          "projected_house_name": "Second_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Sixth_House",
+          "point_degree": 1.5825300193093312,
+          "point_sign": "Can",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Sixth_House",
+          "projected_house_number": 3,
+          "projected_house_name": "Third_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Seventh_House",
+          "point_degree": 22.05189487326146,
+          "point_sign": "Can",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Seventh_House",
+          "projected_house_number": 4,
+          "projected_house_name": "Fourth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Eighth_House",
+          "point_degree": 19.318494892382205,
+          "point_sign": "Vir",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eighth_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Ninth_House",
+          "point_degree": 0.9469585161834573,
+          "point_sign": "Sco",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Ninth_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Tenth_House",
+          "point_degree": 26.05851068043424,
+          "point_sign": "Sco",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Tenth_House",
+          "projected_house_number": 7,
+          "projected_house_name": "Seventh_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Eleventh_House",
+          "point_degree": 14.561854385591573,
+          "point_sign": "Sag",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eleventh_House",
+          "projected_house_number": 8,
+          "projected_house_name": "Eighth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Twelfth_House",
+          "point_degree": 1.5825300193093312,
+          "point_sign": "Cap",
+          "point_owner_name": "John Doe Lunar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Twelfth_House",
+          "projected_house_number": 9,
+          "projected_house_name": "Ninth_House",
+          "projected_house_owner_name": "John Doe"
+        }
       ]
     },
     "relationship_score": null,
@@ -3447,24 +3715,24 @@ Endpoint: `/api/v5/context/lunar-return`
       "mutable_percentage": 17
     },
     "active_points": [
-      "Descendant",
-      "True_South_Lunar_Node",
-      "Neptune",
       "Ascendant",
-      "Moon",
-      "Mars",
-      "True_North_Lunar_Node",
-      "Chiron",
-      "Sun",
-      "Uranus",
-      "Medium_Coeli",
-      "Saturn",
       "Mean_Lilith",
-      "Pluto",
-      "Venus",
-      "Mercury",
+      "Saturn",
+      "Moon",
+      "Descendant",
+      "Neptune",
+      "Chiron",
+      "Medium_Coeli",
+      "Jupiter",
+      "Mars",
+      "Uranus",
+      "True_North_Lunar_Node",
       "Imum_Coeli",
-      "Jupiter"
+      "Sun",
+      "True_South_Lunar_Node",
+      "Venus",
+      "Pluto",
+      "Mercury"
     ],
     "active_aspects": [
       {

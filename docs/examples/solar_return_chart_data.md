@@ -1114,8 +1114,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 0,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Sun",
@@ -1131,8 +1131,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 0,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 11.802554401881,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Sun",
@@ -1148,8 +1148,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 0,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.00577546288494989,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Sun",
@@ -1165,8 +1165,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 0,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Sun",
@@ -1182,8 +1182,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 0,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.005177644397744948,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Sun",
@@ -1199,8 +1199,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 0,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Moon",
@@ -1216,8 +1216,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 1,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.05417313110116621,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Moon",
@@ -1233,8 +1233,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 1,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.216766763846364,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Moon",
@@ -1250,8 +1250,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 1,
         "p2": 4,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.7420095164203634,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Moon",
@@ -1267,8 +1267,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 1,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.00577546288494989,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Moon",
@@ -1284,8 +1284,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 1,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08934622994683084,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Moon",
@@ -1301,8 +1301,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 1,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mercury",
@@ -1318,8 +1318,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 2,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mercury",
@@ -1335,8 +1335,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 2,
         "p2": 8,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.014972296443179213,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mercury",
@@ -1352,8 +1352,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 2,
         "p2": 9,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.03112563163108594,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mercury",
@@ -1369,8 +1369,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 2,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.06353908516824767,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mercury",
@@ -1386,8 +1386,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 2,
         "p2": 14,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mercury",
@@ -1403,8 +1403,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 2,
         "p2": 16,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mercury",
@@ -1420,8 +1420,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 2,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.06353908516824767,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Venus",
@@ -1437,8 +1437,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 3,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.216766763846364,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Venus",
@@ -1454,8 +1454,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 3,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.00577546288494989,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Venus",
@@ -1471,8 +1471,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 3,
         "p2": 9,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.03112563163108594,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Venus",
@@ -1488,8 +1488,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 3,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Venus",
@@ -1505,8 +1505,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 3,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mars",
@@ -1522,8 +1522,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 4,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.216766763846364,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mars",
@@ -1539,8 +1539,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 4,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.005177644397744948,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mars",
@@ -1556,8 +1556,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 4,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mars",
@@ -1573,8 +1573,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 4,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mars",
@@ -1590,8 +1590,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 4,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Jupiter",
@@ -1607,8 +1607,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 5,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Jupiter",
@@ -1624,8 +1624,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 5,
         "p2": 4,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.7420095164203634,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Jupiter",
@@ -1641,8 +1641,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 5,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.00577546288494989,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Jupiter",
@@ -1658,8 +1658,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 5,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08934622994683084,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Jupiter",
@@ -1675,8 +1675,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 5,
         "p2": 14,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Jupiter",
@@ -1692,8 +1692,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 5,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Saturn",
@@ -1709,8 +1709,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 6,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Saturn",
@@ -1726,8 +1726,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 6,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 11.802554401881,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Saturn",
@@ -1743,8 +1743,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 6,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Saturn",
@@ -1760,8 +1760,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 6,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.06353908516824767,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Saturn",
@@ -1777,8 +1777,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 6,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.005177644397744948,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Saturn",
@@ -1794,8 +1794,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 6,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Uranus",
@@ -1811,8 +1811,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 7,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Uranus",
@@ -1828,8 +1828,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 7,
         "p2": 4,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.7420095164203634,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Uranus",
@@ -1845,8 +1845,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 7,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.00577546288494989,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Uranus",
@@ -1862,8 +1862,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 7,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08934622994683084,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Uranus",
@@ -1879,8 +1879,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 7,
         "p2": 16,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Uranus",
@@ -1896,8 +1896,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 7,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Neptune",
@@ -1913,8 +1913,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 8,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Neptune",
@@ -1930,8 +1930,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 8,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 11.802554401881,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Neptune",
@@ -1947,8 +1947,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 8,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.00577546288494989,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Neptune",
@@ -1964,8 +1964,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 8,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Neptune",
@@ -1981,8 +1981,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 8,
         "p2": 8,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.014972296443179213,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Neptune",
@@ -1998,8 +1998,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 8,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.005177644397744948,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Neptune",
@@ -2015,8 +2015,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 8,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Pluto",
@@ -2032,8 +2032,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 9,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 11.802554401881,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Pluto",
@@ -2049,8 +2049,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 9,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Pluto",
@@ -2066,8 +2066,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 9,
         "p2": 8,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.014972296443179213,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Pluto",
@@ -2083,8 +2083,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 9,
         "p2": 9,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.03112563163108594,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Pluto",
@@ -2100,8 +2100,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 9,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Pluto",
@@ -2117,8 +2117,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 9,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2134,8 +2134,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 11,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.05417313110116621,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2151,8 +2151,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 11,
         "p2": 3,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.216766763846364,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2168,8 +2168,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 11,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2185,8 +2185,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 11,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.06353908516824767,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2202,8 +2202,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 11,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.005177644397744948,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2219,8 +2219,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 11,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2236,8 +2236,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 11,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2253,8 +2253,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 11,
         "p2": 16,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "True_North_Lunar_Node",
@@ -2270,8 +2270,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 11,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.06353908516824767,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Chiron",
@@ -2287,8 +2287,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 12,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Chiron",
@@ -2304,8 +2304,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 12,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 11.802554401881,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Chiron",
@@ -2321,8 +2321,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 12,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Chiron",
@@ -2338,8 +2338,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 12,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.005177644397744948,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Chiron",
@@ -2355,8 +2355,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 12,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Ascendant",
@@ -2372,8 +2372,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 13,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Ascendant",
@@ -2389,8 +2389,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 13,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 11.802554401881,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Ascendant",
@@ -2406,8 +2406,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 13,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.00577546288494989,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Ascendant",
@@ -2423,8 +2423,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 13,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08934622994683084,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Ascendant",
@@ -2440,8 +2440,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 13,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Ascendant",
@@ -2457,7 +2457,7 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 13,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": -0.0213209693709777,
         "aspect_movement": "Static"
       },
       {
@@ -2474,7 +2474,7 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 13,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": -0.0213209693709777,
         "aspect_movement": "Static"
       },
       {
@@ -2491,8 +2491,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 13,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2508,8 +2508,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 14,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2525,8 +2525,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 14,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 11.802554401881,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2542,8 +2542,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 14,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2559,8 +2559,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 14,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.06353908516824767,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2576,8 +2576,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 14,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.005177644397744948,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2593,8 +2593,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 14,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Medium_Coeli",
@@ -2610,8 +2610,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 14,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.06353908516824767,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Descendant",
@@ -2627,8 +2627,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 15,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Descendant",
@@ -2644,8 +2644,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 15,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 11.802554401881,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Descendant",
@@ -2661,8 +2661,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 15,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.00577546288494989,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Descendant",
@@ -2678,8 +2678,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 15,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08934622994683084,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Descendant",
@@ -2695,8 +2695,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 15,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Descendant",
@@ -2712,7 +2712,7 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 15,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": -0.0213209693709777,
         "aspect_movement": "Static"
       },
       {
@@ -2729,7 +2729,7 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 15,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
+        "p2_speed": -0.0213209693709777,
         "aspect_movement": "Static"
       },
       {
@@ -2746,8 +2746,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 15,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2763,8 +2763,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 16,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2780,8 +2780,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 16,
         "p2": 1,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 11.802554401881,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2797,8 +2797,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 16,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.00577546288494989,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2814,8 +2814,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 16,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2831,8 +2831,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 16,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.06353908516824767,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2848,8 +2848,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 16,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.005177644397744948,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Imum_Coeli",
@@ -2865,8 +2865,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 16,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.06353908516824767,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mean_Lilith",
@@ -2882,8 +2882,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 17,
         "p2": 0,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 1.0190456926623888,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mean_Lilith",
@@ -2899,8 +2899,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 17,
         "p2": 5,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.00577546288494989,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mean_Lilith",
@@ -2916,8 +2916,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 17,
         "p2": 6,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.08934622994683084,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "Mean_Lilith",
@@ -2933,8 +2933,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 17,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "Mean_Lilith",
@@ -2950,8 +2950,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 17,
         "p2": 17,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.11129589559982445,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -2967,8 +2967,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 19,
         "p2": 2,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.05417313110116621,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -2984,8 +2984,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 19,
         "p2": 7,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.0213209693709777,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -3001,8 +3001,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 19,
         "p2": 11,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": -0.06353908516824767,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -3018,8 +3018,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 19,
         "p2": 12,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.005177644397744948,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -3035,8 +3035,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 19,
         "p2": 13,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -3052,8 +3052,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 19,
         "p2": 14,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Separating"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -3069,8 +3069,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 19,
         "p2": 15,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 360.0,
+        "aspect_movement": "Applying"
       },
       {
         "p1_name": "True_South_Lunar_Node",
@@ -3086,8 +3086,8 @@ Endpoint: `/api/v5/chart-data/solar-return`
         "p1": 19,
         "p2": 19,
         "p1_speed": 0.0,
-        "p2_speed": 0.0,
-        "aspect_movement": "Static"
+        "p2_speed": 0.06353908516824767,
+        "aspect_movement": "Separating"
       }
     ],
     "house_comparison": {
@@ -3492,6 +3492,274 @@ Endpoint: `/api/v5/chart-data/solar-return`
           "projected_house_name": "Sixth_House",
           "projected_house_owner_name": "John Doe"
         }
+      ],
+      "first_cusps_in_second_houses": [
+        {
+          "point_name": "First_House",
+          "point_degree": 10.206357251516188,
+          "point_sign": "Tau",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "First_House",
+          "projected_house_number": 10,
+          "projected_house_name": "Tenth_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Second_House",
+          "point_degree": 10.237193272164902,
+          "point_sign": "Gem",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Second_House",
+          "projected_house_number": 11,
+          "projected_house_name": "Eleventh_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Third_House",
+          "point_degree": 29.34468649767578,
+          "point_sign": "Gem",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Third_House",
+          "projected_house_number": 11,
+          "projected_house_name": "Eleventh_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Fourth_House",
+          "point_degree": 16.852998924128883,
+          "point_sign": "Can",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fourth_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Fifth_House",
+          "point_degree": 7.638172509881485,
+          "point_sign": "Leo",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fifth_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Sixth_House",
+          "point_degree": 10.177198195457322,
+          "point_sign": "Vir",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Sixth_House",
+          "projected_house_number": 2,
+          "projected_house_name": "Second_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Seventh_House",
+          "point_degree": 10.206357251516181,
+          "point_sign": "Sco",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Seventh_House",
+          "projected_house_number": 4,
+          "projected_house_name": "Fourth_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Eighth_House",
+          "point_degree": 10.237193272164916,
+          "point_sign": "Sag",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eighth_House",
+          "projected_house_number": 5,
+          "projected_house_name": "Fifth_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Ninth_House",
+          "point_degree": 29.344686497675752,
+          "point_sign": "Sag",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Ninth_House",
+          "projected_house_number": 5,
+          "projected_house_name": "Fifth_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Tenth_House",
+          "point_degree": 16.852998924128883,
+          "point_sign": "Cap",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Tenth_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Eleventh_House",
+          "point_degree": 7.638172509881485,
+          "point_sign": "Aqu",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eleventh_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        },
+        {
+          "point_name": "Twelfth_House",
+          "point_degree": 10.177198195457322,
+          "point_sign": "Pis",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Twelfth_House",
+          "projected_house_number": 8,
+          "projected_house_name": "Eighth_House",
+          "projected_house_owner_name": "John Doe Solar Return"
+        }
+      ],
+      "second_cusps_in_first_houses": [
+        {
+          "point_name": "First_House",
+          "point_degree": 12.437637359597147,
+          "point_sign": "Leo",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "First_House",
+          "projected_house_number": 5,
+          "projected_house_name": "Fifth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Second_House",
+          "point_degree": 29.962991348496416,
+          "point_sign": "Leo",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Second_House",
+          "projected_house_number": 5,
+          "projected_house_name": "Fifth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Third_House",
+          "point_degree": 22.796794961495124,
+          "point_sign": "Vir",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Third_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Fourth_House",
+          "point_degree": 23.96381527305948,
+          "point_sign": "Lib",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fourth_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Fifth_House",
+          "point_degree": 3.760069798090541,
+          "point_sign": "Sag",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fifth_House",
+          "projected_house_number": 7,
+          "projected_house_name": "Seventh_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Sixth_House",
+          "point_degree": 12.445212143698598,
+          "point_sign": "Cap",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Sixth_House",
+          "projected_house_number": 9,
+          "projected_house_name": "Ninth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Seventh_House",
+          "point_degree": 12.437637359597147,
+          "point_sign": "Aqu",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Seventh_House",
+          "projected_house_number": 11,
+          "projected_house_name": "Eleventh_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Eighth_House",
+          "point_degree": 29.962991348496416,
+          "point_sign": "Aqu",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eighth_House",
+          "projected_house_number": 11,
+          "projected_house_name": "Eleventh_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Ninth_House",
+          "point_degree": 22.796794961495152,
+          "point_sign": "Pis",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Ninth_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Tenth_House",
+          "point_degree": 23.96381527305947,
+          "point_sign": "Ari",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Tenth_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Eleventh_House",
+          "point_degree": 3.760069798090541,
+          "point_sign": "Gem",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eleventh_House",
+          "projected_house_number": 1,
+          "projected_house_name": "First_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Twelfth_House",
+          "point_degree": 12.445212143698612,
+          "point_sign": "Can",
+          "point_owner_name": "John Doe Solar Return",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Twelfth_House",
+          "projected_house_number": 3,
+          "projected_house_name": "Third_House",
+          "projected_house_owner_name": "John Doe"
+        }
       ]
     },
     "relationship_score": null,
@@ -3514,24 +3782,24 @@ Endpoint: `/api/v5/chart-data/solar-return`
       "mutable_percentage": 17
     },
     "active_points": [
-      "Descendant",
-      "True_South_Lunar_Node",
-      "Neptune",
       "Ascendant",
-      "Moon",
-      "Mars",
-      "True_North_Lunar_Node",
-      "Chiron",
-      "Sun",
-      "Uranus",
-      "Medium_Coeli",
-      "Saturn",
       "Mean_Lilith",
-      "Pluto",
-      "Venus",
-      "Mercury",
+      "Saturn",
+      "Moon",
+      "Descendant",
+      "Neptune",
+      "Chiron",
+      "Medium_Coeli",
+      "Jupiter",
+      "Mars",
+      "Uranus",
+      "True_North_Lunar_Node",
       "Imum_Coeli",
-      "Jupiter"
+      "Sun",
+      "True_South_Lunar_Node",
+      "Venus",
+      "Pluto",
+      "Mercury"
     ],
     "active_aspects": [
       {

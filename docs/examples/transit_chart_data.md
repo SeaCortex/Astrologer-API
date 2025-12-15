@@ -3796,6 +3796,274 @@ Endpoint: `/api/v5/chart-data/transit`
           "projected_house_name": "Ninth_House",
           "projected_house_owner_name": "John Doe"
         }
+      ],
+      "first_cusps_in_second_houses": [
+        {
+          "point_name": "First_House",
+          "point_degree": 10.206357251516188,
+          "point_sign": "Tau",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "First_House",
+          "projected_house_number": 8,
+          "projected_house_name": "Eighth_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Second_House",
+          "point_degree": 10.237193272164902,
+          "point_sign": "Gem",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Second_House",
+          "projected_house_number": 9,
+          "projected_house_name": "Ninth_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Third_House",
+          "point_degree": 29.34468649767578,
+          "point_sign": "Gem",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Third_House",
+          "projected_house_number": 9,
+          "projected_house_name": "Ninth_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Fourth_House",
+          "point_degree": 16.852998924128883,
+          "point_sign": "Can",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fourth_House",
+          "projected_house_number": 10,
+          "projected_house_name": "Tenth_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Fifth_House",
+          "point_degree": 7.638172509881485,
+          "point_sign": "Leo",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fifth_House",
+          "projected_house_number": 10,
+          "projected_house_name": "Tenth_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Sixth_House",
+          "point_degree": 10.177198195457322,
+          "point_sign": "Vir",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Sixth_House",
+          "projected_house_number": 11,
+          "projected_house_name": "Eleventh_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Seventh_House",
+          "point_degree": 10.206357251516181,
+          "point_sign": "Sco",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Seventh_House",
+          "projected_house_number": 2,
+          "projected_house_name": "Second_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Eighth_House",
+          "point_degree": 10.237193272164916,
+          "point_sign": "Sag",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eighth_House",
+          "projected_house_number": 3,
+          "projected_house_name": "Third_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Ninth_House",
+          "point_degree": 29.344686497675752,
+          "point_sign": "Sag",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Ninth_House",
+          "projected_house_number": 3,
+          "projected_house_name": "Third_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Tenth_House",
+          "point_degree": 16.852998924128883,
+          "point_sign": "Cap",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Tenth_House",
+          "projected_house_number": 4,
+          "projected_house_name": "Fourth_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Eleventh_House",
+          "point_degree": 7.638172509881485,
+          "point_sign": "Aqu",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eleventh_House",
+          "projected_house_number": 4,
+          "projected_house_name": "Fourth_House",
+          "projected_house_owner_name": "Transit Moment"
+        },
+        {
+          "point_name": "Twelfth_House",
+          "point_degree": 10.177198195457322,
+          "point_sign": "Pis",
+          "point_owner_name": "John Doe",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Twelfth_House",
+          "projected_house_number": 5,
+          "projected_house_name": "Fifth_House",
+          "projected_house_owner_name": "Transit Moment"
+        }
+      ],
+      "second_cusps_in_first_houses": [
+        {
+          "point_name": "First_House",
+          "point_degree": 7.068423671718534,
+          "point_sign": "Lib",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "First_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Second_House",
+          "point_degree": 1.7715400407822983,
+          "point_sign": "Sco",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Second_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Third_House",
+          "point_degree": 2.637058572817665,
+          "point_sign": "Sag",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Third_House",
+          "projected_house_number": 7,
+          "projected_house_name": "Seventh_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Fourth_House",
+          "point_degree": 9.211193191790414,
+          "point_sign": "Cap",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fourth_House",
+          "projected_house_number": 9,
+          "projected_house_name": "Ninth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Fifth_House",
+          "point_degree": 14.796947532545062,
+          "point_sign": "Aqu",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Fifth_House",
+          "projected_house_number": 11,
+          "projected_house_name": "Eleventh_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Sixth_House",
+          "point_degree": 14.062380920662406,
+          "point_sign": "Pis",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Sixth_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Seventh_House",
+          "point_degree": 7.068423671718506,
+          "point_sign": "Ari",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Seventh_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Eighth_House",
+          "point_degree": 1.77154004078227,
+          "point_sign": "Tau",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eighth_House",
+          "projected_house_number": 12,
+          "projected_house_name": "Twelfth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Ninth_House",
+          "point_degree": 2.6370585728176366,
+          "point_sign": "Gem",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Ninth_House",
+          "projected_house_number": 1,
+          "projected_house_name": "First_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Tenth_House",
+          "point_degree": 9.211193191790429,
+          "point_sign": "Can",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Tenth_House",
+          "projected_house_number": 3,
+          "projected_house_name": "Third_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Eleventh_House",
+          "point_degree": 14.796947532545062,
+          "point_sign": "Leo",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Eleventh_House",
+          "projected_house_number": 5,
+          "projected_house_name": "Fifth_House",
+          "projected_house_owner_name": "John Doe"
+        },
+        {
+          "point_name": "Twelfth_House",
+          "point_degree": 14.062380920662406,
+          "point_sign": "Vir",
+          "point_owner_name": "Transit Moment",
+          "point_owner_house_number": 1,
+          "point_owner_house_name": "Twelfth_House",
+          "projected_house_number": 6,
+          "projected_house_name": "Sixth_House",
+          "projected_house_owner_name": "John Doe"
+        }
       ]
     },
     "relationship_score": null,
@@ -3818,24 +4086,24 @@ Endpoint: `/api/v5/chart-data/transit`
       "mutable_percentage": 17
     },
     "active_points": [
-      "Descendant",
-      "True_South_Lunar_Node",
-      "Neptune",
       "Ascendant",
-      "Moon",
-      "Mars",
-      "True_North_Lunar_Node",
-      "Chiron",
-      "Sun",
-      "Uranus",
-      "Medium_Coeli",
-      "Saturn",
       "Mean_Lilith",
-      "Pluto",
-      "Venus",
-      "Mercury",
+      "Saturn",
+      "Moon",
+      "Descendant",
+      "Neptune",
+      "Chiron",
+      "Medium_Coeli",
+      "Jupiter",
+      "Mars",
+      "Uranus",
+      "True_North_Lunar_Node",
       "Imum_Coeli",
-      "Jupiter"
+      "Sun",
+      "True_South_Lunar_Node",
+      "Venus",
+      "Pluto",
+      "Mercury"
     ],
     "active_aspects": [
       {
