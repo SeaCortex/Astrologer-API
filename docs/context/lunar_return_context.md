@@ -31,6 +31,7 @@ Generates an AI-powered interpretation of a Lunar Return chart. The Lunar Return
     ```
 -   **`year`** (integer, required): The year of the return.
 -   **`month`** (integer, required): The month of the return.
+-   **`day`** (integer, optional): Day (1-31) to start the search from. Defaults to 1. Useful for finding the second Lunar Return in a month.
 -   **`return_location`** (object, optional): Relocation for the return.
 -   **Computation options**: `active_points`, `active_aspects`, `distribution_method`, `custom_distribution_weights` (identical to `/api/v5/chart-data/lunar-return`). Rendering options such as `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title` are **not** accepted here.
 
@@ -52,7 +53,8 @@ Generates an AI-powered interpretation of a Lunar Return chart. The Lunar Return
         "tz_str": "Europe/London"
     },
     "year": 2024,
-    "month": 5
+    "month": 5,
+    "day": 1
 }
 ```
 

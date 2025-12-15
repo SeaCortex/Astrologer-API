@@ -1,4 +1,5 @@
 ## Endpoint
+
 /api/v5/chart-data/solar-return
 
 ## Name
@@ -7,12 +8,14 @@ Solar Return Data
 
 ## Description
 
-Calculates Solar Return chart data for a specific year. Does not include SVG rendering.
+Calculates Solar Return chart data for the return happening on or after the specified date. Does not include SVG rendering.
 
 ### Parameters
 
 -   `subject` (JSON object, required): The subject's natal birth data.
 -   `year` (integer, required): The year for the return.
+-   `month` (integer, optional): Month (1-12) to start the search from.
+-   `day` (integer, optional): Day (1-31) to start the search from. Defaults to 1.
 -   `return_location` (JSON object, optional): The location where the subject is for the Solar Return.
 -   `wheel_type` (string, optional): "single" or "dual".
 -   `include_house_comparison` (boolean, optional): Include house comparison table.
@@ -38,6 +41,8 @@ Calculates Solar Return chart data for a specific year. Does not include SVG ren
         "timezone": "Europe/London"
     },
     "year": 2024,
+    "month": 6,
+    "day": 15,
     "return_location": {
         "city": "New York",
         "nation": "US",

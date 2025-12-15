@@ -61,6 +61,8 @@ This chart type is foundational for yearly planning and is widely used by profes
     }
     ```
 -   **`year`** (integer, required): Return year.
+-   **`month`** (integer, optional): Month (1-12) to start the search from.
+-   **`day`** (integer, optional): Day (1-31) to start the search from. Defaults to 1. Useful for finding later returns in the same month.
 -   **`return_location`** (object, optional): Relocation.
 -   **`wheel_type`** (string, optional): "dual" (default) or "single".
 -   **`theme`**, **`language`**, **`split_chart`** (rendering options).
@@ -86,6 +88,8 @@ This chart type is foundational for yearly planning and is widely used by profes
         "tz_str": "Europe/London"
     },
     "year": 2024,
+    "month": 10,
+    "day": 1,
     "wheel_type": "dual",
     "theme": "dark"
 }

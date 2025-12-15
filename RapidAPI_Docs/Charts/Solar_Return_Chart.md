@@ -1,4 +1,5 @@
 ## Endpoint
+
 /api/v5/chart/solar-return
 
 ## Name
@@ -7,12 +8,14 @@ Solar Return Chart
 
 ## Description
 
-Generates a Solar Return chart for a specific year. The Solar Return occurs when the Sun returns to the exact position it was at the moment of birth. This chart is used to forecast trends for the year ahead. Returns calculated data and a rendered SVG chart (can be single wheel or dual wheel with natal).
+Generates a Solar Return chart for the return happening on or after the specified date. The Solar Return occurs when the Sun returns to the exact position it was at the moment of birth. This chart is used to forecast trends for the year ahead. Returns calculated data and a rendered SVG chart (can be single wheel or dual wheel with natal).
 
 ### Parameters
 
 -   `subject` (JSON object, required): The subject's natal birth data.
 -   `year` (integer, required): The year for which to calculate the Solar Return.
+-   `month` (integer, optional): Month (1-12) to start the search from.
+-   `day` (integer, optional): Day (1-31) to start the search from. Defaults to 1.
 -   `return_location` (JSON object, optional): The location where the subject is for the Solar Return (defaults to birth location if not provided).
     -   `city` (string, optional)
     -   `nation` (string, optional)
@@ -47,6 +50,8 @@ Generates a Solar Return chart for a specific year. The Solar Return occurs when
         "timezone": "Europe/London"
     },
     "year": 2024,
+    "month": 6,
+    "day": 1,
     "return_location": {
         "city": "New York",
         "nation": "US",

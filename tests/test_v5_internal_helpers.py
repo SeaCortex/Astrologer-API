@@ -121,7 +121,7 @@ def test_calculate_return_chart_data_branches(monkeypatch: pytest.MonkeyPatch):
         def next_return_from_iso_formatted_time(self, iso, return_type):
             return object()
 
-        def next_return_from_month_and_year(self, year, month, return_type):
+        def next_return_from_date(self, year, month, day=1, *, return_type):
             return object()
 
     class ChartData:
@@ -165,6 +165,7 @@ def test_calculate_return_chart_data_branches(monkeypatch: pytest.MonkeyPatch):
             "custom_distribution_weights": None,
             "iso_datetime": None,
             "month": 6,
+            "day": 15,
             "year": 2024,
             "wheel_type": "dual",
         },

@@ -1,18 +1,21 @@
 ## Endpoint
+
 /api/v5/chart/lunar-return
 
 ## Name
+
 Lunar (Moon) Return Chart
 
 ## Description
 
-Generates a Lunar Return chart for a specific month. The Lunar Return occurs when the Moon returns to the exact position it was at the moment of birth. This chart is used to forecast trends for the month ahead. Returns calculated data and a rendered SVG chart.
+Generates a Lunar Return chart for the return happening on or after the specified date. The Lunar Return occurs when the Moon returns to the exact position it was at the moment of birth. This chart is used to forecast trends for the month ahead. Returns calculated data and a rendered SVG chart.
 
 ### Parameters
 
 -   `subject` (JSON object, required): The subject's natal birth data.
 -   `year` (integer, required): The year for the return.
 -   `month` (integer, required): The month for the return.
+-   `day` (integer, optional): Day (1-31) to start the search from. Defaults to 1. Useful for finding later returns in the same month.
 -   `return_location` (JSON object, optional): The location where the subject is for the Lunar Return.
     -   `city` (string, optional)
     -   `nation` (string, optional)
@@ -48,6 +51,7 @@ Generates a Lunar Return chart for a specific month. The Lunar Return occurs whe
     },
     "year": 2024,
     "month": 11,
+    "day": 1,
     "return_location": {
         "city": "New York",
         "nation": "US",

@@ -9,7 +9,7 @@ order: 8
 
 > **📘 [View Complete Example](../examples/solar_return_chart_data.md)**
 
-Calculates the Solar Return chart for a given year. The Solar Return occurs when the Sun returns to the exact same position (longitude) as in the natal chart.
+Calculates the Solar Return chart for the return happening on or after the specified date. The Solar Return occurs when the Sun returns to the exact same position (longitude) as in the natal chart.
 
 ### Request Body
 
@@ -30,6 +30,8 @@ Calculates the Solar Return chart for a given year. The Solar Return occurs when
     }
     ```
 -   **`year`** (integer, required): The year for which to calculate the return.
+-   **`month`** (integer, optional): Month (1-12) to start the search from.
+-   **`day`** (integer, optional): Day (1-31) to start the search from. Defaults to 1.
 -   **`return_location`** (object, optional): Location where the subject spends the return (relocation). If omitted, uses natal location.
 -   **`wheel_type`** (string, optional): "dual" (default) or "single".
     -   "dual": Returns both natal and return charts (bi-wheel data).
@@ -53,6 +55,8 @@ Calculates the Solar Return chart for a given year. The Solar Return occurs when
         "tz_str": "Europe/London"
     },
     "year": 2024,
+    "month": 1,
+    "day": 1,
     "return_location": {
         "city": "Paris",
         "nation": "FR",

@@ -9,7 +9,7 @@ order: 9
 
 > **📘 [View Complete Example](../examples/lunar_return_chart_data.md)**
 
-Calculates the Lunar Return chart for a given month/year. The Lunar Return occurs when the Moon returns to the exact same position as in the natal chart (happens every ~27 days).
+Calculates the Lunar Return chart for the return happening on or after the specified date. The Lunar Return occurs when the Moon returns to the exact same position as in the natal chart (happens every ~27 days).
 
 ### Request Body
 
@@ -31,6 +31,7 @@ Calculates the Lunar Return chart for a given month/year. The Lunar Return occur
     ```
 -   **`year`** (integer, required): Year to search.
 -   **`month`** (integer, required): Month to search.
+-   **`day`** (integer, optional): Day (1-31) to start the search from. Defaults to 1. Useful for finding later returns in the same month.
 -   **`return_location`** (object, optional): Relocation for the return.
 -   **`wheel_type`** (string, optional): "dual" or "single".
 
@@ -53,6 +54,7 @@ Calculates the Lunar Return chart for a given month/year. The Lunar Return occur
     },
     "year": 2024,
     "month": 5,
+    "day": 1,
     "wheel_type": "single"
 }
 ```

@@ -67,7 +67,8 @@ This chart type is especially valued by astrologers who work with clients on an 
     }
     ```
 -   **`year`** (integer, required): Year.
--   **`month`** (integer, required): Month.
+-   **`month`** (integer, required): Month (1-12) to start the search from.
+-   **`day`** (integer, optional): Day (1-31) to start the search from. Defaults to 1. Useful for finding the second Lunar Return in a month.
 -   **`wheel_type`** (string, optional): "dual" or "single".
 -   **`theme`**, **`language`**, **`split_chart`** (rendering options).
 -   **`show_house_position_comparison`** (bool, optional): Display house comparison tables for natal vs Lunar Return (dual wheel only; default: true).
@@ -93,6 +94,7 @@ This chart type is especially valued by astrologers who work with clients on an 
     },
     "year": 2024,
     "month": 5,
+    "day": 1,
     "wheel_type": "single",
     "theme": "light"
 }

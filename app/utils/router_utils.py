@@ -481,11 +481,11 @@ def calculate_return_chart_data(
     elif request_body.month:
         if request_body.year is None:
             raise KerykeionException("Year must be provided when month is specified.")
-        return_subject = return_factory.next_return_from_month_and_year(request_body.year, request_body.month, return_type)
+        return_subject = return_factory.next_return_from_date(request_body.year, request_body.month, request_body.day or 1, return_type=return_type)
     else:
         if request_body.year is None:
             raise KerykeionException("Year must be provided when iso_datetime is not set.")
-        return_subject = return_factory.next_return_from_year(request_body.year, return_type)
+        return_subject = return_factory.next_return_from_date(request_body.year, 1, 1, return_type=return_type)
 
     if request_body.wheel_type == "dual":
         chart_data = ChartDataFactory.create_return_chart_data(

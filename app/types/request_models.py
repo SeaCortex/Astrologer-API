@@ -642,9 +642,15 @@ class PlanetaryReturnRequestModel(ChartRenderingMixin):
     )
     month: Optional[int] = Field(
         default=None,
-        description="Optional month filter (1-12) used with year.",
+        description="Optional month (1-12) to start the search from. Used with year and day.",
         ge=1,
         le=12,
+    )
+    day: Optional[int] = Field(
+        default=1,
+        description="Optional day (1-31) to start the search from. Requires month and year.",
+        ge=1,
+        le=31,
     )
     iso_datetime: Optional[str] = Field(
         default=None,
@@ -667,10 +673,13 @@ class PlanetaryReturnRequestModel(ChartRenderingMixin):
     @model_validator(mode="after")
     def validate_search_parameters(self) -> "PlanetaryReturnRequestModel":
         if not any([self.year, self.iso_datetime]):
-            raise ValueError("Provide either 'iso_datetime' or 'year' (with optional month) to locate the return.")
+            raise ValueError("Provide either 'iso_datetime' or 'year' (with optional month and day) to locate the return.")
 
         if self.month and not self.year:
             raise ValueError("Month can only be provided together with a year.")
+
+        if self.day and self.day != 1 and not self.month:
+            raise ValueError("Day can only be provided together with month and year.")
 
         if self.wheel_type == "single":
             self.include_house_comparison = False
@@ -690,9 +699,15 @@ class PlanetaryReturnDataRequestModel(ChartDataConfigurationMixin):
     )
     month: Optional[int] = Field(
         default=None,
-        description="Optional month filter (1-12) used with year.",
+        description="Optional month (1-12) to start the search from. Used with year and day.",
         ge=1,
         le=12,
+    )
+    day: Optional[int] = Field(
+        default=1,
+        description="Optional day (1-31) to start the search from. Requires month and year.",
+        ge=1,
+        le=31,
     )
     iso_datetime: Optional[str] = Field(
         default=None,
@@ -715,10 +730,13 @@ class PlanetaryReturnDataRequestModel(ChartDataConfigurationMixin):
     @model_validator(mode="after")
     def validate_search_parameters(self) -> "PlanetaryReturnDataRequestModel":
         if not any([self.year, self.iso_datetime]):
-            raise ValueError("Provide either 'iso_datetime' or 'year' (with optional month) to locate the return.")
+            raise ValueError("Provide either 'iso_datetime' or 'year' (with optional month and day) to locate the return.")
 
         if self.month and not self.year:
             raise ValueError("Month can only be provided together with a year.")
+
+        if self.day and self.day != 1 and not self.month:
+            raise ValueError("Day can only be provided together with month and year.")
 
         if self.wheel_type == "single":
             self.include_house_comparison = False
