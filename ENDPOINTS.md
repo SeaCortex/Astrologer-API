@@ -25,25 +25,25 @@ Used across most endpoints to define a person's birth data:
 
 ```json
 {
-  "name": "John Doe",
-  "year": 1990,
-  "month": 6,
-  "day": 15,
-  "hour": 12,
-  "minute": 30,
-  "second": 0,
-  "city": "London",
-  "nation": "GB",
-  "timezone": "Europe/London",
-  "longitude": -0.1278,
-  "latitude": 51.5074,
-  "altitude": null,
-  "zodiac_type": "Tropical",
-  "sidereal_mode": null,
-  "perspective_type": "Apparent Geocentric",
-  "houses_system_identifier": "P",
-  "is_dst": null,
-  "geonames_username": null
+    "name": "John Doe",
+    "year": 1990,
+    "month": 6,
+    "day": 15,
+    "hour": 12,
+    "minute": 30,
+    "second": 0,
+    "city": "London",
+    "nation": "GB",
+    "timezone": "Europe/London",
+    "longitude": -0.1278,
+    "latitude": 51.5074,
+    "altitude": null,
+    "zodiac_type": "Tropical",
+    "sidereal_mode": null,
+    "perspective_type": "Apparent Geocentric",
+    "houses_system_identifier": "P",
+    "is_dst": null,
+    "geonames_username": null
 }
 ```
 
@@ -63,6 +63,7 @@ Available for `/charts/*` endpoints and `/api/v5/now/chart` (with SVG rendering)
 - `show_house_position_comparison`: Boolean - include the house comparison table (set to false to hide it and widen the chart)
 - `show_cusp_position_comparison`: Boolean - include the cusp position comparison table for dual charts (default: true)
 - `show_degree_indicators`: Boolean - display radial lines and degree numbers for planet positions on the chart wheel (default: true)
+- `show_aspect_icons`: Boolean - display aspect icons on aspect lines (default: true)
 - `custom_title`: String ≤40 chars - temporary override for the rendered chart title (trimmed if blank)
 
 ### Computation Configuration Options
@@ -74,7 +75,7 @@ Available for **all** chart endpoints (both `/chart-data/*` and `/chart/*`):
 - `distribution_method`: "weighted" (default) or "pure_count"
 - `custom_distribution_weights`: Custom weight mapping for element/quality distribution
 
-**Note:** `/chart-data/*` endpoints return data only (no SVG) and do **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`). These parameters will be rejected with a 422 error if provided.
+**Note:** `/chart-data/*` endpoints return data only (no SVG) and do **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`). These parameters will be rejected with a 422 error if provided.
 
 ## Endpoints
 
@@ -88,7 +89,7 @@ Returns API health status.
 
 ```json
 {
-  "status": "OK"
+    "status": "OK"
 }
 ```
 
@@ -106,11 +107,11 @@ Returns astrological data for the current UTC time at Greenwich with optional co
 
 ```json
 {
-  "name": "Now",
-  "zodiac_type": "Tropical",
-  "sidereal_mode": null,
-  "perspective_type": "Apparent Geocentric",
-  "houses_system_identifier": "P"
+    "name": "Now",
+    "zodiac_type": "Tropical",
+    "sidereal_mode": null,
+    "perspective_type": "Apparent Geocentric",
+    "houses_system_identifier": "P"
 }
 ```
 
@@ -120,10 +121,10 @@ Returns astrological data for the current UTC time at Greenwich with optional co
 
 ```json
 {
-  "status": "OK",
-  "subject": {
-    /* AstrologicalSubjectModel */
-  }
+    "status": "OK",
+    "subject": {
+        /* AstrologicalSubjectModel */
+    }
 }
 ```
 
@@ -149,6 +150,7 @@ Returns chart data and SVG for the current UTC time at Greenwich with optional s
   "show_house_position_comparison": true,
   "show_cusp_position_comparison": true,
   "show_degree_indicators": true,
+  "show_aspect_icons": true,
   "custom_title": null,
   "active_points": [...],
   "active_aspects": [...]
@@ -161,11 +163,11 @@ Returns chart data and SVG for the current UTC time at Greenwich with optional s
 
 ```json
 {
-  "status": "OK",
-  "chart_data": {
-    /* ChartDataModel */
-  },
-  "chart": "<svg>...</svg>"
+    "status": "OK",
+    "chart_data": {
+        /* ChartDataModel */
+    },
+    "chart": "<svg>...</svg>"
 }
 ```
 
@@ -181,9 +183,9 @@ Returns astrological subject data without chart rendering.
 
 ```json
 {
-  "subject": {
-    /* SubjectModel */
-  }
+    "subject": {
+        /* SubjectModel */
+    }
 }
 ```
 
@@ -191,10 +193,10 @@ Returns astrological subject data without chart rendering.
 
 ```json
 {
-  "status": "OK",
-  "subject": {
-    /* AstrologicalSubjectModel */
-  }
+    "status": "OK",
+    "subject": {
+        /* AstrologicalSubjectModel */
+    }
 }
 ```
 
@@ -220,7 +222,7 @@ Returns complete natal chart data without SVG rendering.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:**
 
@@ -273,6 +275,7 @@ Returns natal chart data and rendered SVG chart.
   "show_house_position_comparison": true,
   "show_cusp_position_comparison": true,
   "show_degree_indicators": true,
+  "show_aspect_icons": true,
   "custom_title": null,
   "active_points": [...],
   "active_aspects": [...],
@@ -285,11 +288,11 @@ Returns natal chart data and rendered SVG chart.
 
 ```json
 {
-  "status": "OK",
-  "chart_data": {
-    /* Same as chart-data endpoint */
-  },
-  "chart": "<svg>...</svg>"
+    "status": "OK",
+    "chart_data": {
+        /* Same as chart-data endpoint */
+    },
+    "chart": "<svg>...</svg>"
 }
 ```
 
@@ -318,7 +321,7 @@ Returns synastry comparison data between two subjects.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:**
 
@@ -354,7 +357,7 @@ Returns synastry comparison data between two subjects.
 
 Returns synastry data and rendered dual-wheel chart.
 
-**Request:** Same as `/api/v5/chart-data/synastry` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/synastry` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`
 
 **Response:** Same as chart-data endpoint plus `"chart": "<svg>...</svg>"` (or `"chart_wheel"` and `"chart_grid"` if split_chart=true)
 
@@ -393,7 +396,7 @@ Returns transit analysis for current planetary positions affecting a natal chart
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:**
 
@@ -423,7 +426,7 @@ Returns transit analysis for current planetary positions affecting a natal chart
 
 Returns transit data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/transit` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/transit` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`
 
 ---
 
@@ -447,7 +450,7 @@ Returns midpoint composite chart between two subjects.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:**
 
@@ -472,7 +475,7 @@ Returns midpoint composite chart between two subjects.
 
 Returns composite data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/composite` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/composite` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`
 
 ---
 
@@ -507,7 +510,7 @@ Calculates solar return chart for a specific year.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:**
 
@@ -535,7 +538,7 @@ Calculates solar return chart for a specific year.
 
 Returns solar return data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/solar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/solar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`
 
 **Response:** Adds `"return_type": "Solar"` and `"wheel_type": "dual"` or `"single"`
 
@@ -547,7 +550,7 @@ Calculates lunar return chart.
 
 **Request:** Same structure as solar return
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:** Same structure with `"return_type": "Lunar"`
 
@@ -557,7 +560,7 @@ Calculates lunar return chart.
 
 Returns lunar return data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/lunar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/lunar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`
 
 ---
 
@@ -582,22 +585,22 @@ Calculates Ciro Discepolo compatibility score between two subjects.
 
 ```json
 {
-  "status": "OK",
-  "score": 18,
-  "score_description": "Very Important",
-  "is_destiny_sign": true,
-  "aspects": [
-    {
-      "p1_name": "Sun",
-      "p2_name": "Moon",
-      "aspect": "conjunction",
-      "orbit": 1.34
+    "status": "OK",
+    "score": 18,
+    "score_description": "Very Important",
+    "is_destiny_sign": true,
+    "aspects": [
+        {
+            "p1_name": "Sun",
+            "p2_name": "Moon",
+            "aspect": "conjunction",
+            "orbit": 1.34
+        }
+    ],
+    "chart_data": {
+        "chart_type": "Synastry"
+        /* Full synastry data */
     }
-  ],
-  "chart_data": {
-    "chart_type": "Synastry"
-    /* Full synastry data */
-  }
 }
 ```
 
@@ -628,11 +631,11 @@ Returns astrological subject with AI-optimized context.
 
 ```json
 {
-  "status": "OK",
-  "subject_context": "Chart for \"Name\"...",
-  "subject": {
-    /* AstrologicalSubjectModel */
-  }
+    "status": "OK",
+    "subject_context": "Chart for \"Name\"...",
+    "subject": {
+        /* AstrologicalSubjectModel */
+    }
 }
 ```
 
@@ -648,11 +651,11 @@ Returns current UTC moment with AI context.
 
 ```json
 {
-  "status": "OK",
-  "subject_context": "Chart for \"Now\"...",
-  "subject": {
-    /* AstrologicalSubjectModel */
-  }
+    "status": "OK",
+    "subject_context": "Chart for \"Now\"...",
+    "subject": {
+        /* AstrologicalSubjectModel */
+    }
 }
 ```
 
@@ -670,11 +673,11 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-  "status": "OK",
-  "context": "Natal Chart Analysis\n==================================================\n\nChart for \"Name\"...",
-  "chart_data": {
-    /* SingleChartDataModel */
-  }
+    "status": "OK",
+    "context": "Natal Chart Analysis\n==================================================\n\nChart for \"Name\"...",
+    "chart_data": {
+        /* SingleChartDataModel */
+    }
 }
 ```
 
@@ -688,11 +691,11 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-  "status": "OK",
-  "context": "Synastry Chart Analysis\n==================================================\n\nFirst Subject:...",
-  "chart_data": {
-    /* DualChartDataModel */
-  }
+    "status": "OK",
+    "context": "Synastry Chart Analysis\n==================================================\n\nFirst Subject:...",
+    "chart_data": {
+        /* DualChartDataModel */
+    }
 }
 ```
 
@@ -706,11 +709,11 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-  "status": "OK",
-  "context": "Composite Chart Analysis...",
-  "chart_data": {
-    /* SingleChartDataModel */
-  }
+    "status": "OK",
+    "context": "Composite Chart Analysis...",
+    "chart_data": {
+        /* SingleChartDataModel */
+    }
 }
 ```
 
@@ -724,11 +727,11 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-  "status": "OK",
-  "context": "Transit Chart Analysis...",
-  "chart_data": {
-    /* DualChartDataModel */
-  }
+    "status": "OK",
+    "context": "Transit Chart Analysis...",
+    "chart_data": {
+        /* DualChartDataModel */
+    }
 }
 ```
 
@@ -744,13 +747,13 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-  "status": "OK",
-  "context": "DualReturnChart Chart Analysis...",
-  "chart_data": {
-    /* ChartDataModel */
-  },
-  "return_type": "Solar",
-  "wheel_type": "dual"
+    "status": "OK",
+    "context": "DualReturnChart Chart Analysis...",
+    "chart_data": {
+        /* ChartDataModel */
+    },
+    "return_type": "Solar",
+    "wheel_type": "dual"
 }
 ```
 
@@ -764,13 +767,13 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-  "status": "OK",
-  "context": "DualReturnChart Chart Analysis...",
-  "chart_data": {
-    /* ChartDataModel */
-  },
-  "return_type": "Lunar",
-  "wheel_type": "dual"
+    "status": "OK",
+    "context": "DualReturnChart Chart Analysis...",
+    "chart_data": {
+        /* ChartDataModel */
+    },
+    "return_type": "Lunar",
+    "wheel_type": "dual"
 }
 ```
 
@@ -825,14 +828,14 @@ Provide insights on career potential.
 
 ```json
 {
-  "fire": 5.0,
-  "earth": 3.5,
-  "air": 4.0,
-  "water": 2.5,
-  "fire_percentage": 33,
-  "earth_percentage": 23,
-  "air_percentage": 27,
-  "water_percentage": 17
+    "fire": 5.0,
+    "earth": 3.5,
+    "air": 4.0,
+    "water": 2.5,
+    "fire_percentage": 33,
+    "earth_percentage": 23,
+    "air_percentage": 27,
+    "water_percentage": 17
 }
 ```
 
@@ -840,12 +843,12 @@ Provide insights on career potential.
 
 ```json
 {
-  "cardinal": 4.0,
-  "fixed": 6.0,
-  "mutable": 5.0,
-  "cardinal_percentage": 27,
-  "fixed_percentage": 40,
-  "mutable_percentage": 33
+    "cardinal": 4.0,
+    "fixed": 6.0,
+    "mutable": 5.0,
+    "cardinal_percentage": 27,
+    "fixed_percentage": 40,
+    "mutable_percentage": 33
 }
 ```
 
@@ -853,19 +856,19 @@ Provide insights on career potential.
 
 ```json
 {
-  "p1_name": "Sun",
-  "p2_name": "Moon",
-  "aspect": "conjunction",
-  "orbit": 1.34,
-  "aspect_degrees": 0,
-  "aid": 1,
-  "diff": 1.34,
-  "p1": {
-    /* Point details */
-  },
-  "p2": {
-    /* Point details */
-  }
+    "p1_name": "Sun",
+    "p2_name": "Moon",
+    "aspect": "conjunction",
+    "orbit": 1.34,
+    "aspect_degrees": 0,
+    "aid": 1,
+    "diff": 1.34,
+    "p1": {
+        /* Point details */
+    },
+    "p2": {
+        /* Point details */
+    }
 }
 ```
 
@@ -893,13 +896,13 @@ Override specific weights:
 
 ```json
 {
-  "distribution_method": "weighted",
-  "custom_distribution_weights": {
-    "sun": 3.0,
-    "moon": 2.5,
-    "venus": 2.0,
-    "__default__": 0.75
-  }
+    "distribution_method": "weighted",
+    "custom_distribution_weights": {
+        "sun": 3.0,
+        "moon": 2.5,
+        "venus": 2.0,
+        "__default__": 0.75
+    }
 }
 ```
 
@@ -911,8 +914,8 @@ Override specific weights:
 
 ```json
 {
-  "status": "ERROR",
-  "message": "Error description"
+    "status": "ERROR",
+    "message": "Error description"
 }
 ```
 
@@ -920,13 +923,13 @@ Override specific weights:
 
 ```json
 {
-  "detail": [
-    {
-      "loc": ["body", "subject", "year"],
-      "msg": "field required",
-      "type": "value_error.missing"
-    }
-  ]
+    "detail": [
+        {
+            "loc": ["body", "subject", "year"],
+            "msg": "field required",
+            "type": "value_error.missing"
+        }
+    ]
 }
 ```
 
@@ -934,8 +937,8 @@ Override specific weights:
 
 ```json
 {
-  "status": "ERROR",
-  "message": "Internal server error"
+    "status": "ERROR",
+    "message": "Internal server error"
 }
 ```
 
