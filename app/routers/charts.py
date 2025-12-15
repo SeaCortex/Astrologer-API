@@ -102,6 +102,7 @@ async def now_chart(request_body: NowChartRequestModel, request: Request) -> JSO
             request_body.show_house_position_comparison,
             request_body.show_cusp_position_comparison,
             request_body.show_degree_indicators,
+            request_body.show_aspect_icons,
             request_body.custom_title,
         )
         return JSONResponse(content=payload, status_code=200)
@@ -124,6 +125,7 @@ async def natal_chart(request_body: BirthChartRequestModel, request: Request) ->
     - `show_house_position_comparison` (hide the comparison table when false)
     - `show_cusp_position_comparison` (hide the cusp comparison table when false, for dual charts)
     - `show_degree_indicators` (hide radial lines and degree numbers when false)
+    - `show_aspect_icons` (hide aspect icons on aspect lines when false)
     - `custom_title` (temporary title override, max 40 chars)
 
     **Returns:**
@@ -146,6 +148,7 @@ async def natal_chart(request_body: BirthChartRequestModel, request: Request) ->
             request_body.show_house_position_comparison,
             request_body.show_cusp_position_comparison,
             request_body.show_degree_indicators,
+            request_body.show_aspect_icons,
             request_body.custom_title,
         )
         return JSONResponse(content=payload, status_code=200)
@@ -182,6 +185,7 @@ async def synastry_chart(request_body: SynastryChartRequestModel, request: Reque
             request_body.show_house_position_comparison,
             request_body.show_cusp_position_comparison,
             request_body.show_degree_indicators,
+            request_body.show_aspect_icons,
             request_body.custom_title,
         )
         return JSONResponse(content=payload, status_code=200)
@@ -218,6 +222,7 @@ async def composite_chart(request_body: CompositeChartRequestModel, request: Req
             request_body.show_house_position_comparison,
             request_body.show_cusp_position_comparison,
             request_body.show_degree_indicators,
+            request_body.show_aspect_icons,
             request_body.custom_title,
         )
         return JSONResponse(content=payload, status_code=200)
@@ -254,6 +259,7 @@ async def transit_chart(request_body: TransitChartRequestModel, request: Request
             request_body.show_house_position_comparison,
             request_body.show_cusp_position_comparison,
             request_body.show_degree_indicators,
+            request_body.show_aspect_icons,
             request_body.custom_title,
         )
         return JSONResponse(content=payload, status_code=200)
@@ -291,6 +297,7 @@ async def solar_return_chart(request_body: PlanetaryReturnRequestModel, request:
             request_body.show_house_position_comparison,
             request_body.show_cusp_position_comparison,
             request_body.show_degree_indicators,
+            request_body.show_aspect_icons,
             request_body.custom_title,
         )
         payload["return_type"] = "Solar"
@@ -330,6 +337,7 @@ async def lunar_return_chart(request_body: PlanetaryReturnRequestModel, request:
             request_body.show_house_position_comparison,
             request_body.show_cusp_position_comparison,
             request_body.show_degree_indicators,
+            request_body.show_aspect_icons,
             request_body.custom_title,
         )
         payload["return_type"] = "Lunar"

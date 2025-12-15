@@ -45,6 +45,9 @@ The endpoint combines the power of precise astronomical calculations with beauti
         "timezone": "Europe/Berlin"
     }
     ```
+-   **`active_points`** (array, optional): Points to include.
+-   **`active_aspects`** (array, optional): Aspects to include.
+-   **`show_aspect_icons`** (boolean, optional): Display aspect icons on aspect lines (default: true).
 -   **`theme`** (string, optional): Color theme for the chart (e.g., "classic", "dark", "high_contrast"). Default: "classic".
 -   **`language`** (string, optional): Language for chart labels (e.g., "EN", "IT", "ES"). Default: "EN".
 -   **`split_chart`** (bool, optional): If true, returns the chart wheel and aspect grid as separate SVG strings. Default: false.

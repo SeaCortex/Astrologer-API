@@ -31,6 +31,7 @@ Generates a Lunar Return chart for the return happening on or after the specifie
 -   `custom_title` (string, optional): Custom title.
 -   `active_points` (array, optional): Points to include.
 -   `active_aspects` (array, optional): Aspects to include.
+-   `show_aspect_icons` (boolean, optional): Display aspect icons on aspect lines (default: true).
 
 ## Request Body Example
 

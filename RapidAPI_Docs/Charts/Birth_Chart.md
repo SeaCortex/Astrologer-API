@@ -1,8 +1,11 @@
 ## Endpoint
+
 /api/v5/chart/birth-chart
 
 ## Name
- Birth Chart
+
+Birth Chart
+
 ## Description
 
 Generates a natal chart (birth chart) for a specific person and time. Returns both the calculated astrological data and a rendered SVG chart. You can customize the visual appearance (theme, language) and calculation parameters (house system, zodiac type).
@@ -33,6 +36,7 @@ Generates a natal chart (birth chart) for a specific person and time. Returns bo
 -   `custom_title` (string, optional): Custom title to display on the chart.
 -   `active_points` (array of strings, optional): List of planets/points to include (e.g., ["Sun", "Moon"]).
 -   `active_aspects` (array of objects, optional): Configuration for aspects to include.
+-   `show_aspect_icons` (boolean, optional): Display aspect icons on aspect lines (default: true).
 -   `distribution_method` (string, optional): Method for calculating element/quality distribution ("weighted" or "pure_count").
 -   `custom_distribution_weights` (JSON object, optional): Custom weights for the distribution calculation.
 

@@ -66,6 +66,7 @@ The synastry chart reveals how two individuals interact on an energetic level, h
 -   **`show_house_position_comparison`** (bool, optional): Display house table (default: true).
 -   **`show_cusp_position_comparison`** (bool, optional): Display cusp comparison grids for both subjects (default: true).
 -   **`show_degree_indicators`** (bool, optional): Display radial lines and degree numbers for planet positions on the wheels (default: true).
+-   **`show_aspect_icons`** (bool, optional): Display aspect icons on aspect lines (default: true).
 
 #### Complete Request Example
 

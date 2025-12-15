@@ -309,6 +309,10 @@ class ChartRenderingMixin(ChartDataConfigurationMixin):
         default=True,
         description="Display radial lines and degree numbers for planet positions on the chart wheel.",
     )
+    show_aspect_icons: bool = Field(
+        default=True,
+        description="Display aspect icons on the chart wheel aspect lines.",
+    )
     custom_title: Optional[str] = Field(
         default=None,
         description="Temporarily override the rendered chart title (max 40 characters).",

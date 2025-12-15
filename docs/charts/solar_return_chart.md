@@ -66,9 +66,10 @@ This chart type is foundational for yearly planning and is widely used by profes
 -   **`return_location`** (object, optional): Relocation.
 -   **`wheel_type`** (string, optional): "dual" (default) or "single".
 -   **`theme`**, **`language`**, **`split_chart`** (rendering options).
--   **`show_house_position_comparison`** (bool, optional): Display house comparison tables for natal vs Solar Return (dual wheel only; default: true).
--   **`show_cusp_position_comparison`** (bool, optional): Display cusp comparison grids for natal vs Solar Return houses (dual wheel only; default: true).
--   **`show_degree_indicators`** (bool, optional): Display radial lines and degree numbers for planet positions on the wheels (default: true).
+-   **`show_house_position_comparison`** (bool, optional): Show or hide the house/points comparison table (default: true).
+-   **`show_cusp_position_comparison`** (bool, optional): Show or hide the cusp comparison table for dual charts (default: true).
+-   **`show_degree_indicators`** (bool, optional): Display radial lines and degree numbers for planet positions on the wheel (default: true).
+-   **`show_aspect_icons`** (bool, optional): Display aspect icons on aspect lines (default: true).
 
 #### Complete Request Example
 

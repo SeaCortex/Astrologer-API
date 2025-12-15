@@ -1,7 +1,9 @@
 ## Endpoint
+
 /api/v5/now/chart
 
 ## Name
+
 Now: Current Datetime Birth Chart
 
 ## Description
@@ -23,6 +25,7 @@ Generates a chart for the current moment (Now) at Greenwich (UTC). Useful for ge
 -   `custom_title` (string, optional): Custom title.
 -   `active_points` (array, optional): Points to include.
 -   `active_aspects` (array, optional): Aspects to include.
+-   `show_aspect_icons` (boolean, optional): Display aspect icons on aspect lines (default: true).
 
 ## Request Body Example
 

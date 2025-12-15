@@ -220,6 +220,7 @@ def render_chart(
     show_house_position_comparison: bool = True,
     show_cusp_position_comparison: bool = True,
     show_degree_indicators: bool = True,
+    show_aspect_icons: bool = True,
     custom_title: Optional[str] = None,
 ) -> dict:
     """
@@ -234,6 +235,7 @@ def render_chart(
         show_house_position_comparison (bool): Whether to show house comparison table.
         show_cusp_position_comparison (bool): Whether to show cusp position comparison table (dual charts).
         show_degree_indicators (bool): Whether to show radial lines and degree numbers for planets.
+        show_aspect_icons (bool): Whether to show aspect icons on aspect lines.
         custom_title (Optional[str]): Custom title for the chart.
 
     Returns:
@@ -247,6 +249,7 @@ def render_chart(
         show_house_position_comparison=show_house_position_comparison,
         show_cusp_position_comparison=show_cusp_position_comparison,
         show_degree_indicators=show_degree_indicators,
+        show_aspect_icons=show_aspect_icons,
         custom_title=custom_title,
     )
 
@@ -284,6 +287,7 @@ def chart_payload(
     show_house_position_comparison: bool = True,
     show_cusp_position_comparison: bool = True,
     show_degree_indicators: bool = True,
+    show_aspect_icons: bool = True,
     custom_title: Optional[str] = None,
 ) -> dict:
     """
@@ -298,6 +302,7 @@ def chart_payload(
         show_house_position_comparison (bool): Whether to show house comparison table.
         show_cusp_position_comparison (bool): Whether to show cusp position comparison table (dual charts).
         show_degree_indicators (bool): Whether to show radial lines and degree numbers for planets.
+        show_aspect_icons (bool): Whether to show aspect icons on aspect lines.
         custom_title (Optional[str]): Custom title for the chart.
 
     Returns:
@@ -313,6 +318,7 @@ def chart_payload(
         show_house_position_comparison,
         show_cusp_position_comparison,
         show_degree_indicators,
+        show_aspect_icons,
         custom_title,
     )
     payload.update(charts)

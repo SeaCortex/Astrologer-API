@@ -1,4 +1,5 @@
 ## Endpoint
+
 /api/v5/chart/transit
 
 ## Name
@@ -32,6 +33,7 @@ Generates a transit chart showing the current planetary positions in relation to
 -   `custom_title` (string, optional): Custom title.
 -   `active_points` (array, optional): Points to include.
 -   `active_aspects` (array, optional): Aspects to include.
+-   `show_aspect_icons` (boolean, optional): Display aspect icons on aspect lines (default: true).
 
 ## Request Body Example
 

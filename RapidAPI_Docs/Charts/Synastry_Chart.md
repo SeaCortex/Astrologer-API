@@ -1,4 +1,5 @@
 ## Endpoint
+
 /api/v5/chart/synastry
 
 ## Name
@@ -34,6 +35,7 @@ Generates a synastry chart (relationship chart) comparing two subjects. Returns 
 -   `custom_title` (string, optional): Custom title.
 -   `active_points` (array, optional): Points to include.
 -   `active_aspects` (array, optional): Aspects to include.
+-   `show_aspect_icons` (boolean, optional): Display aspect icons on aspect lines (default: true).
 -   `distribution_method` (string, optional): Distribution calculation method.
 
 ## Request Body Example
