@@ -11,6 +11,7 @@ Birth chart example (dark theme):
 ![Birth chart example](https://gitlab.com/g-battaglia/kerykeion/-/raw/main/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
 
 👉 Ready to use it? Subscribe on RapidAPI: https://rapidapi.com/gbattaglia/api/astrologer/pricing
+👉 Ready to use it? Subscribe on RapidAPI: <a href="https://rapidapi.com/gbattaglia/api/astrologer/pricing" target="_blank">https://rapidapi.com/gbattaglia/api/astrologer/pricing</a>
 
 ## Quick start
 
@@ -110,12 +111,11 @@ These endpoints accept the same parameters as their corresponding chart-data end
 
 ## Documentation
 
--   [Quick Endpoints Reference](https://raw.githubusercontent.com/g-battaglia/v5/ENDPOINTS.md)
--   [Swagger OpenAPI (interactive)](https://www.kerykeion.net/astrologer-api-swagger/)
--   [Redoc OpenAPI (reference)](https://www.kerykeion.net/astrologer-api-redoc/)
--   [OpenAPI JSON](https://raw.githubusercontent.com/g-battaglia/Astrologer-API/v5/openapi.json)
--   [Full Documentation](https://www.kerykeion.net/content/astrologer-api/)
--   [Interactive Playground](https://astrologer-api-playground.kerykeion.net/)
+-   <a href="https://www.kerykeion.net/astrologer-api-swagger/" target="_blank">Swagger OpenAPI (interactive)</a>
+-   <a href="https://www.kerykeion.net/astrologer-api-redoc/" target="_blank">Redoc OpenAPI (reference)</a>
+-   <a href="https://www.kerykeion.net/content/astrologer-api/" target="_blank">Full Documentation</a>
+-   <a href="https://astrologer-api-playground.kerykeion.net/" target="_blank">Interactive Playground</a>
+-   <a href="https://raw.githubusercontent.com/g-battaglia/Astrologer-API/refs/heads/v5/ENDPOINTS.md" target="_blank">Quick Endpoints Reference</a>
 
 ## Copy‑paste examples
 
@@ -581,9 +581,11 @@ The SVGs are responsive by default. You can control their size via the container
 ## Subscription and support
 
 Subscribe: https://rapidapi.com/gbattaglia/api/astrologer/pricing
+Subscribe: <a href="https://rapidapi.com/gbattaglia/api/astrologer/pricing" target="_blank">https://rapidapi.com/gbattaglia/api/astrologer/pricing</a>
 
 If you need higher quotas or a custom plan beyond the default tiers, reach out via [kerykeion.astrology@gmail.com](mailto:kerykeion.astrology@gmail.com) to discuss tailored options.
 
 Licensing note: Astrologer API is open source (AGPLv3). Using the hosted API via RapidAPI is allowed in any app, including closed‑source since is a third-party service.
 
 [Astrologer-API Source Code](https://gitlab.com/g-battaglia/Astrologer-API)
+<a href="https://github.com/g-battaglia/Astrologer-API" target="_blank">Astrologer-API Source Code</a>
