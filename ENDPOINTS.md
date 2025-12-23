@@ -49,31 +49,31 @@ Used across most endpoints to define a person's birth data:
 
 **Location Options:**
 
-- Provide `longitude`, `latitude`, and `timezone` for offline mode (recommended)
-- OR provide `geonames_username` to use GeoNames API for location lookup (requires city and nation)
+-   Provide `longitude`, `latitude`, and `timezone` for offline mode (recommended)
+-   OR provide `geonames_username` to use GeoNames API for location lookup (requires city and nation)
 
 ### Chart Configuration Options
 
 Available for `/charts/*` endpoints and `/api/v5/now/chart` (with SVG rendering):
 
-- `theme`: Visual theme ("classic", "dark", "light", "strawberry", "dark-high-contrast", "black-and-white")
-- `language`: Chart language ("EN", "IT", "FR", "ES", "PT", "CN", "RU", "TR", "DE", "HI")
-- `split_chart`: Boolean - return separate `chart_wheel` and `chart_grid` SVG strings (default: false)
-- `transparent_background`: Boolean - render chart with transparent background instead of theme default
-- `show_house_position_comparison`: Boolean - include the house comparison table (set to false to hide it and widen the chart)
-- `show_cusp_position_comparison`: Boolean - include the cusp position comparison table for dual charts (default: true)
-- `show_degree_indicators`: Boolean - display radial lines and degree numbers for planet positions on the chart wheel (default: true)
-- `show_aspect_icons`: Boolean - display aspect icons on aspect lines (default: true)
-- `custom_title`: String ≤40 chars - temporary override for the rendered chart title (trimmed if blank)
+-   `theme`: Visual theme ("classic", "dark", "light", "strawberry", "dark-high-contrast", "black-and-white")
+-   `language`: Chart language ("EN", "IT", "FR", "ES", "PT", "CN", "RU", "TR", "DE", "HI")
+-   `split_chart`: Boolean - return separate `chart_wheel` and `chart_grid` SVG strings (default: false)
+-   `transparent_background`: Boolean - render chart with transparent background instead of theme default
+-   `show_house_position_comparison`: Boolean - include the house comparison table (set to false to hide it and widen the chart)
+-   `show_cusp_position_comparison`: Boolean - include the cusp position comparison table for dual charts (default: true)
+-   `show_degree_indicators`: Boolean - display radial lines and degree numbers for planet positions on the chart wheel (default: true)
+-   `show_aspect_icons`: Boolean - display aspect icons on aspect lines (default: true)
+-   `custom_title`: String ≤40 chars - temporary override for the rendered chart title (trimmed if blank)
 
 ### Computation Configuration Options
 
 Available for **all** chart endpoints (both `/chart-data/*` and `/chart/*`):
 
-- `active_points`: Array of points to include (default: all major planets and points)
-- `active_aspects`: Array of aspect configurations with orbs
-- `distribution_method`: "weighted" (default) or "pure_count"
-- `custom_distribution_weights`: Custom weight mapping for element/quality distribution
+-   `active_points`: Array of points to include (default: all major planets and points)
+-   `active_aspects`: Array of aspect configurations with orbs
+-   `distribution_method`: "weighted" (default) or "pure_count"
+-   `custom_distribution_weights`: Custom weight mapping for element/quality distribution
 
 **Note:** `/chart-data/*` endpoints return data only (no SVG) and do **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`). These parameters will be rejected with a 422 error if provided.
 
@@ -341,6 +341,14 @@ Returns synastry comparison data between two subjects.
       "score_value": 18,
       "score_description": "Very Important",
       "is_destiny_sign": true,
+      "score_breakdown": [
+        {
+          "rule": "sun_moon_conjunction",
+          "description": "Sun-Moon conjunction (high precision)",
+          "points": 11,
+          "details": "Sun-Moon conjunction (orbit: 1.34°)"
+        }
+      ],
       "aspects": [...]
     },
     "element_distribution": { /* Combined distribution */ },
@@ -586,9 +594,17 @@ Calculates Ciro Discepolo compatibility score between two subjects.
 ```json
 {
     "status": "OK",
-    "score": 18,
+    "score": 11,
     "score_description": "Very Important",
     "is_destiny_sign": true,
+    "score_breakdown": [
+        {
+            "rule": "sun_moon_conjunction",
+            "description": "Sun-Moon conjunction (high precision)",
+            "points": 11,
+            "details": "Sun-Moon conjunction (orbit: 1.34°)"
+        }
+    ],
     "aspects": [
         {
             "p1_name": "Sun",
@@ -612,10 +628,10 @@ The API provides 8 context endpoints that parallel the chart endpoints. Instead 
 
 **Key Features:**
 
-- Non-qualitative, factual astronomical positions
-- Structured text format optimized for AI/LLM prompts
-- Complete information including planetary positions, aspects, houses, and distributions
-- Same request parameters as corresponding chart-data endpoints
+-   Non-qualitative, factual astronomical positions
+-   Structured text format optimized for AI/LLM prompts
+-   Complete information including planetary positions, aspects, houses, and distributions
+-   Same request parameters as corresponding chart-data endpoints
 
 ### Subject Context Endpoints
 
@@ -806,10 +822,10 @@ Provide insights on career potential.
 
 **Benefits:**
 
-- **No Visual Parsing**: LLMs get structured text instead of needing to parse SVG
-- **Factual Data**: Non-qualitative, precise astronomical positions
-- **Complete Information**: All planetary positions, aspects, houses, and distributions
-- **Consistent Format**: Standardized output across all chart types
+-   **No Visual Parsing**: LLMs get structured text instead of needing to parse SVG
+-   **Factual Data**: Non-qualitative, precise astronomical positions
+-   **Complete Information**: All planetary positions, aspects, houses, and distributions
+-   **Consistent Format**: Standardized output across all chart types
 
 ---
 
@@ -817,12 +833,12 @@ Provide insights on career potential.
 
 ### Chart Types
 
-- `"Natal"` - Single subject birth chart
-- `"Synastry"` - Two-subject relationship comparison
-- `"Transit"` - Current transits to natal chart
-- `"Composite"` - Midpoint composite chart
-- `"DualReturnChart"` - Return chart with natal comparison
-- `"SingleReturnChart"` - Return chart alone
+-   `"Natal"` - Single subject birth chart
+-   `"Synastry"` - Two-subject relationship comparison
+-   `"Transit"` - Current transits to natal chart
+-   `"Composite"` - Midpoint composite chart
+-   `"DualReturnChart"` - Return chart with natal comparison
+-   `"SingleReturnChart"` - Return chart alone
 
 ### Element Distribution Model
 
@@ -880,11 +896,11 @@ Provide insights on career potential.
 
 Uses traditional astrological weights:
 
-- Sun, Moon, Ascendant: 2.0
-- Personal planets (Mercury, Venus, Mars), Angles: 1.5
-- Social planets (Jupiter, Saturn): 1.0
-- Modern planets (Uranus, Neptune, Pluto): 0.5
-- Asteroids and TNOs: 0.3-0.4
+-   Sun, Moon, Ascendant: 2.0
+-   Personal planets (Mercury, Venus, Mars), Angles: 1.5
+-   Social planets (Jupiter, Saturn): 1.0
+-   Modern planets (Uranus, Neptune, Pluto): 0.5
+-   Asteroids and TNOs: 0.3-0.4
 
 ### Pure Count
 
@@ -954,6 +970,6 @@ Rate limits depend on your RapidAPI subscription tier. Check your plan details a
 
 For issues or questions:
 
-- GitHub: [Astrologer-API](https://github.com/g-battaglia/Astrologer-API)
-- Email: kerykeion.astrology@gmail.com
-- Website: [kerykeion.net](https://www.kerykeion.net/)
+-   GitHub: [Astrologer-API](https://github.com/g-battaglia/Astrologer-API)
+-   Email: kerykeion.astrology@gmail.com
+-   Website: [kerykeion.net](https://www.kerykeion.net/)

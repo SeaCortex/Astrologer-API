@@ -155,6 +155,7 @@ async def compatibility_score(request_body: SynastryChartDataRequestModel, reque
                 "score_description": chart_data.relationship_score.score_description,
                 "is_destiny_sign": chart_data.relationship_score.is_destiny_sign,
                 "aspects": dump(chart_data.relationship_score.aspects),
+                "score_breakdown": dump(chart_data.relationship_score.score_breakdown),
                 "chart_data": dump(chart_data),
             },
             status_code=200,

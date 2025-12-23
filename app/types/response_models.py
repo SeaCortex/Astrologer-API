@@ -7,6 +7,7 @@ from kerykeion.schemas.kr_models import (
     DualChartDataModel,
     RelationshipScoreAspectModel,
     SingleChartDataModel,
+    ScoreBreakdownItemModel,
 )
 
 
@@ -77,6 +78,10 @@ class CompatibilityScoreResponseModel(StatusResponseModel):
     aspects: list[RelationshipScoreAspectModel] = Field(
         default_factory=list,
         description="Aspects considered for the score calculation.",
+    )
+    score_breakdown: list[ScoreBreakdownItemModel] = Field(
+        default_factory=list,
+        description="Breakdown of the scoring rules and points contributing to the total score.",
     )
     chart_data: DualChartDataModel = Field(description="Underlying chart data used to compute the score.")
 

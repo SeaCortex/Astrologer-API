@@ -110,7 +110,15 @@ This endpoint calculates the synastry (relationship) data between two subjects. 
     ],
     "relationship_score": {
       "score_value": 15.5,
-      "score_description": "Very high compatibility..."
+      "score_description": "Very high compatibility...",
+      "score_breakdown": [
+        {
+          "rule": "sun_sun_major",
+          "description": "Sun-Sun Trine (standard)",
+          "points": 8,
+          "details": "Sun-Sun Trine (orbit: 2.1°)"
+        }
+      ]
     }
   }
 }

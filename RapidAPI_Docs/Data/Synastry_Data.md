@@ -1,4 +1,5 @@
 ## Endpoint
+
 /api/v5/chart-data/synastry
 
 ## Name
@@ -76,9 +77,17 @@ Returns synastry comparison data between two subjects, including aspects between
             "second_points_in_first_houses": []
         },
         "relationship_score": {
-            "score_value": 25,
+            "score_value": 11,
             "score_description": "Very Good",
-            "is_destiny_sign": false
+            "is_destiny_sign": false,
+            "score_breakdown": [
+                {
+                    "rule": "sun_moon_conjunction",
+                    "description": "Sun-Moon conjunction (high precision)",
+                    "points": 11,
+                    "details": "Sun-Moon conjunction (orbit: 1.34°)"
+                }
+            ]
         }
     }
 }

@@ -1,4 +1,5 @@
 ## Endpoint
+
 /api/v5/compatibility-score
 
 ## Name
@@ -54,9 +55,17 @@ Calculates the Ciro Discepolo compatibility score between two subjects. Returns 
 ```json
 {
     "status": "OK",
-    "score": 18,
+    "score": 11,
     "score_description": "Very Important",
     "is_destiny_sign": true,
+    "score_breakdown": [
+        {
+            "rule": "sun_moon_conjunction",
+            "description": "Sun-Moon conjunction (high precision)",
+            "points": 11,
+            "details": "Sun-Moon conjunction (orbit: 1.34°)"
+        }
+    ],
     "aspects": [
         {
             "p1_name": "Sun",
@@ -64,9 +73,6 @@ Calculates the Ciro Discepolo compatibility score between two subjects. Returns 
             "aspect": "conjunction",
             "orbit": 1.34
         }
-    ],
-    "chart_data": {
-        "chart_type": "Synastry"
-    }
+    ]
 }
 ```

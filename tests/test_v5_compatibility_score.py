@@ -45,6 +45,13 @@ def test_compatibility_score(client: TestClient):
     for asp in aspects:
         assert {"p1_name", "p2_name", "aspect"} <= asp.keys()
 
+    # Score breakdown
+    score_breakdown = body["score_breakdown"]
+    assert isinstance(score_breakdown, list)
+    if score_breakdown:
+        for item in score_breakdown:
+            assert {"rule", "description", "points", "details"} <= item.keys()
+
     # Chart data coerenti
     data = body["chart_data"]
     assert data["chart_type"] == "Synastry"

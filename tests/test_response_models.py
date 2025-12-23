@@ -16,6 +16,7 @@ from kerykeion.schemas.kr_models import (
     DualChartDataModel,
     RelationshipScoreAspectModel,
     SingleChartDataModel,
+    ScoreBreakdownItemModel,
 )
 from kerykeion.settings.config_constants import DEFAULT_ACTIVE_ASPECTS, DEFAULT_ACTIVE_POINTS
 
@@ -160,9 +161,11 @@ def test_compatibility_score_response_model_parses_dual_chart(dual_chart_dump: d
         "score": relationship_score["score_value"],
         "score_description": relationship_score["score_description"],
         "is_destiny_sign": relationship_score["is_destiny_sign"],
+        "score_breakdown": relationship_score.get("score_breakdown", []),
     }
     model = rm.CompatibilityScoreResponseModel.model_validate(payload)
     assert isinstance(model.chart_data, DualChartDataModel)
     assert isinstance(model.aspects[0], RelationshipScoreAspectModel)
     assert model.score is not None
     assert model.score_description
+    assert isinstance(model.score_breakdown, list)
