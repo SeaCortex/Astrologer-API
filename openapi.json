@@ -89,7 +89,7 @@
           "Charts"
         ],
         "summary": "Natal Chart",
-        "description": "**POST** `/api/v5/chart/birth-chart`\n\nReturns birth chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`\n- `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- `transparent_background`\n- `show_house_position_comparison` (hide the comparison table when false)\n- `show_cusp_position_comparison` (hide the cusp comparison table when false, for dual charts)\n- `show_degree_indicators` (hide radial lines and degree numbers when false)\n- `custom_title` (temporary title override, max 40 chars)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG (when split_chart=false)\n- `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)",
+        "description": "**POST** `/api/v5/chart/birth-chart`\n\nReturns birth chart data and rendered SVG chart.\n\n**Parameters:**\n- `theme`, `language`\n- `split_chart` (if true returns chart_wheel and chart_grid, otherwise a single chart)\n- `transparent_background`\n- `show_house_position_comparison` (hide the comparison table when false)\n- `show_cusp_position_comparison` (hide the cusp comparison table when false, for dual charts)\n- `show_degree_indicators` (hide radial lines and degree numbers when false)\n- `show_aspect_icons` (hide aspect icons on aspect lines when false)\n- `custom_title` (temporary title override, max 40 chars)\n\n**Returns:**\n- `status`: \"OK\"\n- `chart_data`: ChartDataModel\n- `chart`: SVG (when split_chart=false)\n- `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)",
         "operationId": "natal_chart_api_v5_chart_birth_chart_post",
         "requestBody": {
           "content": {
@@ -2914,6 +2914,12 @@
             "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
             "default": true
           },
+          "show_aspect_icons": {
+            "type": "boolean",
+            "title": "Show Aspect Icons",
+            "description": "Display aspect icons on the chart wheel aspect lines.",
+            "default": true
+          },
           "custom_title": {
             "anyOf": [
               {
@@ -3262,6 +3268,14 @@
             "type": "array",
             "title": "Aspects",
             "description": "Aspects considered for the score calculation."
+          },
+          "score_breakdown": {
+            "items": {
+              "$ref": "#/components/schemas/ScoreBreakdownItemModel"
+            },
+            "type": "array",
+            "title": "Score Breakdown",
+            "description": "Breakdown of the scoring rules and points contributing to the total score."
           },
           "chart_data": {
             "$ref": "#/components/schemas/DualChartDataModel",
@@ -3716,6 +3730,12 @@
             "type": "boolean",
             "title": "Show Degree Indicators",
             "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
+            "default": true
+          },
+          "show_aspect_icons": {
+            "type": "boolean",
+            "title": "Show Aspect Icons",
+            "description": "Display aspect icons on the chart wheel aspect lines.",
             "default": true
           },
           "custom_title": {
@@ -5345,6 +5365,12 @@
             "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
             "default": true
           },
+          "show_aspect_icons": {
+            "type": "boolean",
+            "title": "Show Aspect Icons",
+            "description": "Display aspect icons on the chart wheel aspect lines.",
+            "default": true
+          },
           "custom_title": {
             "anyOf": [
               {
@@ -6618,8 +6644,8 @@
             "anyOf": [
               {
                 "type": "integer",
-                "maximum": 2300.0,
-                "minimum": 1900.0
+                "maximum": 3000.0,
+                "minimum": 1.0
               },
               {
                 "type": "null"
@@ -6640,7 +6666,22 @@
               }
             ],
             "title": "Month",
-            "description": "Optional month filter (1-12) used with year."
+            "description": "Optional month (1-12) to start the search from. Used with year and day."
+          },
+          "day": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 31.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Day",
+            "description": "Optional day (1-31) to start the search from. Requires month and year.",
+            "default": 1
           },
           "iso_datetime": {
             "anyOf": [
@@ -6953,6 +6994,12 @@
             "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
             "default": true
           },
+          "show_aspect_icons": {
+            "type": "boolean",
+            "title": "Show Aspect Icons",
+            "description": "Display aspect icons on the chart wheel aspect lines.",
+            "default": true
+          },
           "custom_title": {
             "anyOf": [
               {
@@ -6977,8 +7024,8 @@
             "anyOf": [
               {
                 "type": "integer",
-                "maximum": 2300.0,
-                "minimum": 1900.0
+                "maximum": 3000.0,
+                "minimum": 1.0
               },
               {
                 "type": "null"
@@ -6999,7 +7046,22 @@
               }
             ],
             "title": "Month",
-            "description": "Optional month filter (1-12) used with year."
+            "description": "Optional month (1-12) to start the search from. Used with year and day."
+          },
+          "day": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 31.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Day",
+            "description": "Optional day (1-31) to start the search from. Requires month and year.",
+            "default": 1
           },
           "iso_datetime": {
             "anyOf": [
@@ -7215,6 +7277,14 @@
             },
             "type": "array",
             "title": "Aspects"
+          },
+          "score_breakdown": {
+            "items": {
+              "$ref": "#/components/schemas/ScoreBreakdownItemModel"
+            },
+            "type": "array",
+            "title": "Score Breakdown",
+            "description": "Detailed breakdown of how the score was calculated"
           },
           "subjects": {
             "items": {
@@ -7474,6 +7544,45 @@
         "title": "ReturnLocationModel",
         "description": "Optional location override for planetary return calculations."
       },
+      "ScoreBreakdownItemModel": {
+        "properties": {
+          "rule": {
+            "type": "string",
+            "title": "Rule",
+            "description": "Rule identifier (e.g., 'destiny_sign', 'sun_sun_major')"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Human-readable description of the rule"
+          },
+          "points": {
+            "type": "integer",
+            "title": "Points",
+            "description": "Points awarded for this rule"
+          },
+          "details": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Details",
+            "description": "Optional details (e.g., 'orbit: 1.5\u00b0')"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rule",
+          "description",
+          "points"
+        ],
+        "title": "ScoreBreakdownItemModel",
+        "description": "Single breakdown item explaining how points were earned."
+      },
       "SingleChartDataModel": {
         "properties": {
           "chart_type": {
@@ -7614,10 +7723,10 @@
         "properties": {
           "year": {
             "type": "integer",
-            "maximum": 2300.0,
-            "minimum": 1800.0,
+            "maximum": 3000.0,
+            "minimum": 1.0,
             "title": "Year",
-            "description": "Year component of the event.",
+            "description": "Year component of the event. Supports historical dates from 1 CE to 3000 CE.",
             "examples": [
               1980
             ]
@@ -8437,6 +8546,12 @@
             "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
             "default": true
           },
+          "show_aspect_icons": {
+            "type": "boolean",
+            "title": "Show Aspect Icons",
+            "description": "Display aspect icons on the chart wheel aspect lines.",
+            "default": true
+          },
           "custom_title": {
             "anyOf": [
               {
@@ -8931,6 +9046,12 @@
             "description": "Display radial lines and degree numbers for planet positions on the chart wheel.",
             "default": true
           },
+          "show_aspect_icons": {
+            "type": "boolean",
+            "title": "Show Aspect Icons",
+            "description": "Display aspect icons on the chart wheel aspect lines.",
+            "default": true
+          },
           "custom_title": {
             "anyOf": [
               {
@@ -8975,10 +9096,10 @@
         "properties": {
           "year": {
             "type": "integer",
-            "maximum": 2300.0,
-            "minimum": 1800.0,
+            "maximum": 3000.0,
+            "minimum": 1.0,
             "title": "Year",
-            "description": "Year component of the event.",
+            "description": "Year component of the event. Supports historical dates from 1 CE to 3000 CE.",
             "examples": [
               1980
             ]

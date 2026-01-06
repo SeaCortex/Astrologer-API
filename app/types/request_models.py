@@ -76,7 +76,7 @@ class AbstractBaseSubjectModel(BaseModel, ABC):
 
     model_config = {"extra": "forbid"}
 
-    year: int = Field(description="Year component of the event.", ge=1800, le=2300, examples=[1980])
+    year: int = Field(description="Year component of the event. Supports historical dates from 1 CE to 3000 CE.", ge=1, le=3000, examples=[1980])
     month: int = Field(description="Month component of the event.", ge=1, le=12, examples=[12])
     day: int = Field(description="Day component of the event.", ge=1, le=31, examples=[12])
     hour: int = Field(description="Hour component of the event (0-23).", ge=0, le=23, examples=[12])
@@ -641,8 +641,8 @@ class PlanetaryReturnRequestModel(ChartRenderingMixin):
     year: Optional[int] = Field(
         default=None,
         description="Calendar year to search for the next return.",
-        ge=1900,
-        le=2300,
+        ge=1,
+        le=3000,
     )
     month: Optional[int] = Field(
         default=None,
@@ -698,8 +698,8 @@ class PlanetaryReturnDataRequestModel(ChartDataConfigurationMixin):
     year: Optional[int] = Field(
         default=None,
         description="Calendar year to search for the next return.",
-        ge=1900,
-        le=2300,
+        ge=1,
+        le=3000,
     )
     month: Optional[int] = Field(
         default=None,
