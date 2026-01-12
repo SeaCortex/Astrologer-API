@@ -10,8 +10,7 @@ It delivers both **plug-and-play SVG charts** and **rich astrological data** for
 Birth chart example (dark theme):
 ![Birth chart example](https://gitlab.com/g-battaglia/kerykeion/-/raw/main/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
 
-👉 Ready to use it? Subscribe on RapidAPI: https://rapidapi.com/gbattaglia/api/astrologer/pricing
-👉 Ready to use it? Subscribe on RapidAPI: <a href="https://rapidapi.com/gbattaglia/api/astrologer/pricing" target="_blank">https://rapidapi.com/gbattaglia/api/astrologer/pricing</a>
+👉 Ready to use it? Subscribe on RapidAPI: <a href="https://www.kerykeion.net/astrologer-api/subscribe" target="_blank">https://www.kerykeion.net/astrologer-api/subscribe</a>
 
 ## Quick start
 
