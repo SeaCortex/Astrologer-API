@@ -30,7 +30,7 @@ dev-dependencies = [
 ]
 
 [tool.poe.tasks]
-dev = "uvicorn app.main:app --reload --log-level debug"
+dev = "env ENV_TYPE=dev uvicorn app.main:app --reload --log-level debug"
 test = "pytest -v"
 test-verbose = "pytest -vv"
 quality = "python -m mypy --ignore-missing-imports ."
