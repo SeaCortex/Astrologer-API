@@ -9,6 +9,9 @@ import logging
 
 
 class SecretKeyCheckerMiddleware:
+    # Paths excluded from authentication (public endpoints)
+    EXCLUDED_PATHS: set[str] = {"/health"}
+
     def __init__(
         self, app: ASGIApp, secret_key_names: str | list[str], secret_keys: list = []
     ) -> None:
@@ -33,6 +36,12 @@ class SecretKeyCheckerMiddleware:
             return
 
         if self.pass_all:
+            await self.app(scope, receive, send)
+            return
+
+        # Skip authentication for excluded paths (e.g., /health)
+        path = scope.get("path", "")
+        if path in self.EXCLUDED_PATHS:
             await self.app(scope, receive, send)
             return
 

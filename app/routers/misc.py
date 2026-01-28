@@ -18,22 +18,31 @@ logger = getLogger(__name__)
 router = APIRouter()
 
 
-@router.get("/api/v5/health", response_description="Health check", include_in_schema=False, response_model=StatusResponseModel)
-async def health(request: Request) -> JSONResponse:
+@router.get(
+    "/health",
+    response_description="Health check",
+    include_in_schema=False,
+    response_model=StatusResponseModel,
+)
+async def health() -> JSONResponse:
     """
-    **GET** `/api/v5/health`
+    **GET** `/health`
 
-    Simple liveness probe for the API.
+    Public liveness probe for load balancers and monitoring.
+    This endpoint is excluded from authentication.
 
     **Returns:**
     - `status`: "OK"
     """
-    logger.info(f"{request.url}: Health check")
-    logger.debug(f"Request: {request.method} {request.url}")
     return JSONResponse(content={"status": "OK"}, status_code=200)
 
 
-@router.get("/", response_description="Status of the API", include_in_schema=False, response_model=ApiStatusResponseModel)
+@router.get(
+    "/",
+    response_description="Status of the API",
+    include_in_schema=False,
+    response_model=ApiStatusResponseModel,
+)
 async def status(request: Request) -> JSONResponse:
     """
     **GET** `/`
