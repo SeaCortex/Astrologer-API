@@ -49,9 +49,11 @@ else:
 
 
 class Settings(BaseSettings):
-    # Environment variables
-    rapid_api_secret_key: str = getenv("RAPID_API_SECRET_KEY", "")
-    astrologer_studio_secret_key: str = getenv("ASTROLOGER_STUDIO_SECRET_KEY", "")
+    model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
+
+    # Environment variables (loaded from .env file or system environment)
+    rapid_api_secret_key: str = ""
+    astrologer_studio_secret_key: str = ""
     env_type: str | bool = ENV_TYPE
 
     # Config file
