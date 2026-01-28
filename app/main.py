@@ -114,9 +114,10 @@ if settings.debug is True:
 else:
     app.add_middleware(
         SecretKeyCheckerMiddleware,
-        secret_key_name=settings.secret_key_name,
+        secret_key_names=settings.secret_key_names,
         secret_keys=[
             settings.rapid_api_secret_key,
+            settings.astrologer_studio_secret_key,
         ],
     )
 

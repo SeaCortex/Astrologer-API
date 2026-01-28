@@ -9,14 +9,22 @@ import logging
 
 
 class SecretKeyCheckerMiddleware:
-    def __init__(self, app: ASGIApp, secret_key_name: str, secret_keys: list = []) -> None:
+    def __init__(
+        self, app: ASGIApp, secret_key_names: str | list[str], secret_keys: list = []
+    ) -> None:
         self.app = app
         self.secret_key_values = [key for key in secret_keys if key]
-        self.secret_key_name = secret_key_name
+        # Normalize to list for backwards compatibility with single strings
+        if isinstance(secret_key_names, str):
+            self.secret_key_names = [secret_key_names] if secret_key_names else []
+        else:
+            self.secret_key_names = [name for name in secret_key_names if name]
         self.pass_all = False
 
-        if not self.secret_key_name or not self.secret_key_values:
-            logging.critical("Secret key name or secret key values not set. The middleware will let all requests pass through!")
+        if not self.secret_key_names or not self.secret_key_values:
+            logging.critical(
+                "Secret key name or secret key values not set. The middleware will let all requests pass through!"
+            )
             self.pass_all = True
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
@@ -29,13 +37,19 @@ class SecretKeyCheckerMiddleware:
             return
 
         headers = Headers(scope=scope)
-        header_key = headers.get(self.secret_key_name, "").split(":")[0]
 
-        if header_key in self.secret_key_values:
-            await self.app(scope, receive, send)
-        else:
-            response = JSONResponse(
-                status_code=403,
-                content={"status": "KO", "message": "Forbidden: Invalid or missing secret key"},
-            )
-            await response(scope, receive, send)
+        # OR logic: accept if at least one header contains a valid key
+        for key_name in self.secret_key_names:
+            header_value = headers.get(key_name, "").split(":")[0]
+            if header_value in self.secret_key_values:
+                await self.app(scope, receive, send)
+                return
+
+        response = JSONResponse(
+            status_code=403,
+            content={
+                "status": "KO",
+                "message": "Forbidden: Invalid or missing secret key",
+            },
+        )
+        await response(scope, receive, send)

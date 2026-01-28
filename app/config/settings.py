@@ -17,33 +17,41 @@ handler.setFormatter(DefaultFormatter(fmt="%(levelprefix)s %(message)s"))
 logger.addHandler(handler)
 
 ENV_TYPE = getenv("ENV_TYPE", False)
-RAPID_API_SECRET_KEY = getenv("RAPID_API_SECRET_KEY", False)
 
 # Open config file
 if ENV_TYPE == "production":
     logger.info("Loading production config")
-    with open(pathlib.Path(__file__).parent.absolute() / "config.prod.toml", "rb") as config_file:
+    with open(
+        pathlib.Path(__file__).parent.absolute() / "config.prod.toml", "rb"
+    ) as config_file:
         config = load_toml(config_file)
 
 elif ENV_TYPE == "test":
     logger.info("Loading test config")
-    with open(pathlib.Path(__file__).parent.absolute() / "config.test.toml", "rb") as config_file:
+    with open(
+        pathlib.Path(__file__).parent.absolute() / "config.test.toml", "rb"
+    ) as config_file:
         config = load_toml(config_file)
 
 elif ENV_TYPE == "dev":
     logger.info("Loading development config")
-    with open(pathlib.Path(__file__).parent.absolute() / "config.dev.toml", "rb") as config_file:
+    with open(
+        pathlib.Path(__file__).parent.absolute() / "config.dev.toml", "rb"
+    ) as config_file:
         config = load_toml(config_file)
 
 else:
     logger.info("No ENV_TYPE set, loading production config")
-    with open(pathlib.Path(__file__).parent.absolute() / "config.prod.toml", "rb") as config_file:
+    with open(
+        pathlib.Path(__file__).parent.absolute() / "config.prod.toml", "rb"
+    ) as config_file:
         config = load_toml(config_file)
 
 
 class Settings(BaseSettings):
     # Environment variables
     rapid_api_secret_key: str = getenv("RAPID_API_SECRET_KEY", "")
+    astrologer_studio_secret_key: str = getenv("ASTROLOGER_STUDIO_SECRET_KEY", "")
     env_type: str | bool = ENV_TYPE
 
     # Config file
@@ -53,7 +61,9 @@ class Settings(BaseSettings):
     debug: bool = config["debug"]
     docs_url: str | None = config["docs_url"]
     redoc_url: str | None = config["redoc_url"]
-    secret_key_name: str = config["secret_key_name"]
+    secret_key_names: str | list[str] = config.get(
+        "secret_key_names", config.get("secret_key_name", "")
+    )
 
     # Common settings
     log_level: int = int(config["log_level"])
@@ -86,7 +96,11 @@ class Settings(BaseSettings):
             },
         },
         "loggers": {
-            "uvicorn": {"handlers": ["default"], "level": log_level, "propagate": False},
+            "uvicorn": {
+                "handlers": ["default"],
+                "level": log_level,
+                "propagate": False,
+            },
             "uvicorn.error": {
                 "level": log_level,
             },
@@ -94,7 +108,11 @@ class Settings(BaseSettings):
                 "handlers": ["default"],
                 "level": log_level,
             },
-            "uvicorn.access": {"handlers": ["access"], "level": log_level, "propagate": False},
+            "uvicorn.access": {
+                "handlers": ["access"],
+                "level": log_level,
+                "propagate": False,
+            },
         },
     }
 
