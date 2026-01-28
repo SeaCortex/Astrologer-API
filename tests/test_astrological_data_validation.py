@@ -146,9 +146,7 @@ class TestPlanetaryPositions:
 
             # Verifica segno
             assert "sign" in planet_data, f"Segno mancante per {planet}"
-            assert planet_data["sign"] in valid_signs, (
-                f"Segno non valido per {planet}: {planet_data['sign']}"
-            )
+            assert planet_data["sign"] in valid_signs, f"Segno non valido per {planet}: {planet_data['sign']}"
 
             # Verifica casa (stringa nel formato "First_House", etc.)
             assert "house" in planet_data, f"Casa mancante per {planet}"
@@ -157,41 +155,29 @@ class TestPlanetaryPositions:
 
     def test_sun_position_at_solstices(self, client: TestClient):
         """Verifica che il Sole sia a ~0° Capricorno al solstizio d'inverno."""
-        resp = client.post(
-            "/api/v5/subject", json={"subject": deepcopy(WINTER_SOLSTICE_SUBJECT)}
-        )
+        resp = client.post("/api/v5/subject", json={"subject": deepcopy(WINTER_SOLSTICE_SUBJECT)})
         assert resp.status_code == 200
 
         subject = resp.json()["subject"]
         sun = subject["sun"]
 
         # Al solstizio d'inverno il Sole entra in Capricorno o è alla fine del Sagittario
-        assert sun["sign"] in ["Cap", "Sag"], (
-            f"Sole non in Capricorno/Sagittario al solstizio: {sun['sign']}"
-        )
+        assert sun["sign"] in ["Cap", "Sag"], f"Sole non in Capricorno/Sagittario al solstizio: {sun['sign']}"
         # Posizione dovrebbe essere vicina a 270° (inizio Capricorno) o poco prima
-        assert 269 <= sun["position"] <= 271 or sun["position"] < 1, (
-            f"Posizione Sole anomala al solstizio invernale: {sun['position']}"
-        )
+        assert 269 <= sun["position"] <= 271 or sun["position"] < 1, f"Posizione Sole anomala al solstizio invernale: {sun['position']}"
 
     def test_sun_position_at_summer_solstice(self, client: TestClient):
         """Verifica che il Sole sia a ~0° Cancro al solstizio d'estate."""
-        resp = client.post(
-            "/api/v5/subject", json={"subject": deepcopy(SUMMER_SOLSTICE_SUBJECT)}
-        )
+        resp = client.post("/api/v5/subject", json={"subject": deepcopy(SUMMER_SOLSTICE_SUBJECT)})
         assert resp.status_code == 200
 
         subject = resp.json()["subject"]
         sun = subject["sun"]
 
         # Al solstizio d'estate il Sole entra in Cancro o è alla fine dei Gemelli
-        assert sun["sign"] in ["Can", "Gem"], (
-            f"Sole non in Cancro/Gemelli al solstizio: {sun['sign']}"
-        )
+        assert sun["sign"] in ["Can", "Gem"], f"Sole non in Cancro/Gemelli al solstizio: {sun['sign']}"
         # Posizione dovrebbe essere vicina a 90° (inizio Cancro) o poco prima
-        assert 88 <= sun["position"] <= 92 or (
-            sun["position"] >= 29 and sun["sign"] == "Gem"
-        ), f"Posizione Sole anomala: {sun['position']}"
+        assert 88 <= sun["position"] <= 92 or (sun["position"] >= 29 and sun["sign"] == "Gem"), f"Posizione Sole anomala: {sun['position']}"
 
     def test_retrograde_status_is_boolean(self, client: TestClient):
         """Verifica che lo stato retrogrado sia un booleano."""
@@ -213,9 +199,7 @@ class TestPlanetaryPositions:
         for planet in planets:
             planet_data = subject[planet]
             if "retrograde" in planet_data:
-                assert isinstance(planet_data["retrograde"], bool), (
-                    f"Retrograde non booleano per {planet}"
-                )
+                assert isinstance(planet_data["retrograde"], bool), f"Retrograde non booleano per {planet}"
 
 
 # ============================================================================
@@ -244,9 +228,7 @@ class TestHousesAndCusps:
 
     def test_all_houses_present(self, client: TestClient):
         """Verifica che tutte le 12 case siano presenti."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
@@ -273,9 +255,7 @@ class TestHousesAndCusps:
         first_house_position = subject["first_house"]["abs_pos"]
 
         # Devono essere uguali o molto vicini (tolleranza per arrotondamenti)
-        assert abs(asc_position - first_house_position) < 0.01, (
-            f"ASC ({asc_position}) != Prima Casa ({first_house_position})"
-        )
+        assert abs(asc_position - first_house_position) < 0.01, f"ASC ({asc_position}) != Prima Casa ({first_house_position})"
 
     def test_mc_equals_tenth_house(self, client: TestClient):
         """Verifica che il Medium Coeli coincida con la cuspide della Decima Casa."""
@@ -288,9 +268,7 @@ class TestHousesAndCusps:
         tenth_house_position = subject["tenth_house"]["abs_pos"]
 
         # Devono essere uguali o molto vicini
-        assert abs(mc_position - tenth_house_position) < 0.01, (
-            f"MC ({mc_position}) != Decima Casa ({tenth_house_position})"
-        )
+        assert abs(mc_position - tenth_house_position) < 0.01, f"MC ({mc_position}) != Decima Casa ({tenth_house_position})"
 
     def test_houses_cover_360_degrees(self, client: TestClient):
         """Verifica che le case coprano tutti i 360 gradi."""
@@ -317,9 +295,7 @@ class TestAspects:
 
     def test_aspects_have_required_fields(self, client: TestClient):
         """Verifica che ogni aspetto abbia i campi richiesti."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
@@ -335,9 +311,7 @@ class TestAspects:
 
     def test_aspects_have_valid_types(self, client: TestClient):
         """Verifica che i tipi di aspetto siano validi."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
@@ -358,15 +332,11 @@ class TestAspects:
 
         for aspect in aspects:
             aspect_type = aspect["aspect"].lower()
-            assert aspect_type in valid_aspects, (
-                f"Tipo aspetto non valido: {aspect['aspect']}"
-            )
+            assert aspect_type in valid_aspects, f"Tipo aspetto non valido: {aspect['aspect']}"
 
     def test_aspects_orbit_within_bounds(self, client: TestClient):
         """Verifica che le orbe degli aspetti siano ragionevoli."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
@@ -380,9 +350,7 @@ class TestAspects:
 
     def test_no_duplicate_aspects(self, client: TestClient):
         """Verifica che non ci siano aspetti duplicati."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
@@ -414,9 +382,7 @@ class TestLunarPhases:
         assert "lunar_phase" in subject, "Fase lunare mancante"
 
         lunar_phase = subject["lunar_phase"]
-        assert "moon_phase" in lunar_phase or "phase" in lunar_phase, (
-            "Tipo fase mancante"
-        )
+        assert "moon_phase" in lunar_phase or "phase" in lunar_phase, "Tipo fase mancante"
 
     def test_lunar_phase_has_valid_values(self, client: TestClient):
         """Verifica che i valori della fase lunare siano validi."""
@@ -446,48 +412,33 @@ class TestDistributions:
 
     def test_element_distribution_sums_to_100(self, client: TestClient):
         """Verifica che la distribuzione degli elementi sommi a ~100%."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
         elem_dist = chart_data["element_distribution"]
 
-        total = (
-            elem_dist["fire_percentage"]
-            + elem_dist["earth_percentage"]
-            + elem_dist["air_percentage"]
-            + elem_dist["water_percentage"]
-        )
+        total = elem_dist["fire_percentage"] + elem_dist["earth_percentage"] + elem_dist["air_percentage"] + elem_dist["water_percentage"]
 
         # Tolleranza per arrotondamenti
         assert 99 <= total <= 101, f"Somma elementi non è 100%: {total}"
 
     def test_quality_distribution_sums_to_100(self, client: TestClient):
         """Verifica che la distribuzione delle qualità sommi a ~100%."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
         qual_dist = chart_data["quality_distribution"]
 
-        total = (
-            qual_dist["cardinal_percentage"]
-            + qual_dist["fixed_percentage"]
-            + qual_dist["mutable_percentage"]
-        )
+        total = qual_dist["cardinal_percentage"] + qual_dist["fixed_percentage"] + qual_dist["mutable_percentage"]
 
         # Tolleranza per arrotondamenti
         assert 99 <= total <= 101, f"Somma qualità non è 100%: {total}"
 
     def test_element_distribution_has_all_elements(self, client: TestClient):
         """Verifica che tutti e 4 gli elementi siano presenti."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
@@ -506,9 +457,7 @@ class TestDistributions:
 
     def test_quality_distribution_has_all_qualities(self, client: TestClient):
         """Verifica che tutte e 3 le qualità siano presenti."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
@@ -545,9 +494,7 @@ class TestActivePointsAspects:
         chart_data = resp.json()["chart_data"]
         active_points = chart_data["active_points"]
 
-        assert set(active_points) == set(custom_points), (
-            f"active_points non rispettato: {active_points}"
-        )
+        assert set(active_points) == set(custom_points), f"active_points non rispettato: {active_points}"
 
     def test_active_aspects_limits_aspects(self, client: TestClient):
         """Verifica che active_aspects limiti gli aspetti calcolati."""
@@ -566,15 +513,11 @@ class TestActivePointsAspects:
         aspects = chart_data["aspects"]
 
         for aspect in aspects:
-            assert aspect["aspect"].lower() in ["conjunction", "opposition"], (
-                f"Aspetto non richiesto: {aspect['aspect']}"
-            )
+            assert aspect["aspect"].lower() in ["conjunction", "opposition"], f"Aspetto non richiesto: {aspect['aspect']}"
 
     def test_empty_active_points_uses_defaults(self, client: TestClient):
         """Verifica che senza active_points vengano usati i default."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
@@ -583,9 +526,7 @@ class TestActivePointsAspects:
         # I default includono almeno Sun, Moon, Mercury, Venus, Mars
         assert "Sun" in active_points
         assert "Moon" in active_points
-        assert len(active_points) >= 10, (
-            f"Troppi pochi punti default: {len(active_points)}"
-        )
+        assert len(active_points) >= 10, f"Troppi pochi punti default: {len(active_points)}"
 
 
 # ============================================================================
@@ -598,12 +539,8 @@ class TestEndpointConsistency:
 
     def test_subject_matches_chart_data_subject(self, client: TestClient):
         """Verifica che il subject sia coerente tra /subject e /chart-data."""
-        subject_resp = client.post(
-            "/api/v5/subject", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
-        chart_resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        subject_resp = client.post("/api/v5/subject", json={"subject": deepcopy(KNOWN_SUBJECT)})
+        chart_resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
 
         assert subject_resp.status_code == 200
         assert chart_resp.status_code == 200
@@ -611,18 +548,12 @@ class TestEndpointConsistency:
         subject_sun = subject_resp.json()["subject"]["sun"]["position"]
         chart_sun = chart_resp.json()["chart_data"]["subject"]["sun"]["position"]
 
-        assert subject_sun == chart_sun, (
-            f"Posizione Sole diversa: {subject_sun} vs {chart_sun}"
-        )
+        assert subject_sun == chart_sun, f"Posizione Sole diversa: {subject_sun} vs {chart_sun}"
 
     def test_chart_data_matches_chart_svg(self, client: TestClient):
         """Verifica che i dati siano coerenti tra /chart-data e /chart."""
-        data_resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
-        svg_resp = client.post(
-            "/api/v5/chart/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        data_resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
+        svg_resp = client.post("/api/v5/chart/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
 
         assert data_resp.status_code == 200
         assert svg_resp.status_code == 200
@@ -664,9 +595,7 @@ class TestChartTypeSpecificData:
 
     def test_natal_chart_type_is_natal(self, client: TestClient):
         """Verifica che il chart type sia Natal per birth-chart."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(KNOWN_SUBJECT)})
         assert resp.status_code == 200
         assert resp.json()["chart_data"]["chart_type"] == "Natal"
 

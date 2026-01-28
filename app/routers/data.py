@@ -36,6 +36,7 @@ from ..utils.router_utils import (
     handle_exception,
     resolve_active_points,
 )
+from ..utils.logging_utils import log_request_with_body
 from kerykeion import AstrologicalSubjectFactory
 
 logger = getLogger(__name__)
@@ -56,8 +57,7 @@ async def subject_data(birth_data_request: BirthDataRequestModel, request: Reque
     - `status`: "OK"
     - `subject`: AstrologicalSubjectModel (serialized)
     """
-    logger.info(f"{request.url}: Subject data request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {birth_data_request.model_dump_json()}")
+    log_request_with_body(logger, request, "Subject data request", birth_data_request.model_dump_json())
 
     try:
         active_points = resolve_active_points(birth_data_request.active_points)
@@ -82,8 +82,7 @@ async def now_subject(request_body: NowSubjectRequestModel, request: Request) ->
     - `status`: "OK"
     - `subject`: AstrologicalSubjectModel
     """
-    logger.info(f"{request.url}: Current subject request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Current subject request", request_body.model_dump_json())
 
     try:
         try:
@@ -139,8 +138,7 @@ async def compatibility_score(request_body: SynastryChartDataRequestModel, reque
     - `aspects`: List of aspects used in score calculation
     - `chart_data`: Full synastry chart data
     """
-    logger.info(f"{request.url}: Compatibility score request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Compatibility score request", request_body.model_dump_json())
 
     try:
         chart_data = create_synastry_chart_data(request_body)
@@ -181,8 +179,7 @@ async def natal_chart_data(request_body: BirthChartDataRequestModel, request: Re
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    logger.info(f"{request.url}: Natal chart data request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Natal chart data request", request_body.model_dump_json())
 
     try:
         chart_data = create_natal_chart_data(request_body)
@@ -207,8 +204,7 @@ async def synastry_chart_data(request_body: SynastryChartDataRequestModel, reque
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    logger.info(f"{request.url}: Synastry chart data request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Synastry chart data request", request_body.model_dump_json())
 
     try:
         chart_data = create_synastry_chart_data(request_body)
@@ -232,8 +228,7 @@ async def composite_chart_data(request_body: CompositeChartDataRequestModel, req
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    logger.info(f"{request.url}: Composite chart data request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Composite chart data request", request_body.model_dump_json())
 
     try:
         chart_data = create_composite_chart_data(request_body)
@@ -258,8 +253,7 @@ async def transit_chart_data(request_body: TransitChartDataRequestModel, request
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    logger.info(f"{request.url}: Transit chart data request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Transit chart data request", request_body.model_dump_json())
 
     try:
         chart_data = create_transit_chart_data(request_body)
@@ -284,8 +278,7 @@ async def solar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    logger.info(f"{request.url}: Solar return data request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Solar return data request", request_body.model_dump_json())
 
     try:
         chart_data = calculate_return_chart_data(request_body, "Solar")
@@ -308,8 +301,7 @@ async def lunar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    logger.info(f"{request.url}: Lunar return data request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Lunar return data request", request_body.model_dump_json())
 
     try:
         chart_data = calculate_return_chart_data(request_body, "Lunar")

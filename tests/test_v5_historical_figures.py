@@ -140,7 +140,7 @@ def test_charlemagne_747(client: TestClient):
 
 def test_constantine_272(client: TestClient):
     """Verifica che Costantino il Grande (272 CE) funzioni correttamente.
-    
+
     Questo test verifica il funzionamento con date molto antiche,
     vicine all'inizio dell'era volgare.
     """
@@ -166,7 +166,7 @@ def test_constantine_272(client: TestClient):
 
 def test_bce_dates_rejected_with_422(client: TestClient):
     """Verifica che le date BCE (anni negativi) vengano rifiutate con errore 422.
-    
+
     Python datetime non supporta anni negativi, quindi l'API
     deve restituire un errore di validazione per queste richieste.
     """

@@ -32,6 +32,7 @@ from ..utils.router_utils import (
     resolve_active_points,
     resolve_active_aspects,
 )
+from ..utils.logging_utils import log_request_with_body
 from ..utils.get_time_from_google import get_time_from_google
 from kerykeion import AstrologicalSubjectFactory, ChartDataFactory
 
@@ -54,8 +55,7 @@ async def now_chart(request_body: NowChartRequestModel, request: Request) -> JSO
     - `chart_data`: ChartDataModel
     - `chart`: SVG (or `chart_wheel` + `chart_grid`)
     """
-    logger.info(f"{request.url}: Current time chart request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Current time chart request", request_body.model_dump_json())
 
     try:
         try:
@@ -134,8 +134,7 @@ async def natal_chart(request_body: BirthChartRequestModel, request: Request) ->
     - `chart`: SVG (when split_chart=false)
     - `chart_wheel`, `chart_grid`: SVGs (when split_chart=true)
     """
-    logger.info(f"{request.url}: Birth chart request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Birth chart request", request_body.model_dump_json())
 
     try:
         chart_data = create_natal_chart_data(request_body)
@@ -171,8 +170,7 @@ async def synastry_chart(request_body: SynastryChartRequestModel, request: Reque
     - `chart` (or `chart_wheel` + `chart_grid` when split_chart=true)
     - `chart_data`
     """
-    logger.info(f"{request.url}: Synastry chart request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Synastry chart request", request_body.model_dump_json())
 
     try:
         chart_data = create_synastry_chart_data(request_body)
@@ -208,8 +206,7 @@ async def composite_chart(request_body: CompositeChartRequestModel, request: Req
     - `chart` (or `chart_wheel` + `chart_grid`)
     - `chart_data`
     """
-    logger.info(f"{request.url}: Composite chart request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Composite chart request", request_body.model_dump_json())
 
     try:
         chart_data = create_composite_chart_data(request_body)
@@ -245,8 +242,7 @@ async def transit_chart(request_body: TransitChartRequestModel, request: Request
     - `chart` (or `chart_wheel` + `chart_grid`)
     - `chart_data`
     """
-    logger.info(f"{request.url}: Transit chart request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Transit chart request", request_body.model_dump_json())
 
     try:
         chart_data = create_transit_chart_data(request_body)
@@ -283,8 +279,7 @@ async def solar_return_chart(request_body: PlanetaryReturnRequestModel, request:
     - `wheel_type`: "dual" | "single"
     - `chart` (or `chart_wheel` + `chart_grid`)
     """
-    logger.info(f"{request.url}: Solar return chart request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Solar return chart request", request_body.model_dump_json())
 
     try:
         chart_data = calculate_return_chart_data(request_body, "Solar")
@@ -323,8 +318,7 @@ async def lunar_return_chart(request_body: PlanetaryReturnRequestModel, request:
     - `wheel_type`: "dual" | "single"
     - `chart` (or `chart_wheel` + `chart_grid`)
     """
-    logger.info(f"{request.url}: Lunar return chart request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Lunar return chart request", request_body.model_dump_json())
 
     try:
         chart_data = calculate_return_chart_data(request_body, "Lunar")

@@ -13,6 +13,7 @@ from ..types.response_models import (
     StatusResponseModel,
     ApiStatusResponseModel,
 )
+from ..utils.logging_utils import log_request
 
 logger = getLogger(__name__)
 router = APIRouter()
@@ -54,8 +55,7 @@ async def status(request: Request) -> JSONResponse:
     - `environment`: deployment environment name
     - `debug`: whether debug mode is enabled
     """
-    logger.info(f"{request.url}: API is up and running")
-    logger.debug(f"Request: {request.method} {request.url}")
+    log_request(logger, request, "API status check")
     response_dict = {
         "status": "OK",
         "environment": settings.env_type,

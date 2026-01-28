@@ -117,9 +117,7 @@ class TestZodiacTypes:
         """Verifica che le posizioni siderali siano diverse da quelle tropicali."""
         # Tropical
         tropical_payload = deepcopy(BASE_SUBJECT)
-        tropical_resp = client.post(
-            "/api/v5/subject", json={"subject": tropical_payload}
-        )
+        tropical_resp = client.post("/api/v5/subject", json={"subject": tropical_payload})
         assert tropical_resp.status_code == 200
         tropical_sun = tropical_resp.json()["subject"]["sun"]["position"]
 
@@ -127,9 +125,7 @@ class TestZodiacTypes:
         sidereal_payload = deepcopy(BASE_SUBJECT)
         sidereal_payload["zodiac_type"] = "Sidereal"
         sidereal_payload["sidereal_mode"] = "LAHIRI"
-        sidereal_resp = client.post(
-            "/api/v5/subject", json={"subject": sidereal_payload}
-        )
+        sidereal_resp = client.post("/api/v5/subject", json={"subject": sidereal_payload})
         assert sidereal_resp.status_code == 200
         sidereal_sun = sidereal_resp.json()["subject"]["sun"]["position"]
 
@@ -259,9 +255,7 @@ class TestHouseSystems:
         # Placidus
         placidus_payload = deepcopy(BASE_SUBJECT)
         placidus_payload["houses_system_identifier"] = "P"
-        placidus_resp = client.post(
-            "/api/v5/subject", json={"subject": placidus_payload}
-        )
+        placidus_resp = client.post("/api/v5/subject", json={"subject": placidus_payload})
         assert placidus_resp.status_code == 200
         placidus_h2 = placidus_resp.json()["subject"]["second_house"]["abs_pos"]
 

@@ -12,9 +12,7 @@ class SecretKeyCheckerMiddleware:
     # Paths excluded from authentication (public endpoints)
     EXCLUDED_PATHS: set[str] = {"/health"}
 
-    def __init__(
-        self, app: ASGIApp, secret_key_names: str | list[str], secret_keys: list = []
-    ) -> None:
+    def __init__(self, app: ASGIApp, secret_key_names: str | list[str], secret_keys: list = []) -> None:
         self.app = app
         self.secret_key_values = [key for key in secret_keys if key]
         # Normalize to list for backwards compatibility with single strings
@@ -25,9 +23,7 @@ class SecretKeyCheckerMiddleware:
         self.pass_all = False
 
         if not self.secret_key_names or not self.secret_key_values:
-            logging.critical(
-                "Secret key name or secret key values not set. The middleware will let all requests pass through!"
-            )
+            logging.critical("Secret key name or secret key values not set. The middleware will let all requests pass through!")
             self.pass_all = True
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:

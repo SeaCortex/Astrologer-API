@@ -141,10 +141,7 @@ class TestWheelTypes:
         assert "subject" in data
         assert data["subject"]["return_type"] == "Solar"
         # No house comparison in single wheel
-        assert (
-            data.get("house_comparison") in (None, [], {})
-            or "house_comparison" not in data
-        )
+        assert data.get("house_comparison") in (None, [], {}) or "house_comparison" not in data
 
     def test_lunar_return_dual_wheel(self, client: TestClient):
         """Lunar return with dual wheel."""
@@ -215,9 +212,7 @@ class TestReturnLocation:
         data = resp.json()["chart_data"]
         assert data is not None
 
-    def test_return_location_validation_incomplete_coordinates(
-        self, client: TestClient
-    ):
+    def test_return_location_validation_incomplete_coordinates(self, client: TestClient):
         """Return location requires all coordinates or geonames."""
         payload = {
             "subject": deepcopy(BASE_SUBJECT),
@@ -416,9 +411,7 @@ class TestReturnDataIntegrity:
     def test_solar_return_sun_position_matches_natal(self, client: TestClient):
         """In solar return, Sun position should match natal Sun position."""
         # Get natal Sun position
-        natal_resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)}
-        )
+        natal_resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
         natal_data = natal_resp.json()["chart_data"]
         natal_sun = natal_data["subject"]["sun"]
         natal_sun_pos = natal_sun["abs_pos"]
@@ -441,16 +434,12 @@ class TestReturnDataIntegrity:
         # Handle wraparound at 360
         if diff > 180:
             diff = 360 - diff
-        assert diff < 1.0, (
-            f"Solar return Sun ({return_sun_pos}) should match natal Sun ({natal_sun_pos})"
-        )
+        assert diff < 1.0, f"Solar return Sun ({return_sun_pos}) should match natal Sun ({natal_sun_pos})"
 
     def test_lunar_return_moon_position_matches_natal(self, client: TestClient):
         """In lunar return, Moon position should match natal Moon position."""
         # Get natal Moon position
-        natal_resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)}
-        )
+        natal_resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
         natal_data = natal_resp.json()["chart_data"]
         natal_moon = natal_data["subject"]["moon"]
         natal_moon_pos = natal_moon["abs_pos"]
@@ -472,9 +461,7 @@ class TestReturnDataIntegrity:
         diff = abs(natal_moon_pos - return_moon_pos)
         if diff > 180:
             diff = 360 - diff
-        assert diff < 1.0, (
-            f"Lunar return Moon ({return_moon_pos}) should match natal Moon ({natal_moon_pos})"
-        )
+        assert diff < 1.0, f"Lunar return Moon ({return_moon_pos}) should match natal Moon ({natal_moon_pos})"
 
     def test_return_has_houses(self, client: TestClient):
         """Return chart data includes house cusps in the subject."""

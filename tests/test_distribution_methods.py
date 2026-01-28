@@ -47,9 +47,7 @@ class TestDistributionMethods:
 
     def test_weighted_distribution_default(self, client: TestClient):
         """Verifica che weighted sia il metodo di default."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
         assert resp.status_code == 200
 
         chart_data = resp.json()["chart_data"]
@@ -71,12 +69,7 @@ class TestDistributionMethods:
         elem = chart_data["element_distribution"]
 
         # Verifica che le percentuali sommino a ~100%
-        total = (
-            elem["fire_percentage"]
-            + elem["earth_percentage"]
-            + elem["air_percentage"]
-            + elem["water_percentage"]
-        )
+        total = elem["fire_percentage"] + elem["earth_percentage"] + elem["air_percentage"] + elem["water_percentage"]
         assert 99 <= total <= 101, f"Somma elementi: {total}"
 
     def test_pure_count_distribution(self, client: TestClient):
@@ -94,12 +87,7 @@ class TestDistributionMethods:
         elem = chart_data["element_distribution"]
 
         # Verifica che le percentuali sommino a ~100%
-        total = (
-            elem["fire_percentage"]
-            + elem["earth_percentage"]
-            + elem["air_percentage"]
-            + elem["water_percentage"]
-        )
+        total = elem["fire_percentage"] + elem["earth_percentage"] + elem["air_percentage"] + elem["water_percentage"]
         assert 99 <= total <= 101, f"Somma elementi pure_count: {total}"
 
     def test_weighted_vs_pure_count_differ(self, client: TestClient):
@@ -242,9 +230,7 @@ class TestElementDistribution:
 
     def test_element_distribution_has_all_elements(self, client: TestClient):
         """Verifica che tutti e 4 gli elementi siano presenti."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
         assert resp.status_code == 200
 
         elem = resp.json()["chart_data"]["element_distribution"]
@@ -262,9 +248,7 @@ class TestElementDistribution:
 
     def test_element_distribution_sums_to_100(self, client: TestClient):
         """Verifica che la somma sia ~100%."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
         assert resp.status_code == 200
 
         elem = resp.json()["chart_data"]["element_distribution"]
@@ -281,19 +265,13 @@ class TestElementDistribution:
 
     def test_element_distribution_has_point_distribution(self, client: TestClient):
         """Verifica che element_point_distribution sia presente."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
         assert resp.status_code == 200
 
         elem = resp.json()["chart_data"]["element_distribution"]
 
         # Verifica che le liste dei punti per elemento siano presenti
-        assert (
-            "fire_points" in elem
-            or "fire" in elem
-            or isinstance(elem.get("fire_percentage"), (int, float))
-        )
+        assert "fire_points" in elem or "fire" in elem or isinstance(elem.get("fire_percentage"), (int, float))
 
 
 # ============================================================================
@@ -306,9 +284,7 @@ class TestQualityDistribution:
 
     def test_quality_distribution_has_all_qualities(self, client: TestClient):
         """Verifica che tutte e 3 le qualità siano presenti."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
         assert resp.status_code == 200
 
         qual = resp.json()["chart_data"]["quality_distribution"]
@@ -321,9 +297,7 @@ class TestQualityDistribution:
 
     def test_quality_distribution_sums_to_100(self, client: TestClient):
         """Verifica che la somma sia ~100%."""
-        resp = client.post(
-            "/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)}
-        )
+        resp = client.post("/api/v5/chart-data/birth-chart", json={"subject": deepcopy(BASE_SUBJECT)})
         assert resp.status_code == 200
 
         qual = resp.json()["chart_data"]["quality_distribution"]

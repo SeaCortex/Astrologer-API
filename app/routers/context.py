@@ -36,6 +36,7 @@ from ..utils.router_utils import (
     resolve_active_points,
     subject_context_payload,
 )
+from ..utils.logging_utils import log_request_with_body
 from kerykeion import AstrologicalSubjectFactory
 
 logger = getLogger(__name__)
@@ -57,8 +58,7 @@ async def subject_context(birth_data_request: BirthDataRequestModel, request: Re
     - `subject_context`: AI-optimized context string
     - `subject`: AstrologicalSubjectModel (serialized)
     """
-    logger.info(f"{request.url}: Subject context request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {birth_data_request.model_dump_json()}")
+    log_request_with_body(logger, request, "Subject context request", birth_data_request.model_dump_json())
 
     try:
         active_points = resolve_active_points(birth_data_request.active_points)
@@ -86,8 +86,7 @@ async def natal_context(request_body: BirthChartDataRequestModel, request: Reque
     - `context`: AI-optimized context string
     - `chart_data`: ChartDataModel
     """
-    logger.info(f"{request.url}: Natal context request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Natal context request", request_body.model_dump_json())
 
     try:
         chart_data = create_natal_chart_data(request_body)
@@ -113,8 +112,7 @@ async def synastry_context(request_body: SynastryChartDataRequestModel, request:
     - `context`: AI-optimized context string
     - `chart_data`: ChartDataModel
     """
-    logger.info(f"{request.url}: Synastry context request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Synastry context request", request_body.model_dump_json())
 
     try:
         chart_data = create_synastry_chart_data(request_body)
@@ -139,8 +137,7 @@ async def composite_context(request_body: CompositeChartDataRequestModel, reques
     - `context`: AI-optimized context string
     - `chart_data`: ChartDataModel
     """
-    logger.info(f"{request.url}: Composite context request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Composite context request", request_body.model_dump_json())
 
     try:
         chart_data = create_composite_chart_data(request_body)
@@ -166,8 +163,7 @@ async def transit_context(request_body: TransitChartDataRequestModel, request: R
     - `context`: AI-optimized context string
     - `chart_data`: ChartDataModel
     """
-    logger.info(f"{request.url}: Transit context request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Transit context request", request_body.model_dump_json())
 
     try:
         chart_data = create_transit_chart_data(request_body)
@@ -195,8 +191,7 @@ async def solar_return_context(request_body: PlanetaryReturnDataRequestModel, re
     - `return_type`: "Solar"
     - `wheel_type`: "dual" | "single"
     """
-    logger.info(f"{request.url}: Solar return context request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Solar return context request", request_body.model_dump_json())
 
     try:
         chart_data = calculate_return_chart_data(request_body, "Solar")
@@ -225,8 +220,7 @@ async def lunar_return_context(request_body: PlanetaryReturnDataRequestModel, re
     - `return_type`: "Lunar"
     - `wheel_type`: "dual" | "single"
     """
-    logger.info(f"{request.url}: Lunar return context request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Lunar return context request", request_body.model_dump_json())
 
     try:
         chart_data = calculate_return_chart_data(request_body, "Lunar")
@@ -253,8 +247,7 @@ async def now_context(request_body: NowSubjectRequestModel, request: Request) ->
     - `subject_context`: AI-optimized context string
     - `subject`: AstrologicalSubjectModel (serialized)
     """
-    logger.info(f"{request.url}: Current context request")
-    logger.debug(f"Request: {request.method} {request.url} Body: {request_body.model_dump_json()}")
+    log_request_with_body(logger, request, "Current context request", request_body.model_dump_json())
 
     try:
         try:

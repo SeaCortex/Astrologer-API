@@ -131,10 +131,7 @@ class TestLunarNodes:
         data = resp.json()["subject"]
         # Mean South Node may be included directly or calculated from North
         # Just verify the endpoint accepts the request
-        assert (
-            "Mean_South_Lunar_Node" in data.get("active_points", [])
-            or "mean_south_lunar_node" in data
-        )
+        assert "Mean_South_Lunar_Node" in data.get("active_points", []) or "mean_south_lunar_node" in data
 
     def test_true_south_lunar_node(self, client: TestClient):
         """True South Lunar Node can be requested."""
@@ -178,9 +175,7 @@ class TestLunarNodes:
         diff = abs(north_pos - south_pos)
         if diff > 180:
             diff = 360 - diff
-        assert 175 < diff < 185, (
-            f"Nodes should be opposite: North={north_pos}, South={south_pos}"
-        )
+        assert 175 < diff < 185, f"Nodes should be opposite: North={north_pos}, South={south_pos}"
 
 
 class TestSensitivePoints:
@@ -308,9 +303,7 @@ class TestVertexPoints:
         diff = abs(vertex_pos - anti_vertex_pos)
         if diff > 180:
             diff = 360 - diff
-        assert 175 < diff < 185, (
-            f"Vertex/Anti-Vertex should be opposite: {vertex_pos} vs {anti_vertex_pos}"
-        )
+        assert 175 < diff < 185, f"Vertex/Anti-Vertex should be opposite: {vertex_pos} vs {anti_vertex_pos}"
 
 
 class TestPointNameNormalization:
