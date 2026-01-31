@@ -3,7 +3,7 @@ debug = false
 docs_url = "/docs"
 redoc_url = "/redoc"
 log_level = 20
-secret_key_names = ["X-RapidAPI-Proxy-Secret", "X-AstrologerStudio-Proxy-Secret", "X-Private-Astrologer-API-Secret"]
+secret_key_names = ["X-RapidAPI-Proxy-Secret", "X-AstrologerStudio-Proxy-Secret", "X-Private-Astrologer-API-Secret", "X-RapidAPI-Key"]
 
 allowed_hosts = [
     "rapidapi.com",

@@ -118,6 +118,8 @@ else:
         secret_keys=[
             settings.rapid_api_secret_key,
             settings.astrologer_studio_secret_key,
+            settings.private_astrologer_api_secret_key,
+            settings.rapid_api_key,
         ],
     )
 
