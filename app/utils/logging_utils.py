@@ -12,7 +12,7 @@ def get_origin_domain(request: Request) -> str:
     """
     Extract origin domain from request headers.
 
-    Checks Origin header first, falls back to extracting domain from Referer.
+    Checks headers in order: Origin, Referer, Host.
 
     Args:
         request: FastAPI Request object
@@ -33,6 +33,11 @@ def get_origin_domain(request: Request) -> str:
         parsed = urlparse(referer)
         if parsed.scheme and parsed.netloc:
             return f"{parsed.scheme}://{parsed.netloc}"
+
+    # Fallback: Host header
+    host = request.headers.get("Host")
+    if host:
+        return host
 
     return "unknown"
 
