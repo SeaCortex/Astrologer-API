@@ -8,6 +8,35 @@ from fastapi import Request
 from logging import Logger
 
 
+def get_origin_domain(request: Request) -> str:
+    """
+    Extract origin domain from request headers.
+
+    Checks Origin header first, falls back to extracting domain from Referer.
+
+    Args:
+        request: FastAPI Request object
+
+    Returns:
+        Origin domain or "unknown" if not determinable
+    """
+    from urllib.parse import urlparse
+
+    # Check Origin header first (CORS requests)
+    origin = request.headers.get("Origin")
+    if origin:
+        return origin
+
+    # Fallback: extract domain from Referer header
+    referer = request.headers.get("Referer")
+    if referer:
+        parsed = urlparse(referer)
+        if parsed.scheme and parsed.netloc:
+            return f"{parsed.scheme}://{parsed.netloc}"
+
+    return "unknown"
+
+
 def get_client_ip(request: Request) -> str:
     """
     Extract client IP address from request, considering proxy headers.
@@ -52,10 +81,15 @@ def log_request(logger: Logger, request: Request, description: str) -> None:
         description: Human-readable description of the endpoint action
     """
     client_ip = get_client_ip(request)
-    logger.info(f"{request.method} {request.url.path} | IP: {client_ip} | {description}")
+    origin = get_origin_domain(request)
+    logger.info(
+        f"{request.method} {request.url.path} | IP: {client_ip} | Origin: {origin} | {description}"
+    )
 
 
-def log_request_with_body(logger: Logger, request: Request, description: str, body_json: str) -> None:
+def log_request_with_body(
+    logger: Logger, request: Request, description: str, body_json: str
+) -> None:
     """
     Log request with standardized format at INFO and DEBUG levels, including body.
 
@@ -69,5 +103,8 @@ def log_request_with_body(logger: Logger, request: Request, description: str, bo
         body_json: JSON string of the request body (from model_dump_json())
     """
     client_ip = get_client_ip(request)
-    logger.info(f"{request.method} {request.url.path} | IP: {client_ip} | {description}")
+    origin = get_origin_domain(request)
+    logger.info(
+        f"{request.method} {request.url.path} | IP: {client_ip} | Origin: {origin} | {description}"
+    )
     logger.debug(f"Request body: {body_json}")
