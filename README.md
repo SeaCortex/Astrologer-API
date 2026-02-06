@@ -113,8 +113,6 @@ These endpoints accept the same parameters as their corresponding chart-data end
 -   <a href="https://www.kerykeion.net/astrologer-api-swagger/" target="_blank">Swagger OpenAPI (interactive)</a>
 -   <a href="https://www.kerykeion.net/astrologer-api-redoc/" target="_blank">Redoc OpenAPI (reference)</a>
 -   <a href="https://www.kerykeion.net/content/astrologer-api/" target="_blank">Full Documentation</a>
--   <a href="https://astrologer-api-playground.kerykeion.net/" target="_blank">Interactive Playground</a>
--   <a href="https://raw.githubusercontent.com/g-battaglia/Astrologer-API/refs/heads/v5/ENDPOINTS.md" target="_blank">Quick Endpoints Reference</a>
 
 ## Copy‑paste examples
 
