@@ -1,38 +1,79 @@
 # Astrologer API
 
-Astrologer API lets you add **professional-grade astrology features** to any app — fast.  
-It delivers both **plug-and-play SVG charts** and **rich astrological data** for natal, synastry, transits, composites, and returns.
+_Note: only use uv to install the project, not pip install_
 
--   NASA-grade astronomical accuracy
--   Production-ready JSON + beautiful SVGs
--   Used in astrology apps, compatibility/dating systems, dashboards and SaaS tools
+Astrologer API lets you add **professional-grade astrology features** to any app
+— fast.\
+It delivers both **plug-and-play SVG charts** and **rich astrological data** for
+natal, synastry, transits, composites, and returns.
+
+- NASA-grade astronomical accuracy
+- Production-ready JSON + beautiful SVGs
+- Used in astrology apps, compatibility/dating systems, dashboards and SaaS
+  tools
 
 Birth chart example (dark theme):
 ![Birth chart example](https://gitlab.com/g-battaglia/kerykeion/-/raw/main/tests/charts/svg/John%20Lennon%20-%20Dark%20Theme%20-%20Natal%20Chart.svg)
 
-👉 Ready to use it? Subscribe on RapidAPI: <a href="https://www.kerykeion.net/astrologer-api/subscribe" target="_blank">https://www.kerykeion.net/astrologer-api/subscribe</a>
+## Local Development
+
+### Running the API Locally
+
+For local testing and development, run the API in development mode (HMAC
+authentication disabled):
+
+```bash
+uv sync
+ENV_TYPE=dev uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Once running, access:
+
+- **Swagger UI (Interactive API Docs)**: http://localhost:8000/docs
+- **ReDoc (API Reference)**: http://localhost:8000/redoc
+- **Health Check**: http://localhost:8000/health
+
+**Note**: In development mode (`ENV_TYPE=dev`), HMAC authentication is disabled,
+so you can test endpoints directly from the Swagger UI without signing requests.
+
+### Prerequisites
+
+- Python 3.11 or higher
+- `uv` package manager (or use `pip` as alternative)
+
+Install dependencies:
+
+```bash
+uv sync
+```
 
 ## Quick start
 
-Every request must include your RapidAPI key.
+Every request must include a valid HMAC signature and timestamp.
 
 Headers:
 
 ```javascript
 {
-    'X-RapidAPI-Host': 'astrologer.p.rapidapi.com',
-    'X-RapidAPI-Key': 'YOUR_API_KEY',
+    'X-Timestamp': '<unix_seconds>',
+    'X-Signature': '<hex_or_base64_hmac>',
     'Content-Type': 'application/json'
 }
+```
+
+Signature string (HMAC-SHA256):
+
+```
+{timestamp}\n{method}\n{pathWithQuery}\n{sha256(body)}
 ```
 
 Minimal birth chart request (SVG + data):
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/birth-chart' \
+curl -X POST 'http://localhost:8000/api/v5/chart/birth-chart' \
     -H 'Content-Type: application/json' \
-    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
-    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -H 'X-Timestamp: <unix_seconds>' \
+    -H 'X-Signature: <hex_or_base64_hmac>' \
     -d '{
         "subject": {
             "name": "John Doe",
@@ -61,68 +102,79 @@ Response shape:
 }
 ```
 
-Prefer separate SVGs? Use "split_chart": true. You'll receive chart_wheel and chart_grid instead of chart. See the split example below.
+Prefer separate SVGs? Use "split_chart": true. You'll receive chart_wheel and
+chart_grid instead of chart. See the split example below.
 
-NOTE: The rendered SVG chart is returned in the `chart` key of the JSON response.
+NOTE: The rendered SVG chart is returned in the `chart` key of the JSON
+response.
 
 ## Endpoints
 
 ### Chart Endpoints (SVG charts + data)
 
-The API provides chart endpoints that return rendered SVG charts (found in the `chart` key) together with full astrological data.
+The API provides chart endpoints that return rendered SVG charts (found in the
+`chart` key) together with full astrological data.
 
--   `/api/v5/chart/birth-chart` (POST) - Natal chart SVG + data
--   `/api/v5/chart/synastry` (POST) - Synastry chart SVG + combined data
--   `/api/v5/chart/transit` (POST) - Transit chart SVG + natal and transit data
--   `/api/v5/chart/composite` (POST) - Composite chart SVG + midpoint data
--   `/api/v5/chart/solar-return` (POST) - Solar return chart SVG + data
--   `/api/v5/chart/lunar-return` (POST) - Lunar return chart SVG + data
--   `/api/v5/now/chart` (POST) - Current moment chart SVG + data
+- `/api/v5/chart/birth-chart` (POST) - Natal chart SVG + data
+- `/api/v5/chart/synastry` (POST) - Synastry chart SVG + combined data
+- `/api/v5/chart/transit` (POST) - Transit chart SVG + natal and transit data
+- `/api/v5/chart/composite` (POST) - Composite chart SVG + midpoint data
+- `/api/v5/chart/solar-return` (POST) - Solar return chart SVG + data
+- `/api/v5/chart/lunar-return` (POST) - Lunar return chart SVG + data
+- `/api/v5/now/chart` (POST) - Current moment chart SVG + data
 
 ### Data Endpoints (JSON only, no SVG)
 
-Use these endpoints when you only need structured astrological data without rendered charts.
+Use these endpoints when you only need structured astrological data without
+rendered charts.
 
--   `/api/v5/chart-data/birth-chart` (POST) - Natal chart data only
--   `/api/v5/chart-data/synastry` (POST) - Synastry data only
--   `/api/v5/chart-data/transit` (POST) - Transit data only
--   `/api/v5/chart-data/composite` (POST) - Composite data only
--   `/api/v5/chart-data/solar-return` (POST) - Solar return data only
--   `/api/v5/chart-data/lunar-return` (POST) - Lunar return data only
--   `/api/v5/subject` (POST) - Normalized subject object only
--   `/api/v5/now/subject` (POST) - Current UTC subject data
--   `/api/v5/compatibility-score` (POST) - Ciro Discepolo compatibility score + summary
+- `/api/v5/chart-data/birth-chart` (POST) - Natal chart data only
+- `/api/v5/chart-data/synastry` (POST) - Synastry data only
+- `/api/v5/chart-data/transit` (POST) - Transit data only
+- `/api/v5/chart-data/composite` (POST) - Composite data only
+- `/api/v5/chart-data/solar-return` (POST) - Solar return data only
+- `/api/v5/chart-data/lunar-return` (POST) - Lunar return data only
+- `/api/v5/subject` (POST) - Normalized subject object only
+- `/api/v5/now/subject` (POST) - Current UTC subject data
+- `/api/v5/compatibility-score` (POST) - Ciro Discepolo compatibility score +
+  summary
 
 ### Context Endpoints (AI/LLM Integration)
 
-The API provides AI-optimized context endpoints that return structured textual descriptions instead of SVG charts. These are designed for LLM integration and AI applications:
+The API provides AI-optimized context endpoints that return structured textual
+descriptions instead of SVG charts. These are designed for LLM integration and
+AI applications:
 
--   `/api/v5/context/subject` (POST) - Subject data with AI context
--   `/api/v5/context/birth-chart` (POST) - Natal chart data with AI context
--   `/api/v5/context/synastry` (POST) - Synastry data with AI context
--   `/api/v5/context/composite` (POST) - Composite data with AI context
--   `/api/v5/context/transit` (POST) - Transit data with AI context
--   `/api/v5/context/solar-return` (POST) - Solar return data with AI context
--   `/api/v5/context/lunar-return` (POST) - Lunar return data with AI context
--   `/api/v5/now/context` (POST) - Current moment with AI context
+- `/api/v5/context/subject` (POST) - Subject data with AI context
+- `/api/v5/context/birth-chart` (POST) - Natal chart data with AI context
+- `/api/v5/context/synastry` (POST) - Synastry data with AI context
+- `/api/v5/context/composite` (POST) - Composite data with AI context
+- `/api/v5/context/transit` (POST) - Transit data with AI context
+- `/api/v5/context/solar-return` (POST) - Solar return data with AI context
+- `/api/v5/context/lunar-return` (POST) - Lunar return data with AI context
+- `/api/v5/now/context` (POST) - Current moment with AI context
 
-These endpoints accept the same parameters as their corresponding chart-data endpoints but return `context` (AI-optimized text) instead of SVG charts.
+These endpoints accept the same parameters as their corresponding chart-data
+endpoints but return `context` (AI-optimized text) instead of SVG charts.
 
 ## Documentation
 
--   <a href="https://www.kerykeion.net/astrologer-api-swagger/" target="_blank">Swagger OpenAPI (interactive)</a>
--   <a href="https://www.kerykeion.net/astrologer-api-redoc/" target="_blank">Redoc OpenAPI (reference)</a>
--   <a href="https://www.kerykeion.net/content/astrologer-api/" target="_blank">Full Documentation</a>
+- <a href="https://www.kerykeion.net/astrologer-api-swagger/" target="_blank">Swagger
+  OpenAPI (interactive)</a>
+- <a href="https://www.kerykeion.net/astrologer-api-redoc/" target="_blank">Redoc
+  OpenAPI (reference)</a>
+- <a href="https://www.kerykeion.net/content/astrologer-api/" target="_blank">Full
+  Documentation</a>
 
 ## Copy‑paste examples
 
 ### 1) Natal chart (SVG + data)
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/birth-chart' \
+curl -X POST 'http://localhost:8000/api/v5/chart/birth-chart' \
     -H 'Content-Type: application/json' \
-    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
-    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -H 'X-Timestamp: <unix_seconds>' \
+    -H 'X-Signature: <hex_or_base64_hmac>' \
     -d '{
         "subject": { "name": "Ada", "year": 1990, "month": 5, "day": 1, "hour": 10, "minute": 0, "longitude": 12.4964, "latitude": 41.9028, "timezone": "Europe/Rome" },
         "theme": "light",
@@ -132,20 +184,23 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/birth-chart' \
 
 Two SVGs (wheel + grid) with split_chart:
 
--   When you add "split_chart": true, the response does not include the single "chart" key.
--   Instead you get two SVGs:
-    -   chart_wheel: the zodiac wheel (signs, houses, degrees, glyphs)
-    -   chart_grid: the aspect grid/table and legend
--   Useful when you need separate positioning, animation, or different sizes for wheel and grid.
--   Works with all /charts/\* endpoints and can be combined with transparent_background.
+- When you add "split_chart": true, the response does not include the single
+  "chart" key.
+- Instead you get two SVGs:
+  - chart_wheel: the zodiac wheel (signs, houses, degrees, glyphs)
+  - chart_grid: the aspect grid/table and legend
+- Useful when you need separate positioning, animation, or different sizes for
+  wheel and grid.
+- Works with all /charts/\* endpoints and can be combined with
+  transparent_background.
 
 Request:
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/birth-chart' \
+curl -X POST 'http://localhost:8000/api/v5/chart/birth-chart' \
     -H 'Content-Type: application/json' \
-    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
-    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -H 'X-Timestamp: <unix_seconds>' \
+    -H 'X-Signature: <hex_or_base64_hmac>' \
     -d '{
         "subject": { "name": "Ada", "year": 1990, "month": 5, "day": 1, "hour": 10, "minute": 0, "longitude": 12.4964, "latitude": 41.9028, "timezone": "Europe/Rome" },
         "split_chart": true
@@ -174,20 +229,20 @@ Make the SVG background transparent:
 Data‑only variant:
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart-data/birth-chart' \
+curl -X POST 'http://localhost:8000/api/v5/chart-data/birth-chart' \
     -H 'Content-Type: application/json' \
-    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
-    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -H 'X-Timestamp: <unix_seconds>' \
+    -H 'X-Signature: <hex_or_base64_hmac>' \
     -d '{ "subject": { "name": "Ada", "year": 1990, "month": 5, "day": 1, "hour": 10, "minute": 0, "longitude": 12.4964, "latitude": 41.9028, "timezone": "Europe/Rome" } }'
 ```
 
 ### 2) Synastry chart
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/synastry' \
+curl -X POST 'http://localhost:8000/api/v5/chart/synastry' \
     -H 'Content-Type: application/json' \
-    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
-    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -H 'X-Timestamp: <unix_seconds>' \
+    -H 'X-Signature: <hex_or_base64_hmac>' \
     -d '{
         "first_subject": { "name": "Alice", "year": 1990, "month": 7, "day": 5, "hour": 9, "minute": 30, "longitude": -0.1278, "latitude": 51.5074, "timezone": "Europe/London" },
         "second_subject": { "name": "Bob", "year": 1988, "month": 1, "day": 20, "hour": 18, "minute": 15, "longitude": 2.3522, "latitude": 48.8566, "timezone": "Europe/Paris" },
@@ -198,10 +253,10 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/synastry' \
 Compatibility score only (fast):
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/compatibility-score' \
+curl -X POST 'http://localhost:8000/api/v5/compatibility-score' \
     -H 'Content-Type: application/json' \
-    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
-    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -H 'X-Timestamp: <unix_seconds>' \
+    -H 'X-Signature: <hex_or_base64_hmac>' \
     -d '{
         "first_subject": { /* as above */ },
         "second_subject": { /* as above */ }
@@ -213,20 +268,20 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/compatibility-score' \
 Current time (simple POST):
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/now/chart' \
+curl -X POST 'http://localhost:8000/api/v5/now/chart' \
     -H 'Content-Type: application/json' \
-    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
-    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -H 'X-Timestamp: <unix_seconds>' \
+    -H 'X-Signature: <hex_or_base64_hmac>' \
     -d '{}'
 ```
 
 Transit for a natal subject at a chosen moment:
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/transit' \
+curl -X POST 'http://localhost:8000/api/v5/chart/transit' \
     -H 'Content-Type: application/json' \
-    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
-    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -H 'X-Timestamp: <unix_seconds>' \
+    -H 'X-Signature: <hex_or_base64_hmac>' \
     -d '{
         "first_subject": { /* natal subject */ },
         "transit_subject": { "year": 2025, "month": 1, "day": 1, "hour": 0, "minute": 0, "longitude": 0, "latitude": 51.48, "timezone": "Europe/London" }
@@ -236,10 +291,10 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/transit' \
 ### 4) Solar return
 
 ```bash
-curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/solar-return' \
+curl -X POST 'http://localhost:8000/api/v5/chart/solar-return' \
     -H 'Content-Type: application/json' \
-    -H 'X-RapidAPI-Host: astrologer.p.rapidapi.com' \
-    -H 'X-RapidAPI-Key: YOUR_API_KEY' \
+    -H 'X-Timestamp: <unix_seconds>' \
+    -H 'X-Signature: <hex_or_base64_hmac>' \
     -d '{
         "subject": { /* natal */ },
         "year": 2025,
@@ -252,21 +307,24 @@ curl -X POST 'https://astrologer.p.rapidapi.com/api/v5/chart/solar-return' \
 
 There are two kinds of options:
 
--   Computation options (work everywhere, including /chart-data/\*):
+- Computation options (work everywhere, including /chart-data/\*):
 
-    -   active_points, active_aspects
-    -   distribution_method: "weighted" (default) or "pure_count"
-    -   custom_distribution_weights: override weights selectively
+  - active_points, active_aspects
+  - distribution_method: "weighted" (default) or "pure_count"
+  - custom_distribution_weights: override weights selectively
 
--   Rendering options (only for /charts/\* endpoints):
-    -   theme: light, dark, dark-high-contrast, classic
-    -   language: EN, FR, PT, ES, TR, RU, IT, CN, DE, HI
-    -   split_chart: true to receive wheel and grid separately
-    -   transparent_background: true for transparent SVG background
-    -   show_house_position_comparison: false hides the house comparison table and widens the SVG layout
-    -   show_cusp_position_comparison: false hides cusp comparison grids on dual charts (Synastry, Transit dual wheels, DualReturnChart)
-    -   show_degree_indicators: false hides radial lines and degree numbers around the wheel (single and dual charts)
-    -   custom_title: short (≤40 chars) override for the title printed on the chart
+- Rendering options (only for /charts/\* endpoints):
+  - theme: light, dark, dark-high-contrast, classic
+  - language: EN, FR, PT, ES, TR, RU, IT, CN, DE, HI
+  - split_chart: true to receive wheel and grid separately
+  - transparent_background: true for transparent SVG background
+  - show_house_position_comparison: false hides the house comparison table and
+    widens the SVG layout
+  - show_cusp_position_comparison: false hides cusp comparison grids on dual
+    charts (Synastry, Transit dual wheels, DualReturnChart)
+  - show_degree_indicators: false hides radial lines and degree numbers around
+    the wheel (single and dual charts)
+  - custom_title: short (≤40 chars) override for the title printed on the chart
 
 Quick example with custom weights:
 
@@ -295,16 +353,16 @@ Localize chart labels and texts by setting the language parameter (default: EN).
 
 Supported codes:
 
--   EN (English)
--   FR (French)
--   PT (Portuguese)
--   ES (Spanish)
--   TR (Turkish)
--   RU (Russian)
--   IT (Italian)
--   CN (Chinese)
--   DE (German)
--   HI (Hindi)
+- EN (English)
+- FR (French)
+- PT (Portuguese)
+- ES (Spanish)
+- TR (Turkish)
+- RU (Russian)
+- IT (Italian)
+- CN (Chinese)
+- DE (German)
+- HI (Hindi)
 
 Example:
 
@@ -319,7 +377,9 @@ Example:
 
 ## Transparent background
 
-Render charts without a background fill so you can overlay them on any design. Works with any theme and across all /charts/\* endpoints. Can be combined with split_chart.
+Render charts without a background fill so you can overlay them on any design.
+Works with any theme and across all /charts/\* endpoints. Can be combined with
+split_chart.
 
 Example:
 
@@ -335,11 +395,17 @@ Example:
 
 ## Hide comparison tables and degree indicators
 
-On single-wheel charts the default layout includes the house comparison table. Set `show_house_position_comparison` to `false` to hide that panel and allow the SVG to use the extra width.
+On single-wheel charts the default layout includes the house comparison table.
+Set `show_house_position_comparison` to `false` to hide that panel and allow the
+SVG to use the extra width.
 
-On dual charts (Synastry, Transit dual wheels, DualReturnChart) the API also renders cusp comparison grids by default. Set `show_cusp_position_comparison` to `false` to hide those tables while keeping the wheel.
+On dual charts (Synastry, Transit dual wheels, DualReturnChart) the API also
+renders cusp comparison grids by default. Set `show_cusp_position_comparison` to
+`false` to hide those tables while keeping the wheel.
 
-All chart types now display radial lines and degree numbers for planet positions; you can turn them off with `show_degree_indicators: false` for a cleaner look.
+All chart types now display radial lines and degree numbers for planet
+positions; you can turn them off with `show_degree_indicators: false` for a
+cleaner look.
 
 ```json
 {
@@ -354,7 +420,9 @@ All chart types now display radial lines and degree numbers for planet positions
 
 ## Custom chart titles
 
-Provide a short (`<= 40` chars) `custom_title` to override the text rendered above the chart for that single request. Whitespace is trimmed and empty strings are ignored.
+Provide a short (`<= 40` chars) `custom_title` to override the text rendered
+above the chart for that single request. Whitespace is trimmed and empty strings
+are ignored.
 
 ```json
 {
@@ -369,14 +437,15 @@ Provide a short (`<= 40` chars) `custom_title` to override the text rendered abo
 
 Choose the zodiac in the subject object:
 
--   zodiac_type: "Tropical" (default) or "Sidereal"
--   If "Sidereal", also set sidereal_mode (ayanamsha)
+- zodiac_type: "Tropical" (default) or "Sidereal"
+- If "Sidereal", also set sidereal_mode (ayanamsha)
 
 Supported sidereal_mode values include:
 
--   FAGAN_BRADLEY, LAHIRI, DELUCE, RAMAN, USHASHASHI, KRISHNAMURTI, DJWHAL_KHUL, YUKTESHWAR, JN_BHASIN,
--   BABYL_KUGLER1, BABYL_KUGLER2, BABYL_KUGLER3, BABYL_HUBER, BABYL_ETPSC,
--   ALDEBARAN_15TAU, HIPPARCHOS, SASSANIAN, J2000, J1900, B1950
+- FAGAN_BRADLEY, LAHIRI, DELUCE, RAMAN, USHASHASHI, KRISHNAMURTI, DJWHAL_KHUL,
+  YUKTESHWAR, JN_BHASIN,
+- BABYL_KUGLER1, BABYL_KUGLER2, BABYL_KUGLER3, BABYL_HUBER, BABYL_ETPSC,
+- ALDEBARAN_15TAU, HIPPARCHOS, SASSANIAN, J2000, J1900, B1950
 
 Example (Sidereal):
 
@@ -400,31 +469,32 @@ Example (Sidereal):
 
 ## House systems
 
-Select the house system via subject.houses_system_identifier using one of the codes:
+Select the house system via subject.houses_system_identifier using one of the
+codes:
 
--   A: Equal
--   B: Alcabitius
--   C: Campanus
--   D: Equal (MC)
--   F: Carter poli-equ.
--   H: Horizon/Azimut
--   I: Sunshine
--   i: Sunshine/Alt.
--   K: Koch
--   L: Pullen SD
--   M: Morinus
--   N: Equal/1=Aries
--   O: Porphyry
--   P: Placidus (common default)
--   Q: Pullen SR
--   R: Regiomontanus
--   S: Sripati
--   T: Polich/Page (Koch/Topocentric variant)
--   U: Krusinski-Pisa-Goelzer
--   V: Equal/Vehlow
--   W: Equal/Whole Sign
--   X: Axial rotation/Meridian houses
--   Y: APC houses
+- A: Equal
+- B: Alcabitius
+- C: Campanus
+- D: Equal (MC)
+- F: Carter poli-equ.
+- H: Horizon/Azimut
+- I: Sunshine
+- i: Sunshine/Alt.
+- K: Koch
+- L: Pullen SD
+- M: Morinus
+- N: Equal/1=Aries
+- O: Porphyry
+- P: Placidus (common default)
+- Q: Pullen SR
+- R: Regiomontanus
+- S: Sripati
+- T: Polich/Page (Koch/Topocentric variant)
+- U: Krusinski-Pisa-Goelzer
+- V: Equal/Vehlow
+- W: Equal/Whole Sign
+- X: Axial rotation/Meridian houses
+- Y: APC houses
 
 Example:
 
@@ -448,43 +518,49 @@ Example:
 
 ## Automatic coordinates (optional)
 
-Astrologer-API can automatically resolve **latitude**, **longitude**, and **timezone** from a city name using GeoNames.
-When `geonames_username` is present in `subject`, explicit `latitude` / `longitude` / `timezone` fields are not required and the API will look them up for you.
+Astrologer-API can automatically resolve **latitude**, **longitude**, and
+**timezone** from a city name using GeoNames. When `geonames_username` is
+present in `subject`, explicit `latitude` / `longitude` / `timezone` fields are
+not required and the API will look them up for you.
 
-1. **Create a free GeoNames account**  
-   Sign up for a free username here:  
+1. **Create a free GeoNames account**\
+   Sign up for a free username here:\
    <a href="https://www.geonames.org/login" target="_blank" rel="noopener noreferrer">https://www.geonames.org/login</a>
 
-2. **Send `city`, `nation`, and your `geonames_username`**  
-   - `city`: full city name, including state/region if helpful  
-     - e.g. `"city": "Jamaica, New York"`  
-   - `nation`: 2-letter ISO country code (e.g. `"US"`, `"GB"`, `"IT"`)  
+2. **Send `city`, `nation`, and your `geonames_username`**
+   - `city`: full city name, including state/region if helpful
+     - e.g. `"city": "Jamaica, New York"`
+   - `nation`: 2-letter ISO country code (e.g. `"US"`, `"GB"`, `"IT"`)
    - `geonames_username`: the username you registered on GeoNames
 
 Example request:
 
 ```json
 {
-	"subject": {
-		"city": "Jamaica, New York",
-		"nation": "US",
-		"year": 1980,
-		"month": 12,
-		"day": 12,
-		"hour": 12,
-		"minute": 12,
-		"geonames_username": "YOUR_GEONAMES_USERNAME"
-	}
+    "subject": {
+        "city": "Jamaica, New York",
+        "nation": "US",
+        "year": 1980,
+        "month": 12,
+        "day": 12,
+        "hour": 12,
+        "minute": 12,
+        "geonames_username": "YOUR_GEONAMES_USERNAME"
+    }
 }
 ```
 
-Tip: For best accuracy, send actual coordinates when you can. GeoNames is free up to ~10k requests/day; beyond that, consider caching or using explicit `latitude` / `longitude` / `timezone`.
+Tip: For best accuracy, send actual coordinates when you can. GeoNames is free
+up to ~10k requests/day; beyond that, consider caching or using explicit
+`latitude` / `longitude` / `timezone`.
 
 ## Troubleshooting
 
 ### Strict Input Validation
 
-The API enforces strict input validation and **does not allow extra fields** in requests. If you send a field that doesn't exist in the schema, you'll receive a 422 error with a helpful suggestion.
+The API enforces strict input validation and **does not allow extra fields** in
+requests. If you send a field that doesn't exist in the schema, you'll receive a
+422 error with a helpful suggestion.
 
 ### Common Field Name Mistakes
 
@@ -498,7 +574,8 @@ The API enforces strict input validation and **does not allow extra fields** in 
 
 ### City and State Format
 
-**Important:** The `state` field does not exist. Include the state or region in the `city` field:
+**Important:** The `state` field does not exist. Include the state or region in
+the `city` field:
 
 ```json
 {
@@ -509,18 +586,24 @@ The API enforces strict input validation and **does not allow extra fields** in 
 
 This also applies to other administrative divisions:
 
--   `"city": "Milan, Lombardy"` or just `"city": "Milan"`
--   `"city": "Paris, Île-de-France"` or just `"city": "Paris"`
+- `"city": "Milan, Lombardy"` or just `"city": "Milan"`
+- `"city": "Paris, Île-de-France"` or just `"city": "Paris"`
 
 ### Other Common Issues
 
--   **422 Unprocessable Entity**: Double‑check required fields (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints reject rendering options such as theme, language, split_chart, transparent_background, show_house_position_comparison, show_cusp_position_comparison, show_degree_indicators, custom_title.
--   **Timezone errors**: Use a valid tz database name (e.g. "Europe/Rome").
--   **Empty SVG or missing wheel/grid**: Use `/chart/*` endpoints for rendering. `/chart-data/*` never return SVG.
+- **422 Unprocessable Entity**: Double‑check required fields
+  (subject.year/month/day/hour/minute and location). `/chart-data/*` endpoints
+  reject rendering options such as theme, language, split_chart,
+  transparent_background, show_house_position_comparison,
+  show_cusp_position_comparison, show_degree_indicators, custom_title.
+- **Timezone errors**: Use a valid tz database name (e.g. "Europe/Rome").
+- **Empty SVG or missing wheel/grid**: Use `/chart/*` endpoints for rendering.
+  `/chart-data/*` never return SVG.
 
 ## Integration Guide
 
-Since the API returns raw SVG strings, you can easily embed them in any web application.
+Since the API returns raw SVG strings, you can easily embed them in any web
+application.
 
 ### 1. Pure HTML/Javascript
 
@@ -530,7 +613,7 @@ Since the API returns raw SVG strings, you can easily embed them in any web appl
 <script>
     // Assume 'data' is the JSON response from the API
     const chartSvg = data.chart;
-    document.getElementById('chart-container').innerHTML = chartSvg;
+    document.getElementById("chart-container").innerHTML = chartSvg;
 </script>
 ```
 
@@ -565,7 +648,8 @@ defineProps(['svgString']);
 
 ### Styling
 
-The SVGs are responsive by default. You can control their size via the container:
+The SVGs are responsive by default. You can control their size via the
+container:
 
 ```css
 .chart-wrapper svg {
@@ -575,14 +659,18 @@ The SVGs are responsive by default. You can control their size via the container
 }
 ```
 
-## Subscription and support
+## Licensing
 
-Subscribe: https://rapidapi.com/gbattaglia/api/astrologer/pricing
-Subscribe: <a href="https://rapidapi.com/gbattaglia/api/astrologer/pricing" target="_blank">https://rapidapi.com/gbattaglia/api/astrologer/pricing</a>
+This project is licensed under the GNU Affero General Public License v3.0
+(AGPL-3.0).
 
-If you need higher quotas or a custom plan beyond the default tiers, reach out via [kerykeion.astrology@gmail.com](mailto:kerykeion.astrology@gmail.com) to discuss tailored options.
+Astrologer API is open source (AGPLv3).
 
-Licensing note: Astrologer API is open source (AGPLv3). Using the hosted API via RapidAPI is allowed in any app, including closed‑source since is a third-party service.
+This is a modified fork of Astrologer-API and kerykeion by g-battaglia. Original
+sources are https://github.com/g-battaglia/Astrologer-API and
+https://github.com/g-battaglia/kerykeion.
 
-[Astrologer-API Source Code](https://gitlab.com/g-battaglia/Astrologer-API)
-<a href="https://github.com/g-battaglia/Astrologer-API" target="_blank">Astrologer-API Source Code</a>
+## Support
+
+For support or commercial inquiries, reach out via
+[contact@arkana-app.com](mailto:contact@arkana-app.com).

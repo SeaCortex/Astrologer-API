@@ -1,7 +1,7 @@
 [project]
-name = "astrologer-api"
+name = "arkana-app-astrologer-api"
 version = "5.0.0"
-description = "Astrologer API: FastAPI service for astrology charts and data"
+description = "Astrologer Engine and API"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -15,8 +15,11 @@ dependencies = [
     "scour",
     "typing-extensions",
     "pyjwt>=2.10.1",
-    "kerykeion==5.7.2",
+    "kerykeion",
 ]
+
+[tool.uv.sources]
+kerykeion = { path = "kerykeion", editable = true }
 
 [dependency-groups]
 dev = [

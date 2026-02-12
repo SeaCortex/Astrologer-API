@@ -34,7 +34,7 @@ wheels = [
 ]
 
 [[package]]
-name = "astrologer-api"
+name = "arkana-app-astrologer-api"
 version = "5.0.0"
 source = { virtual = "." }
 dependencies = [
@@ -65,7 +65,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "fastapi" },
-    { name = "kerykeion", specifier = "==5.7.2" },
+    { name = "kerykeion", editable = "kerykeion" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
     { name = "pyjwt", specifier = ">=2.10.1" },
@@ -415,7 +415,7 @@ wheels = [
 [[package]]
 name = "kerykeion"
 version = "5.7.2"
-source = { registry = "https://pypi.org/simple" }
+source = { editable = "kerykeion" }
 dependencies = [
     { name = "pydantic" },
     { name = "pyswisseph" },
@@ -426,9 +426,32 @@ dependencies = [
     { name = "simple-ascii-tables" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/6b/34/644bf46b5c7319662f32286efe1602a265dfbe422a04424f2c637bd394ba/kerykeion-5.7.2.tar.gz", hash = "sha256:b1eb938e2c892095bbffe1a2af574175fd7891b00188187e47e4228046dc9972", size = 661655, upload-time = "2026-02-06T11:58:31.027Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/f4/f1/aa83079f2af12f4aca7ae525e3b5b7e9755c6c2d62e4bfc39754331ae7d5/kerykeion-5.7.2-py3-none-any.whl", hash = "sha256:0199dea2a065399242c6a679cd6dc43cfdc0d7238ccb139632ca6e60cebd36fc", size = 679344, upload-time = "2026-02-06T11:58:29.121Z" },
+
+[package.metadata]
+requires-dist = [
+    { name = "pydantic", specifier = ">=2.5" },
+    { name = "pyswisseph", specifier = ">=2.10.3.1" },
+    { name = "pytz", specifier = ">=2024.2" },
+    { name = "requests", specifier = ">=2.32.3" },
+    { name = "requests-cache", specifier = ">=1.2.1" },
+    { name = "scour", specifier = ">=0.38.2" },
+    { name = "simple-ascii-tables", specifier = ">=1.0.0" },
+    { name = "typing-extensions", specifier = ">=4.12.2" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "coverage", specifier = ">=7.6.0" },
+    { name = "mypy", specifier = ">=1.17.1" },
+    { name = "pdoc", specifier = ">=15.0.4" },
+    { name = "poethepoet", specifier = ">=0.36.0" },
+    { name = "pyright", specifier = ">=1.1.408" },
+    { name = "pytest", specifier = ">=8.4.1" },
+    { name = "pytest-cov", specifier = ">=6.0.0" },
+    { name = "pytest-xdist", specifier = ">=3.5.0" },
+    { name = "ruff", specifier = ">=0.12.9" },
+    { name = "types-pytz", specifier = ">=2025.2.0.20250516" },
+    { name = "types-requests", specifier = ">=2.32.4.20250611" },
 ]
 
 [[package]]

@@ -1,11 +1,32 @@
 # Astrologer API v5 Endpoints
 
-This document describes the v5 REST API endpoints for the Astrologer API. All endpoints accept JSON payloads and return JSON responses.
+This document describes the v5 REST API endpoints for the Astrologer API. All
+endpoints accept JSON payloads and return JSON responses.
+
+## Local Development
+
+### Running the API Locally
+
+For local testing and development, run the API in development mode (HMAC
+authentication disabled):
+
+```bash
+ENV_TYPE=dev uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Once running, access:
+
+- **Swagger UI (Interactive API Docs)**: http://localhost:8000/docs
+- **ReDoc (API Reference)**: http://localhost:8000/redoc
+- **Health Check**: http://localhost:8000/health
+
+**Note**: In development mode (`ENV_TYPE=dev`), HMAC authentication is disabled,
+so you can test endpoints directly from the Swagger UI without signing requests.
 
 ## Base URL
 
 ```
-https://astrologer.p.rapidapi.com
+http://localhost:8000
 ```
 
 ## Authentication
@@ -13,8 +34,14 @@ https://astrologer.p.rapidapi.com
 All requests require the following headers:
 
 ```
-X-RapidAPI-Host: astrologer.p.rapidapi.com
-X-RapidAPI-Key: YOUR_API_KEY
+X-Timestamp: <unix_seconds>
+X-Signature: <hex_or_base64_hmac>
+```
+
+Signature string (HMAC-SHA256):
+
+```
+{timestamp}\n{method}\n{pathWithQuery}\n{sha256(body)}
 ```
 
 ## Common Request Parameters
@@ -25,57 +52,74 @@ Used across most endpoints to define a person's birth data:
 
 ```json
 {
-    "name": "John Doe",
-    "year": 1990,
-    "month": 6,
-    "day": 15,
-    "hour": 12,
-    "minute": 30,
-    "second": 0,
-    "city": "London",
-    "nation": "GB",
-    "timezone": "Europe/London",
-    "longitude": -0.1278,
-    "latitude": 51.5074,
-    "altitude": null,
-    "zodiac_type": "Tropical",
-    "sidereal_mode": null,
-    "perspective_type": "Apparent Geocentric",
-    "houses_system_identifier": "P",
-    "is_dst": null,
-    "geonames_username": null
+  "name": "John Doe",
+  "year": 1990,
+  "month": 6,
+  "day": 15,
+  "hour": 12,
+  "minute": 30,
+  "second": 0,
+  "city": "London",
+  "nation": "GB",
+  "timezone": "Europe/London",
+  "longitude": -0.1278,
+  "latitude": 51.5074,
+  "altitude": null,
+  "zodiac_type": "Tropical",
+  "sidereal_mode": null,
+  "perspective_type": "Apparent Geocentric",
+  "houses_system_identifier": "P",
+  "is_dst": null,
+  "geonames_username": null
 }
 ```
 
 **Location Options:**
 
--   Provide `longitude`, `latitude`, and `timezone` for offline mode (recommended)
--   OR provide `geonames_username` to use GeoNames API for location lookup (requires city and nation)
+- Provide `longitude`, `latitude`, and `timezone` for offline mode (recommended)
+- OR provide `geonames_username` to use GeoNames API for location lookup
+  (requires city and nation)
 
 ### Chart Configuration Options
 
-Available for `/charts/*` endpoints and `/api/v5/now/chart` (with SVG rendering):
+Available for `/charts/*` endpoints and `/api/v5/now/chart` (with SVG
+rendering):
 
--   `theme`: Visual theme ("classic", "dark", "light", "strawberry", "dark-high-contrast", "black-and-white")
--   `language`: Chart language ("EN", "IT", "FR", "ES", "PT", "CN", "RU", "TR", "DE", "HI")
--   `split_chart`: Boolean - return separate `chart_wheel` and `chart_grid` SVG strings (default: false)
--   `transparent_background`: Boolean - render chart with transparent background instead of theme default
--   `show_house_position_comparison`: Boolean - include the house comparison table (set to false to hide it and widen the chart)
--   `show_cusp_position_comparison`: Boolean - include the cusp position comparison table for dual charts (default: true)
--   `show_degree_indicators`: Boolean - display radial lines and degree numbers for planet positions on the chart wheel (default: true)
--   `show_aspect_icons`: Boolean - display aspect icons on aspect lines (default: true)
--   `custom_title`: String ≤40 chars - temporary override for the rendered chart title (trimmed if blank)
+- `theme`: Visual theme ("classic", "dark", "light", "strawberry",
+  "dark-high-contrast", "black-and-white")
+- `language`: Chart language ("EN", "IT", "FR", "ES", "PT", "CN", "RU", "TR",
+  "DE", "HI")
+- `split_chart`: Boolean - return separate `chart_wheel` and `chart_grid` SVG
+  strings (default: false)
+- `transparent_background`: Boolean - render chart with transparent background
+  instead of theme default
+- `show_house_position_comparison`: Boolean - include the house comparison table
+  (set to false to hide it and widen the chart)
+- `show_cusp_position_comparison`: Boolean - include the cusp position
+  comparison table for dual charts (default: true)
+- `show_degree_indicators`: Boolean - display radial lines and degree numbers
+  for planet positions on the chart wheel (default: true)
+- `show_aspect_icons`: Boolean - display aspect icons on aspect lines (default:
+  true)
+- `custom_title`: String ≤40 chars - temporary override for the rendered chart
+  title (trimmed if blank)
 
 ### Computation Configuration Options
 
 Available for **all** chart endpoints (both `/chart-data/*` and `/chart/*`):
 
--   `active_points`: Array of points to include (default: all major planets and points)
--   `active_aspects`: Array of aspect configurations with orbs
--   `distribution_method`: "weighted" (default) or "pure_count"
--   `custom_distribution_weights`: Custom weight mapping for element/quality distribution
+- `active_points`: Array of points to include (default: all major planets and
+  points)
+- `active_aspects`: Array of aspect configurations with orbs
+- `distribution_method`: "weighted" (default) or "pure_count"
+- `custom_distribution_weights`: Custom weight mapping for element/quality
+  distribution
 
-**Note:** `/chart-data/*` endpoints return data only (no SVG) and do **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`). These parameters will be rejected with a 422 error if provided.
+**Note:** `/chart-data/*` endpoints return data only (no SVG) and do **not**
+accept rendering parameters (`theme`, `language`, `split_chart`,
+`transparent_background`, `show_house_position_comparison`,
+`show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`,
+`custom_title`). These parameters will be rejected with a 422 error if provided.
 
 ## Endpoints
 
@@ -89,7 +133,7 @@ Returns API health status.
 
 ```json
 {
-    "status": "OK"
+  "status": "OK"
 }
 ```
 
@@ -101,30 +145,33 @@ Returns API health status.
 
 **POST** `/api/v5/now/subject`
 
-Returns astrological data for the current UTC time at Greenwich with optional configuration.
+Returns astrological data for the current UTC time at Greenwich with optional
+configuration.
 
 **Request:**
 
 ```json
 {
-    "name": "Now",
-    "zodiac_type": "Tropical",
-    "sidereal_mode": null,
-    "perspective_type": "Apparent Geocentric",
-    "houses_system_identifier": "P"
+  "name": "Now",
+  "zodiac_type": "Tropical",
+  "sidereal_mode": null,
+  "perspective_type": "Apparent Geocentric",
+  "houses_system_identifier": "P"
 }
 ```
 
-**Note:** All fields are optional. If not provided, defaults will be used (name="Now", zodiac_type="Tropical", perspective_type="Apparent Geocentric", houses_system_identifier="P").
+**Note:** All fields are optional. If not provided, defaults will be used
+(name="Now", zodiac_type="Tropical", perspective_type="Apparent Geocentric",
+houses_system_identifier="P").
 
 **Response:**
 
 ```json
 {
-    "status": "OK",
-    "subject": {
-        /* AstrologicalSubjectModel */
-    }
+  "status": "OK",
+  "subject": {
+    /* AstrologicalSubjectModel */
+  }
 }
 ```
 
@@ -132,7 +179,8 @@ Returns astrological data for the current UTC time at Greenwich with optional co
 
 **POST** `/api/v5/now/chart`
 
-Returns chart data and SVG for the current UTC time at Greenwich with optional subject and rendering configuration.
+Returns chart data and SVG for the current UTC time at Greenwich with optional
+subject and rendering configuration.
 
 **Request:**
 
@@ -157,17 +205,19 @@ Returns chart data and SVG for the current UTC time at Greenwich with optional s
 }
 ```
 
-**Note:** All fields are optional. Subject configuration (name, zodiac_type, etc.) defaults to "Now" with Tropical zodiac. Rendering and computation options follow the standard chart configuration rules.
+**Note:** All fields are optional. Subject configuration (name, zodiac_type,
+etc.) defaults to "Now" with Tropical zodiac. Rendering and computation options
+follow the standard chart configuration rules.
 
 **Response:**
 
 ```json
 {
-    "status": "OK",
-    "chart_data": {
-        /* ChartDataModel */
-    },
-    "chart": "<svg>...</svg>"
+  "status": "OK",
+  "chart_data": {
+    /* ChartDataModel */
+  },
+  "chart": "<svg>...</svg>"
 }
 ```
 
@@ -183,9 +233,9 @@ Returns astrological subject data without chart rendering.
 
 ```json
 {
-    "subject": {
-        /* SubjectModel */
-    }
+  "subject": {
+    /* SubjectModel */
+  }
 }
 ```
 
@@ -193,10 +243,10 @@ Returns astrological subject data without chart rendering.
 
 ```json
 {
-    "status": "OK",
-    "subject": {
-        /* AstrologicalSubjectModel */
-    }
+  "status": "OK",
+  "subject": {
+    /* AstrologicalSubjectModel */
+  }
 }
 ```
 
@@ -222,7 +272,10 @@ Returns complete natal chart data without SVG rendering.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`,
+`language`, `split_chart`, `transparent_background`,
+`show_house_position_comparison`, `show_cusp_position_comparison`,
+`show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:**
 
@@ -288,11 +341,11 @@ Returns natal chart data and rendered SVG chart.
 
 ```json
 {
-    "status": "OK",
-    "chart_data": {
-        /* Same as chart-data endpoint */
-    },
-    "chart": "<svg>...</svg>"
+  "status": "OK",
+  "chart_data": {
+    /* Same as chart-data endpoint */
+  },
+  "chart": "<svg>...</svg>"
 }
 ```
 
@@ -321,7 +374,10 @@ Returns synastry comparison data between two subjects.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`,
+`language`, `split_chart`, `transparent_background`,
+`show_house_position_comparison`, `show_cusp_position_comparison`,
+`show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:**
 
@@ -365,9 +421,13 @@ Returns synastry comparison data between two subjects.
 
 Returns synastry data and rendered dual-wheel chart.
 
-**Request:** Same as `/api/v5/chart-data/synastry` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/synastry` plus `theme`, `language`,
+`split_chart`, `transparent_background`, `show_house_position_comparison`,
+`show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`,
+`custom_title`
 
-**Response:** Same as chart-data endpoint plus `"chart": "<svg>...</svg>"` (or `"chart_wheel"` and `"chart_grid"` if split_chart=true)
+**Response:** Same as chart-data endpoint plus `"chart": "<svg>...</svg>"` (or
+`"chart_wheel"` and `"chart_grid"` if split_chart=true)
 
 ---
 
@@ -377,7 +437,8 @@ Returns synastry data and rendered dual-wheel chart.
 
 **POST** `/api/v5/chart-data/transit`
 
-Returns transit analysis for current planetary positions affecting a natal chart.
+Returns transit analysis for current planetary positions affecting a natal
+chart.
 
 **Request:**
 
@@ -404,7 +465,10 @@ Returns transit analysis for current planetary positions affecting a natal chart
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`,
+`language`, `split_chart`, `transparent_background`,
+`show_house_position_comparison`, `show_cusp_position_comparison`,
+`show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:**
 
@@ -434,7 +498,10 @@ Returns transit analysis for current planetary positions affecting a natal chart
 
 Returns transit data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/transit` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/transit` plus `theme`, `language`,
+`split_chart`, `transparent_background`, `show_house_position_comparison`,
+`show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`,
+`custom_title`
 
 ---
 
@@ -458,7 +525,10 @@ Returns midpoint composite chart between two subjects.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`,
+`language`, `split_chart`, `transparent_background`,
+`show_house_position_comparison`, `show_cusp_position_comparison`,
+`show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:**
 
@@ -483,7 +553,10 @@ Returns midpoint composite chart between two subjects.
 
 Returns composite data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/composite` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/composite` plus `theme`, `language`,
+`split_chart`, `transparent_background`, `show_house_position_comparison`,
+`show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`,
+`custom_title`
 
 ---
 
@@ -518,7 +591,10 @@ Calculates solar return chart for a specific year.
 }
 ```
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`,
+`language`, `split_chart`, `transparent_background`,
+`show_house_position_comparison`, `show_cusp_position_comparison`,
+`show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:**
 
@@ -546,9 +622,13 @@ Calculates solar return chart for a specific year.
 
 Returns solar return data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/solar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/solar-return` plus `theme`, `language`,
+`split_chart`, `transparent_background`, `show_house_position_comparison`,
+`show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`,
+`custom_title`
 
-**Response:** Adds `"return_type": "Solar"` and `"wheel_type": "dual"` or `"single"`
+**Response:** Adds `"return_type": "Solar"` and `"wheel_type": "dual"` or
+`"single"`
 
 #### Lunar Return Chart Data
 
@@ -558,7 +638,10 @@ Calculates lunar return chart.
 
 **Request:** Same structure as solar return
 
-**Note:** This endpoint does **not** accept rendering parameters (`theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`).
+**Note:** This endpoint does **not** accept rendering parameters (`theme`,
+`language`, `split_chart`, `transparent_background`,
+`show_house_position_comparison`, `show_cusp_position_comparison`,
+`show_degree_indicators`, `show_aspect_icons`, `custom_title`).
 
 **Response:** Same structure with `"return_type": "Lunar"`
 
@@ -568,7 +651,10 @@ Calculates lunar return chart.
 
 Returns lunar return data and rendered chart.
 
-**Request:** Same as `/api/v5/chart-data/lunar-return` plus `theme`, `language`, `split_chart`, `transparent_background`, `show_house_position_comparison`, `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`, `custom_title`
+**Request:** Same as `/api/v5/chart-data/lunar-return` plus `theme`, `language`,
+`split_chart`, `transparent_background`, `show_house_position_comparison`,
+`show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`,
+`custom_title`
 
 ---
 
@@ -593,30 +679,30 @@ Calculates Ciro Discepolo compatibility score between two subjects.
 
 ```json
 {
-    "status": "OK",
-    "score": 11,
-    "score_description": "Very Important",
-    "is_destiny_sign": true,
-    "score_breakdown": [
-        {
-            "rule": "sun_moon_conjunction",
-            "description": "Sun-Moon conjunction (high precision)",
-            "points": 11,
-            "details": "Sun-Moon conjunction (orbit: 1.34°)"
-        }
-    ],
-    "aspects": [
-        {
-            "p1_name": "Sun",
-            "p2_name": "Moon",
-            "aspect": "conjunction",
-            "orbit": 1.34
-        }
-    ],
-    "chart_data": {
-        "chart_type": "Synastry"
-        /* Full synastry data */
+  "status": "OK",
+  "score": 11,
+  "score_description": "Very Important",
+  "is_destiny_sign": true,
+  "score_breakdown": [
+    {
+      "rule": "sun_moon_conjunction",
+      "description": "Sun-Moon conjunction (high precision)",
+      "points": 11,
+      "details": "Sun-Moon conjunction (orbit: 1.34°)"
     }
+  ],
+  "aspects": [
+    {
+      "p1_name": "Sun",
+      "p2_name": "Moon",
+      "aspect": "conjunction",
+      "orbit": 1.34
+    }
+  ],
+  "chart_data": {
+    "chart_type": "Synastry"
+    /* Full synastry data */
+  }
 }
 ```
 
@@ -624,14 +710,17 @@ Calculates Ciro Discepolo compatibility score between two subjects.
 
 ## AI Context Endpoints
 
-The API provides 8 context endpoints that parallel the chart endpoints. Instead of returning SVG charts, these endpoints return AI-optimized context strings generated by Kerykeion's `to_context()` function, suitable for LLM consumption.
+The API provides 8 context endpoints that parallel the chart endpoints. Instead
+of returning SVG charts, these endpoints return AI-optimized context strings
+generated by Kerykeion's `to_context()` function, suitable for LLM consumption.
 
 **Key Features:**
 
--   Non-qualitative, factual astronomical positions
--   Structured text format optimized for AI/LLM prompts
--   Complete information including planetary positions, aspects, houses, and distributions
--   Same request parameters as corresponding chart-data endpoints
+- Non-qualitative, factual astronomical positions
+- Structured text format optimized for AI/LLM prompts
+- Complete information including planetary positions, aspects, houses, and
+  distributions
+- Same request parameters as corresponding chart-data endpoints
 
 ### Subject Context Endpoints
 
@@ -647,11 +736,11 @@ Returns astrological subject with AI-optimized context.
 
 ```json
 {
-    "status": "OK",
-    "subject_context": "Chart for \"Name\"...",
-    "subject": {
-        /* AstrologicalSubjectModel */
-    }
+  "status": "OK",
+  "subject_context": "Chart for \"Name\"...",
+  "subject": {
+    /* AstrologicalSubjectModel */
+  }
 }
 ```
 
@@ -667,11 +756,11 @@ Returns current UTC moment with AI context.
 
 ```json
 {
-    "status": "OK",
-    "subject_context": "Chart for \"Now\"...",
-    "subject": {
-        /* AstrologicalSubjectModel */
-    }
+  "status": "OK",
+  "subject_context": "Chart for \"Now\"...",
+  "subject": {
+    /* AstrologicalSubjectModel */
+  }
 }
 ```
 
@@ -689,11 +778,11 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-    "status": "OK",
-    "context": "Natal Chart Analysis\n==================================================\n\nChart for \"Name\"...",
-    "chart_data": {
-        /* SingleChartDataModel */
-    }
+  "status": "OK",
+  "context": "Natal Chart Analysis\n==================================================\n\nChart for \"Name\"...",
+  "chart_data": {
+    /* SingleChartDataModel */
+  }
 }
 ```
 
@@ -707,11 +796,11 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-    "status": "OK",
-    "context": "Synastry Chart Analysis\n==================================================\n\nFirst Subject:...",
-    "chart_data": {
-        /* DualChartDataModel */
-    }
+  "status": "OK",
+  "context": "Synastry Chart Analysis\n==================================================\n\nFirst Subject:...",
+  "chart_data": {
+    /* DualChartDataModel */
+  }
 }
 ```
 
@@ -725,11 +814,11 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-    "status": "OK",
-    "context": "Composite Chart Analysis...",
-    "chart_data": {
-        /* SingleChartDataModel */
-    }
+  "status": "OK",
+  "context": "Composite Chart Analysis...",
+  "chart_data": {
+    /* SingleChartDataModel */
+  }
 }
 ```
 
@@ -743,11 +832,11 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-    "status": "OK",
-    "context": "Transit Chart Analysis...",
-    "chart_data": {
-        /* DualChartDataModel */
-    }
+  "status": "OK",
+  "context": "Transit Chart Analysis...",
+  "chart_data": {
+    /* DualChartDataModel */
+  }
 }
 ```
 
@@ -763,13 +852,13 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-    "status": "OK",
-    "context": "DualReturnChart Chart Analysis...",
-    "chart_data": {
-        /* ChartDataModel */
-    },
-    "return_type": "Solar",
-    "wheel_type": "dual"
+  "status": "OK",
+  "context": "DualReturnChart Chart Analysis...",
+  "chart_data": {
+    /* ChartDataModel */
+  },
+  "return_type": "Solar",
+  "wheel_type": "dual"
 }
 ```
 
@@ -783,13 +872,13 @@ All chart context endpoints return structured JSON data plus AI context string.
 
 ```json
 {
-    "status": "OK",
-    "context": "DualReturnChart Chart Analysis...",
-    "chart_data": {
-        /* ChartDataModel */
-    },
-    "return_type": "Lunar",
-    "wheel_type": "dual"
+  "status": "OK",
+  "context": "DualReturnChart Chart Analysis...",
+  "chart_data": {
+    /* ChartDataModel */
+  },
+  "return_type": "Lunar",
+  "wheel_type": "dual"
 }
 ```
 
@@ -801,10 +890,10 @@ Context strings are designed for direct injection into AI prompts:
 import requests
 
 response = requests.post(
-    "https://astrologer.p.rapidapi.com/api/v5/context/birth-chart",
+    "http://localhost:8000/api/v5/context/birth-chart",
     headers={
-        "X-RapidAPI-Host": "astrologer.p.rapidapi.com",
-        "X-RapidAPI-Key": "YOUR_API_KEY"
+        "X-Timestamp": "<unix_seconds>",
+        "X-Signature": "<hex_or_base64_hmac>"
     },
     json={"subject": {...}}
 )
@@ -822,10 +911,12 @@ Provide insights on career potential.
 
 **Benefits:**
 
--   **No Visual Parsing**: LLMs get structured text instead of needing to parse SVG
--   **Factual Data**: Non-qualitative, precise astronomical positions
--   **Complete Information**: All planetary positions, aspects, houses, and distributions
--   **Consistent Format**: Standardized output across all chart types
+- **No Visual Parsing**: LLMs get structured text instead of needing to parse
+  SVG
+- **Factual Data**: Non-qualitative, precise astronomical positions
+- **Complete Information**: All planetary positions, aspects, houses, and
+  distributions
+- **Consistent Format**: Standardized output across all chart types
 
 ---
 
@@ -833,25 +924,25 @@ Provide insights on career potential.
 
 ### Chart Types
 
--   `"Natal"` - Single subject birth chart
--   `"Synastry"` - Two-subject relationship comparison
--   `"Transit"` - Current transits to natal chart
--   `"Composite"` - Midpoint composite chart
--   `"DualReturnChart"` - Return chart with natal comparison
--   `"SingleReturnChart"` - Return chart alone
+- `"Natal"` - Single subject birth chart
+- `"Synastry"` - Two-subject relationship comparison
+- `"Transit"` - Current transits to natal chart
+- `"Composite"` - Midpoint composite chart
+- `"DualReturnChart"` - Return chart with natal comparison
+- `"SingleReturnChart"` - Return chart alone
 
 ### Element Distribution Model
 
 ```json
 {
-    "fire": 5.0,
-    "earth": 3.5,
-    "air": 4.0,
-    "water": 2.5,
-    "fire_percentage": 33,
-    "earth_percentage": 23,
-    "air_percentage": 27,
-    "water_percentage": 17
+  "fire": 5.0,
+  "earth": 3.5,
+  "air": 4.0,
+  "water": 2.5,
+  "fire_percentage": 33,
+  "earth_percentage": 23,
+  "air_percentage": 27,
+  "water_percentage": 17
 }
 ```
 
@@ -859,12 +950,12 @@ Provide insights on career potential.
 
 ```json
 {
-    "cardinal": 4.0,
-    "fixed": 6.0,
-    "mutable": 5.0,
-    "cardinal_percentage": 27,
-    "fixed_percentage": 40,
-    "mutable_percentage": 33
+  "cardinal": 4.0,
+  "fixed": 6.0,
+  "mutable": 5.0,
+  "cardinal_percentage": 27,
+  "fixed_percentage": 40,
+  "mutable_percentage": 33
 }
 ```
 
@@ -872,19 +963,19 @@ Provide insights on career potential.
 
 ```json
 {
-    "p1_name": "Sun",
-    "p2_name": "Moon",
-    "aspect": "conjunction",
-    "orbit": 1.34,
-    "aspect_degrees": 0,
-    "aid": 1,
-    "diff": 1.34,
-    "p1": {
-        /* Point details */
-    },
-    "p2": {
-        /* Point details */
-    }
+  "p1_name": "Sun",
+  "p2_name": "Moon",
+  "aspect": "conjunction",
+  "orbit": 1.34,
+  "aspect_degrees": 0,
+  "aid": 1,
+  "diff": 1.34,
+  "p1": {
+    /* Point details */
+  },
+  "p2": {
+    /* Point details */
+  }
 }
 ```
 
@@ -896,11 +987,11 @@ Provide insights on career potential.
 
 Uses traditional astrological weights:
 
--   Sun, Moon, Ascendant: 2.0
--   Personal planets (Mercury, Venus, Mars), Angles: 1.5
--   Social planets (Jupiter, Saturn): 1.0
--   Modern planets (Uranus, Neptune, Pluto): 0.5
--   Asteroids and TNOs: 0.3-0.4
+- Sun, Moon, Ascendant: 2.0
+- Personal planets (Mercury, Venus, Mars), Angles: 1.5
+- Social planets (Jupiter, Saturn): 1.0
+- Modern planets (Uranus, Neptune, Pluto): 0.5
+- Asteroids and TNOs: 0.3-0.4
 
 ### Pure Count
 
@@ -912,13 +1003,13 @@ Override specific weights:
 
 ```json
 {
-    "distribution_method": "weighted",
-    "custom_distribution_weights": {
-        "sun": 3.0,
-        "moon": 2.5,
-        "venus": 2.0,
-        "__default__": 0.75
-    }
+  "distribution_method": "weighted",
+  "custom_distribution_weights": {
+    "sun": 3.0,
+    "moon": 2.5,
+    "venus": 2.0,
+    "__default__": 0.75
+  }
 }
 ```
 
@@ -930,8 +1021,8 @@ Override specific weights:
 
 ```json
 {
-    "status": "ERROR",
-    "message": "Error description"
+  "status": "ERROR",
+  "message": "Error description"
 }
 ```
 
@@ -939,13 +1030,13 @@ Override specific weights:
 
 ```json
 {
-    "detail": [
-        {
-            "loc": ["body", "subject", "year"],
-            "msg": "field required",
-            "type": "value_error.missing"
-        }
-    ]
+  "detail": [
+    {
+      "loc": ["body", "subject", "year"],
+      "msg": "field required",
+      "type": "value_error.missing"
+    }
+  ]
 }
 ```
 
@@ -953,8 +1044,8 @@ Override specific weights:
 
 ```json
 {
-    "status": "ERROR",
-    "message": "Internal server error"
+  "status": "ERROR",
+  "message": "Internal server error"
 }
 ```
 
@@ -962,7 +1053,7 @@ Override specific weights:
 
 ## Rate Limits
 
-Rate limits depend on your RapidAPI subscription tier. Check your plan details at [RapidAPI](https://rapidapi.com/gbattaglia/api/astrologer/pricing).
+Rate limits depend on your deployment and gateway configuration.
 
 ---
 
@@ -970,6 +1061,6 @@ Rate limits depend on your RapidAPI subscription tier. Check your plan details a
 
 For issues or questions:
 
--   GitHub: [Astrologer-API](https://github.com/g-battaglia/Astrologer-API)
--   Email: kerykeion.astrology@gmail.com
--   Website: [kerykeion.net](https://www.kerykeion.net/)
+- GitHub: [Astrologer-API](https://github.com/g-battaglia/Astrologer-API)
+- Email: kerykeion.astrology@gmail.com
+- Website: [kerykeion.net](https://www.kerykeion.net/)

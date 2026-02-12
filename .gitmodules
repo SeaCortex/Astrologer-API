@@ -1,0 +1,3 @@
+[submodule "kerykeion"]
+	path = kerykeion
+	url = git@github.com:SeaCortex/kerykeion.git

@@ -13,6 +13,7 @@ from ..types.request_models import (
     BirthDataRequestModel,
     BirthChartDataRequestModel,
     NowSubjectRequestModel,
+    ProgressedMoonCycleRequestModel,
     SynastryChartDataRequestModel,
     CompositeChartDataRequestModel,
     TransitChartDataRequestModel,
@@ -20,10 +21,15 @@ from ..types.request_models import (
 )
 from ..types.response_models import (
     ChartDataResponseModel,
+    DerivedNatalProfileResponseModel,
+    ProgressedMoonCycleResponseModel,
+    ReturnDataResponseModel,
     SubjectResponseModel,
     CompatibilityScoreResponseModel,
 )
 from ..utils.get_time_from_google import get_time_from_google
+from ..utils.derived_profile import build_derived_natal_profile, ensure_required_derived_points
+from ..utils.progressions import compute_progressed_moon_cycle, ensure_progressed_points
 from ..utils.router_utils import (
     build_subject,
     calculate_return_chart_data,
@@ -114,6 +120,43 @@ async def now_subject(request_body: NowSubjectRequestModel, request: Request) ->
         )
 
         return JSONResponse(content={"status": "OK", "subject": dump(subject)}, status_code=200)
+
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/derived/natal-profile", response_model=DerivedNatalProfileResponseModel)
+async def derived_natal_profile(request_body: BirthDataRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/derived/natal-profile`
+
+    Returns derived Western-astrology natal metrics with normalized subject data.
+
+    **Parameters:**
+    - `subject`: SubjectModel
+    - `active_points` (optional): Used to filter stellium/hemisphere point counting
+
+    **Returns:**
+    - `status`: "OK"
+    - `subject`: AstrologicalSubjectModel
+    - `derived_profile`: chart_ruler, stelliums, hemispheres, lunar_mansion
+    """
+    log_request_with_body(logger, request, "Derived natal profile request", request_body.model_dump_json())
+
+    try:
+        requested_active_points = resolve_active_points(request_body.active_points)
+        active_points_for_subject = ensure_required_derived_points(requested_active_points)
+        subject = build_subject(request_body.subject, active_points=active_points_for_subject)
+        derived_profile = build_derived_natal_profile(subject, active_points=requested_active_points)
+
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "subject": dump(subject),
+                "derived_profile": dump(derived_profile),
+            },
+            status_code=200,
+        )
 
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)
@@ -306,5 +349,104 @@ async def lunar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
     try:
         chart_data = calculate_return_chart_data(request_body, "Lunar")
         return JSONResponse(content=chart_data_payload(chart_data), status_code=200)
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/chart-data/saturn-return", response_model=ReturnDataResponseModel)
+async def saturn_return_data(request_body: PlanetaryReturnDataRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/chart-data/saturn-return`
+
+    Calculates Saturn return chart data.
+    """
+    log_request_with_body(logger, request, "Saturn return data request", request_body.model_dump_json())
+
+    try:
+        chart_data = calculate_return_chart_data(request_body, "Saturn")
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "chart_data": dump(chart_data),
+                "return_type": "Saturn",
+                "wheel_type": request_body.wheel_type,
+            },
+            status_code=200,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/chart-data/jupiter-return", response_model=ReturnDataResponseModel)
+async def jupiter_return_data(request_body: PlanetaryReturnDataRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/chart-data/jupiter-return`
+
+    Calculates Jupiter return chart data.
+    """
+    log_request_with_body(logger, request, "Jupiter return data request", request_body.model_dump_json())
+
+    try:
+        chart_data = calculate_return_chart_data(request_body, "Jupiter")
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "chart_data": dump(chart_data),
+                "return_type": "Jupiter",
+                "wheel_type": request_body.wheel_type,
+            },
+            status_code=200,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/chart-data/lunar-node-return", response_model=ReturnDataResponseModel)
+async def lunar_node_return_data(request_body: PlanetaryReturnDataRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/chart-data/lunar-node-return`
+
+    Calculates mean north lunar node return chart data.
+    """
+    log_request_with_body(logger, request, "Lunar node return data request", request_body.model_dump_json())
+
+    try:
+        chart_data = calculate_return_chart_data(request_body, "MeanNode")
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "chart_data": dump(chart_data),
+                "return_type": "MeanNode",
+                "wheel_type": request_body.wheel_type,
+            },
+            status_code=200,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/chart-data/progressed-moon-cycle", response_model=ProgressedMoonCycleResponseModel)
+async def progressed_moon_cycle(request_body: ProgressedMoonCycleRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/chart-data/progressed-moon-cycle`
+
+    Computes secondary progressed Moon cycle data, including progressed lunation phase
+    and next Moon sign/house ingress events on the target timeline.
+    """
+    log_request_with_body(logger, request, "Progressed moon cycle request", request_body.model_dump_json())
+
+    try:
+        requested_active_points = resolve_active_points(request_body.active_points)
+        active_points_for_progressions = ensure_progressed_points(requested_active_points)
+        natal_subject = build_subject(request_body.subject, active_points=active_points_for_progressions)
+
+        progression_data = compute_progressed_moon_cycle(
+            natal_subject=natal_subject,
+            target_iso_datetime=request_body.target_iso_datetime,
+            range_end_iso_datetime=request_body.range_end_iso_datetime,
+            step_days=request_body.step_days,
+            active_points=active_points_for_progressions,
+        )
+        return JSONResponse(content={"status": "OK", "progressed_moon_cycle": dump(progression_data)}, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)

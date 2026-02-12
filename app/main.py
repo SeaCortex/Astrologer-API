@@ -12,7 +12,7 @@ from fastapi.exceptions import RequestValidationError
 
 from .routers import misc, charts, data, context
 from .config.settings import settings
-from .middleware.secret_key_checker_middleware import SecretKeyCheckerMiddleware
+from .middleware.hmac_auth_middleware import HMACAuthMiddleware
 from .utils.validation_helpers import format_extra_field_error
 
 
@@ -107,20 +107,17 @@ async def global_exception_handler(request: Request, exc: Exception):
 # Middleware
 # ------------------------------------------------------------------------------
 
-# Secret Key Checker Middleware
-if settings.debug is True:
-    pass
-
-else:
+# HMAC Authentication Middleware (enabled by config)
+if settings.hmac_enabled:
     app.add_middleware(
-        SecretKeyCheckerMiddleware,
-        secret_key_names=settings.secret_key_names,
-        secret_keys=[
-            settings.rapid_api_secret_key,
-            settings.astrologer_studio_secret_key,
-            settings.private_astrologer_api_secret_key,
-            settings.rapid_api_key,
-        ],
+        HMACAuthMiddleware,
+        hmac_secret=settings.hmac_secret,
+        hmac_secrets=settings.hmac_secrets,
+        signature_header=settings.hmac_signature_header,
+        timestamp_header=settings.hmac_timestamp_header,
+        key_id_header=settings.hmac_key_id_header,
+        timestamp_skew_seconds=settings.hmac_timestamp_skew_seconds,
+        excluded_paths=settings.hmac_excluded_paths,
     )
 
 

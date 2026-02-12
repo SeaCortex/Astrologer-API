@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC
+from datetime import datetime, timezone
 from logging import getLogger
 from typing import Literal, Mapping, Optional, Union, get_args
 
@@ -744,5 +745,57 @@ class PlanetaryReturnDataRequestModel(ChartDataConfigurationMixin):
 
         if self.wheel_type == "single":
             self.include_house_comparison = False
+
+        return self
+
+
+class ProgressedMoonCycleRequestModel(BaseModel):
+    """Request payload for secondary progressed Moon cycle calculations."""
+
+    model_config = {"extra": "forbid"}
+
+    subject: SubjectModel = Field(description="Natal subject used as baseline for progressions.")
+    target_iso_datetime: str = Field(
+        description="UTC ISO datetime on the target timeline used for progressed snapshot.",
+        examples=["2026-02-12T00:00:00+00:00"],
+    )
+    range_end_iso_datetime: str = Field(
+        description="UTC ISO datetime upper bound for ingress search on target timeline.",
+        examples=["2028-02-12T00:00:00+00:00"],
+    )
+    step_days: int = Field(
+        default=14,
+        ge=1,
+        le=90,
+        description="Coarse scan step size on target timeline for ingress detection.",
+    )
+    active_points: Optional[list[Union[Planet, AxialCusps]]] = Field(
+        default=None,
+        description="Optional active points override; Sun and Moon are always enforced.",
+        examples=[DEFAULT_ACTIVE_POINTS],
+    )
+
+    @field_validator("active_points", mode="before")
+    @classmethod
+    def normalize_active_points(cls, value: Optional[list]) -> Optional[list]:
+        return _normalize_active_points(value)
+
+    @staticmethod
+    def _parse_iso_utc(value: str) -> datetime:
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:  # pragma: no cover - pydantic message wrapper
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc)
+
+    @model_validator(mode="after")
+    def validate_progression_range(self) -> "ProgressedMoonCycleRequestModel":
+        target_dt = self._parse_iso_utc(self.target_iso_datetime)
+        range_end_dt = self._parse_iso_utc(self.range_end_iso_datetime)
+
+        if range_end_dt <= target_dt:
+            raise ValueError("range_end_iso_datetime must be later than target_iso_datetime.")
 
         return self

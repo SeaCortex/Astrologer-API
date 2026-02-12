@@ -32,6 +32,14 @@ from ..types.request_models import (
 
 logger = getLogger(__name__)
 
+RETURN_REQUIRED_POINT: dict[str, str] = {
+    "Solar": "Sun",
+    "Lunar": "Moon",
+    "Saturn": "Saturn",
+    "Jupiter": "Jupiter",
+    "MeanNode": "Mean_North_Lunar_Node",
+}
+
 GEONAMES_ERROR_MESSAGE = (
     "City/Nation name error or invalid GeoNames username. Please check your username or city name and try again. "
     "You can create a free username here: https://www.geonames.org/login/. If you want to bypass the usage of "
@@ -76,6 +84,8 @@ def dump(value):
     Returns:
         The dumped value as a dictionary or primitive type.
     """
+    if isinstance(value, dict):
+        return {key: dump(item) for key, item in value.items()}
     if isinstance(value, list):
         return [dump(item) for item in value]
     if isinstance(value, tuple):
@@ -476,7 +486,16 @@ def calculate_return_chart_data(
     Raises:
         KerykeionException: If required parameters (year/month) are missing.
     """
+    if return_type not in RETURN_REQUIRED_POINT:
+        raise KerykeionException(
+            f"Invalid return type {return_type}. Use one of: {', '.join(RETURN_REQUIRED_POINT.keys())}."
+        )
+
     active_points = resolve_active_points(request_body.active_points)
+    required_point = RETURN_REQUIRED_POINT[return_type]
+    if required_point not in active_points:
+        active_points.append(required_point)
+
     active_aspects = resolve_active_aspects(request_body.active_aspects)
 
     natal_subject = build_subject(request_body.subject, active_points=active_points)

@@ -70,10 +70,14 @@ class Settings(BaseSettings):
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
 
     # Environment variables (loaded from .env file or system environment)
-    rapid_api_secret_key: str = ""
-    astrologer_studio_secret_key: str = ""
-    private_astrologer_api_secret_key: str = ""
-    rapid_api_key: str = ""
+    hmac_enabled: bool = ENV_TYPE == "production"
+    hmac_secret: str = ""
+    hmac_secrets: dict[str, str] = {}
+    hmac_signature_header: str = "X-Signature"
+    hmac_timestamp_header: str = "X-Timestamp"
+    hmac_key_id_header: str = "X-Key-Id"
+    hmac_timestamp_skew_seconds: int = 300
+    hmac_excluded_paths: list[str] = ["/health"]
     env_type: str | bool = ENV_TYPE
 
     # Log level from environment variable (takes precedence) or TOML config as fallback
@@ -87,9 +91,6 @@ class Settings(BaseSettings):
     debug: bool = config["debug"]
     docs_url: str | None = config["docs_url"]
     redoc_url: str | None = config["redoc_url"]
-    secret_key_names: str | list[str] = config.get(
-        "secret_key_names", config.get("secret_key_name", "")
-    )
 
     @property
     def log_level_int(self) -> int:
