@@ -7,7 +7,7 @@
     "contact": {
       "name": "Kerykeion Astrology",
       "url": "https://www.kerykeion.net/",
-      "email": "kerykeion.astrology@gmail.com"
+      "email": "admin.astrologer-api@arkana-app.com"
     },
     "license": {
       "name": "AGPL-3.0",
@@ -55,32 +55,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart/birth-chart": {
@@ -122,32 +97,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart/synastry": {
@@ -189,32 +139,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart/composite": {
@@ -256,32 +181,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart/transit": {
@@ -323,32 +223,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart/solar-return": {
@@ -390,32 +265,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart/lunar-return": {
@@ -457,32 +307,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/subject": {
@@ -524,32 +349,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/now/subject": {
@@ -591,32 +391,49 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
+        }
+      }
+    },
+    "/api/v5/derived/natal-profile": {
+      "post": {
+        "tags": [
+          "Chart Data"
         ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
+        "summary": "Derived Natal Profile",
+        "description": "**POST** `/api/v5/derived/natal-profile`\n\nReturns derived Western-astrology natal metrics with normalized subject data.\n\n**Parameters:**\n- `subject`: SubjectModel\n- `active_points` (optional): Used to filter stellium/hemisphere point counting\n\n**Returns:**\n- `status`: \"OK\"\n- `subject`: AstrologicalSubjectModel\n- `derived_profile`: chart_ruler, stelliums, hemispheres, lunar_mansion",
+        "operationId": "derived_natal_profile_api_v5_derived_natal_profile_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BirthDataRequestModel"
+              }
             }
           },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DerivedNatalProfileResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
             }
           }
-        ]
+        }
       }
     },
     "/api/v5/compatibility-score": {
@@ -658,32 +475,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart-data/birth-chart": {
@@ -725,32 +517,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart-data/synastry": {
@@ -792,32 +559,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart-data/composite": {
@@ -859,32 +601,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart-data/transit": {
@@ -926,32 +643,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart-data/solar-return": {
@@ -993,32 +685,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/chart-data/lunar-return": {
@@ -1060,32 +727,175 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
+        }
+      }
+    },
+    "/api/v5/chart-data/saturn-return": {
+      "post": {
+        "tags": [
+          "Chart Data"
         ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
+        "summary": "Saturn Return Data",
+        "description": "**POST** `/api/v5/chart-data/saturn-return`\n\nCalculates Saturn return chart data.",
+        "operationId": "saturn_return_data_api_v5_chart_data_saturn_return_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanetaryReturnDataRequestModel"
+              }
             }
           },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnDataResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
             }
           }
-        ]
+        }
+      }
+    },
+    "/api/v5/chart-data/jupiter-return": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Jupiter Return Data",
+        "description": "**POST** `/api/v5/chart-data/jupiter-return`\n\nCalculates Jupiter return chart data.",
+        "operationId": "jupiter_return_data_api_v5_chart_data_jupiter_return_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanetaryReturnDataRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnDataResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v5/chart-data/lunar-node-return": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Lunar Node Return Data",
+        "description": "**POST** `/api/v5/chart-data/lunar-node-return`\n\nCalculates mean north lunar node return chart data.",
+        "operationId": "lunar_node_return_data_api_v5_chart_data_lunar_node_return_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanetaryReturnDataRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReturnDataResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v5/chart-data/progressed-moon-cycle": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Progressed Moon Cycle",
+        "description": "**POST** `/api/v5/chart-data/progressed-moon-cycle`\n\nComputes secondary progressed Moon cycle data, including progressed lunation phase\nand next Moon sign/house ingress events on the target timeline.",
+        "operationId": "progressed_moon_cycle_api_v5_chart_data_progressed_moon_cycle_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProgressedMoonCycleRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgressedMoonCycleResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v5/context/subject": {
@@ -1127,32 +937,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/context/birth-chart": {
@@ -1194,32 +979,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/context/synastry": {
@@ -1261,32 +1021,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/context/composite": {
@@ -1328,32 +1063,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/context/transit": {
@@ -1395,32 +1105,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/context/solar-return": {
@@ -1462,32 +1147,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/context/lunar-return": {
@@ -1529,32 +1189,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     },
     "/api/v5/now/context": {
@@ -1596,38 +1231,45 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "RapidAPIKey": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "x-rapidapi-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "<YOUR_RAPIDAPI_KEY>"
-            }
-          },
-          {
-            "name": "x-rapidapi-host",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "astrologer.p.rapidapi.com"
-            }
-          }
-        ]
+        }
       }
     }
   },
   "components": {
     "schemas": {
-      "ActiveAspect": {
+      "ActiveAspect-Input": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "conjunction",
+              "semi-sextile",
+              "semi-square",
+              "sextile",
+              "quintile",
+              "square",
+              "trine",
+              "sesquiquadrate",
+              "biquintile",
+              "quincunx",
+              "opposition"
+            ],
+            "title": "Name"
+          },
+          "orb": {
+            "type": "integer",
+            "title": "Orb"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "orb"
+        ],
+        "title": "ActiveAspect"
+      },
+      "ActiveAspect-Output": {
         "properties": {
           "name": {
             "type": "string",
@@ -1747,7 +1389,8 @@
           "p2",
           "aspect_movement"
         ],
-        "title": "AspectModel"
+        "title": "AspectModel",
+        "description": "Model representing an astrological aspect between two celestial points.\n\nAn aspect is an angular relationship between two planets or points,\nmeasured along the ecliptic. Major aspects include conjunction (0\u00b0),\nopposition (180\u00b0), trine (120\u00b0), square (90\u00b0), and sextile (60\u00b0).\n\nAttributes:\n    p1_name: Name of the first point (e.g., 'Sun').\n    p1_owner: Owner/chart of the first point (e.g., 'John').\n    p1_abs_pos: Absolute zodiacal position of first point (0-360\u00b0).\n    p2_name: Name of the second point.\n    p2_owner: Owner/chart of the second point.\n    p2_abs_pos: Absolute zodiacal position of second point.\n    aspect: Name of the aspect (e.g., 'conjunction', 'trine').\n    orbit: Orb (deviation from exact aspect) in degrees.\n    aspect_degrees: Exact degrees of the aspect type.\n    diff: Angular difference between the points.\n    p1: Numeric ID of first point.\n    p2: Numeric ID of second point.\n    p1_speed: Daily motion speed of first point in degrees.\n    p2_speed: Daily motion speed of second point in degrees.\n    aspect_movement: Whether aspect is applying, separating, or static."
       },
       "AstrologicalSubjectModel": {
         "properties": {
@@ -2475,7 +2118,7 @@
           "minute"
         ],
         "title": "AstrologicalSubjectModel",
-        "description": "Pydantic Model for Astrological Subject"
+        "description": "Complete astrological subject model for individual birth or event charts.\n\nThis model represents a fully-specified astrological chart with all required\nlocation and time data. It extends AstrologicalBaseModel by making location\nand time fields mandatory.\n\nUsed for:\n    - Natal (birth) charts\n    - Event charts\n    - Horary charts\n\nAttributes:\n    year: Birth/event year.\n    month: Birth/event month (1-12).\n    day: Birth/event day of month.\n    hour: Birth/event hour (0-23).\n    minute: Birth/event minute (0-59).\n    city: City name (required).\n    nation: Country code (required).\n    lat: Latitude coordinate (required).\n    lng: Longitude coordinate (required).\n    tz_str: Timezone string e.g. 'Europe/Rome' (required)."
       },
       "BirthChartDataRequestModel": {
         "properties": {
@@ -2564,7 +2207,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -2741,7 +2384,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -3036,7 +2679,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -3218,6 +2861,38 @@
         "title": "ChartResponseModel",
         "description": "Response payload returning chart data with optional rendered SVG assets."
       },
+      "ChartRulerModel": {
+        "properties": {
+          "asc_sign": {
+            "type": "string",
+            "title": "Asc Sign",
+            "description": "Ascendant sign abbreviation."
+          },
+          "ruler_point_name": {
+            "type": "string",
+            "title": "Ruler Point Name",
+            "description": "Name of the chart ruler point."
+          },
+          "ruler_point": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/KerykeionPointModel"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Computed chart ruler point details when available."
+          }
+        },
+        "type": "object",
+        "required": [
+          "asc_sign",
+          "ruler_point_name"
+        ],
+        "title": "ChartRulerModel",
+        "description": "Derived chart ruler payload."
+      },
       "CompatibilityScoreResponseModel": {
         "properties": {
           "status": {
@@ -3377,7 +3052,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -3559,7 +3234,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -4540,7 +4215,7 @@
           "composite_chart_type"
         ],
         "title": "CompositeSubjectModel",
-        "description": "Pydantic Model for Composite Subject"
+        "description": "Composite chart model for relationship analysis.\n\nA composite chart is created by calculating the midpoint between\ncorresponding planets/points of two individual charts. It represents\nthe relationship as a separate entity.\n\nAttributes:\n    first_subject: First person's astrological data.\n    second_subject: Second person's astrological data.\n    composite_chart_type: Type identifier for the composite calculation method."
       },
       "ContextResponseModel": {
         "properties": {
@@ -4575,6 +4250,56 @@
         ],
         "title": "ContextResponseModel",
         "description": "Response payload returning chart data with AI-optimized context."
+      },
+      "DerivedNatalProfileModel": {
+        "properties": {
+          "chart_ruler": {
+            "$ref": "#/components/schemas/ChartRulerModel"
+          },
+          "stelliums": {
+            "$ref": "#/components/schemas/StelliumsModel"
+          },
+          "hemispheres": {
+            "$ref": "#/components/schemas/HemispheresModel"
+          },
+          "lunar_mansion": {
+            "$ref": "#/components/schemas/LunarMansionModel"
+          }
+        },
+        "type": "object",
+        "required": [
+          "chart_ruler",
+          "stelliums",
+          "hemispheres",
+          "lunar_mansion"
+        ],
+        "title": "DerivedNatalProfileModel",
+        "description": "Derived natal profile data."
+      },
+      "DerivedNatalProfileResponseModel": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response."
+          },
+          "subject": {
+            "$ref": "#/components/schemas/AstrologicalSubjectModel",
+            "description": "Computed astrological subject."
+          },
+          "derived_profile": {
+            "$ref": "#/components/schemas/DerivedNatalProfileModel",
+            "description": "Derived profile metrics."
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "subject",
+          "derived_profile"
+        ],
+        "title": "DerivedNatalProfileResponseModel",
+        "description": "Response payload for derived natal profile endpoint."
       },
       "DualChartDataModel": {
         "properties": {
@@ -4698,7 +4423,7 @@
           },
           "active_aspects": {
             "items": {
-              "$ref": "#/components/schemas/ActiveAspect"
+              "$ref": "#/components/schemas/ActiveAspect-Output"
             },
             "type": "array",
             "title": "Active Aspects"
@@ -4780,6 +4505,136 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "HemisphereBreakdownModel": {
+        "properties": {
+          "above_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Above Count",
+            "description": "Points above horizon (houses 7-12)."
+          },
+          "below_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Below Count",
+            "description": "Points below horizon (houses 1-6)."
+          },
+          "above_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Above Pct",
+            "description": "Percentage above horizon."
+          },
+          "below_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Below Pct",
+            "description": "Percentage below horizon."
+          },
+          "east_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "East Count",
+            "description": "Points in eastern hemisphere houses."
+          },
+          "west_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "West Count",
+            "description": "Points in western hemisphere houses."
+          },
+          "east_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "East Pct",
+            "description": "Percentage in eastern hemisphere."
+          },
+          "west_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "West Pct",
+            "description": "Percentage in western hemisphere."
+          },
+          "counted_points": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Counted Points",
+            "description": "Point names included in the computation."
+          }
+        },
+        "type": "object",
+        "title": "HemisphereBreakdownModel",
+        "description": "Counts and percentages for a hemispheric axis."
+      },
+      "HemispheresModel": {
+        "properties": {
+          "above_below_horizon": {
+            "$ref": "#/components/schemas/HemisphereBreakdownModel",
+            "description": "Above/below horizon metrics."
+          },
+          "east_west": {
+            "$ref": "#/components/schemas/HemisphereBreakdownModel",
+            "description": "East/west hemisphere metrics."
+          }
+        },
+        "type": "object",
+        "required": [
+          "above_below_horizon",
+          "east_west"
+        ],
+        "title": "HemispheresModel",
+        "description": "Hemispheric emphasis payload."
+      },
       "HouseComparisonModel": {
         "properties": {
           "first_subject_name": {
@@ -4828,6 +4683,30 @@
         ],
         "title": "HouseComparisonModel",
         "description": "Bidirectional house comparison analysis between two astrological subjects.\n\nContains results of how astrological points from each subject interact with\nthe house system of the other subject.\n\nAttributes:\n    first_subject_name: Name of the first subject\n    second_subject_name: Name of the second subject\n    first_points_in_second_houses: First subject's points in second subject's houses\n    second_points_in_first_houses: Second subject's points in first subject's houses"
+      },
+      "HouseStelliumModel": {
+        "properties": {
+          "house": {
+            "type": "string",
+            "title": "House",
+            "description": "House identifier."
+          },
+          "points": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Points",
+            "description": "Point names in the house."
+          }
+        },
+        "type": "object",
+        "required": [
+          "house",
+          "points"
+        ],
+        "title": "HouseStelliumModel",
+        "description": "Stellium grouping by house."
       },
       "KerykeionPointModel": {
         "properties": {
@@ -5049,6 +4928,46 @@
         "title": "KerykeionPointModel",
         "description": "Model representing an astrological celestial point or house cusp.\n\nThis model contains comprehensive information about celestial objects\n(planets, points) or house cusps including their zodiacal position,\nsign placement, and metadata.\n\nAttributes:\n    name: The name of the celestial point or house.\n    quality: Astrological quality (Cardinal, Fixed, Mutable).\n    element: Astrological element (Fire, Earth, Air, Water).\n    sign: The zodiac sign the point is located in.\n    sign_num: Numerical identifier for the zodiac sign (0-11).\n    position: Position within the sign (0-30 degrees).\n    abs_pos: Absolute position in the zodiac (0-360 degrees).\n    emoji: Unicode emoji representing the point or sign.\n    point_type: Type of the celestial point (Planet, House, etc.).\n    house: House placement of the point (optional).\n    retrograde: Whether the point is in retrograde motion (optional)."
       },
+      "LunarMansionModel": {
+        "properties": {
+          "system": {
+            "type": "string",
+            "const": "tropical_28_equal",
+            "title": "System",
+            "description": "Lunar mansion system identifier."
+          },
+          "index": {
+            "type": "integer",
+            "title": "Index",
+            "description": "Lunar mansion index (1-28)."
+          },
+          "start_abs_deg": {
+            "type": "number",
+            "title": "Start Abs Deg",
+            "description": "Start of mansion interval in absolute degrees."
+          },
+          "end_abs_deg": {
+            "type": "number",
+            "title": "End Abs Deg",
+            "description": "End of mansion interval in absolute degrees."
+          },
+          "moon_abs_pos": {
+            "type": "number",
+            "title": "Moon Abs Pos",
+            "description": "Moon absolute longitude used for the computation."
+          }
+        },
+        "type": "object",
+        "required": [
+          "system",
+          "index",
+          "start_abs_deg",
+          "end_abs_deg",
+          "moon_abs_pos"
+        ],
+        "title": "LunarMansionModel",
+        "description": "Lunar mansion payload for Western 28-equal system."
+      },
       "LunarPhaseModel": {
         "properties": {
           "degrees_between_s_m": {
@@ -5192,7 +5111,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -6439,7 +6358,10 @@
             "type": "string",
             "enum": [
               "Lunar",
-              "Solar"
+              "Solar",
+              "Saturn",
+              "Jupiter",
+              "MeanNode"
             ],
             "title": "Return Type",
             "description": "Type of return: Solar or Lunar"
@@ -6470,7 +6392,7 @@
           "return_type"
         ],
         "title": "PlanetReturnModel",
-        "description": "Pydantic Model for Planet Return"
+        "description": "Planetary return chart model.\n\nA planetary return occurs when a transiting planet returns to the exact\nposition it held in the natal chart. Solar returns (yearly) and lunar\nreturns (monthly) are the most commonly used.\n\nAttributes:\n    return_type: Type of return - 'Solar' or 'Lunar'."
       },
       "PlanetaryReturnDataRequestModel": {
         "properties": {
@@ -6559,7 +6481,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -6821,7 +6743,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -7182,6 +7104,291 @@
         "title": "PointInHouseModel",
         "description": "Represents an astrological point from one subject positioned within another subject's house.\n\nCaptures point characteristics and its placement within the target subject's house system\nfor house comparison analysis.\n\nAttributes:\n    point_name: Name of the astrological point\n    point_degree: Degree position within its sign\n    point_sign: Zodiacal sign containing the point\n    point_owner_name: Name of the subject who owns this point\n    point_owner_house_number: House number in owner's chart\n    point_owner_house_name: House name in owner's chart\n    projected_house_number: House number in target subject's chart\n    projected_house_name: House name in target subject's chart\n    projected_house_owner_name: Name of the target subject"
       },
+      "ProgressedHouseIngressModel": {
+        "properties": {
+          "at_target_iso_datetime": {
+            "type": "string",
+            "title": "At Target Iso Datetime",
+            "description": "Target-timeline datetime where ingress occurs."
+          },
+          "at_progressed_iso_datetime": {
+            "type": "string",
+            "title": "At Progressed Iso Datetime",
+            "description": "Progressed datetime mapped from target timeline."
+          },
+          "house": {
+            "type": "string",
+            "title": "House",
+            "description": "Moon house after ingress."
+          }
+        },
+        "type": "object",
+        "required": [
+          "at_target_iso_datetime",
+          "at_progressed_iso_datetime",
+          "house"
+        ],
+        "title": "ProgressedHouseIngressModel",
+        "description": "Next progressed Moon house ingress."
+      },
+      "ProgressedLunationModel": {
+        "properties": {
+          "angle_deg": {
+            "type": "number",
+            "title": "Angle Deg",
+            "description": "Progressed Sun-Moon angular separation in degrees."
+          },
+          "phase_name": {
+            "type": "string",
+            "enum": [
+              "New Moon",
+              "First Quarter",
+              "Full Moon",
+              "Last Quarter"
+            ],
+            "title": "Phase Name",
+            "description": "Quarter-phase bucket for the progressed lunation."
+          }
+        },
+        "type": "object",
+        "required": [
+          "angle_deg",
+          "phase_name"
+        ],
+        "title": "ProgressedLunationModel",
+        "description": "Progressed lunation payload."
+      },
+      "ProgressedMoonCycleModel": {
+        "properties": {
+          "target_iso_datetime": {
+            "type": "string",
+            "title": "Target Iso Datetime",
+            "description": "Requested target datetime on the real timeline."
+          },
+          "progressed_iso_datetime": {
+            "type": "string",
+            "title": "Progressed Iso Datetime",
+            "description": "Computed progressed datetime."
+          },
+          "progressed_subject": {
+            "$ref": "#/components/schemas/AstrologicalSubjectModel",
+            "description": "Progressed chart subject."
+          },
+          "progressed_lunation": {
+            "$ref": "#/components/schemas/ProgressedLunationModel",
+            "description": "Progressed lunation details."
+          },
+          "next_ingresses": {
+            "$ref": "#/components/schemas/ProgressedMoonIngressesModel",
+            "description": "Upcoming progressed Moon ingress events."
+          }
+        },
+        "type": "object",
+        "required": [
+          "target_iso_datetime",
+          "progressed_iso_datetime",
+          "progressed_subject",
+          "progressed_lunation",
+          "next_ingresses"
+        ],
+        "title": "ProgressedMoonCycleModel",
+        "description": "Secondary progressed Moon cycle payload."
+      },
+      "ProgressedMoonCycleRequestModel": {
+        "properties": {
+          "subject": {
+            "$ref": "#/components/schemas/SubjectModel",
+            "description": "Natal subject used as baseline for progressions."
+          },
+          "target_iso_datetime": {
+            "type": "string",
+            "title": "Target Iso Datetime",
+            "description": "UTC ISO datetime on the target timeline used for progressed snapshot.",
+            "examples": [
+              "2026-02-12T00:00:00+00:00"
+            ]
+          },
+          "range_end_iso_datetime": {
+            "type": "string",
+            "title": "Range End Iso Datetime",
+            "description": "UTC ISO datetime upper bound for ingress search on target timeline.",
+            "examples": [
+              "2028-02-12T00:00:00+00:00"
+            ]
+          },
+          "step_days": {
+            "type": "integer",
+            "maximum": 90.0,
+            "minimum": 1.0,
+            "title": "Step Days",
+            "description": "Coarse scan step size on target timeline for ingress detection.",
+            "default": 14
+          },
+          "active_points": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Sun",
+                    "Moon",
+                    "Mercury",
+                    "Venus",
+                    "Mars",
+                    "Jupiter",
+                    "Saturn",
+                    "Uranus",
+                    "Neptune",
+                    "Pluto",
+                    "Mean_North_Lunar_Node",
+                    "True_North_Lunar_Node",
+                    "Mean_South_Lunar_Node",
+                    "True_South_Lunar_Node",
+                    "Chiron",
+                    "Mean_Lilith",
+                    "True_Lilith",
+                    "Earth",
+                    "Pholus",
+                    "Ceres",
+                    "Pallas",
+                    "Juno",
+                    "Vesta",
+                    "Eris",
+                    "Sedna",
+                    "Haumea",
+                    "Makemake",
+                    "Ixion",
+                    "Orcus",
+                    "Quaoar",
+                    "Regulus",
+                    "Spica",
+                    "Pars_Fortunae",
+                    "Pars_Spiritus",
+                    "Pars_Amoris",
+                    "Pars_Fidei",
+                    "Vertex",
+                    "Anti_Vertex",
+                    "Ascendant",
+                    "Medium_Coeli",
+                    "Descendant",
+                    "Imum_Coeli"
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Points",
+            "description": "Optional active points override; Sun and Moon are always enforced.",
+            "examples": [
+              [
+                "Sun",
+                "Moon",
+                "Mercury",
+                "Venus",
+                "Mars",
+                "Jupiter",
+                "Saturn",
+                "Uranus",
+                "Neptune",
+                "Pluto",
+                "True_North_Lunar_Node",
+                "True_South_Lunar_Node",
+                "Chiron",
+                "Mean_Lilith",
+                "Ascendant",
+                "Medium_Coeli",
+                "Descendant",
+                "Imum_Coeli"
+              ]
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "subject",
+          "target_iso_datetime",
+          "range_end_iso_datetime"
+        ],
+        "title": "ProgressedMoonCycleRequestModel",
+        "description": "Request payload for secondary progressed Moon cycle calculations."
+      },
+      "ProgressedMoonCycleResponseModel": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response."
+          },
+          "progressed_moon_cycle": {
+            "$ref": "#/components/schemas/ProgressedMoonCycleModel"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "progressed_moon_cycle"
+        ],
+        "title": "ProgressedMoonCycleResponseModel",
+        "description": "Response payload for progressed Moon cycle endpoint."
+      },
+      "ProgressedMoonIngressesModel": {
+        "properties": {
+          "next_sign_ingress": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProgressedSignIngressModel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "next_house_ingress": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProgressedHouseIngressModel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "ProgressedMoonIngressesModel",
+        "description": "Container for next progressed Moon ingress events."
+      },
+      "ProgressedSignIngressModel": {
+        "properties": {
+          "at_target_iso_datetime": {
+            "type": "string",
+            "title": "At Target Iso Datetime",
+            "description": "Target-timeline datetime where ingress occurs."
+          },
+          "at_progressed_iso_datetime": {
+            "type": "string",
+            "title": "At Progressed Iso Datetime",
+            "description": "Progressed datetime mapped from target timeline."
+          },
+          "sign": {
+            "type": "string",
+            "title": "Sign",
+            "description": "Moon sign after ingress."
+          }
+        },
+        "type": "object",
+        "required": [
+          "at_target_iso_datetime",
+          "at_progressed_iso_datetime",
+          "sign"
+        ],
+        "title": "ProgressedSignIngressModel",
+        "description": "Next progressed Moon sign ingress."
+      },
       "QualityDistributionModel": {
         "properties": {
           "cardinal": {
@@ -7247,7 +7454,8 @@
           "aspect",
           "orbit"
         ],
-        "title": "RelationshipScoreAspectModel"
+        "title": "RelationshipScoreAspectModel",
+        "description": "Simplified aspect model for relationship scoring.\n\nUsed in synastry analysis to track which aspects contribute\nto the compatibility score.\n\nAttributes:\n    p1_name: First point name.\n    p2_name: Second point name.\n    aspect: Aspect type name.\n    orbit: Orb in degrees."
       },
       "RelationshipScoreModel": {
         "properties": {
@@ -7442,6 +7650,57 @@
         "title": "ReturnContextResponseModel",
         "description": "Response payload for solar and lunar return context requests."
       },
+      "ReturnDataResponseModel": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response."
+          },
+          "chart_data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SingleChartDataModel"
+              },
+              {
+                "$ref": "#/components/schemas/DualChartDataModel"
+              }
+            ],
+            "title": "Chart Data",
+            "description": "Serialized chart data payload."
+          },
+          "return_type": {
+            "type": "string",
+            "enum": [
+              "Solar",
+              "Lunar",
+              "Saturn",
+              "Jupiter",
+              "MeanNode"
+            ],
+            "title": "Return Type",
+            "description": "Type of planetary return."
+          },
+          "wheel_type": {
+            "type": "string",
+            "enum": [
+              "dual",
+              "single"
+            ],
+            "title": "Wheel Type",
+            "description": "Requested wheel configuration."
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "chart_data",
+          "return_type",
+          "wheel_type"
+        ],
+        "title": "ReturnDataResponseModel",
+        "description": "Response payload for JSON-only return data endpoints."
+      },
       "ReturnLocationModel": {
         "properties": {
           "city": {
@@ -7583,6 +7842,30 @@
         "title": "ScoreBreakdownItemModel",
         "description": "Single breakdown item explaining how points were earned."
       },
+      "SignStelliumModel": {
+        "properties": {
+          "sign": {
+            "type": "string",
+            "title": "Sign",
+            "description": "Zodiac sign abbreviation."
+          },
+          "points": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Points",
+            "description": "Point names in the sign."
+          }
+        },
+        "type": "object",
+        "required": [
+          "sign",
+          "points"
+        ],
+        "title": "SignStelliumModel",
+        "description": "Stellium grouping by sign."
+      },
       "SingleChartDataModel": {
         "properties": {
           "chart_type": {
@@ -7674,7 +7957,7 @@
           },
           "active_aspects": {
             "items": {
-              "$ref": "#/components/schemas/ActiveAspect"
+              "$ref": "#/components/schemas/ActiveAspect-Output"
             },
             "type": "array",
             "title": "Active Aspects"
@@ -7692,6 +7975,37 @@
         ],
         "title": "SingleChartDataModel",
         "description": "Chart data model for single-subject astrological charts.\n\nThis model contains all pure data from single-subject charts including planetary\npositions, internal aspects, element/quality distributions, and location data.\nUsed for chart types that analyze a single astrological subject.\n\nSupported chart types:\n- Natal: Birth chart with internal planetary aspects\n- Composite: Midpoint relationship chart with internal aspects\n- SingleReturnChart: Single planetary return with internal aspects\n\nAttributes:\n    chart_type: Type of single chart (Natal, Composite, SingleReturnChart)\n    subject: The astrological subject being analyzed\n    aspects: Internal aspects within the chart\n    element_distribution: Distribution of elemental energies\n    quality_distribution: Distribution of modal qualities\n    active_points: Celestial points included in calculations\n    active_aspects: Aspect types and orb settings used"
+      },
+      "StelliumsModel": {
+        "properties": {
+          "min_count": {
+            "type": "integer",
+            "title": "Min Count",
+            "description": "Minimum point count used to classify stelliums."
+          },
+          "by_sign": {
+            "items": {
+              "$ref": "#/components/schemas/SignStelliumModel"
+            },
+            "type": "array",
+            "title": "By Sign",
+            "description": "Stelliums by zodiac sign."
+          },
+          "by_house": {
+            "items": {
+              "$ref": "#/components/schemas/HouseStelliumModel"
+            },
+            "type": "array",
+            "title": "By House",
+            "description": "Stelliums by house."
+          }
+        },
+        "type": "object",
+        "required": [
+          "min_count"
+        ],
+        "title": "StelliumsModel",
+        "description": "Stellium analysis payload."
       },
       "SubjectContextResponseModel": {
         "properties": {
@@ -8179,7 +8493,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -8373,7 +8687,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -8685,7 +8999,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -8873,7 +9187,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ActiveAspect"
+                  "$ref": "#/components/schemas/ActiveAspect-Input"
                 },
                 "type": "array"
               },
@@ -9336,18 +9650,6 @@
         ],
         "title": "ValidationError"
       }
-    },
-    "securitySchemes": {
-      "RapidAPIKey": {
-        "type": "apiKey",
-        "name": "x-rapidapi-key",
-        "in": "header"
-      }
     }
-  },
-  "servers": [
-    {
-      "url": "https://astrologer.p.rapidapi.com/"
-    }
-  ]
+  }
 }
