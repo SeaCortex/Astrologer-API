@@ -252,6 +252,78 @@ Returns astrological subject data without chart rendering.
 
 ---
 
+### Derived Data
+
+#### Derived Natal Profile
+
+**POST** `/api/v5/derived/natal-profile`
+
+Returns **derived Western-astrology natal metrics** computed from a natal
+subject (no SVG).
+
+Includes:
+
+- Chart ruler (traditional rulership, based on Ascendant sign)
+- Stelliums (by sign and by house; default min count = 3)
+- Hemispheric emphasis (above/below horizon, east/west; computed from counted
+  points)
+- Lunar mansion (Western **tropical 28-equal** system based on Moon longitude)
+
+**Request:**
+
+```json
+{
+  "subject": { /* SubjectModel */ },
+  "active_points": ["Sun", "Moon", "Mercury", ...]
+}
+```
+
+**Response:**
+
+```json
+{
+  "status": "OK",
+  "subject": {/* AstrologicalSubjectModel */},
+  "derived_profile": {
+    "chart_ruler": {
+      "asc_sign": "Ar",
+      "ruler_point_name": "Mars",
+      "ruler_point": {/* KerykeionPointModel (if present in subject) */}
+    },
+    "stelliums": {
+      "min_count": 3,
+      "by_sign": [{ "sign": "Ar", "points": ["Sun", "Mercury", "Venus"] }],
+      "by_house": [{ "house": "1", "points": ["Sun", "Mercury", "Venus"] }]
+    },
+    "hemispheres": {
+      "above_below_horizon": {
+        "above_count": 4,
+        "below_count": 6,
+        "above_pct": 40.0,
+        "below_pct": 60.0,
+        "counted_points": ["Sun", "Moon", "Mercury"]
+      },
+      "east_west": {
+        "east_count": 7,
+        "west_count": 3,
+        "east_pct": 70.0,
+        "west_pct": 30.0,
+        "counted_points": ["Sun", "Moon", "Mercury"]
+      }
+    },
+    "lunar_mansion": {
+      "system": "tropical_28_equal",
+      "index": 12,
+      "start_abs_deg": 141.4285714286,
+      "end_abs_deg": 154.2857142857,
+      "moon_abs_pos": 149.12
+    }
+  }
+}
+```
+
+---
+
 ### Natal Charts
 
 #### Natal Chart Data
@@ -656,6 +728,66 @@ Returns lunar return data and rendered chart.
 `show_cusp_position_comparison`, `show_degree_indicators`, `show_aspect_icons`,
 `custom_title`
 
+#### Saturn Return Chart Data
+
+**POST** `/api/v5/chart-data/saturn-return`
+
+Calculates **Saturn return** chart data (next time transiting Saturn returns to
+its natal ecliptic longitude).
+
+**Request:** Same structure as `/api/v5/chart-data/solar-return`
+
+**Response:** Same chart-data structure, plus top-level metadata:
+
+```json
+{
+  "status": "OK",
+  "chart_data": {/* DualReturnChart or SingleReturnChart */},
+  "return_type": "Saturn",
+  "wheel_type": "dual"
+}
+```
+
+#### Jupiter Return Chart Data
+
+**POST** `/api/v5/chart-data/jupiter-return`
+
+Calculates **Jupiter return** chart data (next time transiting Jupiter returns
+to its natal ecliptic longitude).
+
+**Request:** Same structure as `/api/v5/chart-data/solar-return`
+
+**Response:**
+
+```json
+{
+  "status": "OK",
+  "chart_data": {/* DualReturnChart or SingleReturnChart */},
+  "return_type": "Jupiter",
+  "wheel_type": "dual"
+}
+```
+
+#### Lunar Node Return Chart Data (Mean North Node)
+
+**POST** `/api/v5/chart-data/lunar-node-return`
+
+Calculates **Mean North Lunar Node return** chart data (next time the **mean
+node** returns to its natal ecliptic longitude).
+
+**Request:** Same structure as `/api/v5/chart-data/solar-return`
+
+**Response:**
+
+```json
+{
+  "status": "OK",
+  "chart_data": {/* DualReturnChart or SingleReturnChart */},
+  "return_type": "MeanNode",
+  "wheel_type": "dual"
+}
+```
+
 ---
 
 ### Relationship Score
@@ -702,6 +834,71 @@ Calculates Ciro Discepolo compatibility score between two subjects.
   "chart_data": {
     "chart_type": "Synastry"
     /* Full synastry data */
+  }
+}
+```
+
+---
+
+### Progressions
+
+#### Progressed Moon Cycle (Secondary Progressions)
+
+**POST** `/api/v5/chart-data/progressed-moon-cycle`
+
+Computes **secondary progressed** Moon cycle data using a day-for-a-year
+mapping:
+
+- A progressed chart snapshot at `target_iso_datetime`
+- Progressed lunation quarter phase (New / First Quarter / Full / Last Quarter)
+- Next progressed Moon **sign ingress** and **house ingress** events occurring
+  on the target timeline within the provided range
+
+**Request:**
+
+```json
+{
+  "subject": { /* SubjectModel */ },
+  "target_iso_datetime": "2026-02-12T00:00:00+00:00",
+  "range_end_iso_datetime": "2028-02-12T00:00:00+00:00",
+  "step_days": 14,
+  "active_points": ["Sun", "Moon", "Mercury", ...]
+}
+```
+
+**Notes:**
+
+- `target_iso_datetime` and `range_end_iso_datetime` must include a timezone
+  offset (UTC recommended).
+- `range_end_iso_datetime` must be later than `target_iso_datetime`.
+- `active_points` is optional; **Sun and Moon are always enforced** for this
+  endpoint.
+
+**Response:**
+
+```json
+{
+  "status": "OK",
+  "progressed_moon_cycle": {
+    "target_iso_datetime": "2026-02-12T00:00:00+00:00",
+    "progressed_iso_datetime": "1999-03-01T00:00:00+00:00",
+    "progressed_subject": {/* AstrologicalSubjectModel */},
+    "progressed_lunation": {
+      "angle_deg": 184.2,
+      "phase_name": "Full Moon"
+    },
+    "next_ingresses": {
+      "next_sign_ingress": {
+        "at_target_iso_datetime": "2026-09-10T12:00:00+00:00",
+        "at_progressed_iso_datetime": "1999-09-27T12:00:00+00:00",
+        "sign": "Ge"
+      },
+      "next_house_ingress": {
+        "at_target_iso_datetime": "2026-05-20T08:00:00+00:00",
+        "at_progressed_iso_datetime": "1999-05-07T08:00:00+00:00",
+        "house": "10"
+      }
+    }
   }
 }
 ```
