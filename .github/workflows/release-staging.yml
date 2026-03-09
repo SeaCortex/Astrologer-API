@@ -57,7 +57,6 @@ jobs:
         env:
           INFRA_REPO: ${{ vars.INFRA_REPO }}
           INFRA_REPO_DISPATCH_TOKEN: ${{ secrets.INFRA_REPO_DISPATCH_TOKEN }}
-          INFRA_DISPATCH_EVENT_TYPE: ${{ vars.INFRA_DISPATCH_EVENT_TYPE }}
         run: |
           set -euo pipefail
 
@@ -71,7 +70,7 @@ jobs:
             exit 1
           fi
 
-          event_type="${INFRA_DISPATCH_EVENT_TYPE:-app_release}"
+          event_type="app-release"
           artifact="${{ steps.meta.outputs.image_base }}@${{ steps.build.outputs.digest }}"
 
           payload="$(jq -cn \
