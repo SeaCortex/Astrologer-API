@@ -190,3 +190,27 @@ def test_lunar_phase_events_response_model_parses_payload():
     assert model.horizon_days == 30
     assert len(model.events) == 1
     assert model.events[0].event == "new_moon"
+
+
+def test_ingress_events_response_model_parses_payload():
+    payload = {
+        "status": "OK",
+        "from_iso": "2026-03-01T00:00:00+00:00",
+        "horizon_days": 30,
+        "planets": ["Sun", "Moon"],
+        "events": [
+            {
+                "event": "sign_ingress",
+                "planet": "Moon",
+                "at_utc": "2026-03-01T12:00:00+00:00",
+                "from_sign": "Can",
+                "to_sign": "Leo",
+            }
+        ],
+    }
+    model = rm.IngressEventsResponseModel.model_validate(payload)
+    assert model.status == "OK"
+    assert model.horizon_days == 30
+    assert model.planets == ["Sun", "Moon"]
+    assert len(model.events) == 1
+    assert model.events[0].event == "sign_ingress"

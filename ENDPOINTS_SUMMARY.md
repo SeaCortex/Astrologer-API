@@ -499,6 +499,35 @@ Rules:
   `is_ongoing=true`, `started_before_from=true`.
 - If `include_ongoing=false`, returns only strictly future windows (`next_start_utc > from_iso`).
 
+### POST `/api/v5/events/ingress`
+
+Next sign ingress events for selected planets (stream scan + refined crossing times).
+
+```jsonc
+{
+  "status": "OK",
+  "from_iso": "2026-01-15T12:00:00+00:00",
+  "horizon_days": 30,
+  "planets": ["Sun", "Moon", "Mercury"],
+  "events": [
+    {
+      "event": "sign_ingress",
+      "planet": "Moon",
+      "at_utc": "2026-01-16T03:21:00+00:00",
+      "from_sign": "Can",
+      "to_sign": "Leo"
+    }
+  ]
+}
+```
+
+Rules:
+
+- `from_iso` optional (defaults to current UTC).
+- `horizon_days` required with cap 730 days (2 years).
+- `planets` optional; defaults to `Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto`.
+- Planet names are case-insensitive and deduplicated.
+
 ## Progressions
 
 ### POST `/api/v5/chart-data/progressed-moon-cycle`

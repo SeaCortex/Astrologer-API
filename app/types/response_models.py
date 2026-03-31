@@ -284,6 +284,25 @@ class LunarPhaseEventsResponseModel(StatusResponseModel):
     events: list[LunarPhaseEventModel] = Field(description="Detected lunar events within the requested horizon.")
 
 
+class IngressEventModel(BaseModel):
+    """Exact sign ingress event payload."""
+
+    event: Literal["sign_ingress"] = Field(description="Detected ingress event kind.")
+    planet: str = Field(description="Canonical planet name.")
+    at_utc: str = Field(description="UTC ISO datetime when the ingress occurs.")
+    from_sign: str = Field(description="Sign occupied before ingress.")
+    to_sign: str = Field(description="Sign occupied after ingress.")
+
+
+class IngressEventsResponseModel(StatusResponseModel):
+    """Response payload for ingress events endpoint."""
+
+    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    horizon_days: int = Field(description="Lookahead horizon in days.")
+    planets: list[str] = Field(description="Planets included in the ingress scan.")
+    events: list[IngressEventModel] = Field(description="Detected ingress events within the requested horizon.")
+
+
 class SubjectContextResponseModel(SubjectResponseModel):
     """Response payload containing a single astrological subject with AI context."""
 

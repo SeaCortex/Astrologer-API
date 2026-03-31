@@ -855,6 +855,58 @@ Computes the **next retrograde window** for the requested planets using:
 
 ---
 
+### Ingress
+
+#### Next Planetary Sign Ingress Events
+
+**POST** `/api/v5/events/ingress`
+
+Computes exact **zodiac sign ingress events** for selected planets using:
+
+1. A coarse stream scan every 6 hours from `from_iso` to `horizon_days`
+2. Sign-change detection (`sign_num` crossing between scan points)
+3. Refinement of crossing brackets to about 1-minute UTC precision
+
+**Request:**
+
+```json
+{
+  "from_iso": "2026-01-15T12:00:00+00:00",
+  "horizon_days": 30,
+  "planets": ["Sun", "Moon", "Mercury"]
+}
+```
+
+**Rules:**
+
+- `from_iso` is optional (defaults to current UTC time)
+- `horizon_days` is required, with max lookahead cap of 2 years (730 days)
+- `planets` is optional. Defaults to:
+  `Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto`
+- Planet names are normalized case-insensitively and deduplicated
+
+**Response:**
+
+```json
+{
+  "status": "OK",
+  "from_iso": "2026-01-15T12:00:00+00:00",
+  "horizon_days": 30,
+  "planets": ["Sun", "Moon", "Mercury"],
+  "events": [
+    {
+      "event": "sign_ingress",
+      "planet": "Moon",
+      "at_utc": "2026-01-16T03:21:00+00:00",
+      "from_sign": "Can",
+      "to_sign": "Leo"
+    }
+  ]
+}
+```
+
+---
+
 ### Relationship Score
 
 **POST** `/api/v5/compatibility-score`

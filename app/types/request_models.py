@@ -12,6 +12,11 @@ from ..utils.retrogrades import (
     RETROGRADE_MAX_HORIZON_DAYS,
     normalize_retrograde_planets,
 )
+from ..utils.ingress import (
+    INGRESS_ALLOWED_PLANETS,
+    INGRESS_MAX_HORIZON_DAYS,
+    normalize_ingress_planets,
+)
 from ..utils.lunar_events import LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS
 from kerykeion.schemas import (
     ActiveAspect,
@@ -893,5 +898,59 @@ class LunarPhaseEventsRequestModel(BaseModel):
         if self.horizon_days > LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS:
             raise ValueError(
                 f"horizon_days cannot exceed {LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS} (2 years)."
+            )
+        return self
+
+
+class IngressEventsRequestModel(BaseModel):
+    """Request payload for planetary sign ingress event detection."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-15T12:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {INGRESS_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+    planets: list[str] = Field(
+        default_factory=lambda: list(INGRESS_ALLOWED_PLANETS),
+        description=(
+            "Planets to evaluate for sign ingress events (case-insensitive). "
+            "Defaults to Sun, Moon, and all major planets."
+        ),
+        examples=[["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]],
+    )
+
+    @field_validator("planets", mode="before")
+    @classmethod
+    def normalize_planets(cls, value) -> list[str]:
+        if value is None:
+            return list(INGRESS_ALLOWED_PLANETS)
+        if not isinstance(value, list):
+            raise ValueError("planets must be an array of strings.")
+        return normalize_ingress_planets(value)
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "IngressEventsRequestModel":
+        if self.horizon_days > INGRESS_MAX_HORIZON_DAYS:
+            raise ValueError(
+                f"horizon_days cannot exceed {INGRESS_MAX_HORIZON_DAYS} (2 years)."
             )
         return self
