@@ -466,7 +466,7 @@ Score plus supporting details, and includes the underlying synastry chart data.
 
 ## Retrogrades
 
-### POST `/api/v5/retrogrades/next`
+### POST `/api/v5/events/retrogrades`
 
 Next retrograde window per requested planet (stream scan + refined station times).
 

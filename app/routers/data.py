@@ -458,10 +458,10 @@ async def progressed_moon_cycle(request_body: ProgressedMoonCycleRequestModel, r
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/retrogrades/next", response_model=RetrogradesNextResponseModel)
+@router.post("/api/v5/events/retrogrades", response_model=RetrogradesNextResponseModel)
 async def retrogrades_next(request_body: RetrogradesNextRequestModel, request: Request) -> JSONResponse:
     """
-    **POST** `/api/v5/retrogrades/next`
+    **POST** `/api/v5/events/retrogrades`
 
     Computes next retrograde windows for selected planets using streaming scan logic.
 

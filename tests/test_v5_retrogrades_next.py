@@ -26,7 +26,7 @@ def _get_windows_starting_in_year(client: TestClient, planet: str, year: int) ->
     # Hard upper bound to avoid accidental infinite loops on endpoint regressions.
     for _ in range(8):
         response = client.post(
-            "/api/v5/retrogrades/next",
+            "/api/v5/events/retrogrades",
             json={
                 "from_iso": from_dt.isoformat(),
                 "horizon_days": 500,
@@ -62,7 +62,7 @@ def test_retrogrades_next_include_ongoing_true_returns_current_window(client: Te
         "include_ongoing": True,
     }
 
-    response = client.post("/api/v5/retrogrades/next", json=payload)
+    response = client.post("/api/v5/events/retrogrades", json=payload)
     assert response.status_code == 200
 
     body = response.json()
@@ -89,7 +89,7 @@ def test_retrogrades_next_include_ongoing_false_returns_strictly_future_window(c
         "include_ongoing": False,
     }
 
-    response = client.post("/api/v5/retrogrades/next", json=payload)
+    response = client.post("/api/v5/events/retrogrades", json=payload)
     assert response.status_code == 200
 
     body = response.json()
@@ -115,7 +115,7 @@ def test_retrogrades_next_normalizes_and_deduplicates_planets(client: TestClient
         "planets": ["mercury", "MERCURY", "venus"],
     }
 
-    response = client.post("/api/v5/retrogrades/next", json=payload)
+    response = client.post("/api/v5/events/retrogrades", json=payload)
     assert response.status_code == 200
     body = response.json()
 
@@ -127,7 +127,7 @@ def test_retrogrades_next_rejects_invalid_planets(client: TestClient):
         "horizon_days": 30,
         "planets": ["Mercury", "Sun"],
     }
-    response = client.post("/api/v5/retrogrades/next", json=payload)
+    response = client.post("/api/v5/events/retrogrades", json=payload)
     assert response.status_code == 422
 
 
@@ -136,7 +136,7 @@ def test_retrogrades_next_enforces_horizon_cap(client: TestClient):
         "horizon_days": 731,
         "planets": ["Mercury"],
     }
-    response = client.post("/api/v5/retrogrades/next", json=payload)
+    response = client.post("/api/v5/events/retrogrades", json=payload)
     assert response.status_code == 422
 
 

@@ -794,7 +794,7 @@ node** returns to its natal ecliptic longitude).
 
 #### Next Retrogrades (Per Planet)
 
-**POST** `/api/v5/retrogrades/next`
+**POST** `/api/v5/events/retrogrades`
 
 Computes the **next retrograde window** for the requested planets using:
 
