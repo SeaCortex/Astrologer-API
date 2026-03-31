@@ -226,6 +226,45 @@ class CompatibilityScoreResponseModel(StatusResponseModel):
     chart_data: DualChartDataModel = Field(description="Underlying chart data used to compute the score.")
 
 
+class RetrogradeWindowModel(BaseModel):
+    """Next retrograde window payload for a planet."""
+
+    planet: str = Field(description="Canonical planet name.")
+    next_start_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime for the next retrograde start, if known in range.",
+    )
+    next_end_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime for the corresponding retrograde end, if known in range.",
+    )
+    start_speed: Optional[float] = Field(
+        default=None,
+        description="Planet speed at start boundary (negative near retrograde ingress).",
+    )
+    end_speed: Optional[float] = Field(
+        default=None,
+        description="Planet speed at end boundary (positive near direct station).",
+    )
+    is_ongoing: bool = Field(
+        default=False,
+        description="True when the returned window is already ongoing at from_iso.",
+    )
+    started_before_from: bool = Field(
+        default=False,
+        description="True when retrograde already started before from_iso.",
+    )
+
+
+class RetrogradesNextResponseModel(StatusResponseModel):
+    """Response payload for next retrogrades endpoint."""
+
+    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    horizon_days: int = Field(description="Lookahead horizon in days.")
+    include_ongoing: bool = Field(description="Whether ongoing retrogrades were included.")
+    retrogrades: list[RetrogradeWindowModel] = Field(description="One next retrograde window per requested planet.")
+
+
 class SubjectContextResponseModel(SubjectResponseModel):
     """Response payload containing a single astrological subject with AI context."""
 

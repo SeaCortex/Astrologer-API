@@ -8,6 +8,10 @@ from typing import Literal, Mapping, Optional, Union, get_args
 from pydantic import BaseModel, Field, field_validator, model_validator
 from pytz import all_timezones
 
+from ..utils.retrogrades import (
+    RETROGRADE_MAX_HORIZON_DAYS,
+    normalize_retrograde_planets,
+)
 from kerykeion.schemas import (
     ActiveAspect,
     AxialCusps,
@@ -798,4 +802,58 @@ class ProgressedMoonCycleRequestModel(BaseModel):
         if range_end_dt <= target_dt:
             raise ValueError("range_end_iso_datetime must be later than target_iso_datetime.")
 
+        return self
+
+
+class RetrogradesNextRequestModel(BaseModel):
+    """Request payload for next retrograde windows per selected planets."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-15T12:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {RETROGRADE_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+    planets: list[str] = Field(
+        description="Planets to evaluate (case-insensitive). Duplicates are removed.",
+        min_length=1,
+        examples=[["Mercury", "Venus", "mars"]],
+    )
+    include_ongoing: bool = Field(
+        default=True,
+        description=(
+            "If true and a planet is already retrograde at from_iso, returns that ongoing window "
+            "with is_ongoing=true and started_before_from=true."
+        ),
+    )
+
+    @field_validator("planets", mode="before")
+    @classmethod
+    def normalize_planets(cls, value) -> list[str]:
+        if not isinstance(value, list):
+            raise ValueError("planets must be an array of strings.")
+        return normalize_retrograde_planets(value)
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "RetrogradesNextRequestModel":
+        if self.horizon_days > RETROGRADE_MAX_HORIZON_DAYS:
+            raise ValueError(f"horizon_days cannot exceed {RETROGRADE_MAX_HORIZON_DAYS} (2 years).")
         return self

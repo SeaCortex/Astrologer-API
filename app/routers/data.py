@@ -14,6 +14,7 @@ from ..types.request_models import (
     BirthChartDataRequestModel,
     NowSubjectRequestModel,
     ProgressedMoonCycleRequestModel,
+    RetrogradesNextRequestModel,
     SynastryChartDataRequestModel,
     CompositeChartDataRequestModel,
     TransitChartDataRequestModel,
@@ -23,6 +24,7 @@ from ..types.response_models import (
     ChartDataResponseModel,
     DerivedNatalProfileResponseModel,
     ProgressedMoonCycleResponseModel,
+    RetrogradesNextResponseModel,
     ReturnDataResponseModel,
     SubjectResponseModel,
     CompatibilityScoreResponseModel,
@@ -30,6 +32,7 @@ from ..types.response_models import (
 from ..utils.get_time_from_google import get_time_from_google
 from ..utils.derived_profile import build_derived_natal_profile, ensure_required_derived_points
 from ..utils.progressions import compute_progressed_moon_cycle, ensure_progressed_points
+from ..utils.retrogrades import compute_next_retrogrades, parse_iso_utc
 from ..utils.router_utils import (
     build_subject,
     calculate_return_chart_data,
@@ -448,5 +451,63 @@ async def progressed_moon_cycle(request_body: ProgressedMoonCycleRequestModel, r
             active_points=active_points_for_progressions,
         )
         return JSONResponse(content={"status": "OK", "progressed_moon_cycle": dump(progression_data)}, status_code=200)
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/retrogrades/next", response_model=RetrogradesNextResponseModel)
+async def retrogrades_next(request_body: RetrogradesNextRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/retrogrades/next`
+
+    Computes next retrograde windows for selected planets using streaming scan logic.
+
+    **Semantics (`include_ongoing`):**
+    - If `include_ongoing=true` and a planet is already retrograde at `from_iso`,
+      the current window is returned with:
+      - `is_ongoing=true`
+      - `started_before_from=true`
+    - If `include_ongoing=false`, only strictly future windows are returned
+      (`next_start_utc > from_iso`).
+
+    **Parameters:**
+    - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
+    - `horizon_days` (required): Lookahead horizon in days (max 2 years).
+    - `planets` (required): Planet list from allowlist (case-insensitive, deduplicated).
+    - `include_ongoing` (optional, default true): Include windows already in progress.
+
+    **Returns:**
+    - `status`: "OK"
+    - `from_iso`: Effective UTC start used by the scanner.
+    - `horizon_days`: Requested lookahead days.
+    - `include_ongoing`: Echo of request flag.
+    - `retrogrades`: One next retrograde window per requested planet.
+    """
+    log_request_with_body(logger, request, "Retrogrades next request", request_body.model_dump_json())
+
+    try:
+        from_utc = (
+            datetime.now(timezone.utc)
+            if request_body.from_iso is None
+            else parse_iso_utc(request_body.from_iso)
+        )
+
+        retrogrades = compute_next_retrogrades(
+            from_utc=from_utc,
+            horizon_days=request_body.horizon_days,
+            planets=request_body.planets,
+            include_ongoing=request_body.include_ongoing,
+        )
+
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "from_iso": from_utc.isoformat(),
+                "horizon_days": request_body.horizon_days,
+                "include_ongoing": request_body.include_ongoing,
+                "retrogrades": retrogrades,
+            },
+            status_code=200,
+        )
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)

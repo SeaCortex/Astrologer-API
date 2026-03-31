@@ -790,6 +790,71 @@ node** returns to its natal ecliptic longitude).
 
 ---
 
+### Retrogrades
+
+#### Next Retrogrades (Per Planet)
+
+**POST** `/api/v5/retrogrades/next`
+
+Computes the **next retrograde window** for the requested planets using:
+
+1. A coarse stream scan every 6 hours from `from_iso` to `horizon_days`
+2. Motion by speed sign (`retrograde = speed < 0`)
+3. Flip detection (`direct -> retro` start bracket, `retro -> direct` end bracket)
+4. Refinement of flip brackets to about 1-minute UTC precision
+
+**Request:**
+
+```json
+{
+  "from_iso": "2026-01-15T12:00:00+00:00",
+  "horizon_days": 180,
+  "planets": ["Mercury", "venus", "MARS"],
+  "include_ongoing": true
+}
+```
+
+**Rules:**
+
+- `from_iso` is optional (defaults to current UTC time)
+- `horizon_days` is required, with max lookahead cap of 2 years (730 days)
+- `planets` is required and validated against:
+  `Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto`
+- Planet names are normalized case-insensitively and deduplicated
+
+**`/next` semantics with `include_ongoing`:**
+
+- If `include_ongoing=true` and a planet is already retrograde at `from_iso`,
+  return that current window and mark:
+  - `is_ongoing: true`
+  - `started_before_from: true`
+- If `include_ongoing=false`, return only strictly future windows
+  (`next_start_utc > from_iso`)
+
+**Response:**
+
+```json
+{
+  "status": "OK",
+  "from_iso": "2026-01-15T12:00:00+00:00",
+  "horizon_days": 180,
+  "include_ongoing": true,
+  "retrogrades": [
+    {
+      "planet": "Mercury",
+      "next_start_utc": "2026-04-21T03:59:32.812500+00:00",
+      "next_end_utc": "2026-05-15T12:11:15.937500+00:00",
+      "start_speed": -2.84e-05,
+      "end_speed": 1.91e-05,
+      "is_ongoing": false,
+      "started_before_from": false
+    }
+  ]
+}
+```
+
+---
+
 ### Relationship Score
 
 **POST** `/api/v5/compatibility-score`
