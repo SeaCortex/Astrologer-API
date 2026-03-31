@@ -12,6 +12,7 @@ from ..utils.retrogrades import (
     RETROGRADE_MAX_HORIZON_DAYS,
     normalize_retrograde_planets,
 )
+from ..utils.lunar_events import LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS
 from kerykeion.schemas import (
     ActiveAspect,
     AxialCusps,
@@ -856,4 +857,41 @@ class RetrogradesNextRequestModel(BaseModel):
     def validate_horizon_cap(self) -> "RetrogradesNextRequestModel":
         if self.horizon_days > RETROGRADE_MAX_HORIZON_DAYS:
             raise ValueError(f"horizon_days cannot exceed {RETROGRADE_MAX_HORIZON_DAYS} (2 years).")
+        return self
+
+
+class LunarPhaseEventsRequestModel(BaseModel):
+    """Request payload for lunar phase event detection."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-15T12:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "LunarPhaseEventsRequestModel":
+        if self.horizon_days > LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS:
+            raise ValueError(
+                f"horizon_days cannot exceed {LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS} (2 years)."
+            )
         return self

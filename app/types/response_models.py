@@ -265,6 +265,25 @@ class RetrogradesNextResponseModel(StatusResponseModel):
     retrogrades: list[RetrogradeWindowModel] = Field(description="One next retrograde window per requested planet.")
 
 
+class LunarPhaseEventModel(BaseModel):
+    """Exact lunar phase event payload."""
+
+    event: Literal["new_moon", "first_quarter", "full_moon", "last_quarter"] = Field(
+        description="Detected lunar event kind."
+    )
+    at_utc: str = Field(description="UTC ISO datetime when the event occurs.")
+    target_angle_deg: float = Field(description="Exact target angle used for detection (0/90/180/270).")
+    angle_deg: float = Field(description="Computed Sun-Moon angle in degrees at the refined event timestamp.")
+
+
+class LunarPhaseEventsResponseModel(StatusResponseModel):
+    """Response payload for lunar phase events endpoint."""
+
+    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    horizon_days: int = Field(description="Lookahead horizon in days.")
+    events: list[LunarPhaseEventModel] = Field(description="Detected lunar events within the requested horizon.")
+
+
 class SubjectContextResponseModel(SubjectResponseModel):
     """Response payload containing a single astrological subject with AI context."""
 

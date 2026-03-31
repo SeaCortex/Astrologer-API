@@ -169,3 +169,24 @@ def test_compatibility_score_response_model_parses_dual_chart(dual_chart_dump: d
     assert model.score is not None
     assert model.score_description
     assert isinstance(model.score_breakdown, list)
+
+
+def test_lunar_phase_events_response_model_parses_payload():
+    payload = {
+        "status": "OK",
+        "from_iso": "2026-03-01T00:00:00+00:00",
+        "horizon_days": 30,
+        "events": [
+            {
+                "event": "new_moon",
+                "at_utc": "2026-03-19T03:24:00+00:00",
+                "target_angle_deg": 0.0,
+                "angle_deg": 0.001,
+            }
+        ],
+    }
+    model = rm.LunarPhaseEventsResponseModel.model_validate(payload)
+    assert model.status == "OK"
+    assert model.horizon_days == 30
+    assert len(model.events) == 1
+    assert model.events[0].event == "new_moon"

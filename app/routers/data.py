@@ -12,6 +12,7 @@ from fastapi.responses import JSONResponse
 from ..types.request_models import (
     BirthDataRequestModel,
     BirthChartDataRequestModel,
+    LunarPhaseEventsRequestModel,
     NowSubjectRequestModel,
     ProgressedMoonCycleRequestModel,
     RetrogradesNextRequestModel,
@@ -23,6 +24,7 @@ from ..types.request_models import (
 from ..types.response_models import (
     ChartDataResponseModel,
     DerivedNatalProfileResponseModel,
+    LunarPhaseEventsResponseModel,
     ProgressedMoonCycleResponseModel,
     RetrogradesNextResponseModel,
     ReturnDataResponseModel,
@@ -32,6 +34,7 @@ from ..types.response_models import (
 from ..utils.get_time_from_google import get_time_from_google
 from ..utils.derived_profile import build_derived_natal_profile, ensure_required_derived_points
 from ..utils.progressions import compute_progressed_moon_cycle, ensure_progressed_points
+from ..utils.lunar_events import compute_lunar_phase_events
 from ..utils.retrogrades import compute_next_retrogrades, parse_iso_utc
 from ..utils.router_utils import (
     build_subject,
@@ -506,6 +509,48 @@ async def retrogrades_next(request_body: RetrogradesNextRequestModel, request: R
                 "horizon_days": request_body.horizon_days,
                 "include_ongoing": request_body.include_ongoing,
                 "retrogrades": retrogrades,
+            },
+            status_code=200,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/events/lunar-phases", response_model=LunarPhaseEventsResponseModel)
+async def lunar_phase_events(request_body: LunarPhaseEventsRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/events/lunar-phases`
+
+    Detects exact lunar phase events in a lookahead window using scan + refine logic.
+
+    **Parameters:**
+    - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
+    - `horizon_days` (required): Lookahead horizon in days (max 2 years).
+
+    **Returns:**
+    - `status`: "OK"
+    - `from_iso`: Effective UTC start used by the scanner.
+    - `horizon_days`: Requested lookahead days.
+    - `events`: Exact New Moon / First Quarter / Full Moon / Last Quarter timestamps.
+    """
+    log_request_with_body(logger, request, "Lunar phase events request", request_body.model_dump_json())
+
+    try:
+        from_utc = (
+            datetime.now(timezone.utc)
+            if request_body.from_iso is None
+            else parse_iso_utc(request_body.from_iso)
+        )
+        events = compute_lunar_phase_events(
+            from_utc=from_utc,
+            horizon_days=request_body.horizon_days,
+        )
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "from_iso": from_utc.isoformat(),
+                "horizon_days": request_body.horizon_days,
+                "events": events,
             },
             status_code=200,
         )
