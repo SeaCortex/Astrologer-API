@@ -274,6 +274,46 @@ class LunarPhaseEventModel(BaseModel):
     at_utc: str = Field(description="UTC ISO datetime when the event occurs.")
     target_angle_deg: float = Field(description="Exact target angle used for detection (0/90/180/270).")
     angle_deg: float = Field(description="Computed Sun-Moon angle in degrees at the refined event timestamp.")
+    moon_distance_au: Optional[float] = Field(
+        default=None,
+        description="Moon-Earth distance in astronomical units at event time.",
+    )
+    moon_distance_km: Optional[float] = Field(
+        default=None,
+        description="Moon-Earth distance in kilometers at event time.",
+    )
+    nearest_perigee_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime of the nearest perigee to the event time.",
+    )
+    nearest_perigee_km: Optional[float] = Field(
+        default=None,
+        description="Moon-Earth distance in kilometers at the nearest perigee.",
+    )
+    nearest_apogee_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime of the nearest apogee to the event time.",
+    )
+    nearest_apogee_km: Optional[float] = Field(
+        default=None,
+        description="Moon-Earth distance in kilometers at the nearest apogee.",
+    )
+    delta_to_perigee_hours: Optional[float] = Field(
+        default=None,
+        description="Absolute hours between event timestamp and nearest perigee.",
+    )
+    anomalistic_closeness_pct: Optional[float] = Field(
+        default=None,
+        description="Distance closeness to perigee within anomalistic cycle (0-100).",
+    )
+    is_super_luna_candidate: Optional[bool] = Field(
+        default=None,
+        description="True only for New Moon and Full Moon events.",
+    )
+    is_super_luna: Optional[bool] = Field(
+        default=None,
+        description="Super Luna classification result for candidate events.",
+    )
 
 
 class LunarPhaseEventsResponseModel(StatusResponseModel):
@@ -281,6 +321,22 @@ class LunarPhaseEventsResponseModel(StatusResponseModel):
 
     from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
     horizon_days: int = Field(description="Lookahead horizon in days.")
+    distance_frame: Optional[Literal["geocentric"]] = Field(
+        default=None,
+        description="Distance reference frame when distance metrics are requested.",
+    )
+    distance_units: Optional[list[Literal["au", "km"]]] = Field(
+        default=None,
+        description="Distance units included in event payload when distance metrics are requested.",
+    )
+    super_luna_definition_applied: Optional[Literal["nolle_90pct_cycle", "distance_threshold_km"]] = Field(
+        default=None,
+        description="Super Luna definition applied for classification.",
+    )
+    super_luna_distance_km_threshold_applied: Optional[float] = Field(
+        default=None,
+        description="Distance threshold applied when using the fixed-km Super Luna definition.",
+    )
     events: list[LunarPhaseEventModel] = Field(description="Detected lunar events within the requested horizon.")
 
 

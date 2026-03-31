@@ -879,6 +879,23 @@ class LunarPhaseEventsRequestModel(BaseModel):
         description=f"Lookahead horizon in days (max {LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS}).",
         ge=1,
     )
+    include_distance_metrics: bool = Field(
+        default=False,
+        description="Include Moon-Earth distance and nearest perigee/apogee metrics for each event.",
+    )
+    include_super_luna: bool = Field(
+        default=False,
+        description="Classify New/Full Moon events as Super Luna using the selected definition.",
+    )
+    super_luna_definition: Literal["nolle_90pct_cycle", "distance_threshold_km"] = Field(
+        default="nolle_90pct_cycle",
+        description="Definition used to classify Super Luna when include_super_luna is true.",
+    )
+    super_luna_distance_km_threshold: float = Field(
+        default=360000.0,
+        gt=0,
+        description="Distance threshold in km used when super_luna_definition='distance_threshold_km'.",
+    )
 
     @field_validator("from_iso")
     @classmethod
@@ -897,7 +914,7 @@ class LunarPhaseEventsRequestModel(BaseModel):
     def validate_horizon_cap(self) -> "LunarPhaseEventsRequestModel":
         if self.horizon_days > LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS:
             raise ValueError(
-                f"horizon_days cannot exceed {LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS} (2 years)."
+                f"horizon_days cannot exceed {LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS} (5 years)."
             )
         return self
 

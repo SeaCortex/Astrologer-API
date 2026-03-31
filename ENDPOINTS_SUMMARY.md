@@ -499,6 +499,53 @@ Rules:
   `is_ongoing=true`, `started_before_from=true`.
 - If `include_ongoing=false`, returns only strictly future windows (`next_start_utc > from_iso`).
 
+## Lunar Phases
+
+### POST `/api/v5/events/lunar-phases`
+
+Exact lunar quarter events (`new_moon`, `first_quarter`, `full_moon`, `last_quarter`) with optional
+distance/perigee/apogee and Super Luna metadata.
+
+```jsonc
+{
+  "status": "OK",
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 40,
+  "distance_frame": "geocentric", // optional, present when distance/super-luna is requested
+  "distance_units": ["au", "km"], // optional, present when distance/super-luna is requested
+  "super_luna_definition_applied": "nolle_90pct_cycle", // optional, present when include_super_luna=true
+  "events": [
+    {
+      "event": "full_moon",
+      "at_utc": "2026-03-03T11:38:12.187500+00:00",
+      "target_angle_deg": 180.0,
+      "angle_deg": 180.00008579886356,
+      "moon_distance_au": 0.0025576090156967404, // optional
+      "moon_distance_km": 382612.52448331926, // optional
+      "nearest_perigee_utc": "2026-02-24T23:16:18.551524+00:00", // optional
+      "nearest_perigee_km": 370171.0227315845, // optional
+      "nearest_apogee_utc": "2026-03-10T13:42:23.411592+00:00", // optional
+      "nearest_apogee_km": 404344.5512508751, // optional
+      "delta_to_perigee_hours": 204.36517665999998, // optional
+      "anomalistic_closeness_pct": 63.593160288637876, // optional
+      "is_super_luna_candidate": true, // optional
+      "is_super_luna": false // optional
+    }
+  ]
+}
+```
+
+Rules:
+
+- `from_iso` optional (defaults to current UTC).
+- `horizon_days` required with cap 1826 days (5 years).
+- `include_distance_metrics` optional (default `false`).
+- `include_super_luna` optional (default `false`).
+- `super_luna_definition` optional: `nolle_90pct_cycle` (default) or `distance_threshold_km`.
+- `super_luna_distance_km_threshold` used only with `distance_threshold_km`.
+
+## Ingress
+
 ### POST `/api/v5/events/ingress`
 
 Next sign ingress events for selected planets (stream scan + refined crossing times).

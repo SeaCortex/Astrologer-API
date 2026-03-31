@@ -67,9 +67,49 @@ REFERENCE_2026_PHASES_UTC: list[tuple[str, str]] = [
     ("last_quarter", "2026-12-30T18:59:00+00:00"),
 ]
 
+REFERENCE_2026_PERIGEE_APOGEE_SOURCE_URL = "https://www.astropixels.com/almanac/almanac21/almanac2026gmt.html"
+# Extracted from the same source above (accessed 2026-03-31), section:
+# "2026 Astronomical Events (UT/GMT)" lines:
+# - "Feb 24 23:18 Moon at Perigee: 370132 km"
+# - "Mar 10 13:43 Moon at Apogee: 404385 km"
+# - "Mar 22 11:40 Moon at Perigee: 366858 km"
+REFERENCE_2026_EVENT_EXTREMA = [
+    {
+        "event": "full_moon",
+        "at_utc": "2026-03-03T11:38:00+00:00",
+        "nearest_perigee_utc": "2026-02-24T23:18:00+00:00",
+        "nearest_perigee_km": 370132.0,
+        "nearest_apogee_utc": "2026-03-10T13:43:00+00:00",
+        "nearest_apogee_km": 404385.0,
+    },
+    {
+        "event": "new_moon",
+        "at_utc": "2026-03-19T01:23:00+00:00",
+        "nearest_perigee_utc": "2026-03-22T11:40:00+00:00",
+        "nearest_perigee_km": 366858.0,
+        "nearest_apogee_utc": "2026-03-10T13:43:00+00:00",
+        "nearest_apogee_km": 404385.0,
+    },
+]
+
+REFERENCE_EXTREMA_TIME_TOLERANCE_SECONDS = 15 * 60
+REFERENCE_EXTREMA_DISTANCE_TOLERANCE_KM = 150.0
+
 
 def _angular_distance(a: float, b: float) -> float:
     return abs(((a - b + 180.0) % 360.0) - 180.0)
+
+
+def _find_event(events: list[dict], event_name: str, at_utc_iso: str) -> dict:
+    target_dt = datetime.fromisoformat(at_utc_iso).astimezone(timezone.utc)
+    candidates = [
+        item
+        for item in events
+        if item["event"] == event_name
+        and abs((datetime.fromisoformat(item["at_utc"]).astimezone(timezone.utc) - target_dt).total_seconds()) <= 600
+    ]
+    assert candidates, f"Could not find event '{event_name}' near {at_utc_iso}"
+    return candidates[0]
 
 
 def test_lunar_phase_events_returns_sorted_events_with_refined_angles(client: TestClient):
@@ -136,10 +176,53 @@ def test_lunar_phase_events_rejects_from_iso_without_timezone(client: TestClient
 
 def test_lunar_phase_events_enforces_horizon_cap(client: TestClient):
     payload = {
-        "horizon_days": 731,
+        "horizon_days": 1827,
     }
     response = client.post("/api/v5/events/lunar-phases", json=payload)
     assert response.status_code == 422
+
+
+def test_lunar_phase_events_can_include_distance_metrics(client: TestClient):
+    payload = {
+        "from_iso": "2026-03-01T00:00:00+00:00",
+        "horizon_days": 40,
+        "include_distance_metrics": True,
+    }
+
+    response = client.post("/api/v5/events/lunar-phases", json=payload)
+    assert response.status_code == 200
+
+    body = response.json()
+    assert body["distance_frame"] == "geocentric"
+    assert body["distance_units"] == ["au", "km"]
+    assert body["events"], "Expected at least one lunar phase event."
+
+    first = body["events"][0]
+    assert "moon_distance_au" in first
+    assert "moon_distance_km" in first
+    assert first["moon_distance_au"] > 0
+    assert first["moon_distance_km"] > 0
+
+
+def test_lunar_phase_events_super_luna_threshold_definition(client: TestClient):
+    payload = {
+        "from_iso": "2026-03-01T00:00:00+00:00",
+        "horizon_days": 40,
+        "include_super_luna": True,
+        "super_luna_definition": "distance_threshold_km",
+        "super_luna_distance_km_threshold": 500000,
+    }
+
+    response = client.post("/api/v5/events/lunar-phases", json=payload)
+    assert response.status_code == 200
+
+    body = response.json()
+    assert body["super_luna_definition_applied"] == "distance_threshold_km"
+    assert body["super_luna_distance_km_threshold_applied"] == 500000
+
+    candidates = [item for item in body["events"] if item["is_super_luna_candidate"]]
+    assert candidates, "Expected at least one New/Full Moon candidate in the window."
+    assert all(item["is_super_luna"] for item in candidates)
 
 
 def test_lunar_phase_events_2026_match_reference_utc_times(client: TestClient):
@@ -168,3 +251,43 @@ def test_lunar_phase_events_2026_match_reference_utc_times(client: TestClient):
         expected_dt = datetime.fromisoformat(expected_iso).astimezone(timezone.utc)
         # Source table provides minute precision. Keep a conservative tolerance.
         assert abs((computed_dt - expected_dt).total_seconds()) <= 300
+
+
+def test_lunar_phase_events_2026_distance_extrema_match_reference(client: TestClient):
+    """
+    Compares nearest perigee/apogee metrics against the online UTC reference table:
+    https://www.astropixels.com/almanac/almanac21/almanac2026gmt.html
+    """
+    assert REFERENCE_2026_PERIGEE_APOGEE_SOURCE_URL.startswith("https://")
+
+    response = client.post(
+        "/api/v5/events/lunar-phases",
+        json={
+            "from_iso": "2026-03-01T00:00:00+00:00",
+            "horizon_days": 40,
+            "include_distance_metrics": True,
+        },
+    )
+    assert response.status_code == 200
+
+    events = response.json()["events"]
+    assert events
+
+    for reference in REFERENCE_2026_EVENT_EXTREMA:
+        computed = _find_event(events, reference["event"], reference["at_utc"])
+
+        computed_perigee_dt = datetime.fromisoformat(computed["nearest_perigee_utc"]).astimezone(timezone.utc)
+        expected_perigee_dt = datetime.fromisoformat(reference["nearest_perigee_utc"]).astimezone(timezone.utc)
+        assert (
+            abs((computed_perigee_dt - expected_perigee_dt).total_seconds())
+            <= REFERENCE_EXTREMA_TIME_TOLERANCE_SECONDS
+        )
+        assert abs(computed["nearest_perigee_km"] - reference["nearest_perigee_km"]) <= REFERENCE_EXTREMA_DISTANCE_TOLERANCE_KM
+
+        computed_apogee_dt = datetime.fromisoformat(computed["nearest_apogee_utc"]).astimezone(timezone.utc)
+        expected_apogee_dt = datetime.fromisoformat(reference["nearest_apogee_utc"]).astimezone(timezone.utc)
+        assert (
+            abs((computed_apogee_dt - expected_apogee_dt).total_seconds())
+            <= REFERENCE_EXTREMA_TIME_TOLERANCE_SECONDS
+        )
+        assert abs(computed["nearest_apogee_km"] - reference["nearest_apogee_km"]) <= REFERENCE_EXTREMA_DISTANCE_TOLERANCE_KM

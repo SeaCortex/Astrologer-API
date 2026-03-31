@@ -528,7 +528,11 @@ async def lunar_phase_events(request_body: LunarPhaseEventsRequestModel, request
 
     **Parameters:**
     - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
-    - `horizon_days` (required): Lookahead horizon in days (max 2 years).
+    - `horizon_days` (required): Lookahead horizon in days (max 5 years).
+    - `include_distance_metrics` (optional): Include Moon-Earth distance/perigee/apogee metrics.
+    - `include_super_luna` (optional): Include Super Luna classification for New/Full Moon.
+    - `super_luna_definition` (optional): `nolle_90pct_cycle` or `distance_threshold_km`.
+    - `super_luna_distance_km_threshold` (optional): Threshold used for `distance_threshold_km`.
 
     **Returns:**
     - `status`: "OK"
@@ -544,19 +548,32 @@ async def lunar_phase_events(request_body: LunarPhaseEventsRequestModel, request
             if request_body.from_iso is None
             else parse_iso_utc(request_body.from_iso)
         )
-        events = compute_lunar_phase_events(
+        computed = compute_lunar_phase_events(
             from_utc=from_utc,
             horizon_days=request_body.horizon_days,
+            include_distance_metrics=request_body.include_distance_metrics,
+            include_super_luna=request_body.include_super_luna,
+            super_luna_definition=request_body.super_luna_definition,
+            super_luna_distance_km_threshold=request_body.super_luna_distance_km_threshold,
         )
-        return JSONResponse(
-            content={
-                "status": "OK",
-                "from_iso": from_utc.isoformat(),
-                "horizon_days": request_body.horizon_days,
-                "events": events,
-            },
-            status_code=200,
-        )
+        response_payload = {
+            "status": "OK",
+            "from_iso": from_utc.isoformat(),
+            "horizon_days": request_body.horizon_days,
+            "events": computed["events"],
+        }
+        if "distance_frame" in computed:
+            response_payload["distance_frame"] = computed["distance_frame"]
+        if "distance_units" in computed:
+            response_payload["distance_units"] = computed["distance_units"]
+        if "super_luna_definition_applied" in computed:
+            response_payload["super_luna_definition_applied"] = computed["super_luna_definition_applied"]
+        if "super_luna_distance_km_threshold_applied" in computed:
+            response_payload["super_luna_distance_km_threshold_applied"] = computed[
+                "super_luna_distance_km_threshold_applied"
+            ]
+
+        return JSONResponse(content=response_payload, status_code=200)
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)
 

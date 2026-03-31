@@ -790,6 +790,127 @@ node** returns to its natal ecliptic longitude).
 
 ---
 
+### Lunar Phases
+
+#### Lunar Phase Events (with optional Super Luna metrics)
+
+**POST** `/api/v5/events/lunar-phases`
+
+Computes exact **lunar quarter events** (`new_moon`, `first_quarter`, `full_moon`,
+`last_quarter`) using:
+
+1. A coarse Sun-Moon angle scan every 6 hours from `from_iso` to `horizon_days`
+2. Crossing detection against target angles (0°/90°/180°/270°)
+3. Refinement of crossing brackets to about 1-minute UTC precision
+
+Optionally, the endpoint can enrich each event with:
+
+- Moon-Earth distance at event time
+- nearest perigee/apogee time and distance
+- Super Luna classification for New/Full Moon
+
+**Request (basic):**
+
+```json
+{
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 40
+}
+```
+
+**Request (with distance + Super Luna):**
+
+```json
+{
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 365,
+  "include_distance_metrics": true,
+  "include_super_luna": true,
+  "super_luna_definition": "nolle_90pct_cycle"
+}
+```
+
+**Request (fixed threshold Super Luna):**
+
+```json
+{
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 365,
+  "include_super_luna": true,
+  "super_luna_definition": "distance_threshold_km",
+  "super_luna_distance_km_threshold": 360000
+}
+```
+
+**Rules:**
+
+- `from_iso` is optional (defaults to current UTC time)
+- `horizon_days` is required, with max lookahead cap of 5 years (1826 days)
+- `include_distance_metrics` is optional (default `false`)
+- `include_super_luna` is optional (default `false`)
+- `super_luna_definition` is optional:
+  - `nolle_90pct_cycle` (default)
+  - `distance_threshold_km`
+- `super_luna_distance_km_threshold` is used only with `distance_threshold_km`
+
+**Response (basic mode):**
+
+```json
+{
+  "status": "OK",
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 40,
+  "events": [
+    {
+      "event": "full_moon",
+      "at_utc": "2026-03-03T11:38:12.187500+00:00",
+      "target_angle_deg": 180.0,
+      "angle_deg": 180.00008579886356
+    }
+  ]
+}
+```
+
+**Response (distance + Super Luna enabled):**
+
+```json
+{
+  "status": "OK",
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 40,
+  "distance_frame": "geocentric",
+  "distance_units": ["au", "km"],
+  "super_luna_definition_applied": "nolle_90pct_cycle",
+  "events": [
+    {
+      "event": "full_moon",
+      "at_utc": "2026-03-03T11:38:12.187500+00:00",
+      "target_angle_deg": 180.0,
+      "angle_deg": 180.00008579886356,
+      "moon_distance_au": 0.0025576090156967404,
+      "moon_distance_km": 382612.52448331926,
+      "nearest_perigee_utc": "2026-02-24T23:16:18.551524+00:00",
+      "nearest_perigee_km": 370171.0227315845,
+      "nearest_apogee_utc": "2026-03-10T13:42:23.411592+00:00",
+      "nearest_apogee_km": 404344.5512508751,
+      "delta_to_perigee_hours": 204.36517665999998,
+      "anomalistic_closeness_pct": 63.593160288637876,
+      "is_super_luna_candidate": true,
+      "is_super_luna": false
+    }
+  ]
+}
+```
+
+**Notes for backend integration:**
+
+- In basic mode (default), only the original fields are returned.
+- Distance/Super Luna fields are added per event only when requested.
+- `is_super_luna_candidate` / `is_super_luna` apply to `new_moon` and `full_moon`
+  events; quarter events are non-candidates.
+
+---
+
 ### Retrogrades
 
 #### Next Retrogrades (Per Planet)
