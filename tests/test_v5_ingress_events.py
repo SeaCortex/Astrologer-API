@@ -29,6 +29,15 @@ REFERENCE_2026_MAJOR_INGRESSES_UTC: dict[str, str] = {
     "Jupiter": "2026-06-30T05:52:00+00:00",  # Jun 30 1:52 AM ET (EDT)
 }
 
+REFERENCE_2026_LILITH_SOURCE_URL = (
+    "https://horoscopes.astro-seek.com/calculate-astrology-calendar/"
+    "?narozeni_rok=2026&aktivni_tab=4&kalendar_planeta_1_ingres=lilith"
+)
+# UTC timestamp extracted from source ICS block on 2026-04-01:
+# SUMMARY:Lilith enters Capricorn
+# DTSTART:20260914T170500Z
+REFERENCE_2026_MEAN_LILITH_INGRESS_UTC = "2026-09-14T17:05:00+00:00"
+
 
 def test_ingress_events_returns_sorted_events_with_expected_shape(client: TestClient):
     payload = {
@@ -201,3 +210,53 @@ def test_ingress_events_2026_major_planet_ingresses_match_reference(client: Test
         # Cross-source ingress references can differ by several minutes depending
         # on calculation method and rounding policy.
         assert abs((computed_dt - expected_dt).total_seconds()) <= 900
+
+
+def test_ingress_events_2026_mean_lilith_matches_reference_utc_time(client: TestClient):
+    """
+    Compares computed 2026 Mean Lilith ingress with online UTC reference:
+    https://horoscopes.astro-seek.com/calculate-astrology-calendar/
+    """
+    assert REFERENCE_2026_LILITH_SOURCE_URL.startswith("https://")
+
+    response = client.post(
+        "/api/v5/events/ingress",
+        json={
+            "from_iso": "2026-01-01T00:00:00+00:00",
+            "horizon_days": 365,
+            "planets": ["Mean_Lilith"],
+        },
+    )
+    assert response.status_code == 200
+
+    events = response.json()["events"]
+    assert len(events) == 1
+
+    computed = events[0]
+    assert computed["event"] == "sign_ingress"
+    assert computed["planet"] == "Mean_Lilith"
+    assert computed["from_sign"] == "Sag"
+    assert computed["to_sign"] == "Cap"
+
+    computed_dt = datetime.fromisoformat(computed["at_utc"]).astimezone(timezone.utc)
+    expected_dt = datetime.fromisoformat(REFERENCE_2026_MEAN_LILITH_INGRESS_UTC).astimezone(timezone.utc)
+    assert abs((computed_dt - expected_dt).total_seconds()) <= 300
+
+
+def test_ingress_events_mean_lilith_detects_reference_event_in_short_window(client: TestClient):
+    response = client.post(
+        "/api/v5/events/ingress",
+        json={
+            "from_iso": "2026-09-01T00:00:00+00:00",
+            "horizon_days": 30,
+            "planets": ["Mean_Lilith"],
+        },
+    )
+    assert response.status_code == 200
+
+    events = response.json()["events"]
+    assert len(events) == 1
+
+    computed_dt = datetime.fromisoformat(events[0]["at_utc"]).astimezone(timezone.utc)
+    expected_dt = datetime.fromisoformat(REFERENCE_2026_MEAN_LILITH_INGRESS_UTC).astimezone(timezone.utc)
+    assert abs((computed_dt - expected_dt).total_seconds()) <= 300
