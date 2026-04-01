@@ -17,6 +17,13 @@ from ..utils.ingress import (
     INGRESS_MAX_HORIZON_DAYS,
     normalize_ingress_planets,
 )
+from ..utils.conjunctions import (
+    CONJUNCTION_DEFAULT_PAIR_TYPES,
+    CONJUNCTION_DEFAULT_PLANETS,
+    CONJUNCTION_MAX_HORIZON_DAYS,
+    normalize_conjunction_pair_types,
+    normalize_conjunction_planets,
+)
 from ..utils.lunar_events import LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS
 from kerykeion.schemas import (
     ActiveAspect,
@@ -973,5 +980,83 @@ class IngressEventsRequestModel(BaseModel):
         if self.horizon_days > INGRESS_MAX_HORIZON_DAYS:
             raise ValueError(
                 f"horizon_days cannot exceed {INGRESS_MAX_HORIZON_DAYS} (2 years)."
+            )
+        return self
+
+
+class ConjunctionEventsRequestModel(BaseModel):
+    """Request payload for major planetary conjunction event detection."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-15T12:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {CONJUNCTION_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+    planets: list[str] = Field(
+        default_factory=lambda: list(CONJUNCTION_DEFAULT_PLANETS),
+        description=(
+            "Planets to evaluate for conjunction events (case-insensitive). "
+            "Defaults to major planets (Sun, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto)."
+        ),
+        min_length=2,
+        examples=[
+            ["Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"],
+            ["Moon", "Sun", "Jupiter"],
+        ],
+    )
+    pair_types: list[Literal["rapid_slow", "slow_slow", "rapid_rapid"]] = Field(
+        default_factory=lambda: list(CONJUNCTION_DEFAULT_PAIR_TYPES),
+        description=(
+            "Conjunction pair categories to include. "
+            "rapid_slow = one rapid and one slow planet, "
+            "slow_slow = both slow planets, "
+            "rapid_rapid = both rapid planets."
+        ),
+        min_length=1,
+        examples=[["rapid_slow", "slow_slow"], ["rapid_rapid"]],
+    )
+
+    @field_validator("planets", mode="before")
+    @classmethod
+    def normalize_planets(cls, value) -> list[str]:
+        if value is None:
+            return list(CONJUNCTION_DEFAULT_PLANETS)
+        if not isinstance(value, list):
+            raise ValueError("planets must be an array of strings.")
+        return normalize_conjunction_planets(value)
+
+    @field_validator("pair_types", mode="before")
+    @classmethod
+    def normalize_pair_types(cls, value) -> list[str]:
+        if value is None:
+            return list(CONJUNCTION_DEFAULT_PAIR_TYPES)
+        if not isinstance(value, list):
+            raise ValueError("pair_types must be an array of strings.")
+        return normalize_conjunction_pair_types(value)
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "ConjunctionEventsRequestModel":
+        if self.horizon_days > CONJUNCTION_MAX_HORIZON_DAYS:
+            raise ValueError(
+                f"horizon_days cannot exceed {CONJUNCTION_MAX_HORIZON_DAYS} (10 years)."
             )
         return self

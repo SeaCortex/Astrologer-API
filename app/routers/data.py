@@ -12,6 +12,7 @@ from fastapi.responses import JSONResponse
 from ..types.request_models import (
     BirthDataRequestModel,
     BirthChartDataRequestModel,
+    ConjunctionEventsRequestModel,
     IngressEventsRequestModel,
     LunarPhaseEventsRequestModel,
     NowSubjectRequestModel,
@@ -24,6 +25,7 @@ from ..types.request_models import (
 )
 from ..types.response_models import (
     ChartDataResponseModel,
+    ConjunctionEventsResponseModel,
     DerivedNatalProfileResponseModel,
     IngressEventsResponseModel,
     LunarPhaseEventsResponseModel,
@@ -39,6 +41,7 @@ from ..utils.progressions import compute_progressed_moon_cycle, ensure_progresse
 from ..utils.ingress import compute_ingress_events
 from ..utils.lunar_events import compute_lunar_phase_events
 from ..utils.retrogrades import compute_next_retrogrades, parse_iso_utc
+from ..utils.conjunctions import compute_conjunction_events
 from ..utils.router_utils import (
     build_subject,
     calculate_return_chart_data,
@@ -618,6 +621,57 @@ async def ingress_events(request_body: IngressEventsRequestModel, request: Reque
                 "from_iso": from_utc.isoformat(),
                 "horizon_days": request_body.horizon_days,
                 "planets": request_body.planets,
+                "events": events,
+            },
+            status_code=200,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/events/conjunctions", response_model=ConjunctionEventsResponseModel)
+async def conjunction_events(request_body: ConjunctionEventsRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/events/conjunctions`
+
+    Detects exact major planetary conjunction events in a lookahead window using stream scan + refine logic.
+
+    **Parameters:**
+    - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
+    - `horizon_days` (required): Lookahead horizon in days (max 10 years).
+    - `planets` (optional): Planets to scan for pairwise conjunctions.
+    - `pair_types` (optional): Pair classes to include (`rapid_slow`, `slow_slow`, `rapid_rapid`).
+
+    **Returns:**
+    - `status`: "OK"
+    - `from_iso`: Effective UTC start used by the scanner.
+    - `horizon_days`: Requested lookahead days.
+    - `planets`: Effective normalized planet list.
+    - `pair_types`: Effective normalized pair category list.
+    - `events`: Exact conjunction timestamps.
+    """
+    log_request_with_body(logger, request, "Conjunction events request", request_body.model_dump_json())
+
+    try:
+        from_utc = (
+            datetime.now(timezone.utc)
+            if request_body.from_iso is None
+            else parse_iso_utc(request_body.from_iso)
+        )
+
+        events = compute_conjunction_events(
+            from_utc=from_utc,
+            horizon_days=request_body.horizon_days,
+            planets=request_body.planets,
+            pair_types=request_body.pair_types,
+        )
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "from_iso": from_utc.isoformat(),
+                "horizon_days": request_body.horizon_days,
+                "planets": request_body.planets,
+                "pair_types": request_body.pair_types,
                 "events": events,
             },
             status_code=200,

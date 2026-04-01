@@ -576,6 +576,43 @@ Rules:
 - Allowed planets also include `Mean_Lilith` and `True_Lilith` when explicitly requested.
 - Planet names are case-insensitive and deduplicated.
 
+## Major Planetary Conjunctions
+
+### POST `/api/v5/events/conjunctions`
+
+Exact major planetary conjunction events detected with stream scan + refined timestamps.
+
+```jsonc
+{
+  "status": "OK",
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 40,
+  "planets": ["Sun", "Moon"],
+  "pair_types": ["rapid_rapid"],
+  "events": [
+    {
+      "event": "planetary_conjunction",
+      "planet_1": "Sun",
+      "planet_2": "Moon",
+      "pair_type": "rapid_rapid",
+      "at_utc": "2026-03-19T01:23:26.250000+00:00",
+      "orbit_deg": 0.0003,
+      "p1_speed": 0.9932,
+      "p2_speed": 11.8714
+    }
+  ]
+}
+```
+
+Rules:
+
+- `from_iso` optional (defaults to current UTC).
+- `horizon_days` required with cap 3650 days (10 years).
+- `planets` optional; defaults to `Sun, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto`.
+- `pair_types` optional; defaults to `rapid_slow, slow_slow`.
+- Allowed `pair_types`: `rapid_slow`, `slow_slow`, `rapid_rapid`.
+- Planet names and pair types are case-insensitive and deduplicated.
+
 ## Progressions
 
 ### POST `/api/v5/chart-data/progressed-moon-cycle`

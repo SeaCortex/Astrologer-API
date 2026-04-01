@@ -359,6 +359,33 @@ class IngressEventsResponseModel(StatusResponseModel):
     events: list[IngressEventModel] = Field(description="Detected ingress events within the requested horizon.")
 
 
+class ConjunctionEventModel(BaseModel):
+    """Exact major planetary conjunction event payload."""
+
+    event: Literal["planetary_conjunction"] = Field(description="Detected conjunction event kind.")
+    planet_1: str = Field(description="First planet in the conjunction pair.")
+    planet_2: str = Field(description="Second planet in the conjunction pair.")
+    pair_type: Literal["rapid_slow", "slow_slow", "rapid_rapid"] = Field(
+        description="Classification of the conjunction pair."
+    )
+    at_utc: str = Field(description="UTC ISO datetime when the conjunction occurs.")
+    orbit_deg: float = Field(description="Absolute conjunction orb in degrees at the refined timestamp.")
+    p1_speed: float = Field(description="Planet 1 speed at event time.")
+    p2_speed: float = Field(description="Planet 2 speed at event time.")
+
+
+class ConjunctionEventsResponseModel(StatusResponseModel):
+    """Response payload for conjunction events endpoint."""
+
+    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    horizon_days: int = Field(description="Lookahead horizon in days.")
+    planets: list[str] = Field(description="Planets included in the conjunction scan.")
+    pair_types: list[Literal["rapid_slow", "slow_slow", "rapid_rapid"]] = Field(
+        description="Pair categories included in the scan."
+    )
+    events: list[ConjunctionEventModel] = Field(description="Detected conjunction events within the requested horizon.")
+
+
 class SubjectContextResponseModel(SubjectResponseModel):
     """Response payload containing a single astrological subject with AI context."""
 
