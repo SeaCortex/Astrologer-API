@@ -246,3 +246,37 @@ def test_ingress_events_response_model_parses_payload():
     assert model.planets == ["Sun", "Moon"]
     assert len(model.events) == 1
     assert model.events[0].event == "sign_ingress"
+
+
+def test_aspect_events_response_model_parses_payload():
+    payload = {
+        "status": "OK",
+        "from_iso": "2026-03-01T00:00:00+00:00",
+        "horizon_days": 30,
+        "planets": ["Sun", "Moon"],
+        "pair_types": ["rapid_rapid"],
+        "aspect_types": ["square", "opposition"],
+        "events": [
+            {
+                "event": "planetary_aspect",
+                "aspect": "square",
+                "planet_1": "Sun",
+                "planet_2": "Moon",
+                "pair_type": "rapid_rapid",
+                "target_angle_deg": 90.0,
+                "at_utc": "2026-03-04T00:00:00+00:00",
+                "orbit_deg": 0.001,
+                "p1_speed": 0.985,
+                "p2_speed": 13.217,
+            }
+        ],
+    }
+    model = rm.AspectEventsResponseModel.model_validate(payload)
+    assert model.status == "OK"
+    assert model.horizon_days == 30
+    assert model.planets == ["Sun", "Moon"]
+    assert model.pair_types == ["rapid_rapid"]
+    assert model.aspect_types == ["square", "opposition"]
+    assert len(model.events) == 1
+    assert model.events[0].event == "planetary_aspect"
+    assert model.events[0].aspect == "square"

@@ -1184,6 +1184,86 @@ The scan is **stream processed** (constant memory relative to horizon):
 
 ---
 
+### Planetary Squares & Oppositions
+
+#### Planetary Aspect Events (90° / 180°)
+
+**POST** `/api/v5/events/aspects`
+
+Computes exact **planetary aspect events** for:
+
+- **Square** (`90°` and `270°` crossings)
+- **Opposition** (`180°` crossing)
+
+using:
+
+1. A coarse stream scan every 6 hours from `from_iso` to `horizon_days`
+2. Pairwise target-angle crossing detection for requested pair categories
+3. Refinement of crossing brackets to about 1-minute UTC precision
+
+The scan is **stream processed** (constant memory relative to horizon):
+
+- keeps only previous pair-target state + current snapshot + small events list
+- discards each snapshot after comparison
+
+**Request:**
+
+```json
+{
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 40,
+  "planets": ["Sun", "Moon"],
+  "pair_types": ["rapid_rapid"],
+  "aspect_types": ["square", "opposition"]
+}
+```
+
+**Rules:**
+
+- `from_iso` is optional (defaults to current UTC time)
+- `horizon_days` is required, with max lookahead cap of 10 years (3650 days)
+- `planets` is optional. Defaults to:
+  `Sun, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto`
+- Minimum two distinct planets are required after normalization
+- `pair_types` is optional. Defaults to:
+  `rapid_slow`, `slow_slow`
+- Allowed `pair_types`:
+  - `rapid_slow` (one rapid + one slow planet)
+  - `slow_slow` (both slow planets)
+  - `rapid_rapid` (both rapid planets)
+- `aspect_types` is optional. Defaults to:
+  `square`, `opposition`
+- Planet names, pair types, and aspect types are normalized case-insensitively and deduplicated
+
+**Response:**
+
+```json
+{
+  "status": "OK",
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 40,
+  "planets": ["Sun", "Moon"],
+  "pair_types": ["rapid_rapid"],
+  "aspect_types": ["square", "opposition"],
+  "events": [
+    {
+      "event": "planetary_aspect",
+      "aspect": "square",
+      "planet_1": "Sun",
+      "planet_2": "Moon",
+      "pair_type": "rapid_rapid",
+      "target_angle_deg": 90.0,
+      "at_utc": "2026-03-12T10:22:31.875000+00:00",
+      "orbit_deg": 0.0006,
+      "p1_speed": 0.9951,
+      "p2_speed": 12.9705
+    }
+  ]
+}
+```
+
+---
+
 ### Relationship Score
 
 **POST** `/api/v5/compatibility-score`

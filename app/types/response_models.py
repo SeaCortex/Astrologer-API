@@ -503,6 +503,38 @@ class ConjunctionEventsResponseModel(StatusResponseModel):
     events: list[ConjunctionEventModel] = Field(description="Detected conjunction events within the requested horizon.")
 
 
+class AspectEventModel(BaseModel):
+    """Exact planetary square/opposition event payload."""
+
+    event: Literal["planetary_aspect"] = Field(description="Detected aspect event kind.")
+    aspect: Literal["square", "opposition"] = Field(description="Aspect type.")
+    planet_1: str = Field(description="First planet in the aspect pair.")
+    planet_2: str = Field(description="Second planet in the aspect pair.")
+    pair_type: Literal["rapid_slow", "slow_slow", "rapid_rapid"] = Field(
+        description="Classification of the planetary pair."
+    )
+    target_angle_deg: float = Field(description="Exact target angle used for detection (90/180/270).")
+    at_utc: str = Field(description="UTC ISO datetime when the aspect occurs.")
+    orbit_deg: float = Field(description="Absolute orb in degrees at the refined timestamp.")
+    p1_speed: float = Field(description="Planet 1 speed at event time.")
+    p2_speed: float = Field(description="Planet 2 speed at event time.")
+
+
+class AspectEventsResponseModel(StatusResponseModel):
+    """Response payload for square/opposition aspect events endpoint."""
+
+    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    horizon_days: int = Field(description="Lookahead horizon in days.")
+    planets: list[str] = Field(description="Planets included in the scan.")
+    pair_types: list[Literal["rapid_slow", "slow_slow", "rapid_rapid"]] = Field(
+        description="Pair categories included in the scan."
+    )
+    aspect_types: list[Literal["square", "opposition"]] = Field(
+        description="Aspect categories included in the scan."
+    )
+    events: list[AspectEventModel] = Field(description="Detected square/opposition events within the requested horizon.")
+
+
 class SubjectContextResponseModel(SubjectResponseModel):
     """Response payload containing a single astrological subject with AI context."""
 
