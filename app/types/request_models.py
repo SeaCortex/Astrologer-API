@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 from pytz import all_timezones
 
 from ..utils.retrogrades import (
+    RETROGRADE_DEFAULT_PLANETS,
     RETROGRADE_MAX_HORIZON_DAYS,
     normalize_retrograde_planets,
 )
@@ -832,8 +833,8 @@ class ProgressedMoonCycleRequestModel(BaseModel):
         return self
 
 
-class RetrogradesNextRequestModel(BaseModel):
-    """Request payload for next retrograde windows per selected planets."""
+class RetrogradeEventsRequestModel(BaseModel):
+    """Request payload for retrograde event detection."""
 
     model_config = {"extra": "forbid"}
 
@@ -847,21 +848,19 @@ class RetrogradesNextRequestModel(BaseModel):
         ge=1,
     )
     planets: list[str] = Field(
-        description="Planets to evaluate (case-insensitive). Duplicates are removed.",
-        min_length=1,
-        examples=[["Mercury", "Venus", "mars"]],
-    )
-    include_ongoing: bool = Field(
-        default=True,
+        default_factory=lambda: list(RETROGRADE_DEFAULT_PLANETS),
         description=(
-            "If true and a planet is already retrograde at from_iso, returns that ongoing window "
-            "with is_ongoing=true and started_before_from=true."
+            "Planets to evaluate for retrograde period events (case-insensitive). "
+            "Defaults to all supported retrograde planets."
         ),
+        examples=[["Mercury", "Venus", "mars"]],
     )
 
     @field_validator("planets", mode="before")
     @classmethod
     def normalize_planets(cls, value) -> list[str]:
+        if value is None:
+            return list(RETROGRADE_DEFAULT_PLANETS)
         if not isinstance(value, list):
             raise ValueError("planets must be an array of strings.")
         return normalize_retrograde_planets(value)
@@ -880,9 +879,9 @@ class RetrogradesNextRequestModel(BaseModel):
         return dt.astimezone(timezone.utc).isoformat()
 
     @model_validator(mode="after")
-    def validate_horizon_cap(self) -> "RetrogradesNextRequestModel":
+    def validate_horizon_cap(self) -> "RetrogradeEventsRequestModel":
         if self.horizon_days > RETROGRADE_MAX_HORIZON_DAYS:
-            raise ValueError(f"horizon_days cannot exceed {RETROGRADE_MAX_HORIZON_DAYS} (2 years).")
+            raise ValueError(f"horizon_days cannot exceed {RETROGRADE_MAX_HORIZON_DAYS} (10 years).")
         return self
 
 

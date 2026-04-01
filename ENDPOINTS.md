@@ -1000,44 +1000,35 @@ Supports subtype filters:
 
 ### Retrogrades
 
-#### Next Retrogrades (Per Planet)
+#### Retrograde Period Events
 
 **POST** `/api/v5/events/retrogrades`
 
-Computes the **next retrograde window** for the requested planets using:
+Detects exact **retrograde period events** in a lookahead window using:
 
 1. A coarse stream scan every 6 hours from `from_iso` to `horizon_days`
 2. Motion by speed sign (`retrograde = speed < 0`)
 3. Flip detection (`direct -> retro` start bracket, `retro -> direct` end bracket)
-4. Refinement of flip brackets to about 1-minute UTC precision
+4. Refinement of station brackets to about 1-minute UTC precision
 
 **Request:**
 
 ```json
 {
   "from_iso": "2026-01-15T12:00:00+00:00",
-  "horizon_days": 180,
-  "planets": ["Mercury", "venus", "MARS"],
-  "include_ongoing": true
+  "horizon_days": 365,
+  "planets": ["Mercury", "venus", "MARS"]
 }
 ```
 
 **Rules:**
 
 - `from_iso` is optional (defaults to current UTC time)
-- `horizon_days` is required, with max lookahead cap of 2 years (730 days)
-- `planets` is required and validated against:
+- `horizon_days` is required, with max lookahead cap of 10 years (3650 days)
+- `planets` is optional and validated against:
   `Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto`
+- If omitted, `planets` defaults to all supported retrograde planets
 - Planet names are normalized case-insensitively and deduplicated
-
-**`/next` semantics with `include_ongoing`:**
-
-- If `include_ongoing=true` and a planet is already retrograde at `from_iso`,
-  return that current window and mark:
-  - `is_ongoing: true`
-  - `started_before_from: true`
-- If `include_ongoing=false`, return only strictly future windows
-  (`next_start_utc > from_iso`)
 
 **Response:**
 
@@ -1045,17 +1036,16 @@ Computes the **next retrograde window** for the requested planets using:
 {
   "status": "OK",
   "from_iso": "2026-01-15T12:00:00+00:00",
-  "horizon_days": 180,
-  "include_ongoing": true,
-  "retrogrades": [
+  "horizon_days": 365,
+  "planets": ["Mercury", "Venus", "Mars"],
+  "events": [
     {
+      "event": "retrograde_period",
       "planet": "Mercury",
-      "next_start_utc": "2026-04-21T03:59:32.812500+00:00",
-      "next_end_utc": "2026-05-15T12:11:15.937500+00:00",
-      "start_speed": -2.84e-05,
-      "end_speed": 1.91e-05,
-      "is_ongoing": false,
-      "started_before_from": false
+      "at_utc": "2026-02-26T20:59:03.750000+00:00",
+      "ends_at_utc": "2026-03-20T10:17:20.625000+00:00",
+      "start_speed": -4.3123922466503475e-09,
+      "end_speed": 4.999994925643487e-07
     }
   ]
 }

@@ -898,6 +898,258 @@
         }
       }
     },
+    "/api/v5/events/retrogrades": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Retrograde Events",
+        "description": "**POST** `/api/v5/events/retrogrades`\n\nDetects retrograde period events for selected planets in a lookahead window\nusing stream scan + station-time refinement logic.\n\n**Parameters:**\n- `from_iso` (optional): UTC ISO start time. Defaults to current UTC.\n- `horizon_days` (required): Lookahead horizon in days (max 10 years).\n- `planets` (optional): Planet list from allowlist (case-insensitive, deduplicated).\n  Defaults to all supported retrograde planets.\n\n**Returns:**\n- `status`: \"OK\"\n- `from_iso`: Effective UTC start used by the scanner.\n- `horizon_days`: Requested lookahead days.\n- `planets`: Canonical planets evaluated by the scanner.\n- `events`: Detected retrograde period events.",
+        "operationId": "retrograde_events_api_v5_events_retrogrades_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetrogradeEventsRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetrogradeEventsResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v5/events/lunar-phases": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Lunar Phase Events",
+        "description": "**POST** `/api/v5/events/lunar-phases`\n\nDetects exact lunar phase events in a lookahead window using scan + refine logic.\n\n**Parameters:**\n- `from_iso` (optional): UTC ISO start time. Defaults to current UTC.\n- `horizon_days` (required): Lookahead horizon in days (max 5 years).\n- `include_distance_metrics` (optional): Include Moon-Earth distance/perigee/apogee metrics.\n- `include_super_luna` (optional): Include Super Luna classification for New/Full Moon.\n- `super_luna_definition` (optional): `nolle_90pct_cycle` or `distance_threshold_km`.\n- `super_luna_distance_km_threshold` (optional): Threshold used for `distance_threshold_km`.\n\n**Returns:**\n- `status`: \"OK\"\n- `from_iso`: Effective UTC start used by the scanner.\n- `horizon_days`: Requested lookahead days.\n- `events`: Exact New Moon / First Quarter / Full Moon / Last Quarter timestamps.",
+        "operationId": "lunar_phase_events_api_v5_events_lunar_phases_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LunarPhaseEventsRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LunarPhaseEventsResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v5/events/eclipses": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Eclipse Events",
+        "description": "**POST** `/api/v5/events/eclipses`\n\nDetects exact solar and lunar eclipse events in a lookahead window.\n\n**Parameters:**\n- `from_iso` (optional): UTC ISO start time. Defaults to current UTC.\n- `horizon_days` (required): Lookahead horizon in days (max 10 years).\n- `event_types` (optional): Include `solar`, `lunar`, or both.\n- `solar_types` (optional): Solar eclipse subtype filters.\n- `lunar_types` (optional): Lunar eclipse subtype filters.\n\n**Returns:**\n- `status`: \"OK\"\n- `from_iso`: Effective UTC start used by the scanner.\n- `horizon_days`: Requested lookahead days.\n- `event_types`: Effective normalized eclipse families.\n- `solar_types`: Effective normalized solar subtype filters.\n- `lunar_types`: Effective normalized lunar subtype filters.\n- `events`: Exact eclipse timestamps and type-specific metadata.",
+        "operationId": "eclipse_events_api_v5_events_eclipses_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EclipseEventsRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EclipseEventsResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v5/events/ingress": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Ingress Events",
+        "description": "**POST** `/api/v5/events/ingress`\n\nDetects exact planetary zodiac sign ingress events in a lookahead window using scan + refine logic.\n\n**Parameters:**\n- `from_iso` (optional): UTC ISO start time. Defaults to current UTC.\n- `horizon_days` (required): Lookahead horizon in days (max 2 years).\n- `planets` (optional): Planets to scan. Defaults to Sun, Moon, and all major planets.\n  Supports `Mean_Lilith` and `True_Lilith` when explicitly provided.\n\n**Returns:**\n- `status`: \"OK\"\n- `from_iso`: Effective UTC start used by the scanner.\n- `horizon_days`: Requested lookahead days.\n- `planets`: Effective normalized planet list.\n- `events`: Exact sign ingress timestamps.",
+        "operationId": "ingress_events_api_v5_events_ingress_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngressEventsRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngressEventsResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v5/events/conjunctions": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Conjunction Events",
+        "description": "**POST** `/api/v5/events/conjunctions`\n\nDetects exact major planetary conjunction events in a lookahead window using stream scan + refine logic.\n\n**Parameters:**\n- `from_iso` (optional): UTC ISO start time. Defaults to current UTC.\n- `horizon_days` (required): Lookahead horizon in days (max 10 years).\n- `planets` (optional): Planets to scan for pairwise conjunctions.\n- `pair_types` (optional): Pair classes to include (`rapid_slow`, `slow_slow`, `rapid_rapid`).\n\n**Returns:**\n- `status`: \"OK\"\n- `from_iso`: Effective UTC start used by the scanner.\n- `horizon_days`: Requested lookahead days.\n- `planets`: Effective normalized planet list.\n- `pair_types`: Effective normalized pair category list.\n- `events`: Exact conjunction timestamps.",
+        "operationId": "conjunction_events_api_v5_events_conjunctions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConjunctionEventsRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConjunctionEventsResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v5/events/aspects": {
+      "post": {
+        "tags": [
+          "Chart Data"
+        ],
+        "summary": "Aspect Events",
+        "description": "**POST** `/api/v5/events/aspects`\n\nDetects exact planetary square (90\u00b0/270\u00b0) and opposition (180\u00b0) events in a lookahead window\nusing stream scan + refine logic.\n\n**Parameters:**\n- `from_iso` (optional): UTC ISO start time. Defaults to current UTC.\n- `horizon_days` (required): Lookahead horizon in days (max 10 years).\n- `planets` (optional): Planets to scan for pairwise aspect events.\n- `pair_types` (optional): Pair classes to include (`rapid_slow`, `slow_slow`, `rapid_rapid`).\n- `aspect_types` (optional): Aspect event types to include (`square`, `opposition`).\n\n**Returns:**\n- `status`: \"OK\"\n- `from_iso`: Effective UTC start used by the scanner.\n- `horizon_days`: Requested lookahead days.\n- `planets`: Effective normalized planet list.\n- `pair_types`: Effective normalized pair category list.\n- `aspect_types`: Effective normalized aspect category list.\n- `events`: Exact square/opposition timestamps.",
+        "operationId": "aspect_events_api_v5_events_aspects_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AspectEventsRequestModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AspectEventsResponseModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v5/context/subject": {
       "post": {
         "tags": [
@@ -1299,6 +1551,261 @@
           "orb"
         ],
         "title": "ActiveAspect"
+      },
+      "AspectEventModel": {
+        "properties": {
+          "event": {
+            "type": "string",
+            "const": "planetary_aspect",
+            "title": "Event",
+            "description": "Detected aspect event kind."
+          },
+          "aspect": {
+            "type": "string",
+            "enum": [
+              "square",
+              "opposition"
+            ],
+            "title": "Aspect",
+            "description": "Aspect type."
+          },
+          "planet_1": {
+            "type": "string",
+            "title": "Planet 1",
+            "description": "First planet in the aspect pair."
+          },
+          "planet_2": {
+            "type": "string",
+            "title": "Planet 2",
+            "description": "Second planet in the aspect pair."
+          },
+          "pair_type": {
+            "type": "string",
+            "enum": [
+              "rapid_slow",
+              "slow_slow",
+              "rapid_rapid"
+            ],
+            "title": "Pair Type",
+            "description": "Classification of the planetary pair."
+          },
+          "target_angle_deg": {
+            "type": "number",
+            "title": "Target Angle Deg",
+            "description": "Exact target angle used for detection (90/180/270)."
+          },
+          "at_utc": {
+            "type": "string",
+            "title": "At Utc",
+            "description": "UTC ISO datetime when the aspect occurs."
+          },
+          "orbit_deg": {
+            "type": "number",
+            "title": "Orbit Deg",
+            "description": "Absolute orb in degrees at the refined timestamp."
+          },
+          "p1_speed": {
+            "type": "number",
+            "title": "P1 Speed",
+            "description": "Planet 1 speed at event time."
+          },
+          "p2_speed": {
+            "type": "number",
+            "title": "P2 Speed",
+            "description": "Planet 2 speed at event time."
+          }
+        },
+        "type": "object",
+        "required": [
+          "event",
+          "aspect",
+          "planet_1",
+          "planet_2",
+          "pair_type",
+          "target_angle_deg",
+          "at_utc",
+          "orbit_deg",
+          "p1_speed",
+          "p2_speed"
+        ],
+        "title": "AspectEventModel",
+        "description": "Exact planetary square/opposition event payload."
+      },
+      "AspectEventsRequestModel": {
+        "properties": {
+          "from_iso": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Iso",
+            "description": "Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+            "examples": [
+              "2026-01-15T12:00:00+00:00"
+            ]
+          },
+          "horizon_days": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days (max 3650)."
+          },
+          "planets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 2,
+            "title": "Planets",
+            "description": "Planets to evaluate for aspect events (case-insensitive). Defaults to major planets (Sun, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto).",
+            "examples": [
+              [
+                "Sun",
+                "Mercury",
+                "Venus",
+                "Mars",
+                "Jupiter",
+                "Saturn",
+                "Uranus",
+                "Neptune",
+                "Pluto"
+              ],
+              [
+                "Moon",
+                "Sun",
+                "Jupiter"
+              ]
+            ]
+          },
+          "pair_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "rapid_slow",
+                "slow_slow",
+                "rapid_rapid"
+              ]
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Pair Types",
+            "description": "Pair categories to include. rapid_slow = one rapid and one slow planet, slow_slow = both slow planets, rapid_rapid = both rapid planets.",
+            "examples": [
+              [
+                "rapid_slow",
+                "slow_slow"
+              ],
+              [
+                "rapid_rapid"
+              ]
+            ]
+          },
+          "aspect_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "square",
+                "opposition"
+              ]
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Aspect Types",
+            "description": "Aspect event types to include. square scans both 90\u00b0 and 270\u00b0 crossings; opposition scans 180\u00b0 crossings.",
+            "examples": [
+              [
+                "square",
+                "opposition"
+              ],
+              [
+                "square"
+              ]
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "horizon_days"
+        ],
+        "title": "AspectEventsRequestModel",
+        "description": "Request payload for planetary square/opposition event detection."
+      },
+      "AspectEventsResponseModel": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response."
+          },
+          "from_iso": {
+            "type": "string",
+            "title": "From Iso",
+            "description": "Effective UTC ISO starting datetime used for the scan."
+          },
+          "horizon_days": {
+            "type": "integer",
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days."
+          },
+          "planets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Planets",
+            "description": "Planets included in the scan."
+          },
+          "pair_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "rapid_slow",
+                "slow_slow",
+                "rapid_rapid"
+              ]
+            },
+            "type": "array",
+            "title": "Pair Types",
+            "description": "Pair categories included in the scan."
+          },
+          "aspect_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "square",
+                "opposition"
+              ]
+            },
+            "type": "array",
+            "title": "Aspect Types",
+            "description": "Aspect categories included in the scan."
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/AspectEventModel"
+            },
+            "type": "array",
+            "title": "Events",
+            "description": "Detected square/opposition events within the requested horizon."
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "from_iso",
+          "horizon_days",
+          "planets",
+          "pair_types",
+          "aspect_types",
+          "events"
+        ],
+        "title": "AspectEventsResponseModel",
+        "description": "Response payload for square/opposition aspect events endpoint."
       },
       "AspectModel": {
         "properties": {
@@ -4217,6 +4724,210 @@
         "title": "CompositeSubjectModel",
         "description": "Composite chart model for relationship analysis.\n\nA composite chart is created by calculating the midpoint between\ncorresponding planets/points of two individual charts. It represents\nthe relationship as a separate entity.\n\nAttributes:\n    first_subject: First person's astrological data.\n    second_subject: Second person's astrological data.\n    composite_chart_type: Type identifier for the composite calculation method."
       },
+      "ConjunctionEventModel": {
+        "properties": {
+          "event": {
+            "type": "string",
+            "const": "planetary_conjunction",
+            "title": "Event",
+            "description": "Detected conjunction event kind."
+          },
+          "planet_1": {
+            "type": "string",
+            "title": "Planet 1",
+            "description": "First planet in the conjunction pair."
+          },
+          "planet_2": {
+            "type": "string",
+            "title": "Planet 2",
+            "description": "Second planet in the conjunction pair."
+          },
+          "pair_type": {
+            "type": "string",
+            "enum": [
+              "rapid_slow",
+              "slow_slow",
+              "rapid_rapid"
+            ],
+            "title": "Pair Type",
+            "description": "Classification of the conjunction pair."
+          },
+          "at_utc": {
+            "type": "string",
+            "title": "At Utc",
+            "description": "UTC ISO datetime when the conjunction occurs."
+          },
+          "orbit_deg": {
+            "type": "number",
+            "title": "Orbit Deg",
+            "description": "Absolute conjunction orb in degrees at the refined timestamp."
+          },
+          "p1_speed": {
+            "type": "number",
+            "title": "P1 Speed",
+            "description": "Planet 1 speed at event time."
+          },
+          "p2_speed": {
+            "type": "number",
+            "title": "P2 Speed",
+            "description": "Planet 2 speed at event time."
+          }
+        },
+        "type": "object",
+        "required": [
+          "event",
+          "planet_1",
+          "planet_2",
+          "pair_type",
+          "at_utc",
+          "orbit_deg",
+          "p1_speed",
+          "p2_speed"
+        ],
+        "title": "ConjunctionEventModel",
+        "description": "Exact major planetary conjunction event payload."
+      },
+      "ConjunctionEventsRequestModel": {
+        "properties": {
+          "from_iso": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Iso",
+            "description": "Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+            "examples": [
+              "2026-01-15T12:00:00+00:00"
+            ]
+          },
+          "horizon_days": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days (max 3650)."
+          },
+          "planets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "minItems": 2,
+            "title": "Planets",
+            "description": "Planets to evaluate for conjunction events (case-insensitive). Defaults to major planets (Sun, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto).",
+            "examples": [
+              [
+                "Sun",
+                "Mercury",
+                "Venus",
+                "Mars",
+                "Jupiter",
+                "Saturn",
+                "Uranus",
+                "Neptune",
+                "Pluto"
+              ],
+              [
+                "Moon",
+                "Sun",
+                "Jupiter"
+              ]
+            ]
+          },
+          "pair_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "rapid_slow",
+                "slow_slow",
+                "rapid_rapid"
+              ]
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Pair Types",
+            "description": "Conjunction pair categories to include. rapid_slow = one rapid and one slow planet, slow_slow = both slow planets, rapid_rapid = both rapid planets.",
+            "examples": [
+              [
+                "rapid_slow",
+                "slow_slow"
+              ],
+              [
+                "rapid_rapid"
+              ]
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "horizon_days"
+        ],
+        "title": "ConjunctionEventsRequestModel",
+        "description": "Request payload for major planetary conjunction event detection."
+      },
+      "ConjunctionEventsResponseModel": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response."
+          },
+          "from_iso": {
+            "type": "string",
+            "title": "From Iso",
+            "description": "Effective UTC ISO starting datetime used for the scan."
+          },
+          "horizon_days": {
+            "type": "integer",
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days."
+          },
+          "planets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Planets",
+            "description": "Planets included in the conjunction scan."
+          },
+          "pair_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "rapid_slow",
+                "slow_slow",
+                "rapid_rapid"
+              ]
+            },
+            "type": "array",
+            "title": "Pair Types",
+            "description": "Pair categories included in the scan."
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/ConjunctionEventModel"
+            },
+            "type": "array",
+            "title": "Events",
+            "description": "Detected conjunction events within the requested horizon."
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "from_iso",
+          "horizon_days",
+          "planets",
+          "pair_types",
+          "events"
+        ],
+        "title": "ConjunctionEventsResponseModel",
+        "description": "Response payload for conjunction events endpoint."
+      },
       "ContextResponseModel": {
         "properties": {
           "status": {
@@ -4442,6 +5153,503 @@
         ],
         "title": "DualChartDataModel",
         "description": "Chart data model for dual-subject astrological charts.\n\nThis model contains all pure data from dual-subject charts including both subjects,\ninter-chart aspects, house comparisons, relationship analysis, and combined\nelement/quality distributions. Used for chart types that compare or overlay\ntwo astrological subjects.\n\nSupported chart types:\n- Transit: Natal chart with current planetary transits\n- Synastry: Relationship compatibility between two people\n- Return: Natal chart with planetary return comparison\n\nAttributes:\n    chart_type: Type of dual chart (Transit, Synastry, Return)\n    first_subject: Primary astrological subject (natal, base chart)\n    second_subject: Secondary astrological subject (transit, partner, return)\n    aspects: Inter-chart aspects between the two subjects\n    house_comparison: House overlay analysis between subjects\n    relationship_score: Compatibility scoring (synastry only)\n    element_distribution: Combined elemental distribution\n    quality_distribution: Combined modal distribution\n    active_points: Celestial points included in calculations\n    active_aspects: Aspect types and orb settings used"
+      },
+      "EclipseEventModel": {
+        "properties": {
+          "event": {
+            "type": "string",
+            "enum": [
+              "solar_eclipse",
+              "lunar_eclipse"
+            ],
+            "title": "Event",
+            "description": "Detected eclipse event kind."
+          },
+          "eclipse_type": {
+            "type": "string",
+            "enum": [
+              "total",
+              "annular",
+              "partial",
+              "annular_total",
+              "penumbral"
+            ],
+            "title": "Eclipse Type",
+            "description": "Detected eclipse subtype."
+          },
+          "at_utc": {
+            "type": "string",
+            "title": "At Utc",
+            "description": "UTC ISO datetime of maximum eclipse."
+          },
+          "eclipse_begin_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eclipse Begin Utc",
+            "description": "UTC ISO datetime when eclipse starts (phase depends on event family)."
+          },
+          "eclipse_end_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eclipse End Utc",
+            "description": "UTC ISO datetime when eclipse ends (phase depends on event family)."
+          },
+          "penumbral_begin_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Penumbral Begin Utc",
+            "description": "UTC ISO datetime for penumbral phase begin (lunar eclipses)."
+          },
+          "penumbral_end_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Penumbral End Utc",
+            "description": "UTC ISO datetime for penumbral phase end (lunar eclipses)."
+          },
+          "partial_begin_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partial Begin Utc",
+            "description": "UTC ISO datetime for partial phase begin."
+          },
+          "partial_end_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partial End Utc",
+            "description": "UTC ISO datetime for partial phase end."
+          },
+          "totality_begin_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Totality Begin Utc",
+            "description": "UTC ISO datetime for totality begin when applicable."
+          },
+          "totality_end_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Totality End Utc",
+            "description": "UTC ISO datetime for totality end when applicable."
+          },
+          "center_line_begin_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Center Line Begin Utc",
+            "description": "UTC ISO datetime for central line begin (solar eclipses)."
+          },
+          "center_line_end_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Center Line End Utc",
+            "description": "UTC ISO datetime for central line end (solar eclipses)."
+          },
+          "annular_total_transition_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Annular Total Transition Utc",
+            "description": "UTC ISO datetime when annular-total eclipses become total."
+          },
+          "annular_total_reversion_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Annular Total Reversion Utc",
+            "description": "UTC ISO datetime when annular-total eclipses revert to annular."
+          },
+          "magnitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Magnitude",
+            "description": "Primary eclipse magnitude at maximum."
+          },
+          "obscuration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Obscuration",
+            "description": "Fraction of solar disc covered (solar eclipses)."
+          },
+          "moon_to_sun_diameter_ratio": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Moon To Sun Diameter Ratio",
+            "description": "Apparent Moon/Sun diameter ratio (solar eclipses)."
+          },
+          "umbral_magnitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Umbral Magnitude",
+            "description": "Umbral magnitude (lunar eclipses)."
+          },
+          "penumbral_magnitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Penumbral Magnitude",
+            "description": "Penumbral magnitude (lunar eclipses)."
+          },
+          "saros_series": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Saros Series",
+            "description": "Saros series number when available."
+          },
+          "saros_member": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Saros Member",
+            "description": "Saros member number within the series when available."
+          },
+          "is_central": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Central",
+            "description": "True when solar eclipse is central."
+          },
+          "is_noncentral": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Noncentral",
+            "description": "True when solar eclipse is non-central."
+          },
+          "greatest_eclipse_longitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Greatest Eclipse Longitude",
+            "description": "Longitude of greatest eclipse/central line at maximum (solar eclipses)."
+          },
+          "greatest_eclipse_latitude": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Greatest Eclipse Latitude",
+            "description": "Latitude of greatest eclipse/central line at maximum (solar eclipses)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "event",
+          "eclipse_type",
+          "at_utc"
+        ],
+        "title": "EclipseEventModel",
+        "description": "Exact solar/lunar eclipse event payload."
+      },
+      "EclipseEventsRequestModel": {
+        "properties": {
+          "from_iso": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Iso",
+            "description": "Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+            "examples": [
+              "2026-01-01T00:00:00+00:00"
+            ]
+          },
+          "horizon_days": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days (max 3650)."
+          },
+          "event_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "solar",
+                "lunar"
+              ]
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Event Types",
+            "description": "Eclipse families to include in the scan.",
+            "examples": [
+              [
+                "solar",
+                "lunar"
+              ],
+              [
+                "lunar"
+              ]
+            ]
+          },
+          "solar_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "total",
+                "annular",
+                "partial",
+                "annular_total"
+              ]
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Solar Types",
+            "description": "Solar eclipse subtypes to include when event_types contains 'solar'.",
+            "examples": [
+              [
+                "total",
+                "annular",
+                "partial",
+                "annular_total"
+              ],
+              [
+                "total"
+              ]
+            ]
+          },
+          "lunar_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "total",
+                "partial",
+                "penumbral"
+              ]
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Lunar Types",
+            "description": "Lunar eclipse subtypes to include when event_types contains 'lunar'.",
+            "examples": [
+              [
+                "total",
+                "partial",
+                "penumbral"
+              ],
+              [
+                "total",
+                "partial"
+              ]
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "horizon_days"
+        ],
+        "title": "EclipseEventsRequestModel",
+        "description": "Request payload for solar and lunar eclipse event detection."
+      },
+      "EclipseEventsResponseModel": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response."
+          },
+          "from_iso": {
+            "type": "string",
+            "title": "From Iso",
+            "description": "Effective UTC ISO starting datetime used for the scan."
+          },
+          "horizon_days": {
+            "type": "integer",
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days."
+          },
+          "event_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "solar",
+                "lunar"
+              ]
+            },
+            "type": "array",
+            "title": "Event Types",
+            "description": "Eclipse families included in the scan."
+          },
+          "solar_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "total",
+                "annular",
+                "partial",
+                "annular_total"
+              ]
+            },
+            "type": "array",
+            "title": "Solar Types",
+            "description": "Solar eclipse subtypes included in the scan."
+          },
+          "lunar_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "total",
+                "partial",
+                "penumbral"
+              ]
+            },
+            "type": "array",
+            "title": "Lunar Types",
+            "description": "Lunar eclipse subtypes included in the scan."
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/EclipseEventModel"
+            },
+            "type": "array",
+            "title": "Events",
+            "description": "Detected eclipse events within the requested horizon."
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "from_iso",
+          "horizon_days",
+          "event_types",
+          "solar_types",
+          "lunar_types",
+          "events"
+        ],
+        "title": "EclipseEventsResponseModel",
+        "description": "Response payload for solar/lunar eclipse events endpoint."
       },
       "ElementDistributionModel": {
         "properties": {
@@ -4708,6 +5916,149 @@
         "title": "HouseStelliumModel",
         "description": "Stellium grouping by house."
       },
+      "IngressEventModel": {
+        "properties": {
+          "event": {
+            "type": "string",
+            "const": "sign_ingress",
+            "title": "Event",
+            "description": "Detected ingress event kind."
+          },
+          "planet": {
+            "type": "string",
+            "title": "Planet",
+            "description": "Canonical planet name."
+          },
+          "at_utc": {
+            "type": "string",
+            "title": "At Utc",
+            "description": "UTC ISO datetime when the ingress occurs."
+          },
+          "from_sign": {
+            "type": "string",
+            "title": "From Sign",
+            "description": "Sign occupied before ingress."
+          },
+          "to_sign": {
+            "type": "string",
+            "title": "To Sign",
+            "description": "Sign occupied after ingress."
+          }
+        },
+        "type": "object",
+        "required": [
+          "event",
+          "planet",
+          "at_utc",
+          "from_sign",
+          "to_sign"
+        ],
+        "title": "IngressEventModel",
+        "description": "Exact sign ingress event payload."
+      },
+      "IngressEventsRequestModel": {
+        "properties": {
+          "from_iso": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Iso",
+            "description": "Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+            "examples": [
+              "2026-01-15T12:00:00+00:00"
+            ]
+          },
+          "horizon_days": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days (max 730)."
+          },
+          "planets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Planets",
+            "description": "Planets to evaluate for sign ingress events (case-insensitive). Defaults to Sun, Moon, and all major planets. Also supports Mean_Lilith and True_Lilith when explicitly requested.",
+            "examples": [
+              [
+                "Sun",
+                "Moon",
+                "Mercury",
+                "Venus",
+                "Mars",
+                "Jupiter",
+                "Saturn",
+                "Uranus",
+                "Neptune",
+                "Pluto"
+              ],
+              [
+                "Mean_Lilith",
+                "True_Lilith"
+              ]
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "horizon_days"
+        ],
+        "title": "IngressEventsRequestModel",
+        "description": "Request payload for planetary sign ingress event detection."
+      },
+      "IngressEventsResponseModel": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response."
+          },
+          "from_iso": {
+            "type": "string",
+            "title": "From Iso",
+            "description": "Effective UTC ISO starting datetime used for the scan."
+          },
+          "horizon_days": {
+            "type": "integer",
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days."
+          },
+          "planets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Planets",
+            "description": "Planets included in the ingress scan."
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/IngressEventModel"
+            },
+            "type": "array",
+            "title": "Events",
+            "description": "Detected ingress events within the requested horizon."
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "from_iso",
+          "horizon_days",
+          "planets",
+          "events"
+        ],
+        "title": "IngressEventsResponseModel",
+        "description": "Response payload for ingress events endpoint."
+      },
       "KerykeionPointModel": {
         "properties": {
           "name": {
@@ -4967,6 +6318,322 @@
         ],
         "title": "LunarMansionModel",
         "description": "Lunar mansion payload for Western 28-equal system."
+      },
+      "LunarPhaseEventModel": {
+        "properties": {
+          "event": {
+            "type": "string",
+            "enum": [
+              "new_moon",
+              "first_quarter",
+              "full_moon",
+              "last_quarter"
+            ],
+            "title": "Event",
+            "description": "Detected lunar event kind."
+          },
+          "at_utc": {
+            "type": "string",
+            "title": "At Utc",
+            "description": "UTC ISO datetime when the event occurs."
+          },
+          "target_angle_deg": {
+            "type": "number",
+            "title": "Target Angle Deg",
+            "description": "Exact target angle used for detection (0/90/180/270)."
+          },
+          "angle_deg": {
+            "type": "number",
+            "title": "Angle Deg",
+            "description": "Computed Sun-Moon angle in degrees at the refined event timestamp."
+          },
+          "moon_distance_au": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Moon Distance Au",
+            "description": "Moon-Earth distance in astronomical units at event time."
+          },
+          "moon_distance_km": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Moon Distance Km",
+            "description": "Moon-Earth distance in kilometers at event time."
+          },
+          "nearest_perigee_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nearest Perigee Utc",
+            "description": "UTC ISO datetime of the nearest perigee to the event time."
+          },
+          "nearest_perigee_km": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nearest Perigee Km",
+            "description": "Moon-Earth distance in kilometers at the nearest perigee."
+          },
+          "nearest_apogee_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nearest Apogee Utc",
+            "description": "UTC ISO datetime of the nearest apogee to the event time."
+          },
+          "nearest_apogee_km": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nearest Apogee Km",
+            "description": "Moon-Earth distance in kilometers at the nearest apogee."
+          },
+          "delta_to_perigee_hours": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delta To Perigee Hours",
+            "description": "Absolute hours between event timestamp and nearest perigee."
+          },
+          "anomalistic_closeness_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Anomalistic Closeness Pct",
+            "description": "Distance closeness to perigee within anomalistic cycle (0-100)."
+          },
+          "is_super_luna_candidate": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Super Luna Candidate",
+            "description": "True only for New Moon and Full Moon events."
+          },
+          "is_super_luna": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Super Luna",
+            "description": "Super Luna classification result for candidate events."
+          }
+        },
+        "type": "object",
+        "required": [
+          "event",
+          "at_utc",
+          "target_angle_deg",
+          "angle_deg"
+        ],
+        "title": "LunarPhaseEventModel",
+        "description": "Exact lunar phase event payload."
+      },
+      "LunarPhaseEventsRequestModel": {
+        "properties": {
+          "from_iso": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Iso",
+            "description": "Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+            "examples": [
+              "2026-01-15T12:00:00+00:00"
+            ]
+          },
+          "horizon_days": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days (max 1826)."
+          },
+          "include_distance_metrics": {
+            "type": "boolean",
+            "title": "Include Distance Metrics",
+            "description": "Include Moon-Earth distance and nearest perigee/apogee metrics for each event.",
+            "default": false
+          },
+          "include_super_luna": {
+            "type": "boolean",
+            "title": "Include Super Luna",
+            "description": "Classify New/Full Moon events as Super Luna using the selected definition.",
+            "default": false
+          },
+          "super_luna_definition": {
+            "type": "string",
+            "enum": [
+              "nolle_90pct_cycle",
+              "distance_threshold_km"
+            ],
+            "title": "Super Luna Definition",
+            "description": "Definition used to classify Super Luna when include_super_luna is true.",
+            "default": "nolle_90pct_cycle"
+          },
+          "super_luna_distance_km_threshold": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Super Luna Distance Km Threshold",
+            "description": "Distance threshold in km used when super_luna_definition='distance_threshold_km'.",
+            "default": 360000.0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "horizon_days"
+        ],
+        "title": "LunarPhaseEventsRequestModel",
+        "description": "Request payload for lunar phase event detection."
+      },
+      "LunarPhaseEventsResponseModel": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response."
+          },
+          "from_iso": {
+            "type": "string",
+            "title": "From Iso",
+            "description": "Effective UTC ISO starting datetime used for the scan."
+          },
+          "horizon_days": {
+            "type": "integer",
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days."
+          },
+          "distance_frame": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "geocentric"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Distance Frame",
+            "description": "Distance reference frame when distance metrics are requested."
+          },
+          "distance_units": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "au",
+                    "km"
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Distance Units",
+            "description": "Distance units included in event payload when distance metrics are requested."
+          },
+          "super_luna_definition_applied": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "nolle_90pct_cycle",
+                  "distance_threshold_km"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Super Luna Definition Applied",
+            "description": "Super Luna definition applied for classification."
+          },
+          "super_luna_distance_km_threshold_applied": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Super Luna Distance Km Threshold Applied",
+            "description": "Distance threshold applied when using the fixed-km Super Luna definition."
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/LunarPhaseEventModel"
+            },
+            "type": "array",
+            "title": "Events",
+            "description": "Detected lunar events within the requested horizon."
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "from_iso",
+          "horizon_days",
+          "events"
+        ],
+        "title": "LunarPhaseEventsResponseModel",
+        "description": "Response payload for lunar phase events endpoint."
       },
       "LunarPhaseModel": {
         "properties": {
@@ -7511,6 +9178,162 @@
           "subjects"
         ],
         "title": "RelationshipScoreModel"
+      },
+      "RetrogradeEventModel": {
+        "properties": {
+          "event": {
+            "type": "string",
+            "const": "retrograde_period",
+            "title": "Event",
+            "description": "Detected event type."
+          },
+          "planet": {
+            "type": "string",
+            "title": "Planet",
+            "description": "Canonical planet name."
+          },
+          "at_utc": {
+            "type": "string",
+            "title": "At Utc",
+            "description": "UTC ISO datetime when retrograde begins."
+          },
+          "ends_at_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ends At Utc",
+            "description": "UTC ISO datetime when retrograde ends, if found in range."
+          },
+          "start_speed": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Speed",
+            "description": "Planet speed at start boundary (negative near retrograde ingress)."
+          },
+          "end_speed": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Speed",
+            "description": "Planet speed at end boundary (positive near direct station)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "event",
+          "planet",
+          "at_utc"
+        ],
+        "title": "RetrogradeEventModel",
+        "description": "Retrograde period event payload for a planet."
+      },
+      "RetrogradeEventsRequestModel": {
+        "properties": {
+          "from_iso": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Iso",
+            "description": "Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+            "examples": [
+              "2026-01-15T12:00:00+00:00"
+            ]
+          },
+          "horizon_days": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days (max 3650)."
+          },
+          "planets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Planets",
+            "description": "Planets to evaluate for retrograde period events (case-insensitive). Defaults to all supported retrograde planets.",
+            "examples": [
+              [
+                "Mercury",
+                "Venus",
+                "mars"
+              ]
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "horizon_days"
+        ],
+        "title": "RetrogradeEventsRequestModel",
+        "description": "Request payload for retrograde event detection."
+      },
+      "RetrogradeEventsResponseModel": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response."
+          },
+          "from_iso": {
+            "type": "string",
+            "title": "From Iso",
+            "description": "Effective UTC ISO starting datetime used for the scan."
+          },
+          "horizon_days": {
+            "type": "integer",
+            "title": "Horizon Days",
+            "description": "Lookahead horizon in days."
+          },
+          "planets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Planets",
+            "description": "Canonical planet list evaluated by the scanner."
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/RetrogradeEventModel"
+            },
+            "type": "array",
+            "title": "Events",
+            "description": "Detected retrograde period events in the lookahead range."
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "from_iso",
+          "horizon_days",
+          "planets",
+          "events"
+        ],
+        "title": "RetrogradeEventsResponseModel",
+        "description": "Response payload for retrograde events endpoint."
       },
       "ReturnChartResponseModel": {
         "properties": {

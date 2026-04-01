@@ -19,7 +19,7 @@ from ..types.request_models import (
     LunarPhaseEventsRequestModel,
     NowSubjectRequestModel,
     ProgressedMoonCycleRequestModel,
-    RetrogradesNextRequestModel,
+    RetrogradeEventsRequestModel,
     SynastryChartDataRequestModel,
     CompositeChartDataRequestModel,
     TransitChartDataRequestModel,
@@ -34,7 +34,7 @@ from ..types.response_models import (
     IngressEventsResponseModel,
     LunarPhaseEventsResponseModel,
     ProgressedMoonCycleResponseModel,
-    RetrogradesNextResponseModel,
+    RetrogradeEventsResponseModel,
     ReturnDataResponseModel,
     SubjectResponseModel,
     CompatibilityScoreResponseModel,
@@ -44,7 +44,7 @@ from ..utils.derived_profile import build_derived_natal_profile, ensure_required
 from ..utils.progressions import compute_progressed_moon_cycle, ensure_progressed_points
 from ..utils.ingress import compute_ingress_events
 from ..utils.lunar_events import compute_lunar_phase_events
-from ..utils.retrogrades import compute_next_retrogrades, parse_iso_utc
+from ..utils.retrogrades import compute_retrograde_events, parse_iso_utc
 from ..utils.conjunctions import compute_conjunction_events
 from ..utils.aspect_events import compute_aspect_events
 from ..utils.eclipses import compute_eclipse_events
@@ -470,35 +470,28 @@ async def progressed_moon_cycle(request_body: ProgressedMoonCycleRequestModel, r
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/events/retrogrades", response_model=RetrogradesNextResponseModel)
-async def retrogrades_next(request_body: RetrogradesNextRequestModel, request: Request) -> JSONResponse:
+@router.post("/api/v5/events/retrogrades", response_model=RetrogradeEventsResponseModel)
+async def retrograde_events(request_body: RetrogradeEventsRequestModel, request: Request) -> JSONResponse:
     """
     **POST** `/api/v5/events/retrogrades`
 
-    Computes next retrograde windows for selected planets using streaming scan logic.
-
-    **Semantics (`include_ongoing`):**
-    - If `include_ongoing=true` and a planet is already retrograde at `from_iso`,
-      the current window is returned with:
-      - `is_ongoing=true`
-      - `started_before_from=true`
-    - If `include_ongoing=false`, only strictly future windows are returned
-      (`next_start_utc > from_iso`).
+    Detects retrograde period events for selected planets in a lookahead window
+    using stream scan + station-time refinement logic.
 
     **Parameters:**
     - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
-    - `horizon_days` (required): Lookahead horizon in days (max 2 years).
-    - `planets` (required): Planet list from allowlist (case-insensitive, deduplicated).
-    - `include_ongoing` (optional, default true): Include windows already in progress.
+    - `horizon_days` (required): Lookahead horizon in days (max 10 years).
+    - `planets` (optional): Planet list from allowlist (case-insensitive, deduplicated).
+      Defaults to all supported retrograde planets.
 
     **Returns:**
     - `status`: "OK"
     - `from_iso`: Effective UTC start used by the scanner.
     - `horizon_days`: Requested lookahead days.
-    - `include_ongoing`: Echo of request flag.
-    - `retrogrades`: One next retrograde window per requested planet.
+    - `planets`: Canonical planets evaluated by the scanner.
+    - `events`: Detected retrograde period events.
     """
-    log_request_with_body(logger, request, "Retrogrades next request", request_body.model_dump_json())
+    log_request_with_body(logger, request, "Retrograde events request", request_body.model_dump_json())
 
     try:
         from_utc = (
@@ -507,11 +500,10 @@ async def retrogrades_next(request_body: RetrogradesNextRequestModel, request: R
             else parse_iso_utc(request_body.from_iso)
         )
 
-        retrogrades = compute_next_retrogrades(
+        events = compute_retrograde_events(
             from_utc=from_utc,
             horizon_days=request_body.horizon_days,
             planets=request_body.planets,
-            include_ongoing=request_body.include_ongoing,
         )
 
         return JSONResponse(
@@ -519,8 +511,8 @@ async def retrogrades_next(request_body: RetrogradesNextRequestModel, request: R
                 "status": "OK",
                 "from_iso": from_utc.isoformat(),
                 "horizon_days": request_body.horizon_days,
-                "include_ongoing": request_body.include_ongoing,
-                "retrogrades": retrogrades,
+                "planets": request_body.planets,
+                "events": events,
             },
             status_code=200,
         )

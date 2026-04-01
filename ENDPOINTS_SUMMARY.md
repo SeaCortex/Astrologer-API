@@ -468,23 +468,22 @@ Score plus supporting details, and includes the underlying synastry chart data.
 
 ### POST `/api/v5/events/retrogrades`
 
-Next retrograde window per requested planet (stream scan + refined station times).
+Retrograde period events list for requested planets (stream scan + refined station times).
 
 ```jsonc
 {
   "status": "OK",
   "from_iso": "2026-01-15T12:00:00+00:00",
-  "horizon_days": 180,
-  "include_ongoing": true,
-  "retrogrades": [
+  "horizon_days": 365,
+  "planets": ["Mercury", "Venus", "Mars"],
+  "events": [
     {
+      "event": "retrograde_period",
       "planet": "Mercury",
-      "next_start_utc": "2026-04-21T03:59:32.812500+00:00", // null if started before from_iso
-      "next_end_utc": "2026-05-15T12:11:15.937500+00:00", // null if end not found in horizon
+      "at_utc": "2026-02-26T20:59:03.750000+00:00",
+      "ends_at_utc": "2026-03-20T10:17:20.625000+00:00", // null if end not found in horizon
       "start_speed": -0.0000284,
       "end_speed": 0.0000191,
-      "is_ongoing": false,
-      "started_before_from": false
     }
   ]
 }
@@ -492,12 +491,10 @@ Next retrograde window per requested planet (stream scan + refined station times
 
 Rules:
 
-- `planets` required (Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto), case-insensitive, deduplicated.
+- `planets` optional (Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto), case-insensitive, deduplicated.
+- If omitted, defaults to all supported retrograde planets.
 - `from_iso` optional (defaults to current UTC).
-- `horizon_days` required with cap 730 days (2 years).
-- If `include_ongoing=true` and already retrograde at `from_iso`, returns current window with
-  `is_ongoing=true`, `started_before_from=true`.
-- If `include_ongoing=false`, returns only strictly future windows (`next_start_utc > from_iso`).
+- `horizon_days` required with cap 3650 days (10 years).
 
 ## Lunar Phases
 

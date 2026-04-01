@@ -17,9 +17,10 @@ RETROGRADE_ALLOWED_PLANETS: tuple[str, ...] = (
     "Neptune",
     "Pluto",
 )
+RETROGRADE_DEFAULT_PLANETS: tuple[str, ...] = RETROGRADE_ALLOWED_PLANETS
 RETROGRADE_COARSE_SCAN_STEP_HOURS = 6
 RETROGRADE_REFINEMENT_STEP_MINUTES = 1
-RETROGRADE_MAX_HORIZON_DAYS = 730
+RETROGRADE_MAX_HORIZON_DAYS = 3650
 RETROGRADE_MAX_REFINEMENT_ITERATIONS = 64
 
 _PLANET_LOOKUP: dict[str, str] = {planet.lower(): planet for planet in RETROGRADE_ALLOWED_PLANETS}
@@ -31,12 +32,8 @@ _REFINEMENT_DELTA = timedelta(minutes=RETROGRADE_REFINEMENT_STEP_MINUTES)
 class _PlanetState:
     previous_speed: float
     previous_retrograde: bool
-    awaiting_end: bool
     start_time_utc: Optional[datetime]
     start_speed: Optional[float]
-    is_ongoing: bool
-    started_before_from: bool
-    result: Optional[dict]
 
 
 def normalize_retrograde_planets(planets: Sequence[str]) -> list[str]:
@@ -132,23 +129,28 @@ def _refine_flip_time_utc(
     return high_utc, high_speed
 
 
-def _build_window_result(state: _PlanetState, planet: str, end_time_utc: Optional[datetime], end_speed: Optional[float]) -> dict:
+def _build_event_result(
+    *,
+    planet: str,
+    start_time_utc: datetime,
+    end_time_utc: Optional[datetime],
+    start_speed: Optional[float],
+    end_speed: Optional[float],
+) -> dict:
     return {
+        "event": "retrograde_period",
         "planet": planet,
-        "next_start_utc": state.start_time_utc.isoformat() if state.start_time_utc else None,
-        "next_end_utc": end_time_utc.isoformat() if end_time_utc else None,
-        "start_speed": state.start_speed,
+        "at_utc": start_time_utc.isoformat(),
+        "ends_at_utc": end_time_utc.isoformat() if end_time_utc else None,
+        "start_speed": start_speed,
         "end_speed": end_speed,
-        "is_ongoing": state.is_ongoing,
-        "started_before_from": state.started_before_from,
     }
 
 
-def compute_next_retrogrades(
+def compute_retrograde_events(
     from_utc: datetime,
     horizon_days: int,
     planets: Sequence[str],
-    include_ongoing: bool = True,
 ) -> list[dict]:
     if from_utc.tzinfo is None:
         raise KerykeionException("from_utc must include timezone information.")
@@ -161,36 +163,27 @@ def compute_next_retrogrades(
 
     normalized_planets = normalize_retrograde_planets(planets)
     start_utc = from_utc.astimezone(timezone.utc)
-    horizon_utc = start_utc + timedelta(days=horizon_days)
+    end_utc = start_utc + timedelta(days=horizon_days)
 
     initial_speeds = _get_planet_speeds(start_utc, normalized_planets)
     states: dict[str, _PlanetState] = {}
     for planet in normalized_planets:
         initial_speed = initial_speeds[planet]
         initial_retrograde = initial_speed < 0
-        is_ongoing = include_ongoing and initial_retrograde
-
         states[planet] = _PlanetState(
             previous_speed=initial_speed,
             previous_retrograde=initial_retrograde,
-            awaiting_end=is_ongoing,
             start_time_utc=None,
-            start_speed=initial_speed if is_ongoing else None,
-            is_ongoing=is_ongoing,
-            started_before_from=is_ongoing,
-            result=None,
+            start_speed=None,
         )
 
-    current_utc = start_utc
-    while current_utc < horizon_utc:
-        unresolved = [planet for planet, state in states.items() if state.result is None]
-        if not unresolved:
-            break
+    events: list[dict] = []
+    previous_utc = start_utc
+    while previous_utc < end_utc:
+        current_utc = min(previous_utc + _COARSE_SCAN_DELTA, end_utc)
+        current_speeds = _get_planet_speeds(current_utc, normalized_planets)
 
-        next_utc = min(current_utc + _COARSE_SCAN_DELTA, horizon_utc)
-        current_speeds = _get_planet_speeds(next_utc, unresolved)
-
-        for planet in unresolved:
+        for planet in normalized_planets:
             state = states[planet]
             previous_speed = state.previous_speed
             current_speed = current_speeds[planet]
@@ -200,43 +193,47 @@ def compute_next_retrogrades(
             if current_retrograde != previous_retrograde:
                 flip_time_utc, flip_speed = _refine_flip_time_utc(
                     planet=planet,
-                    low_utc=current_utc,
-                    high_utc=next_utc,
+                    low_utc=previous_utc,
+                    high_utc=current_utc,
                     low_speed=previous_speed,
                     high_speed=current_speed,
                 )
 
                 if (not previous_retrograde) and current_retrograde:
-                    if not state.awaiting_end:
-                        state.awaiting_end = True
-                        state.start_time_utc = flip_time_utc
-                        state.start_speed = flip_speed
-                        state.is_ongoing = False
-                        state.started_before_from = False
+                    state.start_time_utc = flip_time_utc
+                    state.start_speed = flip_speed
                 elif previous_retrograde and (not current_retrograde):
-                    if state.awaiting_end:
-                        state.result = _build_window_result(
-                            state=state,
-                            planet=planet,
-                            end_time_utc=flip_time_utc,
-                            end_speed=flip_speed,
+                    if state.start_time_utc is not None:
+                        events.append(
+                            _build_event_result(
+                                planet=planet,
+                                start_time_utc=state.start_time_utc,
+                                end_time_utc=flip_time_utc,
+                                start_speed=state.start_speed,
+                                end_speed=flip_speed,
+                            )
                         )
-                        state.awaiting_end = False
+                        state.start_time_utc = None
+                        state.start_speed = None
 
             state.previous_speed = current_speed
             state.previous_retrograde = current_retrograde
 
-        current_utc = next_utc
+        previous_utc = current_utc
 
     for planet in normalized_planets:
         state = states[planet]
-        if state.result is not None:
+        if state.start_time_utc is None:
             continue
-        state.result = _build_window_result(
-            state=state,
-            planet=planet,
-            end_time_utc=None,
-            end_speed=None,
+        events.append(
+            _build_event_result(
+                planet=planet,
+                start_time_utc=state.start_time_utc,
+                end_time_utc=None,
+                start_speed=state.start_speed,
+                end_speed=None,
+            )
         )
 
-    return [states[planet].result for planet in normalized_planets if states[planet].result is not None]
+    events.sort(key=lambda item: (item["at_utc"], item["planet"]))
+    return events
