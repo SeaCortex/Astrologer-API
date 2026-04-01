@@ -13,6 +13,7 @@ from ..types.request_models import (
     BirthDataRequestModel,
     BirthChartDataRequestModel,
     ConjunctionEventsRequestModel,
+    EclipseEventsRequestModel,
     IngressEventsRequestModel,
     LunarPhaseEventsRequestModel,
     NowSubjectRequestModel,
@@ -27,6 +28,7 @@ from ..types.response_models import (
     ChartDataResponseModel,
     ConjunctionEventsResponseModel,
     DerivedNatalProfileResponseModel,
+    EclipseEventsResponseModel,
     IngressEventsResponseModel,
     LunarPhaseEventsResponseModel,
     ProgressedMoonCycleResponseModel,
@@ -42,6 +44,7 @@ from ..utils.ingress import compute_ingress_events
 from ..utils.lunar_events import compute_lunar_phase_events
 from ..utils.retrogrades import compute_next_retrogrades, parse_iso_utc
 from ..utils.conjunctions import compute_conjunction_events
+from ..utils.eclipses import compute_eclipse_events
 from ..utils.router_utils import (
     build_subject,
     calculate_return_chart_data,
@@ -577,6 +580,61 @@ async def lunar_phase_events(request_body: LunarPhaseEventsRequestModel, request
             ]
 
         return JSONResponse(content=response_payload, status_code=200)
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/events/eclipses", response_model=EclipseEventsResponseModel)
+async def eclipse_events(request_body: EclipseEventsRequestModel, request: Request) -> JSONResponse:
+    """
+    **POST** `/api/v5/events/eclipses`
+
+    Detects exact solar and lunar eclipse events in a lookahead window.
+
+    **Parameters:**
+    - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
+    - `horizon_days` (required): Lookahead horizon in days (max 10 years).
+    - `event_types` (optional): Include `solar`, `lunar`, or both.
+    - `solar_types` (optional): Solar eclipse subtype filters.
+    - `lunar_types` (optional): Lunar eclipse subtype filters.
+
+    **Returns:**
+    - `status`: "OK"
+    - `from_iso`: Effective UTC start used by the scanner.
+    - `horizon_days`: Requested lookahead days.
+    - `event_types`: Effective normalized eclipse families.
+    - `solar_types`: Effective normalized solar subtype filters.
+    - `lunar_types`: Effective normalized lunar subtype filters.
+    - `events`: Exact eclipse timestamps and type-specific metadata.
+    """
+    log_request_with_body(logger, request, "Eclipse events request", request_body.model_dump_json())
+
+    try:
+        from_utc = (
+            datetime.now(timezone.utc)
+            if request_body.from_iso is None
+            else parse_iso_utc(request_body.from_iso)
+        )
+
+        events = compute_eclipse_events(
+            from_utc=from_utc,
+            horizon_days=request_body.horizon_days,
+            event_types=request_body.event_types,
+            solar_types=request_body.solar_types,
+            lunar_types=request_body.lunar_types,
+        )
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "from_iso": from_utc.isoformat(),
+                "horizon_days": request_body.horizon_days,
+                "event_types": request_body.event_types,
+                "solar_types": request_body.solar_types,
+                "lunar_types": request_body.lunar_types,
+                "events": events,
+            },
+            status_code=200,
+        )
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)
 

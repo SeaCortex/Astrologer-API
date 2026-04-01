@@ -911,6 +911,93 @@ Optionally, the endpoint can enrich each event with:
 
 ---
 
+### Eclipses
+
+#### Solar + Lunar Eclipse Events
+
+**POST** `/api/v5/events/eclipses`
+
+Computes exact **solar** and/or **lunar eclipse events** in a lookahead window
+using Swiss Ephemeris eclipse search APIs.
+
+Supports subtype filters:
+
+- Solar: `total`, `annular`, `partial`, `annular_total`
+- Lunar: `total`, `partial`, `penumbral`
+
+**Request:**
+
+```json
+{
+  "from_iso": "2026-01-01T00:00:00+00:00",
+  "horizon_days": 365,
+  "event_types": ["solar", "lunar"],
+  "solar_types": ["total", "annular", "partial", "annular_total"],
+  "lunar_types": ["total", "partial", "penumbral"]
+}
+```
+
+**Rules:**
+
+- `from_iso` is optional (defaults to current UTC time)
+- `horizon_days` is required, with max lookahead cap of 10 years (3650 days)
+- `event_types` is optional (defaults to `["solar", "lunar"]`)
+- `solar_types` is optional (defaults to all supported solar subtypes)
+- `lunar_types` is optional (defaults to all supported lunar subtypes)
+
+**Response (example):**
+
+```json
+{
+  "status": "OK",
+  "from_iso": "2026-01-01T00:00:00+00:00",
+  "horizon_days": 365,
+  "event_types": ["solar", "lunar"],
+  "solar_types": ["total", "annular", "partial", "annular_total"],
+  "lunar_types": ["total", "partial", "penumbral"],
+  "events": [
+    {
+      "event": "solar_eclipse",
+      "eclipse_type": "annular",
+      "at_utc": "2026-02-17T12:11:53.987477+00:00",
+      "eclipse_begin_utc": "2026-02-17T09:56:47.676076+00:00",
+      "eclipse_end_utc": "2026-02-17T14:27:40.254853+00:00",
+      "totality_begin_utc": null,
+      "totality_end_utc": null,
+      "magnitude": 0.9637550694240795,
+      "obscuration": 0.9246474202382051,
+      "moon_to_sun_diameter_ratio": 0.9797393586547305,
+      "saros_series": 121,
+      "saros_member": 61,
+      "is_central": true,
+      "is_noncentral": false,
+      "greatest_eclipse_longitude": 87.05170959780031,
+      "greatest_eclipse_latitude": -64.68382686476762
+    },
+    {
+      "event": "lunar_eclipse",
+      "eclipse_type": "total",
+      "at_utc": "2026-03-03T11:33:42.715536+00:00",
+      "eclipse_begin_utc": "2026-03-03T08:20:45.162583+00:00",
+      "eclipse_end_utc": "2026-03-03T14:46:39.570412+00:00",
+      "penumbral_begin_utc": "2026-03-03T08:20:45.162583+00:00",
+      "penumbral_end_utc": "2026-03-03T14:46:39.570412+00:00",
+      "partial_begin_utc": "2026-03-03T09:50:06.932596+00:00",
+      "partial_end_utc": "2026-03-03T13:17:16.831481+00:00",
+      "totality_begin_utc": "2026-03-03T10:57:24.181306+00:00",
+      "totality_end_utc": "2026-03-03T12:09:58.762514+00:00",
+      "magnitude": 1.1504552270414716,
+      "umbral_magnitude": 1.1504552270414716,
+      "penumbral_magnitude": 2.18369503082378,
+      "saros_series": 133,
+      "saros_member": 27
+    }
+  ]
+}
+```
+
+---
+
 ### Retrogrades
 
 #### Next Retrogrades (Per Planet)

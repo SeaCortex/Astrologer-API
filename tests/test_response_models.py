@@ -192,6 +192,38 @@ def test_lunar_phase_events_response_model_parses_payload():
     assert model.events[0].event == "new_moon"
 
 
+def test_eclipse_events_response_model_parses_payload():
+    payload = {
+        "status": "OK",
+        "from_iso": "2026-01-01T00:00:00+00:00",
+        "horizon_days": 365,
+        "event_types": ["solar", "lunar"],
+        "solar_types": ["total", "annular", "partial", "annular_total"],
+        "lunar_types": ["total", "partial", "penumbral"],
+        "events": [
+            {
+                "event": "solar_eclipse",
+                "eclipse_type": "annular",
+                "at_utc": "2026-02-17T12:11:53.987477+00:00",
+                "eclipse_begin_utc": "2026-02-17T09:56:47.676076+00:00",
+                "eclipse_end_utc": "2026-02-17T14:27:40.254853+00:00",
+                "magnitude": 0.9637550694,
+                "saros_series": 121,
+                "saros_member": 61,
+                "is_central": True,
+                "is_noncentral": False,
+            }
+        ],
+    }
+    model = rm.EclipseEventsResponseModel.model_validate(payload)
+    assert model.status == "OK"
+    assert model.horizon_days == 365
+    assert model.event_types == ["solar", "lunar"]
+    assert len(model.events) == 1
+    assert model.events[0].event == "solar_eclipse"
+    assert model.events[0].eclipse_type == "annular"
+
+
 def test_ingress_events_response_model_parses_payload():
     payload = {
         "status": "OK",

@@ -340,6 +340,123 @@ class LunarPhaseEventsResponseModel(StatusResponseModel):
     events: list[LunarPhaseEventModel] = Field(description="Detected lunar events within the requested horizon.")
 
 
+class EclipseEventModel(BaseModel):
+    """Exact solar/lunar eclipse event payload."""
+
+    event: Literal["solar_eclipse", "lunar_eclipse"] = Field(description="Detected eclipse event kind.")
+    eclipse_type: Literal["total", "annular", "partial", "annular_total", "penumbral"] = Field(
+        description="Detected eclipse subtype."
+    )
+    at_utc: str = Field(description="UTC ISO datetime of maximum eclipse.")
+    eclipse_begin_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime when eclipse starts (phase depends on event family).",
+    )
+    eclipse_end_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime when eclipse ends (phase depends on event family).",
+    )
+    penumbral_begin_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime for penumbral phase begin (lunar eclipses).",
+    )
+    penumbral_end_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime for penumbral phase end (lunar eclipses).",
+    )
+    partial_begin_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime for partial phase begin.",
+    )
+    partial_end_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime for partial phase end.",
+    )
+    totality_begin_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime for totality begin when applicable.",
+    )
+    totality_end_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime for totality end when applicable.",
+    )
+    center_line_begin_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime for central line begin (solar eclipses).",
+    )
+    center_line_end_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime for central line end (solar eclipses).",
+    )
+    annular_total_transition_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime when annular-total eclipses become total.",
+    )
+    annular_total_reversion_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime when annular-total eclipses revert to annular.",
+    )
+    magnitude: Optional[float] = Field(
+        default=None,
+        description="Primary eclipse magnitude at maximum.",
+    )
+    obscuration: Optional[float] = Field(
+        default=None,
+        description="Fraction of solar disc covered (solar eclipses).",
+    )
+    moon_to_sun_diameter_ratio: Optional[float] = Field(
+        default=None,
+        description="Apparent Moon/Sun diameter ratio (solar eclipses).",
+    )
+    umbral_magnitude: Optional[float] = Field(
+        default=None,
+        description="Umbral magnitude (lunar eclipses).",
+    )
+    penumbral_magnitude: Optional[float] = Field(
+        default=None,
+        description="Penumbral magnitude (lunar eclipses).",
+    )
+    saros_series: Optional[int] = Field(
+        default=None,
+        description="Saros series number when available.",
+    )
+    saros_member: Optional[int] = Field(
+        default=None,
+        description="Saros member number within the series when available.",
+    )
+    is_central: Optional[bool] = Field(
+        default=None,
+        description="True when solar eclipse is central.",
+    )
+    is_noncentral: Optional[bool] = Field(
+        default=None,
+        description="True when solar eclipse is non-central.",
+    )
+    greatest_eclipse_longitude: Optional[float] = Field(
+        default=None,
+        description="Longitude of greatest eclipse/central line at maximum (solar eclipses).",
+    )
+    greatest_eclipse_latitude: Optional[float] = Field(
+        default=None,
+        description="Latitude of greatest eclipse/central line at maximum (solar eclipses).",
+    )
+
+
+class EclipseEventsResponseModel(StatusResponseModel):
+    """Response payload for solar/lunar eclipse events endpoint."""
+
+    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    horizon_days: int = Field(description="Lookahead horizon in days.")
+    event_types: list[Literal["solar", "lunar"]] = Field(description="Eclipse families included in the scan.")
+    solar_types: list[Literal["total", "annular", "partial", "annular_total"]] = Field(
+        description="Solar eclipse subtypes included in the scan."
+    )
+    lunar_types: list[Literal["total", "partial", "penumbral"]] = Field(
+        description="Lunar eclipse subtypes included in the scan."
+    )
+    events: list[EclipseEventModel] = Field(description="Detected eclipse events within the requested horizon.")
+
+
 class IngressEventModel(BaseModel):
     """Exact sign ingress event payload."""
 

@@ -24,6 +24,15 @@ from ..utils.conjunctions import (
     normalize_conjunction_pair_types,
     normalize_conjunction_planets,
 )
+from ..utils.eclipses import (
+    ECLIPSE_DEFAULT_EVENT_TYPES,
+    ECLIPSE_DEFAULT_LUNAR_TYPES,
+    ECLIPSE_DEFAULT_SOLAR_TYPES,
+    ECLIPSE_MAX_HORIZON_DAYS,
+    normalize_eclipse_event_types,
+    normalize_lunar_eclipse_types,
+    normalize_solar_eclipse_types,
+)
 from ..utils.lunar_events import LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS
 from kerykeion.schemas import (
     ActiveAspect,
@@ -922,6 +931,88 @@ class LunarPhaseEventsRequestModel(BaseModel):
         if self.horizon_days > LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS:
             raise ValueError(
                 f"horizon_days cannot exceed {LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS} (5 years)."
+            )
+        return self
+
+
+class EclipseEventsRequestModel(BaseModel):
+    """Request payload for solar and lunar eclipse event detection."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-01T00:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {ECLIPSE_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+    event_types: list[Literal["solar", "lunar"]] = Field(
+        default_factory=lambda: list(ECLIPSE_DEFAULT_EVENT_TYPES),
+        description="Eclipse families to include in the scan.",
+        min_length=1,
+        examples=[["solar", "lunar"], ["lunar"]],
+    )
+    solar_types: list[Literal["total", "annular", "partial", "annular_total"]] = Field(
+        default_factory=lambda: list(ECLIPSE_DEFAULT_SOLAR_TYPES),
+        description="Solar eclipse subtypes to include when event_types contains 'solar'.",
+        min_length=1,
+        examples=[["total", "annular", "partial", "annular_total"], ["total"]],
+    )
+    lunar_types: list[Literal["total", "partial", "penumbral"]] = Field(
+        default_factory=lambda: list(ECLIPSE_DEFAULT_LUNAR_TYPES),
+        description="Lunar eclipse subtypes to include when event_types contains 'lunar'.",
+        min_length=1,
+        examples=[["total", "partial", "penumbral"], ["total", "partial"]],
+    )
+
+    @field_validator("event_types", mode="before")
+    @classmethod
+    def normalize_event_types(cls, value) -> list[str]:
+        if value is None:
+            return list(ECLIPSE_DEFAULT_EVENT_TYPES)
+        if not isinstance(value, list):
+            raise ValueError("event_types must be an array of strings.")
+        return normalize_eclipse_event_types(value)
+
+    @field_validator("solar_types", mode="before")
+    @classmethod
+    def normalize_solar_types(cls, value) -> list[str]:
+        if value is None:
+            return list(ECLIPSE_DEFAULT_SOLAR_TYPES)
+        if not isinstance(value, list):
+            raise ValueError("solar_types must be an array of strings.")
+        return normalize_solar_eclipse_types(value)
+
+    @field_validator("lunar_types", mode="before")
+    @classmethod
+    def normalize_lunar_types(cls, value) -> list[str]:
+        if value is None:
+            return list(ECLIPSE_DEFAULT_LUNAR_TYPES)
+        if not isinstance(value, list):
+            raise ValueError("lunar_types must be an array of strings.")
+        return normalize_lunar_eclipse_types(value)
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "EclipseEventsRequestModel":
+        if self.horizon_days > ECLIPSE_MAX_HORIZON_DAYS:
+            raise ValueError(
+                f"horizon_days cannot exceed {ECLIPSE_MAX_HORIZON_DAYS} (10 years)."
             )
         return self
 
