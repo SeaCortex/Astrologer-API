@@ -17,6 +17,20 @@ INGRESS_ALLOWED_PLANETS: tuple[str, ...] = (
     "Uranus",
     "Neptune",
     "Pluto",
+    "Mean_Lilith",
+    "True_Lilith",
+)
+INGRESS_DEFAULT_PLANETS: tuple[str, ...] = (
+    "Sun",
+    "Moon",
+    "Mercury",
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+    "Uranus",
+    "Neptune",
+    "Pluto",
 )
 INGRESS_COARSE_SCAN_STEP_HOURS = 6
 INGRESS_REFINEMENT_STEP_MINUTES = 1

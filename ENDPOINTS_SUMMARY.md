@@ -573,6 +573,7 @@ Rules:
 - `from_iso` optional (defaults to current UTC).
 - `horizon_days` required with cap 730 days (2 years).
 - `planets` optional; defaults to `Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto`.
+- Allowed planets also include `Mean_Lilith` and `True_Lilith` when explicitly requested.
 - Planet names are case-insensitive and deduplicated.
 
 ## Progressions

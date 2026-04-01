@@ -123,6 +123,21 @@ def test_ingress_events_normalizes_and_deduplicates_planets(client: TestClient):
     assert all(item["planet"] in {"Moon", "Sun"} for item in body["events"])
 
 
+def test_ingress_events_accepts_lilith_points(client: TestClient):
+    payload = {
+        "from_iso": "2026-03-01T00:00:00+00:00",
+        "horizon_days": 30,
+        "planets": ["mean_lilith", "TRUE_lilith"],
+    }
+
+    response = client.post("/api/v5/events/ingress", json=payload)
+    assert response.status_code == 200
+
+    body = response.json()
+    assert body["planets"] == ["Mean_Lilith", "True_Lilith"]
+    assert all(item["planet"] in {"Mean_Lilith", "True_Lilith"} for item in body["events"])
+
+
 def test_ingress_events_rejects_invalid_planets(client: TestClient):
     payload = {
         "horizon_days": 30,

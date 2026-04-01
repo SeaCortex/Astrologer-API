@@ -589,6 +589,7 @@ async def ingress_events(request_body: IngressEventsRequestModel, request: Reque
     - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
     - `horizon_days` (required): Lookahead horizon in days (max 2 years).
     - `planets` (optional): Planets to scan. Defaults to Sun, Moon, and all major planets.
+      Supports `Mean_Lilith` and `True_Lilith` when explicitly provided.
 
     **Returns:**
     - `status`: "OK"

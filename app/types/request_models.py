@@ -13,7 +13,7 @@ from ..utils.retrogrades import (
     normalize_retrograde_planets,
 )
 from ..utils.ingress import (
-    INGRESS_ALLOWED_PLANETS,
+    INGRESS_DEFAULT_PLANETS,
     INGRESS_MAX_HORIZON_DAYS,
     normalize_ingress_planets,
 )
@@ -934,19 +934,23 @@ class IngressEventsRequestModel(BaseModel):
         ge=1,
     )
     planets: list[str] = Field(
-        default_factory=lambda: list(INGRESS_ALLOWED_PLANETS),
+        default_factory=lambda: list(INGRESS_DEFAULT_PLANETS),
         description=(
             "Planets to evaluate for sign ingress events (case-insensitive). "
-            "Defaults to Sun, Moon, and all major planets."
+            "Defaults to Sun, Moon, and all major planets. "
+            "Also supports Mean_Lilith and True_Lilith when explicitly requested."
         ),
-        examples=[["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]],
+        examples=[
+            ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"],
+            ["Mean_Lilith", "True_Lilith"],
+        ],
     )
 
     @field_validator("planets", mode="before")
     @classmethod
     def normalize_planets(cls, value) -> list[str]:
         if value is None:
-            return list(INGRESS_ALLOWED_PLANETS)
+            return list(INGRESS_DEFAULT_PLANETS)
         if not isinstance(value, list):
             raise ValueError("planets must be an array of strings.")
         return normalize_ingress_planets(value)
