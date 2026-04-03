@@ -24,8 +24,8 @@ REFERENCE_2026_SUN_INGRESSES_UTC: list[str] = [
 
 REFERENCE_2026_MAJOR_INGRESSES_UTC: dict[str, str] = {
     "Neptune": "2026-01-26T17:34:00+00:00",  # Jan 26 12:34 PM ET (EST)
-    "Saturn": "2026-02-14T00:11:00+00:00",   # Feb 13 7:11 PM ET (EST)
-    "Uranus": "2026-04-26T00:51:00+00:00",   # Apr 25 8:51 PM ET (EDT)
+    "Saturn": "2026-02-14T00:11:00+00:00",  # Feb 13 7:11 PM ET (EST)
+    "Uranus": "2026-04-26T00:51:00+00:00",  # Apr 25 8:51 PM ET (EDT)
     "Jupiter": "2026-06-30T05:52:00+00:00",  # Jun 30 1:52 AM ET (EDT)
 }
 
@@ -63,15 +63,42 @@ def test_ingress_events_returns_sorted_events_with_expected_shape(client: TestCl
 
     previous_dt: datetime | None = None
     for item in events:
-        assert item["event"] == "sign_ingress"
+        assert item["event"] == "sign_ingress_period"
         assert item["planet"] == "Moon"
-        assert item["from_sign"] != item["to_sign"]
 
-        at_dt = datetime.fromisoformat(item["at_utc"]).astimezone(timezone.utc)
-        assert from_dt <= at_dt <= horizon_dt
+        starts_dt = datetime.fromisoformat(item["starts_at_utc"]).astimezone(
+            timezone.utc
+        )
+        assert from_dt <= starts_dt <= horizon_dt
         if previous_dt is not None:
-            assert at_dt >= previous_dt
-        previous_dt = at_dt
+            assert starts_dt >= previous_dt
+        previous_dt = starts_dt
+
+        ends_iso = item["ends_at_utc"]
+        if ends_iso is None:
+            continue
+        ends_dt = datetime.fromisoformat(ends_iso).astimezone(timezone.utc)
+        assert starts_dt <= ends_dt
+        assert ends_dt <= horizon_dt
+
+
+def test_ingress_events_includes_active_period_at_from_iso(client: TestClient):
+    payload = {
+        "from_iso": "2026-03-01T00:00:00+00:00",
+        "horizon_days": 10,
+        "planets": ["Moon"],
+    }
+
+    response = client.post("/api/v5/events/ingress", json=payload)
+    assert response.status_code == 200
+    body = response.json()
+    first_event = body["events"][0]
+
+    assert first_event["event"] == "sign_ingress_period"
+    assert first_event["planet"] == "Moon"
+    assert first_event["starts_at_utc"] == "2026-03-01T00:00:00+00:00"
+    assert first_event["from_sign"] is None
+    assert first_event["ends_at_utc"] is not None
 
 
 def test_ingress_events_defaults_from_iso_and_planets(client: TestClient):
@@ -144,7 +171,9 @@ def test_ingress_events_accepts_lilith_points(client: TestClient):
 
     body = response.json()
     assert body["planets"] == ["Mean_Lilith", "True_Lilith"]
-    assert all(item["planet"] in {"Mean_Lilith", "True_Lilith"} for item in body["events"])
+    assert all(
+        item["planet"] in {"Mean_Lilith", "True_Lilith"} for item in body["events"]
+    )
 
 
 def test_ingress_events_rejects_invalid_planets(client: TestClient):
@@ -174,13 +203,22 @@ def test_ingress_events_2026_sun_match_reference_utc_times(client: TestClient):
     assert response.status_code == 200
 
     events = response.json()["events"]
-    assert len(events) == len(REFERENCE_2026_SUN_INGRESSES_UTC)
+    ingress_period_starts = [
+        item
+        for item in events
+        if item["planet"] == "Sun" and item["from_sign"] is not None
+    ]
+    assert len(ingress_period_starts) == len(REFERENCE_2026_SUN_INGRESSES_UTC)
 
-    for computed, expected_iso in zip(events, REFERENCE_2026_SUN_INGRESSES_UTC, strict=True):
-        assert computed["event"] == "sign_ingress"
+    for computed, expected_iso in zip(
+        ingress_period_starts, REFERENCE_2026_SUN_INGRESSES_UTC, strict=True
+    ):
+        assert computed["event"] == "sign_ingress_period"
         assert computed["planet"] == "Sun"
 
-        computed_dt = datetime.fromisoformat(computed["at_utc"]).astimezone(timezone.utc)
+        computed_dt = datetime.fromisoformat(computed["starts_at_utc"]).astimezone(
+            timezone.utc
+        )
         expected_dt = datetime.fromisoformat(expected_iso).astimezone(timezone.utc)
         # Source table is minute-granular and ET-based; keep a conservative tolerance.
         assert abs((computed_dt - expected_dt).total_seconds()) <= 300
@@ -201,11 +239,29 @@ def test_ingress_events_2026_major_planet_ingresses_match_reference(client: Test
     assert response.status_code == 200
 
     events = response.json()["events"]
-    by_planet = {item["planet"]: item for item in events}
+    by_planet: dict[str, list[dict]] = {}
+    for item in events:
+        if item["from_sign"] is None:
+            continue
+        by_planet.setdefault(item["planet"], []).append(item)
     assert set(by_planet.keys()) == set(REFERENCE_2026_MAJOR_INGRESSES_UTC.keys())
 
     for planet, expected_iso in REFERENCE_2026_MAJOR_INGRESSES_UTC.items():
-        computed_dt = datetime.fromisoformat(by_planet[planet]["at_utc"]).astimezone(timezone.utc)
+        expected_dt = datetime.fromisoformat(expected_iso).astimezone(timezone.utc)
+        matching_period = min(
+            by_planet[planet],
+            key=lambda event: abs(
+                (
+                    datetime.fromisoformat(event["starts_at_utc"]).astimezone(
+                        timezone.utc
+                    )
+                    - expected_dt
+                ).total_seconds()
+            ),
+        )
+        computed_dt = datetime.fromisoformat(
+            matching_period["starts_at_utc"]
+        ).astimezone(timezone.utc)
         expected_dt = datetime.fromisoformat(expected_iso).astimezone(timezone.utc)
         # Cross-source ingress references can differ by several minutes depending
         # on calculation method and rounding policy.
@@ -230,20 +286,29 @@ def test_ingress_events_2026_mean_lilith_matches_reference_utc_time(client: Test
     assert response.status_code == 200
 
     events = response.json()["events"]
-    assert len(events) == 1
+    matching_events = [
+        item
+        for item in events
+        if item["planet"] == "Mean_Lilith"
+        and item["from_sign"] == "Sag"
+        and item["to_sign"] == "Cap"
+    ]
+    assert len(matching_events) == 1
+    computed = matching_events[0]
+    assert computed["event"] == "sign_ingress_period"
 
-    computed = events[0]
-    assert computed["event"] == "sign_ingress"
-    assert computed["planet"] == "Mean_Lilith"
-    assert computed["from_sign"] == "Sag"
-    assert computed["to_sign"] == "Cap"
-
-    computed_dt = datetime.fromisoformat(computed["at_utc"]).astimezone(timezone.utc)
-    expected_dt = datetime.fromisoformat(REFERENCE_2026_MEAN_LILITH_INGRESS_UTC).astimezone(timezone.utc)
+    computed_dt = datetime.fromisoformat(computed["starts_at_utc"]).astimezone(
+        timezone.utc
+    )
+    expected_dt = datetime.fromisoformat(
+        REFERENCE_2026_MEAN_LILITH_INGRESS_UTC
+    ).astimezone(timezone.utc)
     assert abs((computed_dt - expected_dt).total_seconds()) <= 300
 
 
-def test_ingress_events_mean_lilith_detects_reference_event_in_short_window(client: TestClient):
+def test_ingress_events_mean_lilith_detects_reference_event_in_short_window(
+    client: TestClient,
+):
     response = client.post(
         "/api/v5/events/ingress",
         json={
@@ -255,8 +320,19 @@ def test_ingress_events_mean_lilith_detects_reference_event_in_short_window(clie
     assert response.status_code == 200
 
     events = response.json()["events"]
-    assert len(events) == 1
+    matching_events = [
+        item
+        for item in events
+        if item["planet"] == "Mean_Lilith"
+        and item["from_sign"] == "Sag"
+        and item["to_sign"] == "Cap"
+    ]
+    assert len(matching_events) == 1
 
-    computed_dt = datetime.fromisoformat(events[0]["at_utc"]).astimezone(timezone.utc)
-    expected_dt = datetime.fromisoformat(REFERENCE_2026_MEAN_LILITH_INGRESS_UTC).astimezone(timezone.utc)
+    computed_dt = datetime.fromisoformat(
+        matching_events[0]["starts_at_utc"]
+    ).astimezone(timezone.utc)
+    expected_dt = datetime.fromisoformat(
+        REFERENCE_2026_MEAN_LILITH_INGRESS_UTC
+    ).astimezone(timezone.utc)
     assert abs((computed_dt - expected_dt).total_seconds()) <= 300

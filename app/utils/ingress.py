@@ -37,7 +37,9 @@ INGRESS_REFINEMENT_STEP_MINUTES = 1
 INGRESS_MAX_HORIZON_DAYS = 730
 INGRESS_MAX_REFINEMENT_ITERATIONS = 64
 
-_PLANET_LOOKUP: dict[str, str] = {planet.lower(): planet for planet in INGRESS_ALLOWED_PLANETS}
+_PLANET_LOOKUP: dict[str, str] = {
+    planet.lower(): planet for planet in INGRESS_ALLOWED_PLANETS
+}
 _COARSE_SCAN_DELTA = timedelta(hours=INGRESS_COARSE_SCAN_STEP_HOURS)
 _REFINEMENT_DELTA = timedelta(minutes=INGRESS_REFINEMENT_STEP_MINUTES)
 
@@ -68,7 +70,9 @@ def normalize_ingress_planets(planets: Sequence[str]) -> list[str]:
     return normalized
 
 
-def _get_planet_signs(at_utc: datetime, planets: Sequence[str]) -> dict[str, tuple[str, int]]:
+def _get_planet_signs(
+    at_utc: datetime, planets: Sequence[str]
+) -> dict[str, tuple[str, int]]:
     subject = AstrologicalSubjectFactory.from_iso_utc_time(
         name="Ingress Scan",
         iso_utc_time=at_utc.isoformat(),
@@ -130,6 +134,60 @@ def _refine_sign_ingress_time_utc(
     return high_utc, to_sign
 
 
+def _build_period_events_for_planet(
+    *,
+    planet: str,
+    start_utc: datetime,
+    start_sign: str,
+    transitions: list[dict],
+) -> list[dict]:
+    period_starts: list[dict] = [
+        {
+            "starts_at_utc": start_utc,
+            "from_sign": None,
+            "to_sign": start_sign,
+        }
+    ]
+
+    for transition in transitions:
+        transition_utc = transition["at_utc"]
+        transition_from_sign = transition["from_sign"]
+        transition_to_sign = transition["to_sign"]
+
+        if transition_utc <= start_utc:
+            period_starts[0]["from_sign"] = transition_from_sign
+            period_starts[0]["to_sign"] = transition_to_sign
+            continue
+
+        period_starts.append(
+            {
+                "starts_at_utc": transition_utc,
+                "from_sign": transition_from_sign,
+                "to_sign": transition_to_sign,
+            }
+        )
+
+    events: list[dict] = []
+    for index, period in enumerate(period_starts):
+        period_start_utc = period["starts_at_utc"]
+        period_end_utc = None
+        if index + 1 < len(period_starts):
+            period_end_utc = period_starts[index + 1]["starts_at_utc"]
+
+        events.append(
+            {
+                "event": "sign_ingress_period",
+                "planet": planet,
+                "starts_at_utc": period_start_utc.isoformat(),
+                "ends_at_utc": period_end_utc.isoformat() if period_end_utc else None,
+                "from_sign": period["from_sign"],
+                "to_sign": period["to_sign"],
+            }
+        )
+
+    return events
+
+
 def compute_ingress_events(
     from_utc: datetime,
     horizon_days: int,
@@ -148,9 +206,12 @@ def compute_ingress_events(
     start_utc = from_utc.astimezone(timezone.utc)
     end_utc = start_utc + timedelta(days=horizon_days)
 
-    events: list[dict] = []
+    transitions_by_planet: dict[str, list[dict]] = {
+        planet: [] for planet in normalized_planets
+    }
     previous_utc = start_utc
     previous_signs = _get_planet_signs(previous_utc, normalized_planets)
+    start_signs = dict(previous_signs)
 
     while previous_utc < end_utc:
         current_utc = min(previous_utc + _COARSE_SCAN_DELTA, end_utc)
@@ -170,21 +231,31 @@ def compute_ingress_events(
                 previous_sign_num=previous_sign_num,
             )
             if start_utc <= event_utc <= end_utc:
-                events.append(
+                transitions_by_planet[planet].append(
                     {
-                        "event": "sign_ingress",
-                        "planet": planet,
-                        "at_utc": event_utc.isoformat(),
+                        "at_utc": event_utc,
                         "from_sign": previous_sign,
                         "to_sign": to_sign,
                     }
                 )
 
-            # Keep progression aligned with coarse snapshot state.
-            previous_signs[planet] = (current_sign, current_sign_num)
-
         previous_utc = current_utc
         previous_signs = current_signs
 
-    events.sort(key=lambda event: (event["at_utc"], event["planet"]))
+    events: list[dict] = []
+    for planet in normalized_planets:
+        start_sign = start_signs[planet][0]
+        transitions = sorted(
+            transitions_by_planet[planet], key=lambda item: item["at_utc"]
+        )
+        events.extend(
+            _build_period_events_for_planet(
+                planet=planet,
+                start_utc=start_utc,
+                start_sign=start_sign,
+                transitions=transitions,
+            )
+        )
+
+    events.sort(key=lambda event: (event["starts_at_utc"], event["planet"]))
     return events

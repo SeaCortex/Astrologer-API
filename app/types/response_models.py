@@ -28,13 +28,17 @@ class ApiStatusResponseModel(StatusResponseModel):
 class SubjectResponseModel(StatusResponseModel):
     """Response payload containing a single astrological subject."""
 
-    subject: AstrologicalSubjectModel = Field(description="Computed astrological subject.")
+    subject: AstrologicalSubjectModel = Field(
+        description="Computed astrological subject."
+    )
 
 
 class ChartDataResponseModel(StatusResponseModel):
     """Response payload returning serialized chart data."""
 
-    chart_data: Union[SingleChartDataModel, DualChartDataModel] = Field(description="Serialized chart data payload.")
+    chart_data: Union[SingleChartDataModel, DualChartDataModel] = Field(
+        description="Serialized chart data payload."
+    )
 
 
 class ChartResponseModel(ChartDataResponseModel):
@@ -57,8 +61,12 @@ class ChartResponseModel(ChartDataResponseModel):
 class ReturnChartResponseModel(ChartResponseModel):
     """Response payload for solar and lunar return chart requests."""
 
-    return_type: Literal["Solar", "Lunar"] = Field(description="Type of planetary return.")
-    wheel_type: Literal["dual", "single"] = Field(description="Rendered wheel configuration.")
+    return_type: Literal["Solar", "Lunar"] = Field(
+        description="Type of planetary return."
+    )
+    wheel_type: Literal["dual", "single"] = Field(
+        description="Rendered wheel configuration."
+    )
 
 
 class ReturnDataResponseModel(ChartDataResponseModel):
@@ -67,7 +75,9 @@ class ReturnDataResponseModel(ChartDataResponseModel):
     return_type: Literal["Solar", "Lunar", "Saturn", "Jupiter", "MeanNode"] = Field(
         description="Type of planetary return."
     )
-    wheel_type: Literal["dual", "single"] = Field(description="Requested wheel configuration.")
+    wheel_type: Literal["dual", "single"] = Field(
+        description="Requested wheel configuration."
+    )
 
 
 class ChartRulerModel(BaseModel):
@@ -98,42 +108,78 @@ class HouseStelliumModel(BaseModel):
 class StelliumsModel(BaseModel):
     """Stellium analysis payload."""
 
-    min_count: int = Field(description="Minimum point count used to classify stelliums.")
-    by_sign: list[SignStelliumModel] = Field(default_factory=list, description="Stelliums by zodiac sign.")
-    by_house: list[HouseStelliumModel] = Field(default_factory=list, description="Stelliums by house.")
+    min_count: int = Field(
+        description="Minimum point count used to classify stelliums."
+    )
+    by_sign: list[SignStelliumModel] = Field(
+        default_factory=list, description="Stelliums by zodiac sign."
+    )
+    by_house: list[HouseStelliumModel] = Field(
+        default_factory=list, description="Stelliums by house."
+    )
 
 
 class HemisphereBreakdownModel(BaseModel):
     """Counts and percentages for a hemispheric axis."""
 
-    above_count: Optional[int] = Field(default=None, description="Points above horizon (houses 7-12).")
-    below_count: Optional[int] = Field(default=None, description="Points below horizon (houses 1-6).")
-    above_pct: Optional[float] = Field(default=None, description="Percentage above horizon.")
-    below_pct: Optional[float] = Field(default=None, description="Percentage below horizon.")
+    above_count: Optional[int] = Field(
+        default=None, description="Points above horizon (houses 7-12)."
+    )
+    below_count: Optional[int] = Field(
+        default=None, description="Points below horizon (houses 1-6)."
+    )
+    above_pct: Optional[float] = Field(
+        default=None, description="Percentage above horizon."
+    )
+    below_pct: Optional[float] = Field(
+        default=None, description="Percentage below horizon."
+    )
 
-    east_count: Optional[int] = Field(default=None, description="Points in eastern hemisphere houses.")
-    west_count: Optional[int] = Field(default=None, description="Points in western hemisphere houses.")
-    east_pct: Optional[float] = Field(default=None, description="Percentage in eastern hemisphere.")
-    west_pct: Optional[float] = Field(default=None, description="Percentage in western hemisphere.")
+    east_count: Optional[int] = Field(
+        default=None, description="Points in eastern hemisphere houses."
+    )
+    west_count: Optional[int] = Field(
+        default=None, description="Points in western hemisphere houses."
+    )
+    east_pct: Optional[float] = Field(
+        default=None, description="Percentage in eastern hemisphere."
+    )
+    west_pct: Optional[float] = Field(
+        default=None, description="Percentage in western hemisphere."
+    )
 
-    counted_points: list[str] = Field(default_factory=list, description="Point names included in the computation.")
+    counted_points: list[str] = Field(
+        default_factory=list, description="Point names included in the computation."
+    )
 
 
 class HemispheresModel(BaseModel):
     """Hemispheric emphasis payload."""
 
-    above_below_horizon: HemisphereBreakdownModel = Field(description="Above/below horizon metrics.")
-    east_west: HemisphereBreakdownModel = Field(description="East/west hemisphere metrics.")
+    above_below_horizon: HemisphereBreakdownModel = Field(
+        description="Above/below horizon metrics."
+    )
+    east_west: HemisphereBreakdownModel = Field(
+        description="East/west hemisphere metrics."
+    )
 
 
 class LunarMansionModel(BaseModel):
     """Lunar mansion payload for Western 28-equal system."""
 
-    system: Literal["tropical_28_equal"] = Field(description="Lunar mansion system identifier.")
+    system: Literal["tropical_28_equal"] = Field(
+        description="Lunar mansion system identifier."
+    )
     index: int = Field(description="Lunar mansion index (1-28).")
-    start_abs_deg: float = Field(description="Start of mansion interval in absolute degrees.")
-    end_abs_deg: float = Field(description="End of mansion interval in absolute degrees.")
-    moon_abs_pos: float = Field(description="Moon absolute longitude used for the computation.")
+    start_abs_deg: float = Field(
+        description="Start of mansion interval in absolute degrees."
+    )
+    end_abs_deg: float = Field(
+        description="End of mansion interval in absolute degrees."
+    )
+    moon_abs_pos: float = Field(
+        description="Moon absolute longitude used for the computation."
+    )
 
 
 class DerivedNatalProfileModel(BaseModel):
@@ -148,32 +194,46 @@ class DerivedNatalProfileModel(BaseModel):
 class DerivedNatalProfileResponseModel(StatusResponseModel):
     """Response payload for derived natal profile endpoint."""
 
-    subject: AstrologicalSubjectModel = Field(description="Computed astrological subject.")
-    derived_profile: DerivedNatalProfileModel = Field(description="Derived profile metrics.")
+    subject: AstrologicalSubjectModel = Field(
+        description="Computed astrological subject."
+    )
+    derived_profile: DerivedNatalProfileModel = Field(
+        description="Derived profile metrics."
+    )
 
 
 class ProgressedLunationModel(BaseModel):
     """Progressed lunation payload."""
 
-    angle_deg: float = Field(description="Progressed Sun-Moon angular separation in degrees.")
-    phase_name: Literal["New Moon", "First Quarter", "Full Moon", "Last Quarter"] = Field(
-        description="Quarter-phase bucket for the progressed lunation."
+    angle_deg: float = Field(
+        description="Progressed Sun-Moon angular separation in degrees."
+    )
+    phase_name: Literal["New Moon", "First Quarter", "Full Moon", "Last Quarter"] = (
+        Field(description="Quarter-phase bucket for the progressed lunation.")
     )
 
 
 class ProgressedSignIngressModel(BaseModel):
     """Next progressed Moon sign ingress."""
 
-    at_target_iso_datetime: str = Field(description="Target-timeline datetime where ingress occurs.")
-    at_progressed_iso_datetime: str = Field(description="Progressed datetime mapped from target timeline.")
+    at_target_iso_datetime: str = Field(
+        description="Target-timeline datetime where ingress occurs."
+    )
+    at_progressed_iso_datetime: str = Field(
+        description="Progressed datetime mapped from target timeline."
+    )
     sign: str = Field(description="Moon sign after ingress.")
 
 
 class ProgressedHouseIngressModel(BaseModel):
     """Next progressed Moon house ingress."""
 
-    at_target_iso_datetime: str = Field(description="Target-timeline datetime where ingress occurs.")
-    at_progressed_iso_datetime: str = Field(description="Progressed datetime mapped from target timeline.")
+    at_target_iso_datetime: str = Field(
+        description="Target-timeline datetime where ingress occurs."
+    )
+    at_progressed_iso_datetime: str = Field(
+        description="Progressed datetime mapped from target timeline."
+    )
     house: str = Field(description="Moon house after ingress.")
 
 
@@ -187,11 +247,19 @@ class ProgressedMoonIngressesModel(BaseModel):
 class ProgressedMoonCycleModel(BaseModel):
     """Secondary progressed Moon cycle payload."""
 
-    target_iso_datetime: str = Field(description="Requested target datetime on the real timeline.")
+    target_iso_datetime: str = Field(
+        description="Requested target datetime on the real timeline."
+    )
     progressed_iso_datetime: str = Field(description="Computed progressed datetime.")
-    progressed_subject: AstrologicalSubjectModel = Field(description="Progressed chart subject.")
-    progressed_lunation: ProgressedLunationModel = Field(description="Progressed lunation details.")
-    next_ingresses: ProgressedMoonIngressesModel = Field(description="Upcoming progressed Moon ingress events.")
+    progressed_subject: AstrologicalSubjectModel = Field(
+        description="Progressed chart subject."
+    )
+    progressed_lunation: ProgressedLunationModel = Field(
+        description="Progressed lunation details."
+    )
+    next_ingresses: ProgressedMoonIngressesModel = Field(
+        description="Upcoming progressed Moon ingress events."
+    )
 
 
 class ProgressedMoonCycleResponseModel(StatusResponseModel):
@@ -223,7 +291,9 @@ class CompatibilityScoreResponseModel(StatusResponseModel):
         default_factory=list,
         description="Breakdown of the scoring rules and points contributing to the total score.",
     )
-    chart_data: DualChartDataModel = Field(description="Underlying chart data used to compute the score.")
+    chart_data: DualChartDataModel = Field(
+        description="Underlying chart data used to compute the score."
+    )
 
 
 class RetrogradeEventModel(BaseModel):
@@ -249,10 +319,16 @@ class RetrogradeEventModel(BaseModel):
 class RetrogradeEventsResponseModel(StatusResponseModel):
     """Response payload for retrograde events endpoint."""
 
-    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    from_iso: str = Field(
+        description="Effective UTC ISO starting datetime used for the scan."
+    )
     horizon_days: int = Field(description="Lookahead horizon in days.")
-    planets: list[str] = Field(description="Canonical planet list evaluated by the scanner.")
-    events: list[RetrogradeEventModel] = Field(description="Detected retrograde period events in the lookahead range.")
+    planets: list[str] = Field(
+        description="Canonical planet list evaluated by the scanner."
+    )
+    events: list[RetrogradeEventModel] = Field(
+        description="Detected retrograde period events in the lookahead range."
+    )
 
 
 class LunarPhaseEventModel(BaseModel):
@@ -262,8 +338,12 @@ class LunarPhaseEventModel(BaseModel):
         description="Detected lunar event kind."
     )
     at_utc: str = Field(description="UTC ISO datetime when the event occurs.")
-    target_angle_deg: float = Field(description="Exact target angle used for detection (0/90/180/270).")
-    angle_deg: float = Field(description="Computed Sun-Moon angle in degrees at the refined event timestamp.")
+    target_angle_deg: float = Field(
+        description="Exact target angle used for detection (0/90/180/270)."
+    )
+    angle_deg: float = Field(
+        description="Computed Sun-Moon angle in degrees at the refined event timestamp."
+    )
     moon_distance_au: Optional[float] = Field(
         default=None,
         description="Moon-Earth distance in astronomical units at event time.",
@@ -309,7 +389,9 @@ class LunarPhaseEventModel(BaseModel):
 class LunarPhaseEventsResponseModel(StatusResponseModel):
     """Response payload for lunar phase events endpoint."""
 
-    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    from_iso: str = Field(
+        description="Effective UTC ISO starting datetime used for the scan."
+    )
     horizon_days: int = Field(description="Lookahead horizon in days.")
     distance_frame: Optional[Literal["geocentric"]] = Field(
         default=None,
@@ -319,7 +401,9 @@ class LunarPhaseEventsResponseModel(StatusResponseModel):
         default=None,
         description="Distance units included in event payload when distance metrics are requested.",
     )
-    super_luna_definition_applied: Optional[Literal["nolle_90pct_cycle", "distance_threshold_km"]] = Field(
+    super_luna_definition_applied: Optional[
+        Literal["nolle_90pct_cycle", "distance_threshold_km"]
+    ] = Field(
         default=None,
         description="Super Luna definition applied for classification.",
     )
@@ -327,16 +411,20 @@ class LunarPhaseEventsResponseModel(StatusResponseModel):
         default=None,
         description="Distance threshold applied when using the fixed-km Super Luna definition.",
     )
-    events: list[LunarPhaseEventModel] = Field(description="Detected lunar events within the requested horizon.")
+    events: list[LunarPhaseEventModel] = Field(
+        description="Detected lunar events within the requested horizon."
+    )
 
 
 class EclipseEventModel(BaseModel):
     """Exact solar/lunar eclipse event payload."""
 
-    event: Literal["solar_eclipse", "lunar_eclipse"] = Field(description="Detected eclipse event kind.")
-    eclipse_type: Literal["total", "annular", "partial", "annular_total", "penumbral"] = Field(
-        description="Detected eclipse subtype."
+    event: Literal["solar_eclipse", "lunar_eclipse"] = Field(
+        description="Detected eclipse event kind."
     )
+    eclipse_type: Literal[
+        "total", "annular", "partial", "annular_total", "penumbral"
+    ] = Field(description="Detected eclipse subtype.")
     at_utc: str = Field(description="UTC ISO datetime of maximum eclipse.")
     eclipse_begin_utc: Optional[str] = Field(
         default=None,
@@ -435,48 +523,73 @@ class EclipseEventModel(BaseModel):
 class EclipseEventsResponseModel(StatusResponseModel):
     """Response payload for solar/lunar eclipse events endpoint."""
 
-    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    from_iso: str = Field(
+        description="Effective UTC ISO starting datetime used for the scan."
+    )
     horizon_days: int = Field(description="Lookahead horizon in days.")
-    event_types: list[Literal["solar", "lunar"]] = Field(description="Eclipse families included in the scan.")
+    event_types: list[Literal["solar", "lunar"]] = Field(
+        description="Eclipse families included in the scan."
+    )
     solar_types: list[Literal["total", "annular", "partial", "annular_total"]] = Field(
         description="Solar eclipse subtypes included in the scan."
     )
     lunar_types: list[Literal["total", "partial", "penumbral"]] = Field(
         description="Lunar eclipse subtypes included in the scan."
     )
-    events: list[EclipseEventModel] = Field(description="Detected eclipse events within the requested horizon.")
+    events: list[EclipseEventModel] = Field(
+        description="Detected eclipse events within the requested horizon."
+    )
 
 
 class IngressEventModel(BaseModel):
-    """Exact sign ingress event payload."""
+    """Sign ingress period payload."""
 
-    event: Literal["sign_ingress"] = Field(description="Detected ingress event kind.")
+    event: Literal["sign_ingress_period"] = Field(
+        description="Detected ingress period event kind."
+    )
     planet: str = Field(description="Canonical planet name.")
-    at_utc: str = Field(description="UTC ISO datetime when the ingress occurs.")
-    from_sign: str = Field(description="Sign occupied before ingress.")
-    to_sign: str = Field(description="Sign occupied after ingress.")
+    starts_at_utc: str = Field(
+        description="UTC ISO datetime when the sign period starts."
+    )
+    ends_at_utc: Optional[str] = Field(
+        default=None,
+        description="UTC ISO datetime when the sign period ends, if found in range.",
+    )
+    from_sign: Optional[str] = Field(
+        default=None,
+        description="Sign occupied before this period starts; null when the period is already active at from_iso.",
+    )
+    to_sign: str = Field(description="Sign occupied during this period.")
 
 
 class IngressEventsResponseModel(StatusResponseModel):
     """Response payload for ingress events endpoint."""
 
-    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    from_iso: str = Field(
+        description="Effective UTC ISO starting datetime used for the scan."
+    )
     horizon_days: int = Field(description="Lookahead horizon in days.")
     planets: list[str] = Field(description="Planets included in the ingress scan.")
-    events: list[IngressEventModel] = Field(description="Detected ingress events within the requested horizon.")
+    events: list[IngressEventModel] = Field(
+        description="Detected sign periods overlapping the requested horizon."
+    )
 
 
 class ConjunctionEventModel(BaseModel):
     """Exact major planetary conjunction event payload."""
 
-    event: Literal["planetary_conjunction"] = Field(description="Detected conjunction event kind.")
+    event: Literal["planetary_conjunction"] = Field(
+        description="Detected conjunction event kind."
+    )
     planet_1: str = Field(description="First planet in the conjunction pair.")
     planet_2: str = Field(description="Second planet in the conjunction pair.")
     pair_type: Literal["rapid_slow", "slow_slow", "rapid_rapid"] = Field(
         description="Classification of the conjunction pair."
     )
     at_utc: str = Field(description="UTC ISO datetime when the conjunction occurs.")
-    orbit_deg: float = Field(description="Absolute conjunction orb in degrees at the refined timestamp.")
+    orbit_deg: float = Field(
+        description="Absolute conjunction orb in degrees at the refined timestamp."
+    )
     p1_speed: float = Field(description="Planet 1 speed at event time.")
     p2_speed: float = Field(description="Planet 2 speed at event time.")
 
@@ -484,28 +597,38 @@ class ConjunctionEventModel(BaseModel):
 class ConjunctionEventsResponseModel(StatusResponseModel):
     """Response payload for conjunction events endpoint."""
 
-    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    from_iso: str = Field(
+        description="Effective UTC ISO starting datetime used for the scan."
+    )
     horizon_days: int = Field(description="Lookahead horizon in days.")
     planets: list[str] = Field(description="Planets included in the conjunction scan.")
     pair_types: list[Literal["rapid_slow", "slow_slow", "rapid_rapid"]] = Field(
         description="Pair categories included in the scan."
     )
-    events: list[ConjunctionEventModel] = Field(description="Detected conjunction events within the requested horizon.")
+    events: list[ConjunctionEventModel] = Field(
+        description="Detected conjunction events within the requested horizon."
+    )
 
 
 class AspectEventModel(BaseModel):
     """Exact planetary square/opposition event payload."""
 
-    event: Literal["planetary_aspect"] = Field(description="Detected aspect event kind.")
+    event: Literal["planetary_aspect"] = Field(
+        description="Detected aspect event kind."
+    )
     aspect: Literal["square", "opposition"] = Field(description="Aspect type.")
     planet_1: str = Field(description="First planet in the aspect pair.")
     planet_2: str = Field(description="Second planet in the aspect pair.")
     pair_type: Literal["rapid_slow", "slow_slow", "rapid_rapid"] = Field(
         description="Classification of the planetary pair."
     )
-    target_angle_deg: float = Field(description="Exact target angle used for detection (90/180/270).")
+    target_angle_deg: float = Field(
+        description="Exact target angle used for detection (90/180/270)."
+    )
     at_utc: str = Field(description="UTC ISO datetime when the aspect occurs.")
-    orbit_deg: float = Field(description="Absolute orb in degrees at the refined timestamp.")
+    orbit_deg: float = Field(
+        description="Absolute orb in degrees at the refined timestamp."
+    )
     p1_speed: float = Field(description="Planet 1 speed at event time.")
     p2_speed: float = Field(description="Planet 2 speed at event time.")
 
@@ -513,7 +636,9 @@ class AspectEventModel(BaseModel):
 class AspectEventsResponseModel(StatusResponseModel):
     """Response payload for square/opposition aspect events endpoint."""
 
-    from_iso: str = Field(description="Effective UTC ISO starting datetime used for the scan.")
+    from_iso: str = Field(
+        description="Effective UTC ISO starting datetime used for the scan."
+    )
     horizon_days: int = Field(description="Lookahead horizon in days.")
     planets: list[str] = Field(description="Planets included in the scan.")
     pair_types: list[Literal["rapid_slow", "slow_slow", "rapid_rapid"]] = Field(
@@ -522,13 +647,17 @@ class AspectEventsResponseModel(StatusResponseModel):
     aspect_types: list[Literal["square", "opposition"]] = Field(
         description="Aspect categories included in the scan."
     )
-    events: list[AspectEventModel] = Field(description="Detected square/opposition events within the requested horizon.")
+    events: list[AspectEventModel] = Field(
+        description="Detected square/opposition events within the requested horizon."
+    )
 
 
 class SubjectContextResponseModel(SubjectResponseModel):
     """Response payload containing a single astrological subject with AI context."""
 
-    subject_context: str = Field(description="AI-optimized context string for the subject.")
+    subject_context: str = Field(
+        description="AI-optimized context string for the subject."
+    )
 
 
 class ContextResponseModel(ChartDataResponseModel):
@@ -540,5 +669,9 @@ class ContextResponseModel(ChartDataResponseModel):
 class ReturnContextResponseModel(ContextResponseModel):
     """Response payload for solar and lunar return context requests."""
 
-    return_type: Literal["Solar", "Lunar"] = Field(description="Type of planetary return.")
-    wheel_type: Literal["dual", "single"] = Field(description="Rendered wheel configuration.")
+    return_type: Literal["Solar", "Lunar"] = Field(
+        description="Type of planetary return."
+    )
+    wheel_type: Literal["dual", "single"] = Field(
+        description="Rendered wheel configuration."
+    )

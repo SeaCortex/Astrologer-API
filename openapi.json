@@ -1030,7 +1030,7 @@
           "Chart Data"
         ],
         "summary": "Ingress Events",
-        "description": "**POST** `/api/v5/events/ingress`\n\nDetects exact planetary zodiac sign ingress events in a lookahead window using scan + refine logic.\n\n**Parameters:**\n- `from_iso` (optional): UTC ISO start time. Defaults to current UTC.\n- `horizon_days` (required): Lookahead horizon in days (max 2 years).\n- `planets` (optional): Planets to scan. Defaults to Sun, Moon, and all major planets.\n  Supports `Mean_Lilith` and `True_Lilith` when explicitly provided.\n\n**Returns:**\n- `status`: \"OK\"\n- `from_iso`: Effective UTC start used by the scanner.\n- `horizon_days`: Requested lookahead days.\n- `planets`: Effective normalized planet list.\n- `events`: Exact sign ingress timestamps.",
+        "description": "**POST** `/api/v5/events/ingress`\n\nDetects planetary zodiac sign periods in a lookahead window using scan + refine logic.\n\n**Parameters:**\n- `from_iso` (optional): UTC ISO start time. Defaults to current UTC.\n- `horizon_days` (required): Lookahead horizon in days (max 2 years).\n- `planets` (optional): Planets to scan. Defaults to Sun, Moon, and all major planets.\n  Supports `Mean_Lilith` and `True_Lilith` when explicitly provided.\n\n**Returns:**\n- `status`: \"OK\"\n- `from_iso`: Effective UTC start used by the scanner.\n- `horizon_days`: Requested lookahead days.\n- `planets`: Effective normalized planet list.\n- `events`: Sign periods with start/end boundaries.",
         "operationId": "ingress_events_api_v5_events_ingress_post",
         "requestBody": {
           "content": {
@@ -5920,41 +5920,59 @@
         "properties": {
           "event": {
             "type": "string",
-            "const": "sign_ingress",
+            "const": "sign_ingress_period",
             "title": "Event",
-            "description": "Detected ingress event kind."
+            "description": "Detected ingress period event kind."
           },
           "planet": {
             "type": "string",
             "title": "Planet",
             "description": "Canonical planet name."
           },
-          "at_utc": {
+          "starts_at_utc": {
             "type": "string",
-            "title": "At Utc",
-            "description": "UTC ISO datetime when the ingress occurs."
+            "title": "Starts At Utc",
+            "description": "UTC ISO datetime when the sign period starts."
+          },
+          "ends_at_utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ends At Utc",
+            "description": "UTC ISO datetime when the sign period ends, if found in range."
           },
           "from_sign": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "From Sign",
-            "description": "Sign occupied before ingress."
+            "description": "Sign occupied before this period starts; null when the period is already active at from_iso."
           },
           "to_sign": {
             "type": "string",
             "title": "To Sign",
-            "description": "Sign occupied after ingress."
+            "description": "Sign occupied during this period."
           }
         },
         "type": "object",
         "required": [
           "event",
           "planet",
-          "at_utc",
-          "from_sign",
+          "starts_at_utc",
           "to_sign"
         ],
         "title": "IngressEventModel",
-        "description": "Exact sign ingress event payload."
+        "description": "Sign ingress period payload."
       },
       "IngressEventsRequestModel": {
         "properties": {
@@ -6045,7 +6063,7 @@
             },
             "type": "array",
             "title": "Events",
-            "description": "Detected ingress events within the requested horizon."
+            "description": "Detected sign periods overlapping the requested horizon."
           }
         },
         "type": "object",

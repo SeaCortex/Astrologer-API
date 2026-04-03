@@ -18,7 +18,10 @@ from kerykeion.schemas.kr_models import (
     SingleChartDataModel,
     ScoreBreakdownItemModel,
 )
-from kerykeion.settings.config_constants import DEFAULT_ACTIVE_ASPECTS, DEFAULT_ACTIVE_POINTS
+from kerykeion.settings.config_constants import (
+    DEFAULT_ACTIVE_ASPECTS,
+    DEFAULT_ACTIVE_POINTS,
+)
 
 from app.types import response_models as rm
 
@@ -34,7 +37,18 @@ def _active_points_payload(points: Iterable[str] | None = None) -> list[str]:
     return list(DEFAULT_ACTIVE_POINTS)
 
 
-def _build_subject(name: str, *, year: int, month: int, day: int, hour: int, minute: int, city: str, lat: float, lng: float) -> object:
+def _build_subject(
+    name: str,
+    *,
+    year: int,
+    month: int,
+    day: int,
+    hour: int,
+    minute: int,
+    city: str,
+    lat: float,
+    lng: float,
+) -> object:
     """Crea un soggetto astrologico inattivo (offline)."""
     return AstrologicalSubjectFactory.from_birth_data(
         name=name,
@@ -57,7 +71,17 @@ def _build_subject(name: str, *, year: int, month: int, day: int, hour: int, min
 
 @pytest.fixture(scope="module")
 def single_chart_dump() -> dict:
-    subject = _build_subject("Giulia", year=1990, month=1, day=1, hour=12, minute=30, city="Rome", lat=41.9, lng=12.5)
+    subject = _build_subject(
+        "Giulia",
+        year=1990,
+        month=1,
+        day=1,
+        hour=12,
+        minute=30,
+        city="Rome",
+        lat=41.9,
+        lng=12.5,
+    )
     chart_data = ChartDataFactory.create_natal_chart_data(
         subject,
         active_points=_active_points_payload(),
@@ -68,8 +92,28 @@ def single_chart_dump() -> dict:
 
 @pytest.fixture(scope="module")
 def dual_chart_dump() -> dict:
-    first = _build_subject("Marco", year=1988, month=5, day=10, hour=10, minute=10, city="Florence", lat=43.77, lng=11.25)
-    second = _build_subject("Lucia", year=1992, month=9, day=25, hour=8, minute=5, city="Milan", lat=45.46, lng=9.19)
+    first = _build_subject(
+        "Marco",
+        year=1988,
+        month=5,
+        day=10,
+        hour=10,
+        minute=10,
+        city="Florence",
+        lat=43.77,
+        lng=11.25,
+    )
+    second = _build_subject(
+        "Lucia",
+        year=1992,
+        month=9,
+        day=25,
+        hour=8,
+        minute=5,
+        city="Milan",
+        lat=45.46,
+        lng=9.19,
+    )
     chart_data = ChartDataFactory.create_synastry_chart_data(
         first,
         second,
@@ -96,7 +140,9 @@ def test_api_status_response_model_includes_environment_flags():
 
 def test_subject_response_model_parses_subject_dict(single_chart_dump: dict):
     subject_payload = single_chart_dump["subject"]
-    model = rm.SubjectResponseModel.model_validate({"status": "OK", "subject": subject_payload})
+    model = rm.SubjectResponseModel.model_validate(
+        {"status": "OK", "subject": subject_payload}
+    )
     assert isinstance(model.subject, AstrologicalSubjectModel)
     assert model.subject.name == "Giulia"
 
@@ -232,10 +278,11 @@ def test_ingress_events_response_model_parses_payload():
         "planets": ["Sun", "Moon"],
         "events": [
             {
-                "event": "sign_ingress",
+                "event": "sign_ingress_period",
                 "planet": "Moon",
-                "at_utc": "2026-03-01T12:00:00+00:00",
-                "from_sign": "Can",
+                "starts_at_utc": "2026-03-01T00:00:00+00:00",
+                "ends_at_utc": "2026-03-01T12:00:00+00:00",
+                "from_sign": None,
                 "to_sign": "Leo",
             }
         ],
@@ -245,7 +292,7 @@ def test_ingress_events_response_model_parses_payload():
     assert model.horizon_days == 30
     assert model.planets == ["Sun", "Moon"]
     assert len(model.events) == 1
-    assert model.events[0].event == "sign_ingress"
+    assert model.events[0].event == "sign_ingress_period"
 
 
 def test_aspect_events_response_model_parses_payload():

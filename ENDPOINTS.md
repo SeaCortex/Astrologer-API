@@ -1055,15 +1055,16 @@ Detects exact **retrograde period events** in a lookahead window using:
 
 ### Ingress
 
-#### Next Planetary Sign Ingress Events
+#### Planetary Sign Ingress Periods
 
 **POST** `/api/v5/events/ingress`
 
-Computes exact **zodiac sign ingress events** for selected planets using:
+Computes **zodiac sign periods** for selected planets using:
 
 1. A coarse stream scan every 6 hours from `from_iso` to `horizon_days`
 2. Sign-change detection (`sign_num` crossing between scan points)
 3. Refinement of crossing brackets to about 1-minute UTC precision
+4. Period construction using `starts_at_utc` / `ends_at_utc`
 
 **Request:**
 
@@ -1093,9 +1094,18 @@ Computes exact **zodiac sign ingress events** for selected planets using:
   "planets": ["Sun", "Moon", "Mercury"],
   "events": [
     {
-      "event": "sign_ingress",
+      "event": "sign_ingress_period",
       "planet": "Moon",
-      "at_utc": "2026-01-16T03:21:00+00:00",
+      "starts_at_utc": "2026-01-15T12:00:00+00:00",
+      "ends_at_utc": "2026-01-16T03:21:00+00:00",
+      "from_sign": null,
+      "to_sign": "Can"
+    },
+    {
+      "event": "sign_ingress_period",
+      "planet": "Moon",
+      "starts_at_utc": "2026-01-16T03:21:00+00:00",
+      "ends_at_utc": null,
       "from_sign": "Can",
       "to_sign": "Leo"
     }

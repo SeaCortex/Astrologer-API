@@ -608,7 +608,7 @@ Rules:
 
 ### POST `/api/v5/events/ingress`
 
-Next sign ingress events for selected planets (stream scan + refined crossing times).
+Sign periods for selected planets (stream scan + refined crossing times).
 
 ```jsonc
 {
@@ -618,9 +618,18 @@ Next sign ingress events for selected planets (stream scan + refined crossing ti
   "planets": ["Sun", "Moon", "Mercury"],
   "events": [
     {
-      "event": "sign_ingress",
+      "event": "sign_ingress_period",
       "planet": "Moon",
-      "at_utc": "2026-01-16T03:21:00+00:00",
+      "starts_at_utc": "2026-01-15T12:00:00+00:00",
+      "ends_at_utc": "2026-01-16T03:21:00+00:00",
+      "from_sign": null,
+      "to_sign": "Can"
+    },
+    {
+      "event": "sign_ingress_period",
+      "planet": "Moon",
+      "starts_at_utc": "2026-01-16T03:21:00+00:00",
+      "ends_at_utc": null,
       "from_sign": "Can",
       "to_sign": "Leo"
     }
