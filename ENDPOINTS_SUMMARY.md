@@ -464,6 +464,266 @@ Score plus supporting details, and includes the underlying synastry chart data.
 }
 ```
 
+## Retrogrades
+
+### POST `/api/v5/events/retrogrades`
+
+Retrograde period events list for requested planets (stream scan + refined station times).
+
+```jsonc
+{
+  "status": "OK",
+  "from_iso": "2026-01-15T12:00:00+00:00",
+  "horizon_days": 365,
+  "planets": ["Mercury", "Venus", "Mars"],
+  "events": [
+    {
+      "event": "retrograde_period",
+      "planet": "Mercury",
+      "at_utc": "2026-02-26T20:59:03.750000+00:00",
+      "ends_at_utc": "2026-03-20T10:17:20.625000+00:00", // null if end not found in horizon
+      "start_speed": -0.0000284,
+      "end_speed": 0.0000191,
+    }
+  ]
+}
+```
+
+Rules:
+
+- `planets` optional (Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto), case-insensitive, deduplicated.
+- If omitted, defaults to all supported retrograde planets.
+- `from_iso` optional (defaults to current UTC).
+- `horizon_days` required with cap 3650 days (10 years).
+
+## Lunar Phases
+
+### POST `/api/v5/events/lunar-phases`
+
+Exact lunar quarter events (`new_moon`, `first_quarter`, `full_moon`, `last_quarter`) with optional
+distance/perigee/apogee and Super Luna metadata.
+
+```jsonc
+{
+  "status": "OK",
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 40,
+  "distance_frame": "geocentric", // optional, present when distance/super-luna is requested
+  "distance_units": ["au", "km"], // optional, present when distance/super-luna is requested
+  "super_luna_definition_applied": "nolle_90pct_cycle", // optional, present when include_super_luna=true
+  "events": [
+    {
+      "event": "full_moon",
+      "at_utc": "2026-03-03T11:38:12.187500+00:00",
+      "target_angle_deg": 180.0,
+      "angle_deg": 180.00008579886356,
+      "moon_distance_au": 0.0025576090156967404, // optional
+      "moon_distance_km": 382612.52448331926, // optional
+      "nearest_perigee_utc": "2026-02-24T23:16:18.551524+00:00", // optional
+      "nearest_perigee_km": 370171.0227315845, // optional
+      "nearest_apogee_utc": "2026-03-10T13:42:23.411592+00:00", // optional
+      "nearest_apogee_km": 404344.5512508751, // optional
+      "delta_to_perigee_hours": 204.36517665999998, // optional
+      "anomalistic_closeness_pct": 63.593160288637876, // optional
+      "is_super_luna_candidate": true, // optional
+      "is_super_luna": false // optional
+    }
+  ]
+}
+```
+
+Rules:
+
+- `from_iso` optional (defaults to current UTC).
+- `horizon_days` required with cap 1826 days (5 years).
+- `include_distance_metrics` optional (default `false`).
+- `include_super_luna` optional (default `false`).
+- `super_luna_definition` optional: `nolle_90pct_cycle` (default) or `distance_threshold_km`.
+- `super_luna_distance_km_threshold` used only with `distance_threshold_km`.
+
+## Eclipses
+
+### POST `/api/v5/events/eclipses`
+
+Combined solar+lunar eclipse events endpoint with subtype filters.
+
+```jsonc
+{
+  "status": "OK",
+  "from_iso": "2026-01-01T00:00:00+00:00",
+  "horizon_days": 365,
+  "event_types": ["solar", "lunar"],
+  "solar_types": ["total", "annular", "partial", "annular_total"],
+  "lunar_types": ["total", "partial", "penumbral"],
+  "events": [
+    {
+      "event": "solar_eclipse",
+      "eclipse_type": "annular",
+      "at_utc": "2026-02-17T12:11:53.987477+00:00",
+      "eclipse_begin_utc": "2026-02-17T09:56:47.676076+00:00",
+      "eclipse_end_utc": "2026-02-17T14:27:40.254853+00:00",
+      "totality_begin_utc": null,
+      "totality_end_utc": null,
+      "magnitude": 0.9637550694240795,
+      "obscuration": 0.9246474202382051,
+      "moon_to_sun_diameter_ratio": 0.9797393586547305,
+      "saros_series": 121,
+      "saros_member": 61,
+      "is_central": true,
+      "is_noncentral": false,
+      "greatest_eclipse_longitude": 87.05170959780031,
+      "greatest_eclipse_latitude": -64.68382686476762
+    },
+    {
+      "event": "lunar_eclipse",
+      "eclipse_type": "total",
+      "at_utc": "2026-03-03T11:33:42.715536+00:00",
+      "eclipse_begin_utc": "2026-03-03T08:20:45.162583+00:00",
+      "eclipse_end_utc": "2026-03-03T14:46:39.570412+00:00",
+      "penumbral_begin_utc": "2026-03-03T08:20:45.162583+00:00",
+      "penumbral_end_utc": "2026-03-03T14:46:39.570412+00:00",
+      "partial_begin_utc": "2026-03-03T09:50:06.932596+00:00",
+      "partial_end_utc": "2026-03-03T13:17:16.831481+00:00",
+      "totality_begin_utc": "2026-03-03T10:57:24.181306+00:00",
+      "totality_end_utc": "2026-03-03T12:09:58.762514+00:00",
+      "magnitude": 1.1504552270414716,
+      "umbral_magnitude": 1.1504552270414716,
+      "penumbral_magnitude": 2.18369503082378,
+      "saros_series": 133,
+      "saros_member": 27
+    }
+  ]
+}
+```
+
+Rules:
+
+- `from_iso` optional (defaults to current UTC).
+- `horizon_days` required with cap 3650 days (10 years).
+- `event_types` optional, defaults to `["solar", "lunar"]`.
+- `solar_types` optional, defaults to all supported solar subtypes.
+- `lunar_types` optional, defaults to all supported lunar subtypes.
+
+## Ingress
+
+### POST `/api/v5/events/ingress`
+
+Sign periods for selected planets (stream scan + refined crossing times).
+
+```jsonc
+{
+  "status": "OK",
+  "from_iso": "2026-01-15T12:00:00+00:00",
+  "horizon_days": 30,
+  "planets": ["Sun", "Moon", "Mercury"],
+  "events": [
+    {
+      "event": "sign_ingress_period",
+      "planet": "Moon",
+      "starts_at_utc": "2026-01-15T12:00:00+00:00",
+      "ends_at_utc": "2026-01-16T03:21:00+00:00",
+      "from_sign": null,
+      "to_sign": "Can"
+    },
+    {
+      "event": "sign_ingress_period",
+      "planet": "Moon",
+      "starts_at_utc": "2026-01-16T03:21:00+00:00",
+      "ends_at_utc": null,
+      "from_sign": "Can",
+      "to_sign": "Leo"
+    }
+  ]
+}
+```
+
+Rules:
+
+- `from_iso` optional (defaults to current UTC).
+- `horizon_days` required with cap 730 days (2 years).
+- `planets` optional; defaults to `Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto`.
+- Allowed planets also include `Mean_Lilith` and `True_Lilith` when explicitly requested.
+- Planet names are case-insensitive and deduplicated.
+
+## Major Planetary Conjunctions
+
+### POST `/api/v5/events/conjunctions`
+
+Exact major planetary conjunction events detected with stream scan + refined timestamps.
+
+```jsonc
+{
+  "status": "OK",
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 40,
+  "planets": ["Sun", "Moon"],
+  "pair_types": ["rapid_rapid"],
+  "events": [
+    {
+      "event": "planetary_conjunction",
+      "planet_1": "Sun",
+      "planet_2": "Moon",
+      "pair_type": "rapid_rapid",
+      "at_utc": "2026-03-19T01:23:26.250000+00:00",
+      "orbit_deg": 0.0003,
+      "p1_speed": 0.9932,
+      "p2_speed": 11.8714
+    }
+  ]
+}
+```
+
+Rules:
+
+- `from_iso` optional (defaults to current UTC).
+- `horizon_days` required with cap 3650 days (10 years).
+- `planets` optional; defaults to `Sun, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto`.
+- `pair_types` optional; defaults to `rapid_slow, slow_slow`.
+- Allowed `pair_types`: `rapid_slow`, `slow_slow`, `rapid_rapid`.
+- Planet names and pair types are case-insensitive and deduplicated.
+
+## Planetary Squares & Oppositions
+
+### POST `/api/v5/events/aspects`
+
+Exact planetary square/opposition events detected with stream scan + refined timestamps.
+
+```jsonc
+{
+  "status": "OK",
+  "from_iso": "2026-03-01T00:00:00+00:00",
+  "horizon_days": 40,
+  "planets": ["Sun", "Moon"],
+  "pair_types": ["rapid_rapid"],
+  "aspect_types": ["square", "opposition"],
+  "events": [
+    {
+      "event": "planetary_aspect",
+      "aspect": "square",
+      "planet_1": "Sun",
+      "planet_2": "Moon",
+      "pair_type": "rapid_rapid",
+      "target_angle_deg": 90.0,
+      "at_utc": "2026-03-12T10:22:31.875000+00:00",
+      "orbit_deg": 0.0006,
+      "p1_speed": 0.9951,
+      "p2_speed": 12.9705
+    }
+  ]
+}
+```
+
+Rules:
+
+- `from_iso` optional (defaults to current UTC).
+- `horizon_days` required with cap 3650 days (10 years).
+- `planets` optional; defaults to `Sun, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto`.
+- `pair_types` optional; defaults to `rapid_slow, slow_slow`.
+- Allowed `pair_types`: `rapid_slow`, `slow_slow`, `rapid_rapid`.
+- `aspect_types` optional; defaults to `square, opposition`.
+- Allowed `aspect_types`: `square`, `opposition`.
+- Planet names, pair types, and aspect types are case-insensitive and deduplicated.
+
 ## Progressions
 
 ### POST `/api/v5/chart-data/progressed-moon-cycle`

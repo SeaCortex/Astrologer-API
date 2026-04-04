@@ -8,6 +8,38 @@ from typing import Literal, Mapping, Optional, Union, get_args
 from pydantic import BaseModel, Field, field_validator, model_validator
 from pytz import all_timezones
 
+from ..utils.retrogrades import (
+    RETROGRADE_DEFAULT_PLANETS,
+    RETROGRADE_MAX_HORIZON_DAYS,
+    normalize_retrograde_planets,
+)
+from ..utils.ingress import (
+    INGRESS_DEFAULT_PLANETS,
+    INGRESS_MAX_HORIZON_DAYS,
+    normalize_ingress_planets,
+)
+from ..utils.conjunctions import (
+    CONJUNCTION_DEFAULT_PAIR_TYPES,
+    CONJUNCTION_DEFAULT_PLANETS,
+    CONJUNCTION_MAX_HORIZON_DAYS,
+    normalize_conjunction_pair_types,
+    normalize_conjunction_planets,
+)
+from ..utils.aspect_events import (
+    ASPECT_EVENTS_DEFAULT_ASPECT_TYPES,
+    ASPECT_EVENTS_MAX_HORIZON_DAYS,
+    normalize_aspect_event_aspect_types,
+)
+from ..utils.eclipses import (
+    ECLIPSE_DEFAULT_EVENT_TYPES,
+    ECLIPSE_DEFAULT_LUNAR_TYPES,
+    ECLIPSE_DEFAULT_SOLAR_TYPES,
+    ECLIPSE_MAX_HORIZON_DAYS,
+    normalize_eclipse_event_types,
+    normalize_lunar_eclipse_types,
+    normalize_solar_eclipse_types,
+)
+from ..utils.lunar_events import LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS
 from kerykeion.schemas import (
     ActiveAspect,
     AxialCusps,
@@ -798,4 +830,424 @@ class ProgressedMoonCycleRequestModel(BaseModel):
         if range_end_dt <= target_dt:
             raise ValueError("range_end_iso_datetime must be later than target_iso_datetime.")
 
+        return self
+
+
+class RetrogradeEventsRequestModel(BaseModel):
+    """Request payload for retrograde event detection."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-15T12:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {RETROGRADE_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+    planets: list[str] = Field(
+        default_factory=lambda: list(RETROGRADE_DEFAULT_PLANETS),
+        description=(
+            "Planets to evaluate for retrograde period events (case-insensitive). "
+            "Defaults to all supported retrograde planets."
+        ),
+        examples=[["Mercury", "Venus", "mars"]],
+    )
+
+    @field_validator("planets", mode="before")
+    @classmethod
+    def normalize_planets(cls, value) -> list[str]:
+        if value is None:
+            return list(RETROGRADE_DEFAULT_PLANETS)
+        if not isinstance(value, list):
+            raise ValueError("planets must be an array of strings.")
+        return normalize_retrograde_planets(value)
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "RetrogradeEventsRequestModel":
+        if self.horizon_days > RETROGRADE_MAX_HORIZON_DAYS:
+            raise ValueError(f"horizon_days cannot exceed {RETROGRADE_MAX_HORIZON_DAYS} (10 years).")
+        return self
+
+
+class LunarPhaseEventsRequestModel(BaseModel):
+    """Request payload for lunar phase event detection."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-15T12:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+    include_distance_metrics: bool = Field(
+        default=False,
+        description="Include Moon-Earth distance and nearest perigee/apogee metrics for each event.",
+    )
+    include_super_luna: bool = Field(
+        default=False,
+        description="Classify New/Full Moon events as Super Luna using the selected definition.",
+    )
+    super_luna_definition: Literal["nolle_90pct_cycle", "distance_threshold_km"] = Field(
+        default="nolle_90pct_cycle",
+        description="Definition used to classify Super Luna when include_super_luna is true.",
+    )
+    super_luna_distance_km_threshold: float = Field(
+        default=360000.0,
+        gt=0,
+        description="Distance threshold in km used when super_luna_definition='distance_threshold_km'.",
+    )
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "LunarPhaseEventsRequestModel":
+        if self.horizon_days > LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS:
+            raise ValueError(
+                f"horizon_days cannot exceed {LUNAR_PHASE_EVENTS_MAX_HORIZON_DAYS} (5 years)."
+            )
+        return self
+
+
+class EclipseEventsRequestModel(BaseModel):
+    """Request payload for solar and lunar eclipse event detection."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-01T00:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {ECLIPSE_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+    event_types: list[Literal["solar", "lunar"]] = Field(
+        default_factory=lambda: list(ECLIPSE_DEFAULT_EVENT_TYPES),
+        description="Eclipse families to include in the scan.",
+        min_length=1,
+        examples=[["solar", "lunar"], ["lunar"]],
+    )
+    solar_types: list[Literal["total", "annular", "partial", "annular_total"]] = Field(
+        default_factory=lambda: list(ECLIPSE_DEFAULT_SOLAR_TYPES),
+        description="Solar eclipse subtypes to include when event_types contains 'solar'.",
+        min_length=1,
+        examples=[["total", "annular", "partial", "annular_total"], ["total"]],
+    )
+    lunar_types: list[Literal["total", "partial", "penumbral"]] = Field(
+        default_factory=lambda: list(ECLIPSE_DEFAULT_LUNAR_TYPES),
+        description="Lunar eclipse subtypes to include when event_types contains 'lunar'.",
+        min_length=1,
+        examples=[["total", "partial", "penumbral"], ["total", "partial"]],
+    )
+
+    @field_validator("event_types", mode="before")
+    @classmethod
+    def normalize_event_types(cls, value) -> list[str]:
+        if value is None:
+            return list(ECLIPSE_DEFAULT_EVENT_TYPES)
+        if not isinstance(value, list):
+            raise ValueError("event_types must be an array of strings.")
+        return normalize_eclipse_event_types(value)
+
+    @field_validator("solar_types", mode="before")
+    @classmethod
+    def normalize_solar_types(cls, value) -> list[str]:
+        if value is None:
+            return list(ECLIPSE_DEFAULT_SOLAR_TYPES)
+        if not isinstance(value, list):
+            raise ValueError("solar_types must be an array of strings.")
+        return normalize_solar_eclipse_types(value)
+
+    @field_validator("lunar_types", mode="before")
+    @classmethod
+    def normalize_lunar_types(cls, value) -> list[str]:
+        if value is None:
+            return list(ECLIPSE_DEFAULT_LUNAR_TYPES)
+        if not isinstance(value, list):
+            raise ValueError("lunar_types must be an array of strings.")
+        return normalize_lunar_eclipse_types(value)
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "EclipseEventsRequestModel":
+        if self.horizon_days > ECLIPSE_MAX_HORIZON_DAYS:
+            raise ValueError(
+                f"horizon_days cannot exceed {ECLIPSE_MAX_HORIZON_DAYS} (10 years)."
+            )
+        return self
+
+
+class IngressEventsRequestModel(BaseModel):
+    """Request payload for planetary sign ingress event detection."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-15T12:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {INGRESS_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+    planets: list[str] = Field(
+        default_factory=lambda: list(INGRESS_DEFAULT_PLANETS),
+        description=(
+            "Planets to evaluate for sign ingress events (case-insensitive). "
+            "Defaults to Sun, Moon, and all major planets. "
+            "Also supports Mean_Lilith and True_Lilith when explicitly requested."
+        ),
+        examples=[
+            ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"],
+            ["Mean_Lilith", "True_Lilith"],
+        ],
+    )
+
+    @field_validator("planets", mode="before")
+    @classmethod
+    def normalize_planets(cls, value) -> list[str]:
+        if value is None:
+            return list(INGRESS_DEFAULT_PLANETS)
+        if not isinstance(value, list):
+            raise ValueError("planets must be an array of strings.")
+        return normalize_ingress_planets(value)
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "IngressEventsRequestModel":
+        if self.horizon_days > INGRESS_MAX_HORIZON_DAYS:
+            raise ValueError(
+                f"horizon_days cannot exceed {INGRESS_MAX_HORIZON_DAYS} (2 years)."
+            )
+        return self
+
+
+class ConjunctionEventsRequestModel(BaseModel):
+    """Request payload for major planetary conjunction event detection."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-15T12:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {CONJUNCTION_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+    planets: list[str] = Field(
+        default_factory=lambda: list(CONJUNCTION_DEFAULT_PLANETS),
+        description=(
+            "Planets to evaluate for conjunction events (case-insensitive). "
+            "Defaults to major planets (Sun, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto)."
+        ),
+        min_length=2,
+        examples=[
+            ["Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"],
+            ["Moon", "Sun", "Jupiter"],
+        ],
+    )
+    pair_types: list[Literal["rapid_slow", "slow_slow", "rapid_rapid"]] = Field(
+        default_factory=lambda: list(CONJUNCTION_DEFAULT_PAIR_TYPES),
+        description=(
+            "Conjunction pair categories to include. "
+            "rapid_slow = one rapid and one slow planet, "
+            "slow_slow = both slow planets, "
+            "rapid_rapid = both rapid planets."
+        ),
+        min_length=1,
+        examples=[["rapid_slow", "slow_slow"], ["rapid_rapid"]],
+    )
+
+    @field_validator("planets", mode="before")
+    @classmethod
+    def normalize_planets(cls, value) -> list[str]:
+        if value is None:
+            return list(CONJUNCTION_DEFAULT_PLANETS)
+        if not isinstance(value, list):
+            raise ValueError("planets must be an array of strings.")
+        return normalize_conjunction_planets(value)
+
+    @field_validator("pair_types", mode="before")
+    @classmethod
+    def normalize_pair_types(cls, value) -> list[str]:
+        if value is None:
+            return list(CONJUNCTION_DEFAULT_PAIR_TYPES)
+        if not isinstance(value, list):
+            raise ValueError("pair_types must be an array of strings.")
+        return normalize_conjunction_pair_types(value)
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "ConjunctionEventsRequestModel":
+        if self.horizon_days > CONJUNCTION_MAX_HORIZON_DAYS:
+            raise ValueError(
+                f"horizon_days cannot exceed {CONJUNCTION_MAX_HORIZON_DAYS} (10 years)."
+            )
+        return self
+
+
+class AspectEventsRequestModel(BaseModel):
+    """Request payload for planetary square/opposition event detection."""
+
+    model_config = {"extra": "forbid"}
+
+    from_iso: Optional[str] = Field(
+        default=None,
+        description="Optional UTC ISO datetime to start scanning from. Defaults to current UTC time.",
+        examples=["2026-01-15T12:00:00+00:00"],
+    )
+    horizon_days: int = Field(
+        description=f"Lookahead horizon in days (max {ASPECT_EVENTS_MAX_HORIZON_DAYS}).",
+        ge=1,
+    )
+    planets: list[str] = Field(
+        default_factory=lambda: list(CONJUNCTION_DEFAULT_PLANETS),
+        description=(
+            "Planets to evaluate for aspect events (case-insensitive). "
+            "Defaults to major planets (Sun, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto)."
+        ),
+        min_length=2,
+        examples=[
+            ["Sun", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"],
+            ["Moon", "Sun", "Jupiter"],
+        ],
+    )
+    pair_types: list[Literal["rapid_slow", "slow_slow", "rapid_rapid"]] = Field(
+        default_factory=lambda: list(CONJUNCTION_DEFAULT_PAIR_TYPES),
+        description=(
+            "Pair categories to include. "
+            "rapid_slow = one rapid and one slow planet, "
+            "slow_slow = both slow planets, "
+            "rapid_rapid = both rapid planets."
+        ),
+        min_length=1,
+        examples=[["rapid_slow", "slow_slow"], ["rapid_rapid"]],
+    )
+    aspect_types: list[Literal["square", "opposition"]] = Field(
+        default_factory=lambda: list(ASPECT_EVENTS_DEFAULT_ASPECT_TYPES),
+        description=(
+            "Aspect event types to include. "
+            "square scans both 90° and 270° crossings; opposition scans 180° crossings."
+        ),
+        min_length=1,
+        examples=[["square", "opposition"], ["square"]],
+    )
+
+    @field_validator("planets", mode="before")
+    @classmethod
+    def normalize_planets(cls, value) -> list[str]:
+        if value is None:
+            return list(CONJUNCTION_DEFAULT_PLANETS)
+        if not isinstance(value, list):
+            raise ValueError("planets must be an array of strings.")
+        return normalize_conjunction_planets(value)
+
+    @field_validator("pair_types", mode="before")
+    @classmethod
+    def normalize_pair_types(cls, value) -> list[str]:
+        if value is None:
+            return list(CONJUNCTION_DEFAULT_PAIR_TYPES)
+        if not isinstance(value, list):
+            raise ValueError("pair_types must be an array of strings.")
+        return normalize_conjunction_pair_types(value)
+
+    @field_validator("aspect_types", mode="before")
+    @classmethod
+    def normalize_aspect_types(cls, value) -> list[str]:
+        if value is None:
+            return list(ASPECT_EVENTS_DEFAULT_ASPECT_TYPES)
+        if not isinstance(value, list):
+            raise ValueError("aspect_types must be an array of strings.")
+        return normalize_aspect_event_aspect_types(value)
+
+    @field_validator("from_iso")
+    @classmethod
+    def normalize_from_iso(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return value
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError(f"Invalid ISO datetime: {value}") from exc
+        if dt.tzinfo is None:
+            raise ValueError(f"Timezone offset is required for datetime: {value}")
+        return dt.astimezone(timezone.utc).isoformat()
+
+    @model_validator(mode="after")
+    def validate_horizon_cap(self) -> "AspectEventsRequestModel":
+        if self.horizon_days > ASPECT_EVENTS_MAX_HORIZON_DAYS:
+            raise ValueError(
+                f"horizon_days cannot exceed {ASPECT_EVENTS_MAX_HORIZON_DAYS} (10 years)."
+            )
         return self

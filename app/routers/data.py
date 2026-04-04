@@ -10,26 +10,47 @@ from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 
 from ..types.request_models import (
+    AspectEventsRequestModel,
     BirthDataRequestModel,
     BirthChartDataRequestModel,
+    ConjunctionEventsRequestModel,
+    EclipseEventsRequestModel,
+    IngressEventsRequestModel,
+    LunarPhaseEventsRequestModel,
     NowSubjectRequestModel,
     ProgressedMoonCycleRequestModel,
+    RetrogradeEventsRequestModel,
     SynastryChartDataRequestModel,
     CompositeChartDataRequestModel,
     TransitChartDataRequestModel,
     PlanetaryReturnDataRequestModel,
 )
 from ..types.response_models import (
+    AspectEventsResponseModel,
     ChartDataResponseModel,
+    ConjunctionEventsResponseModel,
     DerivedNatalProfileResponseModel,
+    EclipseEventsResponseModel,
+    IngressEventsResponseModel,
+    LunarPhaseEventsResponseModel,
     ProgressedMoonCycleResponseModel,
+    RetrogradeEventsResponseModel,
     ReturnDataResponseModel,
     SubjectResponseModel,
     CompatibilityScoreResponseModel,
 )
 from ..utils.get_time_from_google import get_time_from_google
-from ..utils.derived_profile import build_derived_natal_profile, ensure_required_derived_points
+from ..utils.derived_profile import (
+    build_derived_natal_profile,
+    ensure_required_derived_points,
+)
 from ..utils.progressions import compute_progressed_moon_cycle, ensure_progressed_points
+from ..utils.ingress import compute_ingress_events
+from ..utils.lunar_events import compute_lunar_phase_events
+from ..utils.retrogrades import compute_retrograde_events, parse_iso_utc
+from ..utils.conjunctions import compute_conjunction_events
+from ..utils.aspect_events import compute_aspect_events
+from ..utils.eclipses import compute_eclipse_events
 from ..utils.router_utils import (
     build_subject,
     calculate_return_chart_data,
@@ -50,7 +71,9 @@ router = APIRouter()
 
 
 @router.post("/api/v5/subject", response_model=SubjectResponseModel)
-async def subject_data(birth_data_request: BirthDataRequestModel, request: Request) -> JSONResponse:
+async def subject_data(
+    birth_data_request: BirthDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/subject`
 
@@ -63,19 +86,25 @@ async def subject_data(birth_data_request: BirthDataRequestModel, request: Reque
     - `status`: "OK"
     - `subject`: AstrologicalSubjectModel (serialized)
     """
-    log_request_with_body(logger, request, "Subject data request", birth_data_request.model_dump_json())
+    log_request_with_body(
+        logger, request, "Subject data request", birth_data_request.model_dump_json()
+    )
 
     try:
         active_points = resolve_active_points(birth_data_request.active_points)
         subject = build_subject(birth_data_request.subject, active_points=active_points)
-        return JSONResponse(content={"status": "OK", "subject": dump(subject)}, status_code=200)
+        return JSONResponse(
+            content={"status": "OK", "subject": dump(subject)}, status_code=200
+        )
 
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)
 
 
 @router.post("/api/v5/now/subject", response_model=SubjectResponseModel)
-async def now_subject(request_body: NowSubjectRequestModel, request: Request) -> JSONResponse:
+async def now_subject(
+    request_body: NowSubjectRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/now/subject`
 
@@ -88,7 +117,9 @@ async def now_subject(request_body: NowSubjectRequestModel, request: Request) ->
     - `status`: "OK"
     - `subject`: AstrologicalSubjectModel
     """
-    log_request_with_body(logger, request, "Current subject request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Current subject request", request_body.model_dump_json()
+    )
 
     try:
         try:
@@ -119,14 +150,20 @@ async def now_subject(request_body: NowSubjectRequestModel, request: Request) ->
             suppress_geonames_warning=True,
         )
 
-        return JSONResponse(content={"status": "OK", "subject": dump(subject)}, status_code=200)
+        return JSONResponse(
+            content={"status": "OK", "subject": dump(subject)}, status_code=200
+        )
 
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/derived/natal-profile", response_model=DerivedNatalProfileResponseModel)
-async def derived_natal_profile(request_body: BirthDataRequestModel, request: Request) -> JSONResponse:
+@router.post(
+    "/api/v5/derived/natal-profile", response_model=DerivedNatalProfileResponseModel
+)
+async def derived_natal_profile(
+    request_body: BirthDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/derived/natal-profile`
 
@@ -141,13 +178,21 @@ async def derived_natal_profile(request_body: BirthDataRequestModel, request: Re
     - `subject`: AstrologicalSubjectModel
     - `derived_profile`: chart_ruler, stelliums, hemispheres, lunar_mansion
     """
-    log_request_with_body(logger, request, "Derived natal profile request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Derived natal profile request", request_body.model_dump_json()
+    )
 
     try:
         requested_active_points = resolve_active_points(request_body.active_points)
-        active_points_for_subject = ensure_required_derived_points(requested_active_points)
-        subject = build_subject(request_body.subject, active_points=active_points_for_subject)
-        derived_profile = build_derived_natal_profile(subject, active_points=requested_active_points)
+        active_points_for_subject = ensure_required_derived_points(
+            requested_active_points
+        )
+        subject = build_subject(
+            request_body.subject, active_points=active_points_for_subject
+        )
+        derived_profile = build_derived_natal_profile(
+            subject, active_points=requested_active_points
+        )
 
         return JSONResponse(
             content={
@@ -162,8 +207,12 @@ async def derived_natal_profile(request_body: BirthDataRequestModel, request: Re
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/compatibility-score", response_model=CompatibilityScoreResponseModel)
-async def compatibility_score(request_body: SynastryChartDataRequestModel, request: Request) -> JSONResponse:
+@router.post(
+    "/api/v5/compatibility-score", response_model=CompatibilityScoreResponseModel
+)
+async def compatibility_score(
+    request_body: SynastryChartDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/compatibility-score`
 
@@ -181,7 +230,9 @@ async def compatibility_score(request_body: SynastryChartDataRequestModel, reque
     - `aspects`: List of aspects used in score calculation
     - `chart_data`: Full synastry chart data
     """
-    log_request_with_body(logger, request, "Compatibility score request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Compatibility score request", request_body.model_dump_json()
+    )
 
     try:
         chart_data = create_synastry_chart_data(request_body)
@@ -207,7 +258,9 @@ async def compatibility_score(request_body: SynastryChartDataRequestModel, reque
 
 
 @router.post("/api/v5/chart-data/birth-chart", response_model=ChartDataResponseModel)
-async def natal_chart_data(request_body: BirthChartDataRequestModel, request: Request) -> JSONResponse:
+async def natal_chart_data(
+    request_body: BirthChartDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/chart-data/birth-chart`
 
@@ -222,7 +275,9 @@ async def natal_chart_data(request_body: BirthChartDataRequestModel, request: Re
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    log_request_with_body(logger, request, "Natal chart data request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Natal chart data request", request_body.model_dump_json()
+    )
 
     try:
         chart_data = create_natal_chart_data(request_body)
@@ -232,7 +287,9 @@ async def natal_chart_data(request_body: BirthChartDataRequestModel, request: Re
 
 
 @router.post("/api/v5/chart-data/synastry", response_model=ChartDataResponseModel)
-async def synastry_chart_data(request_body: SynastryChartDataRequestModel, request: Request) -> JSONResponse:
+async def synastry_chart_data(
+    request_body: SynastryChartDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/chart-data/synastry`
 
@@ -247,7 +304,9 @@ async def synastry_chart_data(request_body: SynastryChartDataRequestModel, reque
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    log_request_with_body(logger, request, "Synastry chart data request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Synastry chart data request", request_body.model_dump_json()
+    )
 
     try:
         chart_data = create_synastry_chart_data(request_body)
@@ -257,7 +316,9 @@ async def synastry_chart_data(request_body: SynastryChartDataRequestModel, reque
 
 
 @router.post("/api/v5/chart-data/composite", response_model=ChartDataResponseModel)
-async def composite_chart_data(request_body: CompositeChartDataRequestModel, request: Request) -> JSONResponse:
+async def composite_chart_data(
+    request_body: CompositeChartDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/chart-data/composite`
 
@@ -271,7 +332,9 @@ async def composite_chart_data(request_body: CompositeChartDataRequestModel, req
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    log_request_with_body(logger, request, "Composite chart data request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Composite chart data request", request_body.model_dump_json()
+    )
 
     try:
         chart_data = create_composite_chart_data(request_body)
@@ -281,7 +344,9 @@ async def composite_chart_data(request_body: CompositeChartDataRequestModel, req
 
 
 @router.post("/api/v5/chart-data/transit", response_model=ChartDataResponseModel)
-async def transit_chart_data(request_body: TransitChartDataRequestModel, request: Request) -> JSONResponse:
+async def transit_chart_data(
+    request_body: TransitChartDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/chart-data/transit`
 
@@ -296,7 +361,9 @@ async def transit_chart_data(request_body: TransitChartDataRequestModel, request
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    log_request_with_body(logger, request, "Transit chart data request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Transit chart data request", request_body.model_dump_json()
+    )
 
     try:
         chart_data = create_transit_chart_data(request_body)
@@ -306,7 +373,9 @@ async def transit_chart_data(request_body: TransitChartDataRequestModel, request
 
 
 @router.post("/api/v5/chart-data/solar-return", response_model=ChartDataResponseModel)
-async def solar_return_data(request_body: PlanetaryReturnDataRequestModel, request: Request) -> JSONResponse:
+async def solar_return_data(
+    request_body: PlanetaryReturnDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/chart-data/solar-return`
 
@@ -321,7 +390,9 @@ async def solar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    log_request_with_body(logger, request, "Solar return data request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Solar return data request", request_body.model_dump_json()
+    )
 
     try:
         chart_data = calculate_return_chart_data(request_body, "Solar")
@@ -331,7 +402,9 @@ async def solar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
 
 
 @router.post("/api/v5/chart-data/lunar-return", response_model=ChartDataResponseModel)
-async def lunar_return_data(request_body: PlanetaryReturnDataRequestModel, request: Request) -> JSONResponse:
+async def lunar_return_data(
+    request_body: PlanetaryReturnDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/chart-data/lunar-return`
 
@@ -344,7 +417,9 @@ async def lunar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
     - `status`: "OK"
     - `chart_data`: ChartDataModel
     """
-    log_request_with_body(logger, request, "Lunar return data request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Lunar return data request", request_body.model_dump_json()
+    )
 
     try:
         chart_data = calculate_return_chart_data(request_body, "Lunar")
@@ -354,13 +429,17 @@ async def lunar_return_data(request_body: PlanetaryReturnDataRequestModel, reque
 
 
 @router.post("/api/v5/chart-data/saturn-return", response_model=ReturnDataResponseModel)
-async def saturn_return_data(request_body: PlanetaryReturnDataRequestModel, request: Request) -> JSONResponse:
+async def saturn_return_data(
+    request_body: PlanetaryReturnDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/chart-data/saturn-return`
 
     Calculates Saturn return chart data.
     """
-    log_request_with_body(logger, request, "Saturn return data request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Saturn return data request", request_body.model_dump_json()
+    )
 
     try:
         chart_data = calculate_return_chart_data(request_body, "Saturn")
@@ -377,14 +456,20 @@ async def saturn_return_data(request_body: PlanetaryReturnDataRequestModel, requ
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/chart-data/jupiter-return", response_model=ReturnDataResponseModel)
-async def jupiter_return_data(request_body: PlanetaryReturnDataRequestModel, request: Request) -> JSONResponse:
+@router.post(
+    "/api/v5/chart-data/jupiter-return", response_model=ReturnDataResponseModel
+)
+async def jupiter_return_data(
+    request_body: PlanetaryReturnDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/chart-data/jupiter-return`
 
     Calculates Jupiter return chart data.
     """
-    log_request_with_body(logger, request, "Jupiter return data request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Jupiter return data request", request_body.model_dump_json()
+    )
 
     try:
         chart_data = calculate_return_chart_data(request_body, "Jupiter")
@@ -401,14 +486,23 @@ async def jupiter_return_data(request_body: PlanetaryReturnDataRequestModel, req
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/chart-data/lunar-node-return", response_model=ReturnDataResponseModel)
-async def lunar_node_return_data(request_body: PlanetaryReturnDataRequestModel, request: Request) -> JSONResponse:
+@router.post(
+    "/api/v5/chart-data/lunar-node-return", response_model=ReturnDataResponseModel
+)
+async def lunar_node_return_data(
+    request_body: PlanetaryReturnDataRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/chart-data/lunar-node-return`
 
     Calculates mean north lunar node return chart data.
     """
-    log_request_with_body(logger, request, "Lunar node return data request", request_body.model_dump_json())
+    log_request_with_body(
+        logger,
+        request,
+        "Lunar node return data request",
+        request_body.model_dump_json(),
+    )
 
     try:
         chart_data = calculate_return_chart_data(request_body, "MeanNode")
@@ -425,20 +519,31 @@ async def lunar_node_return_data(request_body: PlanetaryReturnDataRequestModel, 
         return await handle_exception(exc, request)
 
 
-@router.post("/api/v5/chart-data/progressed-moon-cycle", response_model=ProgressedMoonCycleResponseModel)
-async def progressed_moon_cycle(request_body: ProgressedMoonCycleRequestModel, request: Request) -> JSONResponse:
+@router.post(
+    "/api/v5/chart-data/progressed-moon-cycle",
+    response_model=ProgressedMoonCycleResponseModel,
+)
+async def progressed_moon_cycle(
+    request_body: ProgressedMoonCycleRequestModel, request: Request
+) -> JSONResponse:
     """
     **POST** `/api/v5/chart-data/progressed-moon-cycle`
 
     Computes secondary progressed Moon cycle data, including progressed lunation phase
     and next Moon sign/house ingress events on the target timeline.
     """
-    log_request_with_body(logger, request, "Progressed moon cycle request", request_body.model_dump_json())
+    log_request_with_body(
+        logger, request, "Progressed moon cycle request", request_body.model_dump_json()
+    )
 
     try:
         requested_active_points = resolve_active_points(request_body.active_points)
-        active_points_for_progressions = ensure_progressed_points(requested_active_points)
-        natal_subject = build_subject(request_body.subject, active_points=active_points_for_progressions)
+        active_points_for_progressions = ensure_progressed_points(
+            requested_active_points
+        )
+        natal_subject = build_subject(
+            request_body.subject, active_points=active_points_for_progressions
+        )
 
         progression_data = compute_progressed_moon_cycle(
             natal_subject=natal_subject,
@@ -447,6 +552,358 @@ async def progressed_moon_cycle(request_body: ProgressedMoonCycleRequestModel, r
             step_days=request_body.step_days,
             active_points=active_points_for_progressions,
         )
-        return JSONResponse(content={"status": "OK", "progressed_moon_cycle": dump(progression_data)}, status_code=200)
+        return JSONResponse(
+            content={"status": "OK", "progressed_moon_cycle": dump(progression_data)},
+            status_code=200,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/events/retrogrades", response_model=RetrogradeEventsResponseModel)
+async def retrograde_events(
+    request_body: RetrogradeEventsRequestModel, request: Request
+) -> JSONResponse:
+    """
+    **POST** `/api/v5/events/retrogrades`
+
+    Detects retrograde period events for selected planets in a lookahead window
+    using stream scan + station-time refinement logic.
+
+    **Parameters:**
+    - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
+    - `horizon_days` (required): Lookahead horizon in days (max 10 years).
+    - `planets` (optional): Planet list from allowlist (case-insensitive, deduplicated).
+      Defaults to all supported retrograde planets.
+
+    **Returns:**
+    - `status`: "OK"
+    - `from_iso`: Effective UTC start used by the scanner.
+    - `horizon_days`: Requested lookahead days.
+    - `planets`: Canonical planets evaluated by the scanner.
+    - `events`: Detected retrograde period events.
+    """
+    log_request_with_body(
+        logger, request, "Retrograde events request", request_body.model_dump_json()
+    )
+
+    try:
+        from_utc = (
+            datetime.now(timezone.utc)
+            if request_body.from_iso is None
+            else parse_iso_utc(request_body.from_iso)
+        )
+
+        events = compute_retrograde_events(
+            from_utc=from_utc,
+            horizon_days=request_body.horizon_days,
+            planets=request_body.planets,
+        )
+
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "from_iso": from_utc.isoformat(),
+                "horizon_days": request_body.horizon_days,
+                "planets": request_body.planets,
+                "events": events,
+            },
+            status_code=200,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post(
+    "/api/v5/events/lunar-phases", response_model=LunarPhaseEventsResponseModel
+)
+async def lunar_phase_events(
+    request_body: LunarPhaseEventsRequestModel, request: Request
+) -> JSONResponse:
+    """
+    **POST** `/api/v5/events/lunar-phases`
+
+    Detects exact lunar phase events in a lookahead window using scan + refine logic.
+
+    **Parameters:**
+    - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
+    - `horizon_days` (required): Lookahead horizon in days (max 5 years).
+    - `include_distance_metrics` (optional): Include Moon-Earth distance/perigee/apogee metrics.
+    - `include_super_luna` (optional): Include Super Luna classification for New/Full Moon.
+    - `super_luna_definition` (optional): `nolle_90pct_cycle` or `distance_threshold_km`.
+    - `super_luna_distance_km_threshold` (optional): Threshold used for `distance_threshold_km`.
+
+    **Returns:**
+    - `status`: "OK"
+    - `from_iso`: Effective UTC start used by the scanner.
+    - `horizon_days`: Requested lookahead days.
+    - `events`: Exact New Moon / First Quarter / Full Moon / Last Quarter timestamps.
+    """
+    log_request_with_body(
+        logger, request, "Lunar phase events request", request_body.model_dump_json()
+    )
+
+    try:
+        from_utc = (
+            datetime.now(timezone.utc)
+            if request_body.from_iso is None
+            else parse_iso_utc(request_body.from_iso)
+        )
+        computed = compute_lunar_phase_events(
+            from_utc=from_utc,
+            horizon_days=request_body.horizon_days,
+            include_distance_metrics=request_body.include_distance_metrics,
+            include_super_luna=request_body.include_super_luna,
+            super_luna_definition=request_body.super_luna_definition,
+            super_luna_distance_km_threshold=request_body.super_luna_distance_km_threshold,
+        )
+        response_payload = {
+            "status": "OK",
+            "from_iso": from_utc.isoformat(),
+            "horizon_days": request_body.horizon_days,
+            "events": computed["events"],
+        }
+        if "distance_frame" in computed:
+            response_payload["distance_frame"] = computed["distance_frame"]
+        if "distance_units" in computed:
+            response_payload["distance_units"] = computed["distance_units"]
+        if "super_luna_definition_applied" in computed:
+            response_payload["super_luna_definition_applied"] = computed[
+                "super_luna_definition_applied"
+            ]
+        if "super_luna_distance_km_threshold_applied" in computed:
+            response_payload["super_luna_distance_km_threshold_applied"] = computed[
+                "super_luna_distance_km_threshold_applied"
+            ]
+
+        return JSONResponse(content=response_payload, status_code=200)
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/events/eclipses", response_model=EclipseEventsResponseModel)
+async def eclipse_events(
+    request_body: EclipseEventsRequestModel, request: Request
+) -> JSONResponse:
+    """
+    **POST** `/api/v5/events/eclipses`
+
+    Detects exact solar and lunar eclipse events in a lookahead window.
+
+    **Parameters:**
+    - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
+    - `horizon_days` (required): Lookahead horizon in days (max 10 years).
+    - `event_types` (optional): Include `solar`, `lunar`, or both.
+    - `solar_types` (optional): Solar eclipse subtype filters.
+    - `lunar_types` (optional): Lunar eclipse subtype filters.
+
+    **Returns:**
+    - `status`: "OK"
+    - `from_iso`: Effective UTC start used by the scanner.
+    - `horizon_days`: Requested lookahead days.
+    - `event_types`: Effective normalized eclipse families.
+    - `solar_types`: Effective normalized solar subtype filters.
+    - `lunar_types`: Effective normalized lunar subtype filters.
+    - `events`: Exact eclipse timestamps and type-specific metadata.
+    """
+    log_request_with_body(
+        logger, request, "Eclipse events request", request_body.model_dump_json()
+    )
+
+    try:
+        from_utc = (
+            datetime.now(timezone.utc)
+            if request_body.from_iso is None
+            else parse_iso_utc(request_body.from_iso)
+        )
+
+        events = compute_eclipse_events(
+            from_utc=from_utc,
+            horizon_days=request_body.horizon_days,
+            event_types=request_body.event_types,
+            solar_types=request_body.solar_types,
+            lunar_types=request_body.lunar_types,
+        )
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "from_iso": from_utc.isoformat(),
+                "horizon_days": request_body.horizon_days,
+                "event_types": request_body.event_types,
+                "solar_types": request_body.solar_types,
+                "lunar_types": request_body.lunar_types,
+                "events": events,
+            },
+            status_code=200,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/events/ingress", response_model=IngressEventsResponseModel)
+async def ingress_events(
+    request_body: IngressEventsRequestModel, request: Request
+) -> JSONResponse:
+    """
+    **POST** `/api/v5/events/ingress`
+
+    Detects planetary zodiac sign periods in a lookahead window using scan + refine logic.
+
+    **Parameters:**
+    - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
+    - `horizon_days` (required): Lookahead horizon in days (max 2 years).
+    - `planets` (optional): Planets to scan. Defaults to Sun, Moon, and all major planets.
+      Supports `Mean_Lilith` and `True_Lilith` when explicitly provided.
+
+    **Returns:**
+    - `status`: "OK"
+    - `from_iso`: Effective UTC start used by the scanner.
+    - `horizon_days`: Requested lookahead days.
+    - `planets`: Effective normalized planet list.
+    - `events`: Sign periods with start/end boundaries.
+    """
+    log_request_with_body(
+        logger, request, "Ingress events request", request_body.model_dump_json()
+    )
+
+    try:
+        from_utc = (
+            datetime.now(timezone.utc)
+            if request_body.from_iso is None
+            else parse_iso_utc(request_body.from_iso)
+        )
+
+        events = compute_ingress_events(
+            from_utc=from_utc,
+            horizon_days=request_body.horizon_days,
+            planets=request_body.planets,
+        )
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "from_iso": from_utc.isoformat(),
+                "horizon_days": request_body.horizon_days,
+                "planets": request_body.planets,
+                "events": events,
+            },
+            status_code=200,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post(
+    "/api/v5/events/conjunctions", response_model=ConjunctionEventsResponseModel
+)
+async def conjunction_events(
+    request_body: ConjunctionEventsRequestModel, request: Request
+) -> JSONResponse:
+    """
+    **POST** `/api/v5/events/conjunctions`
+
+    Detects exact major planetary conjunction events in a lookahead window using stream scan + refine logic.
+
+    **Parameters:**
+    - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
+    - `horizon_days` (required): Lookahead horizon in days (max 10 years).
+    - `planets` (optional): Planets to scan for pairwise conjunctions.
+    - `pair_types` (optional): Pair classes to include (`rapid_slow`, `slow_slow`, `rapid_rapid`).
+
+    **Returns:**
+    - `status`: "OK"
+    - `from_iso`: Effective UTC start used by the scanner.
+    - `horizon_days`: Requested lookahead days.
+    - `planets`: Effective normalized planet list.
+    - `pair_types`: Effective normalized pair category list.
+    - `events`: Exact conjunction timestamps.
+    """
+    log_request_with_body(
+        logger, request, "Conjunction events request", request_body.model_dump_json()
+    )
+
+    try:
+        from_utc = (
+            datetime.now(timezone.utc)
+            if request_body.from_iso is None
+            else parse_iso_utc(request_body.from_iso)
+        )
+
+        events = compute_conjunction_events(
+            from_utc=from_utc,
+            horizon_days=request_body.horizon_days,
+            planets=request_body.planets,
+            pair_types=request_body.pair_types,
+        )
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "from_iso": from_utc.isoformat(),
+                "horizon_days": request_body.horizon_days,
+                "planets": request_body.planets,
+                "pair_types": request_body.pair_types,
+                "events": events,
+            },
+            status_code=200,
+        )
+    except Exception as exc:  # pragma: no cover - defensive
+        return await handle_exception(exc, request)
+
+
+@router.post("/api/v5/events/aspects", response_model=AspectEventsResponseModel)
+async def aspect_events(
+    request_body: AspectEventsRequestModel, request: Request
+) -> JSONResponse:
+    """
+    **POST** `/api/v5/events/aspects`
+
+    Detects exact planetary square (90°/270°) and opposition (180°) events in a lookahead window
+    using stream scan + refine logic.
+
+    **Parameters:**
+    - `from_iso` (optional): UTC ISO start time. Defaults to current UTC.
+    - `horizon_days` (required): Lookahead horizon in days (max 10 years).
+    - `planets` (optional): Planets to scan for pairwise aspect events.
+    - `pair_types` (optional): Pair classes to include (`rapid_slow`, `slow_slow`, `rapid_rapid`).
+    - `aspect_types` (optional): Aspect event types to include (`square`, `opposition`).
+
+    **Returns:**
+    - `status`: "OK"
+    - `from_iso`: Effective UTC start used by the scanner.
+    - `horizon_days`: Requested lookahead days.
+    - `planets`: Effective normalized planet list.
+    - `pair_types`: Effective normalized pair category list.
+    - `aspect_types`: Effective normalized aspect category list.
+    - `events`: Exact square/opposition timestamps.
+    """
+    log_request_with_body(
+        logger, request, "Aspect events request", request_body.model_dump_json()
+    )
+
+    try:
+        from_utc = (
+            datetime.now(timezone.utc)
+            if request_body.from_iso is None
+            else parse_iso_utc(request_body.from_iso)
+        )
+
+        events = compute_aspect_events(
+            from_utc=from_utc,
+            horizon_days=request_body.horizon_days,
+            planets=request_body.planets,
+            pair_types=request_body.pair_types,
+            aspect_types=request_body.aspect_types,
+        )
+        return JSONResponse(
+            content={
+                "status": "OK",
+                "from_iso": from_utc.isoformat(),
+                "horizon_days": request_body.horizon_days,
+                "planets": request_body.planets,
+                "pair_types": request_body.pair_types,
+                "aspect_types": request_body.aspect_types,
+                "events": events,
+            },
+            status_code=200,
+        )
     except Exception as exc:  # pragma: no cover - defensive
         return await handle_exception(exc, request)
